@@ -1,0 +1,546 @@
+<title>Effort-High Overnight Suite</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #f5f7f7;
+    --surface: #ffffff;
+    --surface-2: #eef2f2;
+    --ink: #151a1d;
+    --ink-2: #4b555b;
+    --muted: #7f8a90;
+    --line: #d8dfe1;
+    --line-strong: #b9c3c7;
+    --accent: #0f766e;
+    --accent-ink: #0b5f59;
+    --warn: #b45309;
+    --warn-bg: #fdf3e6;
+    --crit: #b91c1c;
+    --crit-bg: #fdecec;
+    --good-bg: #e6f4f2;
+    --sonnet: #2a78d6;
+    --opus: #eb6834;
+    --haiku: #1baf7a;
+    --hatch: rgba(21, 26, 29, 0.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #121516;
+      --surface: #1a1e20;
+      --surface-2: #22282b;
+      --ink: #edf1f2;
+      --ink-2: #b6bfc4;
+      --muted: #7f8a90;
+      --line: #2c3437;
+      --line-strong: #414c50;
+      --accent: #2dbfb2;
+      --accent-ink: #5fd3c8;
+      --warn: #f0a24a;
+      --warn-bg: #2d2214;
+      --crit: #f07575;
+      --crit-bg: #331a1a;
+      --good-bg: #16302d;
+      --sonnet: #3987e5;
+      --opus: #d95926;
+      --haiku: #199e70;
+      --hatch: rgba(237, 241, 242, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #121516;
+    --surface: #1a1e20;
+    --surface-2: #22282b;
+    --ink: #edf1f2;
+    --ink-2: #b6bfc4;
+    --muted: #7f8a90;
+    --line: #2c3437;
+    --line-strong: #414c50;
+    --accent: #2dbfb2;
+    --accent-ink: #5fd3c8;
+    --warn: #f0a24a;
+    --warn-bg: #2d2214;
+    --crit: #f07575;
+    --crit-bg: #331a1a;
+    --good-bg: #16302d;
+    --sonnet: #3987e5;
+    --opus: #d95926;
+    --haiku: #199e70;
+    --hatch: rgba(237, 241, 242, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .page { max-width: 1120px; margin: 0 auto; padding: 40px 28px 72px; }
+  h1, h2, h3 { font-family: "Bricolage Grotesque", "Source Sans 3", Helvetica, Arial, sans-serif; text-wrap: balance; margin: 0; }
+  h1 { font-size: 40px; font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; }
+  h2 { font-size: 24px; font-weight: 600; line-height: 1.2; margin-top: 56px; }
+  h3 { font-size: 18px; font-weight: 600; }
+  p { max-width: 68ch; margin: 12px 0; }
+  .eyebrow { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 64ch; }
+  .mono, .num { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .num { font-size: 0.94em; }
+  a { color: var(--accent-ink); }
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; border-bottom: 1px solid var(--line-strong); padding-bottom: 24px; }
+  .meta { display: grid; grid-template-columns: auto auto; gap: 4px 16px; font-size: 14px; color: var(--ink-2); }
+  .meta dt { color: var(--muted); }
+  .meta dd { margin: 0; }
+  .meta dl { display: contents; }
+
+  /* summary strip */
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+  .strip > div { border-top: 2px solid var(--line-strong); padding-top: 10px; }
+  .strip .big { font-family: "Bricolage Grotesque", sans-serif; font-size: 30px; font-weight: 600; line-height: 1.1; }
+  .strip .lab { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+
+  /* matrix */
+  .matrix { display: grid; grid-template-columns: 120px repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+  .matrix .corner, .matrix .colhead, .matrix .rowhead { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); align-self: end; }
+  .matrix .colhead { padding: 0 4px 6px; }
+  .matrix .colhead b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .matrix .rowhead { align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding-left: 12px; border-left: 4px solid var(--series); }
+  .matrix .rowhead b { font-family: "Bricolage Grotesque", sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .cell { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-height: 128px; }
+  .cell .status { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+  .cell .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .cell.completed .dot { background: var(--accent); }
+  .cell.escalated .dot { background: var(--warn); }
+  .cell.infra .dot { background: var(--crit); }
+  .cell .fig { font-family: "Bricolage Grotesque", sans-serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .cell .fig small { font-family: "Source Sans 3", sans-serif; font-size: 14px; font-weight: 400; color: var(--ink-2); margin-left: 6px; }
+  .cell .row { display: flex; justify-content: space-between; font-size: 14px; color: var(--ink-2); }
+  .cell .why { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; margin-top: 2px; }
+  .cell .why em { font-style: normal; color: var(--crit); }
+  .cell .why .w { color: var(--warn); }
+  .cell .again { font-size: 12.5px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 6px; margin-top: auto; }
+
+  /* charts */
+  .charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .chart { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px 10px; }
+  .chart h3 { font-size: 16px; }
+  .chart .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 16px; font-size: 13.5px; color: var(--ink-2); margin-top: 12px; flex-wrap: wrap; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+
+  /* tables */
+  .tablewrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--surface-2); }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 1px; }
+  .pill { display: inline-block; font-size: 12.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; line-height: 1.5; }
+  .pill.completed { background: var(--good-bg); color: var(--accent-ink); }
+  .pill.escalated { background: var(--warn-bg); color: var(--warn); }
+  .pill.infra { background: var(--crit-bg); color: var(--crit); }
+  .pill.pending { background: var(--surface-2); color: var(--ink-2); }
+
+  /* timeline */
+  .timeline { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px 16px 8px; margin-top: 16px; overflow-x: auto; }
+  .timeline svg { width: 100%; min-width: 760px; height: auto; display: block; }
+  .tl-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-2); margin: 10px 0 4px; }
+  .tl-legend .k { display: inline-block; width: 18px; height: 10px; margin-right: 6px; vertical-align: -1px; border-radius: 2px; }
+
+  .incidents { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
+  .inc { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 6px; padding: 12px 14px; }
+  .inc.crit { border-left-color: var(--crit); }
+  .inc.info { border-left-color: var(--line-strong); }
+  .inc h3 { font-size: 16px; }
+  .inc p { font-size: 14.5px; margin: 6px 0 0; max-width: none; }
+  .inc .when { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); }
+
+  .note { background: var(--surface-2); border-radius: 6px; padding: 14px 16px; font-size: 15px; max-width: none; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  .foot { margin-top: 56px; border-top: 1px solid var(--line-strong); padding-top: 14px; font-size: 13.5px; color: var(--muted); }
+
+  @media (max-width: 860px) {
+    .head { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: repeat(2, 1fr); }
+    .matrix { grid-template-columns: 1fr; }
+    .matrix .corner, .matrix .colhead { display: none; }
+    .charts { grid-template-columns: 1fr; }
+    .incidents, .two { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cell { transition: border-color 120ms ease; }
+  }
+  .cell:hover { border-color: var(--line-strong); }
+</style>
+
+<div class="page">
+  <header class="head">
+    <div>
+      <div class="eyebrow">qua-agents benchmark · 7–8 Sep 2026 · dev runs</div>
+      <h1 style="margin-top:8px">Effort-High Overnight Suite</h1>
+      <p class="lede">Three Claude tiers at <span class="mono">effort: high</span>, each driving the 18-node FluxTunableTransmon bring-up on three IQCC chips from the same de-calibrated starting state. What finished, what it cost, and what got in the way.</p>
+    </div>
+    <div class="meta">
+      <dl><dt>Framework</dt><dd class="mono">qua-agents d5ccee8 (integration, 7 Sep)</dd></dl>
+      <dl><dt>Calibration content</dt><dd class="mono">qua-libs 1aff083 (pinned)</dd></dl>
+      <dl><dt>Scramble spec</dt><dd class="mono">28b807e3d520c3ef</dd></dl>
+      <dl><dt>Model calls</dt><dd>meridian → Claude Max</dd></dl>
+      <dl><dt>Targets</dt><dd class="mono">arbel qA2 qB2 qC2 · qolab Q1 Q2 Q3 · gilboa qD1 qD2 qD3</dd></dl>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div><div class="big">4 <span style="font-size:18px;font-weight:500;color:var(--ink-2)">of 9</span></div><div class="lab">cells brought all three qubits through the full graph (sonnet and opus on arbel and gilboa)</div></div>
+    <div><div class="big">0</div><div class="lab">targets to spec by the acceptance grade, on every finished cell: the RB fit reports no confidence interval</div></div>
+    <div><div class="big">43 <span style="font-size:18px;font-weight:500;color:var(--ink-2)">min</span></div><div class="lab">for the no-agent control to finish arbel 3/3 with default parameters, against 130 min for opus and 241 for sonnet</div></div>
+    <div><div class="big">3 + 2</div><div class="lab">cells lost to infrastructure: a shared acquisition outage, then a shared-database schema clash</div></div>
+  </section>
+
+  <h2>The matrix</h2>
+  <p>Each tile is one cell: a chip, its three pinned qubits, one model. A cell counts as finished when every target reaches Randomized Benchmarking. Where a first attempt was cut short by infrastructure, the tile shows the rerun and notes the first attempt below the line.</p>
+
+  <div class="matrix">
+    <div class="corner"></div>
+    <div class="colhead"><b>arbel</b>qA2 · qB2 · qC2</div>
+    <div class="colhead"><b>qolab</b>Q1 · Q2 · Q3</div>
+    <div class="colhead"><b>gilboa</b>qD1 · qD2 · qD3</div>
+
+    <div class="rowhead" style="--series: var(--sonnet)"><b>sonnet-5</b>reference tier · high effort</div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Completed</div><div class="fig">3/3<small>targets finished</small></div><div class="row"><span>241 min wall</span><span class="num">$21.71</span></div><div class="why">205 turns. Wall clock carries ~1 h 45 of quota stall (21:11–22:55).</div></div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">0/3<small>13 · 5 · 11 of 18 nodes</small></div><div class="row"><span>121 min wall</span><span class="num">$22.35</span></div><div class="why"><em>Acquisition outage</em> from 20:18: 160 empty readouts, each target escalated after five in a row.</div><div class="again">Rerun (06:36) killed at 140 min by the shared-db clash. Third attempt on the latest checkout aborted at your request.</div></div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Completed</div><div class="fig">3/3<small>targets finished</small></div><div class="row"><span>252 min wall</span><span class="num">$30.87</span></div><div class="why">269 turns, 81 re-executions. Same ~1 h 45 quota stall inside the wall clock.</div></div>
+
+    <div class="rowhead" style="--series: var(--opus)"><b>opus-5</b>weekly tier · high effort</div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Completed</div><div class="fig">3/3<small>targets finished</small></div><div class="row"><span>130 min wall</span><span class="num">$47.21</span></div><div class="why">172 turns, 96% first-attempt node success. Fastest full bring-up of the night.</div></div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">0/3<small>6 · 3 · 5 of 18 nodes</small></div><div class="row"><span>147 min wall</span><span class="num">$40.98</span></div><div class="why"><em>Acquisition outage</em> 23:10–23:28: 84 empty readouts. Also ~17 min of rate-limit waits.</div><div class="again">Rerun (08:57) killed at 8 min by the shared-db clash.</div></div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Completed <span style="font-weight:400;color:var(--muted)">· rerun</span></div><div class="fig">3/3<small>targets finished</small></div><div class="row"><span>82 min wall</span><span class="num">$46.70</span></div><div class="why">168 turns, 100% first-attempt node success. 1Q RB 99.75% on qD1, 99.83% on qD3.</div><div class="again">First attempt (23:12) escalated in 32 min: 82 empty readouts in the 23:30–23:49 outage window.</div></div>
+
+    <div class="rowhead" style="--series: var(--haiku)"><b>haiku-4.5</b>floor tier · high effort</div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">0/3<small>recursion limit</small></div><div class="row"><span>439 min wall</span><span class="num">$39.46</span></div><div class="why">534 turns, 224 node re-executions, 18 malformed tool calls. Every target exhausted the 360-turn worker budget.</div></div>
+    <div class="cell infra"><div class="status"><span class="dot"></span>Infra failed</div><div class="fig">0/3<small>377 turns, 427 min</small></div><div class="row"><span>427 min wall</span><span class="num">$24.04</span></div><div class="why"><em>Supervisor crash</em> at 06:35: a dict search note hit <span class="mono">.strip()</span> in workers/state.py:246. One malformed haiku turn lost a seven-hour run.</div></div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">0/3<small>recursion limit</small></div><div class="row"><span>287 min wall</span><span class="num">$35.48</span></div><div class="why">534 turns, 241 node re-executions. Same shape as arbel: the floor tier does not converge at this effort.</div></div>
+  </div>
+
+  <h2>Cost and time, side by side</h2>
+  <p>Judge-side numbers from <span class="mono">qab compare-models</span>: cost from the benchmark's own price table, and active duration with queue and rate-limit waits subtracted. Cost-weighted tokens is the gating cost metric and is price-blind. Bars are grouped by chip; the model order never changes.</p>
+  <div class="charts">
+    <div class="chart"><h3>Estimated cost</h3><div class="sub">USD per cell, judge price table</div><svg id="c-cost" viewBox="0 0 320 250"></svg></div>
+    <div class="chart"><h3>Cost-weighted tokens</h3><div class="sub">millions, the gating cost metric</div><svg id="c-tok" viewBox="0 0 320 250"></svg></div>
+    <div class="chart"><h3>Active duration</h3><div class="sub">minutes of model and QPU work, ex-queue</div><svg id="c-act" viewBox="0 0 320 250"></svg></div>
+  </div>
+  <div class="legend"><span style="--c: var(--sonnet)">sonnet-5-high</span><span style="--c: var(--opus)">opus-5-high</span><span style="--c: var(--haiku)">haiku-4-5-high</span><span style="color:var(--muted)">hatched: cut short by infrastructure, not a score</span></div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cell</th><th>Result</th><th class="num">Turns</th><th class="num">Node runs</th><th class="num">Re-runs</th><th class="num">1st-try ok</th><th class="num">Model min</th><th class="num">Queue min</th><th class="num">QPU min</th><th class="num">Wall min</th><th class="num">Cost</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">Model, queue and QPU minutes are summed across the three concurrent workers, so they can exceed the wall clock. The runner's own cost estimate in each document counts cached tokens twice and reads two to three times higher than the judge's; the judge's figure is the one to quote.</p>
+
+  <h2>What the finished bring-ups measured</h2>
+  <p>Four cells reached Randomized Benchmarking on every qubit. None is "to spec": the RB node reports no confidence interval and no B offset, the coherence-limited error is not computed, and readout assignment fidelity is not measured by the node the grader reads. That is a gap in the graph's reporting, not a statement that the gates are bad. The per-qubit numbers below are what the nodes did report.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cell</th><th>Qubit</th><th class="num">1Q RB / Clifford</th><th class="num">Readout assign.</th><th class="num">Residual detuning</th><th class="num">T1</th><th class="num">T2 echo</th><th class="num">Scrambled params back in ballpark</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel sonnet</td><td class="mono">qA2</td><td class="num">99.88%</td><td class="num">0.977</td><td class="num">0.2 kHz</td><td class="num">36.1 µs</td><td class="num">44.3 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td></td><td class="mono">qB2</td><td class="num">99.60%</td><td class="num">0.943</td><td class="num">−4.9 kHz</td><td class="num">26.6 µs</td><td class="num">17.0 µs</td><td class="num">3 / 4</td></tr>
+        <tr><td></td><td class="mono">qC2</td><td class="num">99.52%</td><td class="num">0.988</td><td class="num">−0.7 kHz</td><td class="num">35.9 µs</td><td class="num">30.5 µs</td><td class="num">2 / 4</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel opus</td><td class="mono">qA2</td><td class="num">99.89%</td><td class="num">0.975</td><td class="num">13.5 kHz</td><td class="num">32.5 µs</td><td class="num">42.8 µs</td><td class="num">3 / 4</td></tr>
+        <tr><td></td><td class="mono">qB2</td><td class="num">99.81%</td><td class="num">0.973</td><td class="num">372 kHz</td><td class="num">24.3 µs</td><td class="num">15.4 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td></td><td class="mono">qC2</td><td class="num">99.78%</td><td class="num">0.988</td><td class="num">1.3 kHz</td><td class="num">36.2 µs</td><td class="num">30.2 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa sonnet</td><td class="mono">qD1</td><td class="num">99.75%</td><td class="num">0.962</td><td class="num">16.6 kHz</td><td class="num">21.3 µs</td><td class="num">26.1 µs</td><td class="num">3 / 4</td></tr>
+        <tr><td></td><td class="mono">qD2</td><td class="num">98.17%</td><td class="num">0.905</td><td class="num">−2.47 MHz</td><td class="num">3.2 µs</td><td class="num">4.4 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td></td><td class="mono">qD3</td><td class="num">99.85%</td><td class="num">0.983</td><td class="num">2.90 MHz</td><td class="num">29.7 µs</td><td class="num">38.9 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa opus (rerun)</td><td class="mono">qD1</td><td class="num">99.75%</td><td class="num">0.979</td><td class="num">8.6 kHz</td><td class="num">22.8 µs</td><td class="num">28.7 µs</td><td class="num">3 / 4</td></tr>
+        <tr><td></td><td class="mono">qD2</td><td class="num">98.06%</td><td class="num">0.933</td><td class="num">−124 kHz</td><td class="num">1.9 µs</td><td class="num">3.7 µs</td><td class="num">4 / 4</td></tr>
+        <tr><td></td><td class="mono">qD3</td><td class="num">99.83%</td><td class="num">0.960</td><td class="num">−369 kHz</td><td class="num">26.4 µs</td><td class="num">39.8 µs</td><td class="num">3 / 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two" style="margin-top:14px">
+    <p>Both models land the same picture of each chip. qD2 on gilboa is the weak qubit: T1 of 2 to 3 µs and RB near 98% for both models, so the number is the qubit's, not the agent's. On arbel, sonnet leaves the frequencies tighter (residual detuning under 5 kHz on all three) while opus leaves qB2 372 kHz off; opus in turn recovers more of the scrambled parameters into their ballpark.</p>
+    <p>The ballpark column is the judge's own check of the final state against the scramble manifest: four parameters were kicked per qubit, and this counts how many came back within 0.6× to 1.6× of the original. The recurring miss is readout amplitude, which the graph re-optimises rather than recovers.</p>
+  </div>
+
+  <h2>Does the agent beat the graph's own defaults?</h2>
+  <p>The control cell is <span class="mono">scripted:dag-walk</span>: the same graph, node by node, every node with its default parameters, no plot read, no model called. It ran on arbel and qolab in the afternoon of 7 Sep from the same scramble spec, on snapshots taken a few hours before the agents' (same chip, same three qubits). The question it answers is what the agent adds over simply running the graph.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>arbel</th><th>Result</th><th class="num">Wall</th><th class="num">Node runs</th><th class="num">Re-runs</th><th class="num">Scrambled params recovered</th><th class="num">Worst accepted fit R²</th><th class="num">1Q RB qA2 / qB2 / qC2</th><th class="num">Readout qA2 / qB2 / qC2</th><th class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--line-strong)"></span>dag-walk (control)</td><td><span class="pill completed">completed 3/3</span></td><td class="num">43 min</td><td class="num">54</td><td class="num">0</td><td class="num">12 / 12</td><td class="num">0.46</td><td class="num">99.89 / 99.35 / 99.68</td><td class="num">0.975 / 0.960 / 0.939</td><td class="num">none</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>sonnet-5-high</td><td><span class="pill completed">completed 3/3</span></td><td class="num">241 min</td><td class="num">101</td><td class="num">47</td><td class="num">9 / 12</td><td class="num">0.84</td><td class="num">99.88 / 99.60 / 99.52</td><td class="num">0.977 / 0.943 / 0.988</td><td class="num">$21.71</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>opus-5-high</td><td><span class="pill completed">completed 3/3</span></td><td class="num">130 min</td><td class="num">89</td><td class="num">35</td><td class="num">11 / 12</td><td class="num">0.94</td><td class="num">99.89 / 99.81 / 99.78</td><td class="num">0.975 / 0.973 / 0.988</td><td class="num">$47.21</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>qolab</th><th>Result</th><th class="num">Wall</th><th class="num">Graph completed</th><th class="num">Nodes Q1 / Q2 / Q3</th><th>Stopped at</th><th class="num">Scrambled params recovered</th><th class="num">1Q RB Q2</th><th class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--line-strong)"></span>dag-walk (control)</td><td><span class="pill escalated">escalated 1/3</span></td><td class="num">38 min</td><td class="num">0.80</td><td class="num">9 / 18 / 16</td><td>Q1 readout_power_optimization, Q3 T2echo: no usable result in two default attempts</td><td class="num">5 / 12</td><td class="num">99.80</td><td class="num">none</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>sonnet-5-high</td><td><span class="pill escalated">escalated 0/3</span> <span style="font-size:12.5px;color:var(--muted)">cut: outage</span></td><td class="num">121 min</td><td class="num">0.54</td><td class="num">13 / 5 / 11</td><td>acquisition outage from 20:18</td><td class="num">8 / 12</td><td class="num">–</td><td class="num">$22.35</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>opus-5-high</td><td><span class="pill escalated">escalated 0/3</span> <span style="font-size:12.5px;color:var(--muted)">cut: outage</span></td><td class="num">147 min</td><td class="num">0.26</td><td class="num">6 / 3 / 5</td><td>acquisition outage 23:10</td><td class="num">2 / 12</td><td class="num">–</td><td class="num">$40.98</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two" style="margin-top:14px">
+    <div>
+      <p><b>On arbel the agent is not doing better at finishing, because the graph finishes on its own.</b> The de-calibrated state was supposed to put a 15 MHz kick outside several default sweeps, and the control was expected to die early. It did not: every default node fit on the first try, all twelve scrambled parameters came back into their ballpark, and the chip reached RB in 43 minutes with zero re-executions and no tokens. On this chip the workload does not separate "agent" from "graph defaults", which is a finding about the benchmark before it is one about the models.</p>
+      <p><b>Where the agent does add something is quality and hygiene.</b> Opus ends with tighter gates on the two qubits the defaults left rough (qB2 99.81% vs 99.35%, qC2 99.78% vs 99.68%), both models fix the qC2 readout the defaults left at 0.939, and the worst fit either agent accepted has R² 0.84 to 0.94 while the walk committed a 0.46 fit unquestioned. That comes at three to six times the wall clock, 35 to 47 node re-executions, and $22 to $47.</p>
+    </div>
+    <div>
+      <p><b>On qolab the graph's defaults do fail</b>, which is what the control was built to show: two of three qubits stopped at readout power optimisation and T2 echo, with 7 of 12 scrambled parameters never recovered. That is the chip where an agent should earn its keep, and it is exactly the chip where no agent got an uninterrupted run. Sonnet was further along than the walk on Q1 (13 nodes against 9) when the outage hit, and had recovered 8 of 12 parameters against the walk's 5, but 0.54 of the graph against 0.80 is not a like-for-like number: the walk was not cut short.</p>
+      <p><b>So: no, the agent is not doing worse than the walk, but on arbel it is not doing measurably better either.</b> The honest comparison needs a clean qolab run for both models, and a harder scramble on arbel. Gilboa has no control yet.</p>
+    </div>
+  </div>
+
+  <h2>What got in the way</h2>
+  <p>Nine cells were planned; sixteen runner invocations happened. The timeline shows every run on each chip and the three overlays that shaped the night.</p>
+  <div class="timeline">
+    <svg id="tl" viewBox="0 0 960 250"></svg>
+    <div class="tl-legend">
+      <span><i class="k" style="background:var(--sonnet)"></i>sonnet</span>
+      <span><i class="k" style="background:var(--opus)"></i>opus</span>
+      <span><i class="k" style="background:var(--haiku)"></i>haiku</span>
+      <span><i class="k" style="background:repeating-linear-gradient(135deg, var(--hatch) 0 2px, transparent 2px 5px)"></i>run cut short by infrastructure</span>
+      <span><i class="k" style="background:var(--warn-bg);border:1px solid var(--warn)"></i>Claude Max window exhausted</span>
+      <span><i class="k" style="background:var(--crit-bg);border:1px solid var(--crit)"></i>acquisition outage</span>
+    </div>
+  </div>
+
+  <div class="incidents">
+    <div class="inc">
+      <div class="when">21:11 → 22:55 · all chips</div>
+      <h3>Claude Max window exhausted</h3>
+      <p>Nine high-effort workers drained the subscription's 5-hour window in about two hours. Throughput fell from ~130 model turns per hour to 2 to 5. Nothing was lost: turns retried with backoff, and the switch to a second profile at 22:55 restored full speed. The arbel and gilboa sonnet cells carry the stall in their wall clock; their token and turn counts are clean.</p>
+    </div>
+    <div class="inc crit">
+      <div class="when">20:18–21:01 qolab · 23:10–23:28 qolab · 23:30–23:49 gilboa · 06:30–06:35 qolab</div>
+      <h3>Acquisition outage</h3>
+      <p>Every node returned a dataset with zero data variables while the QUA program reported success within a second. It struck two chips back to back, never arbel, and cleared on its own each time. Three cells died of it: qolab sonnet, qolab opus, and gilboa opus. The judge marks them "chip: no data" and excludes them from ranking. Gilboa opus was rerun clean; the qolab reruns hit the next incident.</p>
+    </div>
+    <div class="inc crit">
+      <div class="when">08:37 → 09:05 · shared audit database</div>
+      <h3>Schema clash on the shared database</h3>
+      <p>A commit in the other qua-agents checkout added <span class="mono">RunConfig.device_id</span>, and its GUI stamped the field onto 39 of 40 run rows in <span class="mono">~/qua-agents-db</span>. The older integration checkout rejects unknown fields, so its workers crashed the moment they re-read a stamped row. The qolab sonnet rerun lost 140 clean minutes; the opus rerun lasted 8. Their documents were rebuilt from the ledger as <span class="mono">infra_failed</span>.</p>
+    </div>
+    <div class="inc">
+      <div class="when">06:35 · qolab haiku</div>
+      <h3>Supervisor crash on a malformed tool call</h3>
+      <p>Haiku passed a dict where the framework expected a string search note, and <span class="mono">with_appended_search_note</span> called <span class="mono">.strip()</span> on it. The supervisor died and the run ended <span class="mono">infra_failed</span> after 427 minutes. One bad turn should cost a turn, not a run.</p>
+    </div>
+  </div>
+
+  <h2>Reading it</h2>
+  <div class="two">
+    <div>
+      <h3>Sonnet vs opus</h3>
+      <ul>
+        <li><b>Both finish the graph</b> on a healthy chip. Two for two each on arbel and gilboa.</li>
+        <li><b>Opus is faster and more decisive:</b> 15 to 40% fewer turns, 30 to 60% fewer node re-executions, and 51 min versus 120 min of active work on arbel.</li>
+        <li><b>Sonnet is cheaper:</b> $22 to $31 a chip against $47 for opus. In the price-blind gating metric the gap reverses: opus uses fewer cost-weighted tokens because it takes fewer turns.</li>
+        <li><b>Calibration quality is a wash</b> at this resolution. Neither is to spec, both reach 99.5 to 99.9% RB on the good qubits, and each has one qubit the other left tighter.</li>
+        <li><b>Against the graph's defaults, the agent is not worse, but on arbel not measurably better</b> at finishing; it wins on gate quality on two qubits and on rejecting bad fits, at three to six times the time. See the control section.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Haiku, and what to carry forward</h3>
+      <ul>
+        <li><b>Haiku at high effort does not converge.</b> 534 turns, 200+ re-executions, and zero nodes completed on two chips. It is the most expensive cell in QPU time and quota for the least information; skip it next time.</li>
+        <li><b>The qolab column is empty by accident, not by chip.</b> Every qolab attempt was cut by an outage or a crash. Its haiku run had zero empty readouts across seven hours.</li>
+        <li><b>Three framework items</b> came out of the night: the database stamping, the dict search note, and the graph's RB report leaving the grader nothing to judge spec against.</li>
+        <li><b>The scramble is too easy for arbel.</b> The control was expected to die on the 15 MHz kick and instead finished cleanly; a workload the defaults can solve cannot show what the agent adds.</li>
+        <li><b>Nine concurrent workers exceed one Max window.</b> Measured burn once paced was 2 to 9% of the window per hour per cell, so three cells at once are fine; nine are not.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <b>Next suite.</b> Sonnet and opus only, on all three chips, plus a dag-walk control on gilboa, on the latest integration (26e3f98) with qua-libs at 96e04d2 (numerics and fit-units). Fresh snapshots, three drivers in parallel, quota pacer on. Fingerprints will show the framework change as a baseline reset against tonight's cells.
+  </div>
+
+  <h2>Run identifiers</h2>
+  <p>Every runner invocation behind this report, including the ones that produced no document. The run id is the key in the qua-agents GUI and the audit database; the path is the cell directory under <span class="mono">~/qab-runs/</span>, which holds <span class="mono">result.json</span>, <span class="mono">run.log</span>, <span class="mono">grade.log</span> and the evidence folder. Snapshot is the digest of the de-calibrated starting state the cell was handed; profile is the hash of the resolved profile. Times are local (CEST), 7–8 Sep 2026.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Chip</th><th>Model</th><th>Run id</th><th>Status</th><th>Cell directory</th><th>Snapshot</th><th>Profile</th><th>Started → ended</th></tr></thead>
+      <tbody>
+        <tr><td>arbel</td><td>sonnet-5-high</td><td class="mono">doze-cache-hunt</td><td><span class="pill completed">completed</span></td><td class="mono" style="font-size:12.5px">effort-high-arbel-20260907/arbel-sonnet-5-high</td><td class="mono" style="font-size:12.5px">c4b111fae61c04f4</td><td class="mono" style="font-size:12.5px">b91569ec36b7</td><td class="mono" style="font-size:12.5px">07 19:00 → 07 23:00</td></tr>
+        <tr><td>arbel</td><td>opus-5-high</td><td class="mono">atlas-salon-spoof</td><td><span class="pill completed">completed</span></td><td class="mono" style="font-size:12.5px">effort-high-arbel-20260907/arbel-opus-5-high</td><td class="mono" style="font-size:12.5px">c4b111fae61c04f4</td><td class="mono" style="font-size:12.5px">95fedad67357</td><td class="mono" style="font-size:12.5px">07 23:01 → 08 01:10</td></tr>
+        <tr><td>arbel</td><td>haiku-4-5-high</td><td class="mono">bush-rerun-stud</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">effort-high-arbel-20260907/arbel-haiku-4-5-high</td><td class="mono" style="font-size:12.5px">c4b111fae61c04f4</td><td class="mono" style="font-size:12.5px">14d697c0311f</td><td class="mono" style="font-size:12.5px">08 01:11 → 08 08:30</td></tr>
+        <tr><td>arbel</td><td>dag-walk (control)</td><td class="mono">lung-stand-drank</td><td><span class="pill completed">completed</span></td><td class="mono" style="font-size:12.5px">control-arbel-20260907-take2/arbel-dag-walk</td><td class="mono" style="font-size:12.5px">bff75b6bf5269c61</td><td class="mono" style="font-size:12.5px">9c307489060c</td><td class="mono" style="font-size:12.5px">07 14:24 → 07 15:07</td></tr>
+        <tr><td>qolab</td><td>sonnet-5-high</td><td class="mono">whole-rigid-quack</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907/qolab-sonnet-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">271259467f75</td><td class="mono" style="font-size:12.5px">07 19:00 → 07 21:01</td></tr>
+        <tr><td>qolab</td><td>opus-5-high</td><td class="mono">silk-cache-jot</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907/qolab-opus-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">4101f70b6f5f</td><td class="mono" style="font-size:12.5px">07 21:01 → 07 23:28</td></tr>
+        <tr><td>qolab</td><td>haiku-4-5-high</td><td class="mono">green-mash-brisk</td><td><span class="pill infra">infra_failed</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907/qolab-haiku-4-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">428fd0dd975c</td><td class="mono" style="font-size:12.5px">07 23:29 → 08 06:35</td></tr>
+        <tr><td>qolab</td><td>sonnet-5-high (rerun)</td><td class="mono">from-shelf-clink</td><td><span class="pill infra">infra_failed</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907-rerun/qolab-sonnet-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">271259467f75</td><td class="mono" style="font-size:12.5px">08 06:36 → 08 08:55</td></tr>
+        <tr><td>qolab</td><td>opus-5-high (rerun)</td><td class="mono">fact-stack-dab</td><td><span class="pill infra">infra_failed</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907-rerun/qolab-opus-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">4101f70b6f5f</td><td class="mono" style="font-size:12.5px">08 08:57 → 08 09:03</td></tr>
+        <tr><td>qolab</td><td>haiku-4-5-high (rerun)</td><td class="mono">five-blot-front</td><td><span class="pill pending">stopped, no document</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907-rerun-haiku-4-5-high/qolab-haiku-4-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">428fd0dd975c</td><td class="mono" style="font-size:12.5px">08 09:05 → 08 09:31</td></tr>
+        <tr><td>qolab</td><td>sonnet-5-high (third)</td><td class="mono">blade-icon-shelf</td><td><span class="pill pending">aborted, no document</span></td><td class="mono" style="font-size:12.5px">effort-high-qolab-20260907-take3/qolab-sonnet-5-high</td><td class="mono" style="font-size:12.5px">10a9db77d42e1f2a</td><td class="mono" style="font-size:12.5px">271259467f75</td><td class="mono" style="font-size:12.5px">08 09:32 → 08 11:3x</td></tr>
+        <tr><td>qolab</td><td>dag-walk (control)</td><td class="mono">truck-race-claim</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">control-qolab-20260907/qolab-dag-walk</td><td class="mono" style="font-size:12.5px">dc774e95a7271040</td><td class="mono" style="font-size:12.5px">e0e57e9ca210</td><td class="mono" style="font-size:12.5px">07 14:44 → 07 15:23</td></tr>
+        <tr><td>gilboa</td><td>sonnet-5-high</td><td class="mono">polka-blaze-hers</td><td><span class="pill completed">completed</span></td><td class="mono" style="font-size:12.5px">effort-high-gilboa-20260907/gilboa-sonnet-5-high</td><td class="mono" style="font-size:12.5px">f74362166fe57358</td><td class="mono" style="font-size:12.5px">7fe8a9a07b01</td><td class="mono" style="font-size:12.5px">07 19:00 → 07 23:11</td></tr>
+        <tr><td>gilboa</td><td>opus-5-high</td><td class="mono">halo-issue-cache</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">effort-high-gilboa-20260907/gilboa-opus-5-high</td><td class="mono" style="font-size:12.5px">f74362166fe57358</td><td class="mono" style="font-size:12.5px">e63134b378f0</td><td class="mono" style="font-size:12.5px">07 23:12 → 07 23:44</td></tr>
+        <tr><td>gilboa</td><td>haiku-4-5-high</td><td class="mono">flint-wrath-cure</td><td><span class="pill escalated">escalated</span></td><td class="mono" style="font-size:12.5px">effort-high-gilboa-20260907/gilboa-haiku-4-5-high</td><td class="mono" style="font-size:12.5px">f74362166fe57358</td><td class="mono" style="font-size:12.5px">fa5ce637621b</td><td class="mono" style="font-size:12.5px">07 23:57 → 08 04:44</td></tr>
+        <tr><td>gilboa</td><td>opus-5-high (rerun)</td><td class="mono">yelp-civic-carve</td><td><span class="pill completed">completed</span></td><td class="mono" style="font-size:12.5px">effort-high-gilboa-20260907-rerun-opus-5-high/gilboa-opus-5-high</td><td class="mono" style="font-size:12.5px">f74362166fe57358</td><td class="mono" style="font-size:12.5px">e63134b378f0</td><td class="mono" style="font-size:12.5px">08 04:47 → 08 06:09</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">All model cells: qua-agents d5ccee8 (~/qab-runs/qua-agents-integration, with the uncommitted profile-template override and, from 09:20 on 8 Sep, an optional RunConfig.device_id), qua-libs 1aff083, scramble spec 28b807e3d520c3ef, run_context dev. The controls ran from the same checkout on snapshots taken at 14:19 (arbel) and 14:44 (qolab).</p>
+
+  <div class="foot">Sources: result.json per cell under ~/qab-runs/effort-high-*, judge output from <span class="mono">qab show</span> and <span class="mono">qab compare-models</span>, driver and run logs, ~/qab-runs/effort-high-20260907-babysit.md. Runs are visible in the qua-agents GUI. All cells are <span class="mono">run_context: dev</span> and were never loaded into a ledger.</div>
+</div>
+
+<script>
+(function () {
+  const cells = [
+    // chip, model, cost(USD judge), cwTokens(M), active(min), cut(bool), turns, exec, reexec, firstOk, modelMin, queueMin, qpuMin, wall, status, label
+    { chip: "arbel",  model: "sonnet", cost: 21.71, tok: 10.85, act: 120, cut: false, turns: 205, exec: 101, re: 47,  ok: 0.98, mm: 122, qm: 121, pm: 78,  wall: 241, status: "completed", label: "arbel sonnet" },
+    { chip: "arbel",  model: "opus",   cost: 47.21, tok: 9.44,  act: 51,  cut: false, turns: 172, exec: 89,  re: 35,  ok: 0.96, mm: 102, qm: 79,  pm: 63,  wall: 130, status: "completed", label: "arbel opus" },
+    { chip: "arbel",  model: "haiku",  cost: 39.46, tok: 39.46, act: 23,  cut: false, turns: 534, exec: 249, re: 224, ok: 0.69, mm: 614, qm: 416, pm: 172, wall: 439, status: "escalated", label: "arbel haiku" },
+    { chip: "qolab",  model: "sonnet", cost: 22.35, tok: 11.17, act: null, cut: true, turns: 208, exec: 138, re: 108, ok: 0.97, mm: 140, qm: 122, pm: 47,  wall: 121, status: "escalated", label: "qolab sonnet", cutwhy: "outage" },
+    { chip: "qolab",  model: "opus",   cost: 40.98, tok: 8.20,  act: 119, cut: true, turns: 152, exec: 91,  re: 76,  ok: 1.00, mm: 87,  qm: 28,  pm: 10,  wall: 147, status: "escalated", label: "qolab opus", cutwhy: "outage" },
+    { chip: "qolab",  model: "haiku",  cost: 24.04, tok: 24.04, act: null, cut: true, turns: 377, exec: 208, re: 181, ok: 1.00, mm: 406, qm: 554, pm: 305, wall: 427, status: "infra", label: "qolab haiku", cutwhy: "supervisor crash" },
+    { chip: "gilboa", model: "sonnet", cost: 30.87, tok: 15.43, act: 163, cut: false, turns: 269, exec: 135, re: 81,  ok: 1.00, mm: 174, qm: 89,  pm: 81,  wall: 252, status: "completed", label: "gilboa sonnet" },
+    { chip: "gilboa", model: "opus",   cost: 46.70, tok: 9.34,  act: 33,  cut: false, turns: 168, exec: 82,  re: 28,  ok: 1.00, mm: 92,  qm: 49,  pm: 40,  wall: 82,  status: "completed", label: "gilboa opus (rerun)" },
+    { chip: "gilboa", model: "haiku",  cost: 35.48, tok: 35.48, act: 157, cut: false, turns: 534, exec: 268, re: 241, ok: 0.97, mm: 565, qm: 130, pm: 122, wall: 287, status: "escalated", label: "gilboa haiku" },
+  ];
+  const colors = { sonnet: "var(--sonnet)", opus: "var(--opus)", haiku: "var(--haiku)" };
+  const chips = ["arbel", "qolab", "gilboa"];
+  const models = ["sonnet", "opus", "haiku"];
+  const NS = "http://www.w3.org/2000/svg";
+  function el(name, attrs, text) {
+    const n = document.createElementNS(NS, name);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function hatch(svg, id) {
+    const defs = el("defs", {});
+    const p = el("pattern", { id, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+    p.appendChild(el("rect", { width: 6, height: 6, fill: "var(--surface)" }));
+    p.appendChild(el("rect", { width: 2.5, height: 6, fill: "var(--hatch)" }));
+    defs.appendChild(p); svg.appendChild(defs);
+  }
+  function grouped(id, key, fmt, unit) {
+    const svg = document.getElementById(id);
+    hatch(svg, id + "-h");
+    const W = 320, left = 54, right = 46, top = 8, rowH = 66, barH = 14, gap = 3;
+    const vals = cells.map(c => c[key]).filter(v => v !== null);
+    const max = Math.max(...vals) * 1.08;
+    const x = v => left + (v / max) * (W - left - right);
+    // grid: 4 ticks
+    const ticks = 4;
+    for (let i = 0; i <= ticks; i++) {
+      const v = (max / ticks) * i; const gx = x(v);
+      svg.appendChild(el("line", { x1: gx, y1: top, x2: gx, y2: top + rowH * 3 - 8, stroke: "var(--line)", "stroke-width": 1 }));
+      svg.appendChild(el("text", { x: gx, y: top + rowH * 3 + 8, "text-anchor": "middle", "font-size": 10, fill: "var(--muted)", "font-family": "JetBrains Mono, monospace" }, fmt(v)));
+    }
+    chips.forEach((chip, ci) => {
+      const y0 = top + ci * rowH;
+      svg.appendChild(el("text", { x: 0, y: y0 + 30, "font-size": 12, fill: "var(--ink)", "font-family": "Bricolage Grotesque, sans-serif", "font-weight": 600 }, chip));
+      models.forEach((m, mi) => {
+        const c = cells.find(d => d.chip === chip && d.model === m);
+        const y = y0 + mi * (barH + gap);
+        if (c[key] === null) {
+          svg.appendChild(el("text", { x: left + 4, y: y + barH - 3, "font-size": 10, fill: "var(--muted)", "font-family": "JetBrains Mono, monospace" }, "no measurement"));
+          return;
+        }
+        const w = Math.max(x(c[key]) - left, 2);
+        const r = el("rect", { x: left, y, width: w, height: barH, rx: 3, fill: colors[m] });
+        const t = el("title", {}, `${c.label}: ${fmt(c[key])} ${unit}${c.cut ? " (cut short: " + c.cutwhy + ")" : ""}`);
+        r.appendChild(t); svg.appendChild(r);
+        if (c.cut) svg.appendChild(el("rect", { x: left, y, width: w, height: barH, rx: 3, fill: "url(#" + id + "-h)", "pointer-events": "none" }));
+        svg.appendChild(el("text", { x: left + w + 5, y: y + barH - 3, "font-size": 10.5, fill: "var(--ink-2)", "font-family": "JetBrains Mono, monospace" }, fmt(c[key])));
+      });
+    });
+    svg.appendChild(el("line", { x1: left, y1: top, x2: left, y2: top + rowH * 3 - 8, stroke: "var(--line-strong)", "stroke-width": 1 }));
+  }
+  grouped("c-cost", "cost", v => "$" + v.toFixed(0), "USD");
+  grouped("c-tok", "tok", v => v.toFixed(0) + "M", "cost-weighted tokens");
+  grouped("c-act", "act", v => v.toFixed(0), "min");
+
+  // table
+  const tb = document.getElementById("tbody");
+  const pillText = { completed: "completed 3/3", escalated: "escalated 0/3", infra: "infra failed" };
+  cells.forEach(c => {
+    const tr = document.createElement("tr");
+    const cls = c.status;
+    tr.innerHTML = `<td><span class="swatch" style="background:${colors[c.model]}"></span>${c.label}</td>` +
+      `<td><span class="pill ${cls}">${pillText[c.status]}</span>${c.cut ? ' <span style="font-size:12.5px;color:var(--muted)">cut: ' + c.cutwhy + "</span>" : ""}</td>` +
+      `<td class="num">${c.turns}</td><td class="num">${c.exec}</td><td class="num">${c.re}</td><td class="num">${Math.round(c.ok * 100)}%</td>` +
+      `<td class="num">${c.mm}</td><td class="num">${c.qm}</td><td class="num">${c.pm}</td><td class="num">${c.wall}</td><td class="num">$${c.cost.toFixed(2)}</td>`;
+    tb.appendChild(tr);
+  });
+
+  // timeline: hours from 19:00 on 7 Sep
+  const svg = document.getElementById("tl");
+  hatch(svg, "tl-h");
+  const T0 = 19, SPAN = 15.5; // 19:00 -> 10:30
+  const L = 64, R = 12, W = 960, laneY = { arbel: 40, qolab: 105, gilboa: 170 }, laneH = 44;
+  const tx = h => L + ((h - T0) / SPAN) * (W - L - R);
+  const hm = (h, m) => h + m / 60;
+  const overlays = [
+    { from: hm(21, 11), to: hm(22, 55), lanes: ["arbel", "qolab", "gilboa"], fill: "var(--warn-bg)", stroke: "var(--warn)", title: "Claude Max window exhausted 21:11–22:55" },
+    { from: hm(20, 18), to: hm(21, 1), lanes: ["qolab"], fill: "var(--crit-bg)", stroke: "var(--crit)", title: "acquisition outage, qolab 20:18–21:01" },
+    { from: hm(23, 10), to: hm(23, 28), lanes: ["qolab"], fill: "var(--crit-bg)", stroke: "var(--crit)", title: "acquisition outage, qolab 23:10–23:28" },
+    { from: hm(23, 30), to: hm(23, 49), lanes: ["gilboa"], fill: "var(--crit-bg)", stroke: "var(--crit)", title: "acquisition outage, gilboa 23:30–23:49" },
+    { from: hm(24 + 6, 30), to: hm(24 + 6, 35), lanes: ["qolab"], fill: "var(--crit-bg)", stroke: "var(--crit)", title: "acquisition outage, qolab 06:30–06:35" },
+  ];
+  const runs = [
+    { lane: "arbel", m: "sonnet", from: hm(19, 0), to: hm(23, 1), t: "arbel sonnet 19:00–23:01, completed" },
+    { lane: "arbel", m: "opus", from: hm(23, 1), to: hm(25, 12), t: "arbel opus 23:01–01:12, completed" },
+    { lane: "arbel", m: "haiku", from: hm(25, 12), to: hm(32, 32), t: "arbel haiku 01:12–08:32, recursion limit" },
+    { lane: "qolab", m: "sonnet", from: hm(19, 0), to: hm(21, 1), cut: true, t: "qolab sonnet 19:00–21:01, outage" },
+    { lane: "qolab", m: "opus", from: hm(21, 1), to: hm(23, 29), cut: true, t: "qolab opus 21:01–23:29, outage" },
+    { lane: "qolab", m: "haiku", from: hm(23, 29), to: hm(30, 36), cut: true, t: "qolab haiku 23:29–06:36, supervisor crash" },
+    { lane: "qolab", m: "sonnet", from: hm(30, 36), to: hm(32, 57), cut: true, t: "qolab sonnet rerun 06:36–08:57, shared-db clash" },
+    { lane: "qolab", m: "opus", from: hm(32, 57), to: hm(33, 5), cut: true, t: "qolab opus rerun 08:57–09:05, shared-db clash" },
+    { lane: "qolab", m: "haiku", from: hm(33, 5), to: hm(33, 31), cut: true, t: "qolab haiku rerun 09:05–09:31, stopped" },
+    { lane: "qolab", m: "sonnet", from: hm(33, 32), to: hm(34, 30), cut: true, t: "qolab sonnet, third attempt 09:32, aborted for the new suite" },
+    { lane: "gilboa", m: "sonnet", from: hm(19, 0), to: hm(23, 12), t: "gilboa sonnet 19:00–23:12, completed" },
+    { lane: "gilboa", m: "opus", from: hm(23, 12), to: hm(23, 57), cut: true, t: "gilboa opus 23:12–23:57, outage" },
+    { lane: "gilboa", m: "haiku", from: hm(23, 57), to: hm(28, 45), t: "gilboa haiku 23:57–04:45, recursion limit" },
+    { lane: "gilboa", m: "opus", from: hm(28, 47), to: hm(30, 10), t: "gilboa opus rerun 04:47–06:10, completed" },
+  ];
+  // hour ticks
+  for (let h = 19; h <= 34; h++) {
+    const gx = tx(h);
+    svg.appendChild(el("line", { x1: gx, y1: 28, x2: gx, y2: 222, stroke: "var(--line)", "stroke-width": 1 }));
+    const lab = (h % 24).toString().padStart(2, "0") + ":00";
+    if ((h - 19) % 2 === 0) svg.appendChild(el("text", { x: gx, y: 236, "text-anchor": "middle", "font-size": 10.5, fill: "var(--muted)", "font-family": "JetBrains Mono, monospace" }, lab));
+  }
+  // reset marker
+  const rx = tx(hm(27, 50));
+  svg.appendChild(el("line", { x1: rx, y1: 24, x2: rx, y2: 222, stroke: "var(--warn)", "stroke-width": 1, "stroke-dasharray": "3 3" }));
+  svg.appendChild(el("text", { x: rx + 4, y: 20, "font-size": 10.5, fill: "var(--warn)", "font-family": "JetBrains Mono, monospace" }, "window reset 03:50"));
+  const sx = tx(hm(32, 37));
+  svg.appendChild(el("line", { x1: sx, y1: 24, x2: sx, y2: 222, stroke: "var(--crit)", "stroke-width": 1, "stroke-dasharray": "3 3" }));
+  svg.appendChild(el("text", { x: sx - 4, y: 20, "text-anchor": "end", "font-size": 10.5, fill: "var(--crit)", "font-family": "JetBrains Mono, monospace" }, "device_id commit 08:37"));
+  overlays.forEach(o => o.lanes.forEach(l => {
+    const r = el("rect", { x: tx(o.from), y: laneY[l] - 6, width: Math.max(tx(o.to) - tx(o.from), 2), height: laneH + 12, fill: o.fill, stroke: o.stroke, "stroke-width": 1, rx: 2 });
+    r.appendChild(el("title", {}, o.title)); svg.appendChild(r);
+  }));
+  Object.keys(laneY).forEach(l => {
+    svg.appendChild(el("text", { x: 0, y: laneY[l] + laneH / 2 + 5, "font-size": 13, fill: "var(--ink)", "font-family": "Bricolage Grotesque, sans-serif", "font-weight": 600 }, l));
+  });
+  runs.forEach(r => {
+    const x = tx(r.from), w = Math.max(tx(r.to) - x - 1.5, 3), y = laneY[r.lane] + 6, h = laneH - 12;
+    const g = el("g", {});
+    const rect = el("rect", { x, y, width: w, height: h, rx: 3, fill: colors[r.m] });
+    rect.appendChild(el("title", {}, r.t)); g.appendChild(rect);
+    if (r.cut) g.appendChild(el("rect", { x, y, width: w, height: h, rx: 3, fill: "url(#tl-h)", "pointer-events": "none" }));
+    svg.appendChild(g);
+  });
+})();
+</script>
