@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frameworks Overnight, 9 Sep</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>  :root {
+    color-scheme: light;
+    --ground: #f5f7f7; --surface: #ffffff; --surface-2: #eef2f2;
+    --ink: #151a1d; --ink-2: #4b555b; --muted: #7f8a90;
+    --line: #d8dfe1; --line-strong: #b9c3c7;
+    --accent: #0f766e; --accent-ink: #0b5f59;
+    --warn: #b45309; --warn-bg: #fdf3e6; --crit: #b91c1c; --crit-bg: #fdecec; --good-bg: #e6f4f2;
+    --opus: #eb6834; --sonnet: #2a78d6; --tinycal: #1baf7a; --dag: #7f8a90;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #121516; --surface: #1a1e20; --surface-2: #22282b;
+      --ink: #edf1f2; --ink-2: #b6bfc4; --muted: #7f8a90;
+      --line: #2c3437; --line-strong: #414c50;
+      --accent: #2dbfb2; --accent-ink: #5fd3c8;
+      --warn: #f0a24a; --warn-bg: #2d2214; --crit: #f07575; --crit-bg: #331a1a; --good-bg: #16302d;
+      --opus: #d95926; --sonnet: #3987e5; --tinycal: #199e70; --dag: #8a959b;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #121516; --surface: #1a1e20; --surface-2: #22282b;
+    --ink: #edf1f2; --ink-2: #b6bfc4; --muted: #7f8a90;
+    --line: #2c3437; --line-strong: #414c50;
+    --accent: #2dbfb2; --accent-ink: #5fd3c8;
+    --warn: #f0a24a; --warn-bg: #2d2214; --crit: #f07575; --crit-bg: #331a1a; --good-bg: #16302d;
+    --opus: #d95926; --sonnet: #3987e5; --tinycal: #199e70; --dag: #8a959b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.5; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 40px 28px 72px; }
+  h1, h2, h3 { font-family: "Bricolage Grotesque", "Source Sans 3", Helvetica, Arial, sans-serif; text-wrap: balance; margin: 0; }
+  h1 { font-size: 40px; font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; }
+  h2 { font-size: 24px; font-weight: 600; line-height: 1.2; margin-top: 56px; }
+  h3 { font-size: 18px; font-weight: 600; }
+  p { max-width: 68ch; margin: 12px 0; }
+  .eyebrow { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 64ch; }
+  .mono, .num { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .num { font-size: 0.94em; }
+  a { color: var(--accent-ink); }
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; border-bottom: 1px solid var(--line-strong); padding-bottom: 24px; }
+  .meta { display: grid; grid-template-columns: auto auto; gap: 4px 16px; font-size: 14px; color: var(--ink-2); }
+  .meta dt { color: var(--muted); } .meta dd { margin: 0; } .meta dl { display: contents; }
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+  .strip > div { border-top: 2px solid var(--line-strong); padding-top: 10px; }
+  .strip .big { font-family: "Bricolage Grotesque", sans-serif; font-size: 30px; font-weight: 600; line-height: 1.1; }
+  .strip .lab { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+  .matrix { display: grid; grid-template-columns: 170px repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+  .matrix .corner, .matrix .colhead, .matrix .rowhead { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); align-self: end; }
+  .matrix .colhead { padding: 0 4px 6px; }
+  .matrix .colhead b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .matrix .rowhead { align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding-left: 12px; border-left: 4px solid var(--series); }
+  .matrix .rowhead b { font-family: "Bricolage Grotesque", sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .cell { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-height: 128px; }
+  .cell .status { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+  .cell .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .cell.completed .dot { background: var(--accent); } .cell.escalated .dot, .cell.partial .dot { background: var(--warn); } .cell.infra .dot { background: var(--crit); }
+  .cell .fig { font-family: "Bricolage Grotesque", sans-serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .cell .fig small { font-family: "Source Sans 3", sans-serif; font-size: 14px; font-weight: 400; color: var(--ink-2); margin-left: 6px; }
+  .cell .row { display: flex; justify-content: space-between; font-size: 14px; color: var(--ink-2); }
+  .cell .why { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; margin-top: 2px; }
+  .charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .chart { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px 10px; }
+  .chart h3 { font-size: 16px; } .chart .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 16px; font-size: 13.5px; color: var(--ink-2); margin-top: 12px; flex-wrap: wrap; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+  .tablewrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--surface-2); }
+  td.num, th.num { text-align: right; white-space: nowrap; } tr:last-child td { border-bottom: 0; }
+  td .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 1px; }
+  .pill { display: inline-block; font-size: 12.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; line-height: 1.5; white-space: nowrap; }
+  .pill.completed { background: var(--good-bg); color: var(--accent-ink); } .pill.escalated, .pill.partial, .pill.failed { background: var(--warn-bg); color: var(--warn); }
+  .pill.infra { background: var(--crit-bg); color: var(--crit); } .pill.pending { background: var(--surface-2); color: var(--ink-2); }
+  .incidents { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
+  .inc { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 6px; padding: 12px 14px; }
+  .inc.crit { border-left-color: var(--crit); } .inc.info { border-left-color: var(--line-strong); }
+  .inc h3 { font-size: 16px; } .inc p { font-size: 14.5px; margin: 6px 0 0; max-width: none; }
+  .inc .when { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); }
+  .note { background: var(--surface-2); border-radius: 6px; padding: 14px 16px; font-size: 15px; max-width: none; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .two p { max-width: none; }
+  ul { padding-left: 20px; } li { margin: 6px 0; }
+  .foot { margin-top: 56px; border-top: 1px solid var(--line-strong); padding-top: 14px; font-size: 13.5px; color: var(--muted); }
+  .tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--ground); font-size: 12.5px; padding: 6px 9px; border-radius: 4px; opacity: 0; transition: opacity 80ms; max-width: 260px; z-index: 9; }
+  @media (max-width: 860px) {
+    .head { grid-template-columns: 1fr; } .strip { grid-template-columns: repeat(2, 1fr); }
+    .matrix { grid-template-columns: 1fr; } .matrix .corner, .matrix .colhead { display: none; }
+    .charts { grid-template-columns: 1fr; } .incidents, .two { grid-template-columns: 1fr; } h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+<div class="page">
+  <header class="head">
+    <div>
+      <div class="eyebrow">qua-agents benchmark · 8–9 Sep 2026 · dev runs · agents against the graph's own defaults</div>
+      <h1 style="margin-top:8px">Frameworks Overnight, 9 Sep</h1>
+      <p class="lede">Does an agent framework buy anything over walking the calibration graph with default parameters? Four agents on one de-calibrated state per chip, two qubits each: the no-model dag-walk control, qua-agents driving opus-5 and sonnet-5, and tinycal driving opus-5. Measured on node executions, re-executions, whether the chip came back calibrated, and cost in dollars and tokens. qolab is excluded from the analysis: its acquisition fault killed every model run there.</p>
+    </div>
+    <div class="meta">
+      <dl><dt>qua-agents</dt><dd class="mono">26e3f98 (integration, 8 Sep)</dd></dl>
+      <dl><dt>tinycal</dt><dd class="mono">8547200 (main, 8 Sep)</dd></dl>
+      <dl><dt>Calibration content</dt><dd class="mono">qua-libs 96e04d2 + rabi_chevron import fix</dd></dl>
+      <dl><dt>Scramble spec</dt><dd class="mono">f47053f145f74c8c (resonator +25 MHz, qubit −50 MHz)</dd></dl>
+      <dl><dt>Model calls</dt><dd>meridian → Claude Max, effort high, 16k max tokens</dd></dl>
+      <dl><dt>Analysed targets</dt><dd class="mono">arbel qA2 qB2 · gilboa qD1 qD2</dd></dl>
+    </div>
+  </header>
+
+  <section class="strip">
+    <div><div class="big">8 <span style="font-size:18px;font-weight:500;color:var(--ink-2)">of 12</span></div><div class="lab">agent qubits came back calibrated (frequencies restored, RB under 0.5%). The graph's defaults calibrated 0 of 4, while finishing the graph on 3 of them.</div></div>
+    <div><div class="big">1.5–3.7×</div><div class="lab">the node executions of the control, per agent cell: 41–52 for opus and tinycal, 47–125 for sonnet, against 27–35 for the dag-walk</div></div>
+    <div><div class="big">3.2×</div><div class="lab">what qua-agents paid over tinycal for the same result on gilboa with the same model: $27.66 against $8.67</div></div>
+    <div><div class="big">0</div><div class="lab">targets "to spec" by the acceptance grade, for every agent and the control alike: the RB node still publishes no confidence interval</div></div>
+  </section>
+
+  <h2>The matrix</h2>
+  <p>One tile per chip and agent. Every phase on a chip started from one scrambled snapshot, in the order opus → sonnet → dag-walk → tinycal, so nothing shared a queue. "Calibrated" is this report's working definition, applied identically to all four rows: the graph finished, both scrambled frequencies back inside their ballpark windows, and RB error below 0.5%. Amplitude misses are shown but not penalised, for the reason given below.</p>
+  <div class="matrix">
+    <div class="corner"></div>
+    <div class="colhead"><b>arbel</b>qA2 · qB2</div>
+    <div class="colhead"><b>gilboa</b>qD1 · qD2</div>
+    <div class="rowhead" style="--series: var(--dag)"><b>dag-walk</b>no model · graph defaults · the control</div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">1/2<small>8 · 17 of 17 nodes · 0 calibrated</small></div><div class="row"><span>27 node runs, 2 re-runs</span><span class="num">no tokens</span></div><div class="why">qA2: defaults gave nothing at readout_power_optimization</div></div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Finished the graph</div><div class="fig">2/2<small>17 · 17 of 17 nodes · 0 calibrated</small></div><div class="row"><span>35 node runs, 1 re-runs</span><span class="num">no tokens</span></div><div class="why">qD1 1/4 in ballpark; qD2 RB 0.7%</div></div>
+    <div class="rowhead" style="--series: var(--opus)"><b>qua-agents · opus-5</b>supervisor + workers · high effort</div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Finished the graph</div><div class="fig">2/2<small>17 · 17 of 17 nodes · 2 calibrated</small></div><div class="row"><span>41 node runs, 7 re-runs</span><span class="num">$20.17</span></div></div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Finished the graph</div><div class="fig">2/2<small>17 · 17 of 17 nodes · 1 calibrated</small></div><div class="row"><span>52 node runs, 18 re-runs</span><span class="num">$27.66</span></div><div class="why">qD2 RB 2.9%</div></div>
+    <div class="rowhead" style="--series: var(--sonnet)"><b>qua-agents · sonnet-5</b>supervisor + workers · high effort</div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Finished the graph</div><div class="fig">2/2<small>17 · 17 of 17 nodes · 2 calibrated</small></div><div class="row"><span>47 node runs, 13 re-runs</span><span class="num">$9.34</span></div></div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Escalated</div><div class="fig">1/2<small>17 · 0 of 17 nodes · 1 calibrated</small></div><div class="row"><span>125 node runs, 91 re-runs</span><span class="num">$35.04</span></div><div class="why">qD2: recursion limit after 92 node runs</div></div>
+    <div class="rowhead" style="--series: var(--tinycal)"><b>tinycal · opus-5</b>one loop per qubit · high effort</div>
+    <div class="cell escalated"><div class="status"><span class="dot"></span>Partial</div><div class="fig">1/2<small>11 · 17 of 17 nodes · 1 calibrated</small></div><div class="row"><span>41 node runs, 13 re-runs</span><span class="num">$5.72</span></div><div class="why">qA2: 3 h wall budget spent, 164 min of it in the arbel queue</div></div>
+    <div class="cell completed"><div class="status"><span class="dot"></span>Finished the graph</div><div class="fig">2/2<small>17 · 16 of 17 nodes · 1 calibrated</small></div><div class="row"><span>50 node runs, 17 re-runs</span><span class="num">$8.67</span></div><div class="why">qD2 RB 2.2%</div></div>
+  </div>
+
+  <h2>Did anyone get a fully calibrated chip?</h2>
+  <p>Per target, the end-state numbers the judge reads. Identity counts the four graded scrambled parameters (resonator frequency, f<sub>01</sub>, readout amplitude, x180 amplitude) that came back inside their windows. An x180-amplitude miss is usually a different operating point rather than an error: with the amplitude halved by the scramble, most agents kept a longer pulse instead of restoring the reference amplitude, and RB then confirms the gate. The control's misses are of a different kind.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Target</th><th>Agent</th><th>Verdict</th><th class="num">Nodes</th><th class="num">Identity</th><th class="num">RB error/Clifford</th><th class="num">Readout</th><th class="num">T1 / T2echo (µs)</th><th>Outside ballpark</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel qA2</td><td>dag-walk (control)</td><td><span class="pill pending">escalated</span></td><td class="num">8/17</td><td class="num">0/4</td><td class="num">–</td><td class="num">–</td><td class="num">– / –</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">resonator frequency, f<sub>01</sub>, readout amplitude, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel qB2</td><td>dag-walk (control)</td><td><span class="pill escalated">finished, not calibrated</span></td><td class="num">17/17</td><td class="num">3/4</td><td class="num">0.617%</td><td class="num">97.1%</td><td class="num">27.3 / 15.9</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel qA2</td><td>qua-agents · opus-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">2/4</td><td class="num">0.177%</td><td class="num">98.3%</td><td class="num">37.4 / 49.8</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">readout amplitude, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel qB2</td><td>qua-agents · opus-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">3/4</td><td class="num">0.330%</td><td class="num">97.1%</td><td class="num">31.4 / 18.6</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel qA2</td><td>qua-agents · sonnet-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">2/4</td><td class="num">0.185%</td><td class="num">97.7%</td><td class="num">40.3 / 47.9</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">readout amplitude, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel qB2</td><td>qua-agents · sonnet-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">2/4</td><td class="num">0.387%</td><td class="num">97.0%</td><td class="num">29.1 / 18.8</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">readout amplitude, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel qA2</td><td>tinycal · opus-5</td><td><span class="pill pending">failed</span></td><td class="num">11/17</td><td class="num">2/4</td><td class="num">–</td><td class="num">99.2%</td><td class="num">– / –</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">f<sub>01</sub>, readout amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel qB2</td><td>tinycal · opus-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">3/4</td><td class="num">0.481%</td><td class="num">96.5%</td><td class="num">29.7 / 17.6</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa qD1</td><td>dag-walk (control)</td><td><span class="pill escalated">finished, not calibrated</span></td><td class="num">17/17</td><td class="num">1/4</td><td class="num">-0.000%</td><td class="num">50.9%</td><td class="num">13.4 / 56797.9</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">resonator frequency, f<sub>01</sub>, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa qD2</td><td>dag-walk (control)</td><td><span class="pill escalated">finished, not calibrated</span></td><td class="num">17/17</td><td class="num">2/4</td><td class="num">0.707%</td><td class="num">91.0%</td><td class="num">2.2 / 6.1</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">f<sub>01</sub>, x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa qD1</td><td>qua-agents · opus-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">4/4</td><td class="num">0.129%</td><td class="num">98.2%</td><td class="num">23.0 / 29.3</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa qD2</td><td>qua-agents · opus-5</td><td><span class="pill escalated">finished, not calibrated</span></td><td class="num">17/17</td><td class="num">4/4</td><td class="num">2.897%</td><td class="num">90.1%</td><td class="num">2.0 / 4.6</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa qD1</td><td>qua-agents · sonnet-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">3/4</td><td class="num">0.182%</td><td class="num">97.8%</td><td class="num">21.8 / 30.5</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">readout amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa qD2</td><td>qua-agents · sonnet-5</td><td><span class="pill pending">escalated</span></td><td class="num">0/17</td><td class="num">3/4</td><td class="num">5.927%</td><td class="num">92.9%</td><td class="num">2.0 / 4.8</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">x180 amplitude</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa qD1</td><td>tinycal · opus-5</td><td><span class="pill completed">calibrated</span></td><td class="num">17/17</td><td class="num">4/4</td><td class="num">0.127%</td><td class="num">97.2%</td><td class="num">24.5 / 29.7</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa qD2</td><td>tinycal · opus-5</td><td><span class="pill escalated">finished, not calibrated</span></td><td class="num">16/17</td><td class="num">4/4</td><td class="num">2.196%</td><td class="num">95.9%</td><td class="num">1.9 / 3.5</td><td style="font-size:13px;color:var(--ink-2);min-width:160px">–</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-top:14px">Two things to read with care. gilboa qD1 under the control "finished" with 51% readout fidelity, an RB fit reporting zero error and a 57 ms T2echo: the graph ran to the end without calibrating anything, which is why finishing the graph is not the verdict here. And gilboa qD2 was bad for everyone that night (opus 2.9%, tinycal 2.2%, control 0.7% on a 2 µs T1 fit, sonnet never converged), so its row says more about the qubit than about any agent.</div>
+
+  <h2>How much work: node executions and re-executions</h2>
+  <p>A re-execution is any run of a node after its first. "Adapting" re-runs changed the parameters; "repeating" ones did not. The control re-runs a barren node once with the same parameters and then gives up, so its re-execution count is a floor. Turns are model calls for tinycal and worker turns for qua-agents; the control has no model but still counts its scripted steps as turns.</p>
+  <div class="charts">
+    <div class="chart"><h3>Node executions</h3><div class="sub">per cell, both qubits · lighter segment = re-executions</div><svg id="c-exec" viewBox="0 0 320 250"></svg></div>
+    <div class="chart"><h3>Estimated cost</h3><div class="sub">USD per cell, judge price table · the control spends no tokens</div><svg id="c-cost" viewBox="0 0 320 250"></svg></div>
+    <div class="chart"><h3>Tokens billed at the cache-write rate</h3><div class="sub">millions per cell · where the cost gap comes from</div><svg id="c-cw" viewBox="0 0 320 250"></svg></div>
+  </div>
+  <div class="legend"><span style="--c: var(--dag)">dag-walk (control)</span><span style="--c: var(--opus)">qua-agents · opus-5</span><span style="--c: var(--sonnet)">qua-agents · sonnet-5</span><span style="--c: var(--tinycal)">tinycal · opus-5</span></div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Target</th><th>Agent</th><th class="num">Executions</th><th class="num">Distinct nodes</th><th class="num">Re-executions</th><th class="num">Adapting / repeating</th><th class="num">1st-try ok</th><th class="num">Turns</th><th>Most re-run</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel qA2</td><td>dag-walk (control)</td><td class="num">10</td><td class="num">8</td><td class="num">2</td><td class="num">0 / 2</td><td class="num">88%</td><td class="num">19</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">qubit_spectroscopy_vs_flux ×2, readout_power_optimization ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel qB2</td><td>dag-walk (control)</td><td class="num">17</td><td class="num">17</td><td class="num">0</td><td class="num">0 / 0</td><td class="num">100%</td><td class="num">35</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">none</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel qA2</td><td>qua-agents · opus-5</td><td class="num">19</td><td class="num">17</td><td class="num">2</td><td class="num">2 / 0</td><td class="num">94%</td><td class="num">38</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">T1_coarse ×2, DRAG_calibration ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel qB2</td><td>qua-agents · opus-5</td><td class="num">22</td><td class="num">17</td><td class="num">5</td><td class="num">5 / 0</td><td class="num">94%</td><td class="num">43</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">rabi_chevron ×3, DRAG_calibration ×3, qubit_spectroscopy ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel qA2</td><td>qua-agents · sonnet-5</td><td class="num">25</td><td class="num">17</td><td class="num">8</td><td class="num">8 / 0</td><td class="num">100%</td><td class="num">51</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">qubit_spectroscopy_vs_flux ×4, resonator_identification ×2, qubit_spectroscopy ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel qB2</td><td>qua-agents · sonnet-5</td><td class="num">22</td><td class="num">17</td><td class="num">5</td><td class="num">5 / 0</td><td class="num">100%</td><td class="num">45</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">ramsey_vs_flux_calibration ×3, qubit_spectroscopy ×2, T2echo ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel qA2</td><td>tinycal · opus-5</td><td class="num">21</td><td class="num">11</td><td class="num">10</td><td class="num">7 / 3</td><td class="num">100%</td><td class="num">36</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">power_rabi ×6, qubit_spectroscopy ×3, rabi_chevron ×3</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel qB2</td><td>tinycal · opus-5</td><td class="num">20</td><td class="num">17</td><td class="num">3</td><td class="num">3 / 0</td><td class="num">94%</td><td class="num">38</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">resonator_identification ×2, qubit_spectroscopy ×2, DRAG_calibration ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa qD1</td><td>dag-walk (control)</td><td class="num">18</td><td class="num">17</td><td class="num">1</td><td class="num">0 / 1</td><td class="num">94%</td><td class="num">35</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">Randomized_benchmarking ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa qD2</td><td>dag-walk (control)</td><td class="num">17</td><td class="num">17</td><td class="num">0</td><td class="num">0 / 0</td><td class="num">100%</td><td class="num">34</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">none</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa qD1</td><td>qua-agents · opus-5</td><td class="num">20</td><td class="num">17</td><td class="num">3</td><td class="num">2 / 1</td><td class="num">94%</td><td class="num">40</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">power_rabi ×2, power_rabi_error_amplification_x180 ×2, Randomized_benchmarking ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa qD2</td><td>qua-agents · opus-5</td><td class="num">32</td><td class="num">17</td><td class="num">15</td><td class="num">14 / 1</td><td class="num">100%</td><td class="num">63</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">qubit_spectroscopy_vs_flux ×6, qubit_spectroscopy ×3, power_rabi ×3</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa qD1</td><td>qua-agents · sonnet-5</td><td class="num">33</td><td class="num">17</td><td class="num">16</td><td class="num">16 / 0</td><td class="num">100%</td><td class="num">66</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">rabi_chevron ×7, qubit_spectroscopy_vs_flux ×6, qubit_spectroscopy ×4</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa qD2</td><td>qua-agents · sonnet-5</td><td class="num">92</td><td class="num">17</td><td class="num">75</td><td class="num">65 / 10</td><td class="num">100%</td><td class="num">178</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">DRAG_calibration ×30, qubit_spectroscopy_vs_flux ×14, Randomized_benchmarking ×7</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa qD1</td><td>tinycal · opus-5</td><td class="num">21</td><td class="num">17</td><td class="num">4</td><td class="num">4 / 0</td><td class="num">100%</td><td class="num">56</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">rabi_chevron ×3, power_rabi ×2, ramsey_vs_flux_calibration ×2</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa qD2</td><td>tinycal · opus-5</td><td class="num">29</td><td class="num">16</td><td class="num">13</td><td class="num">10 / 3</td><td class="num">100%</td><td class="num">58</td><td style="font-size:13px;color:var(--ink-2);min-width:200px;word-break:break-word">Randomized_benchmarking ×4, qubit_spectroscopy ×3, power_rabi ×3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What it cost</h2>
+  <p>Cost at the judge's price table (opus-5 $5 / $25 per million input / output tokens, cache write $6.25, cache read $0.50; sonnet-5 at $2 / $10 / $2.50 / $0.20). The runner's own estimate in each document now agrees, after the price-table fix. Model minutes are summed over the two concurrent agents; wall clock is the run's span and includes queue waits.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cell</th><th>Result</th><th class="num">Turns</th><th class="num">Model min</th><th class="num">Wall min</th><th class="num">Input tok</th><th class="num">Output tok</th><th class="num">Cache read</th><th class="num">Cache write</th><th class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel · dag-walk (control)</td><td>1/2 finished, 0 calibrated</td><td class="num">54</td><td class="num">0</td><td class="num">63</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel · qua-agents · opus-5</td><td>2/2 finished, 2 calibrated</td><td class="num">81</td><td class="num">34</td><td class="num">102</td><td class="num">5.92 M</td><td class="num">140 k</td><td class="num">3.53 M</td><td class="num">2.38 M</td><td class="num">$20.17</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel · qua-agents · sonnet-5</td><td>2/2 finished, 2 calibrated</td><td class="num">96</td><td class="num">40</td><td class="num">153</td><td class="num">6.85 M</td><td class="num">187 k</td><td class="num">4.20 M</td><td class="num">2.65 M</td><td class="num">$9.34</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel · tinycal · opus-5</td><td>1/2 finished, 1 calibrated</td><td class="num">74</td><td class="num">18</td><td class="num">190</td><td class="num">5.38 M</td><td class="num">60 k</td><td class="num">5.12 M</td><td class="num">265 k</td><td class="num">$5.72</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa · dag-walk (control)</td><td>2/2 finished, 0 calibrated</td><td class="num">69</td><td class="num">0</td><td class="num">14</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa · qua-agents · opus-5</td><td>2/2 finished, 1 calibrated</td><td class="num">103</td><td class="num">46</td><td class="num">67</td><td class="num">7.80 M</td><td class="num">190 k</td><td class="num">4.50 M</td><td class="num">3.30 M</td><td class="num">$27.66</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa · qua-agents · sonnet-5</td><td>1/2 finished, 1 calibrated</td><td class="num">244</td><td class="num">167</td><td class="num">239</td><td class="num">20.49 M</td><td class="num">861 k</td><td class="num">10.78 M</td><td class="num">9.71 M</td><td class="num">$35.04</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa · tinycal · opus-5</td><td>2/2 finished, 1 calibrated</td><td class="num">114</td><td class="num">22</td><td class="num">28</td><td class="num">10.25 M</td><td class="num">70 k</td><td class="num">9.93 M</td><td class="num">312 k</td><td class="num">$8.67</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Agent against the control</h2>
+  <p>The same numbers side by side per chip. The question is whether the agent's extra node runs and dollars bought a better chip than the graph's defaults would have delivered on their own.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cell</th><th class="num">Finished</th><th class="num">Calibrated</th><th class="num">Identity</th><th class="num">RB error/Clifford</th><th class="num">Node runs</th><th class="num">Re-runs</th><th class="num">Wall min</th><th class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>arbel · dag-walk (control)</td><td class="num">1/2</td><td class="num">0</td><td class="num">0/4 · 3/4</td><td class="num">– · 0.62%</td><td class="num">27</td><td class="num">2</td><td class="num">63</td><td class="num">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>arbel · qua-agents · opus-5</td><td class="num">2/2</td><td class="num">2</td><td class="num">2/4 · 3/4</td><td class="num">0.18% · 0.33%</td><td class="num">41</td><td class="num">7</td><td class="num">102</td><td class="num">$20.17</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>arbel · qua-agents · sonnet-5</td><td class="num">2/2</td><td class="num">2</td><td class="num">2/4 · 2/4</td><td class="num">0.18% · 0.39%</td><td class="num">47</td><td class="num">13</td><td class="num">153</td><td class="num">$9.34</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>arbel · tinycal · opus-5</td><td class="num">1/2</td><td class="num">1</td><td class="num">2/4 · 3/4</td><td class="num">– · 0.48%</td><td class="num">41</td><td class="num">13</td><td class="num">190</td><td class="num">$5.72</td></tr>
+        <tr><td><span class="swatch" style="background:var(--dag)"></span>gilboa · dag-walk (control)</td><td class="num">2/2</td><td class="num">0</td><td class="num">1/4 · 2/4</td><td class="num">-0.00% · 0.71%</td><td class="num">35</td><td class="num">1</td><td class="num">14</td><td class="num">–</td></tr>
+        <tr><td><span class="swatch" style="background:var(--opus)"></span>gilboa · qua-agents · opus-5</td><td class="num">2/2</td><td class="num">1</td><td class="num">4/4 · 4/4</td><td class="num">0.13% · 2.90%</td><td class="num">52</td><td class="num">18</td><td class="num">67</td><td class="num">$27.66</td></tr>
+        <tr><td><span class="swatch" style="background:var(--sonnet)"></span>gilboa · qua-agents · sonnet-5</td><td class="num">1/2</td><td class="num">1</td><td class="num">3/4 · 3/4</td><td class="num">0.18% · 5.93%</td><td class="num">125</td><td class="num">91</td><td class="num">239</td><td class="num">$35.04</td></tr>
+        <tr><td><span class="swatch" style="background:var(--tinycal)"></span>gilboa · tinycal · opus-5</td><td class="num">2/2</td><td class="num">1</td><td class="num">4/4 · 4/4</td><td class="num">0.13% · 2.20%</td><td class="num">50</td><td class="num">17</td><td class="num">28</td><td class="num">$8.67</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two" style="margin-top:20px">
+    <div>
+      <h3>What the agents added</h3>
+      <p><b>On arbel</b> the control could not get qA2 past readout power optimisation on defaults (10 runs, 8 nodes) and finished qB2 at RB 0.62% with the x180 amplitude left at the scrambled value. Both qua-agents runs finished both qubits at 0.18–0.39% for 41–47 node runs; their identity misses are the x180 and readout amplitudes sitting at a different operating point, not wrong frequencies. tinycal finished qB2 at 0.48% and lost qA2 to the morning queue, not to the physics.</p>
+      <p><b>On gilboa</b> the control walked both qubits to the end of the graph in 35 runs, but qD1's "calibration" is at chance readout with a nonsense RB fit and qD2 sits on a 2 µs T1 fit. opus and tinycal each returned qD1 fully calibrated with all four parameters restored and RB 0.13%, and both found qD2's real, poor gate. The agent's contribution is not finishing the graph; the control does that too. It is reading the plot and refusing the fit.</p>
+    </div>
+    <div>
+      <h3>What it cost, and where the bias is</h3>
+      <p>The agents did 1.5–3.7× the control's node executions. For opus and tinycal that is 41–52 runs against 27–35, almost all of it adapting re-runs of the same 17 nodes: wider sweeps, changed setpoints, a second RB. sonnet on gilboa is the outlier, 125 runs of which 91 were re-executions, 30 of them DRAG calibration on qD2, before hitting the recursion limit. The framework does not bias <i>which</i> nodes run; every agent walked the same 17 nodes in the same order. It biases how often a node is re-run and what is committed from it.</p>
+      <p>Same model, same chip, same result: qua-agents with opus paid $27.66 and tinycal $8.67 on gilboa. The gap is cache writes (5.4 M against 0.2 M tokens billed at the cache-creation rate) and 2.7× the output tokens, both structural to the supervisor rebuilding context each turn. sonnet halves the opus bill on arbel and quadruples it on gilboa, so its cost is a property of how a run goes, not of the model.</p>
+    </div>
+  </div>
+
+  <h2>What got in the way</h2>
+  <div class="incidents">
+    <div class="inc crit">
+      <h3>qolab excluded: programs finish after one iteration</h3>
+      <div class="when">01:29 · 02:57 · 04:47 · 06:10, each 10–30 min</div>
+      <p>Every program submitted inside an episode is reported "successfully executed" one to two seconds later with the averaging loop stopped at its first iteration and no data variables in the result: 106 faulty against 104 healthy programs across the four qua-agents attempts, all four killed. Not a timeout: healthy programs take 6–230 s, faulty ones 1–2 s, and shrinking the sweep changes nothing. First affected IQCC task ids per episode: <span class="mono">50dc69f5-31db-4ab9-89fe-fc256b4bc2e8</span>, <span class="mono">e6556a6c-154e-445a-aca1-d94d13477fd4</span>, <span class="mono">66b43558-8754-4c7f-9246-9117e101da24</span>, <span class="mono">7f41f8de-ac6b-42dd-87ca-ef480555e9c5</span>. In clean windows the control got Q1 through the graph and the tinycal rerun calibrated Q1 fully (RB 99.3%); both runs are in the identifier table.</p>
+    </div>
+    <div class="inc">
+      <h3>arbel's morning queue ate tinycal's budget</h3>
+      <div class="when">06:23 → 09:33</div>
+      <p>The last phase on arbel ran into the working day: qA2 spent 164 of its 190 minutes waiting for the chip and was cut by tinycal's 3-hour wall budget at power-Rabi error amplification. qB2 completed. tinycal's budget does not distinguish queue time from work; the qua-agents phases ran at night and never met the queue.</p>
+    </div>
+    <div class="inc">
+      <h3>sonnet on gilboa qD2: 92 node runs, no convergence</h3>
+      <div class="when">00:12 → 04:11 UTC, $35</div>
+      <p>qD1 completed cleanly. On qD2 the worker cycled between rabi chevron, power Rabi and DRAG for 178 turns and 20 M input tokens before hitting the 360-step recursion limit. The most expensive cell of the night; opus finished the same qubit in 67 minutes with a poor but real 2.9% gate. Whether a supervisor rule should have ended the loop earlier is the question to take from it.</p>
+    </div>
+    <div class="inc">
+      <h3>tinycal wrote a key that does not exist</h3>
+      <div class="when">qolab, first attempt, 04:27</div>
+      <p>Trying to move the XY local oscillator, the Q2 agent wrote <span class="mono">/qubits/Q2/xy/upconverter_frequency</span>. tinycal's write guard checks only the path prefix, so it went through, and every later node on both qubits failed at QuAM load. Outside the analysis because it is a qolab run, but it is the first concrete write-guard rule tinycal's design was waiting for.</p>
+    </div>
+    <div class="inc info">
+      <h3>arbel's cloud state was restructured</h3>
+      <div class="when">between 15:27 and 23:04 on 8 Sep</div>
+      <p>The fresh arbel state names its readout pulse through a reference (<span class="mono">#./readout_square</span>, with a <span class="mono">readout_drachma</span> variant beside it), which the scramble spec cannot address. arbel therefore ran from the 15:27 snapshot of 8 Sep (wiring identical). The spec or the scramble code needs to follow references before arbel is run from the live state again.</p>
+    </div>
+    <div class="inc info">
+      <h3>Driver edited while running</h3>
+      <div class="when">01:05, cost ~30 min on qolab</div>
+      <p>The per-backend driver was patched while the qolab and gilboa copies were executing it; bash reads scripts by offset, so both died with a syntax error after their opus phase and were resumed from a separate script. gilboa lost 30 seconds, qolab 32 minutes. No analysed cell was affected.</p>
+    </div>
+  </div>
+
+  <h2>Run identifiers</h2>
+  <p>Every document behind this report, qolab included. qua-agents and dag-walk run ids are keys in the qua-agents GUI and the audit database (<span class="mono">~/qua-agents-db</span>); tinycal run ids are directories under <span class="mono">~/code/QM/tinycal/runs/</span>. Cell directories are under <span class="mono">~/qab-runs/</span>; each holds <span class="mono">result.json</span>, the run log and the grade log. Snapshots: arbel from the 8 Sep 15:27 fetch (state sha 359c64f0), qolab and gilboa fetched at 01:04 (87c957f7, aaaae878).</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Chip</th><th>Agent</th><th>Run id</th><th>Where</th><th>Status</th><th>Cell directory</th><th>Started → ended</th></tr></thead>
+      <tbody>
+        <tr><td>arbel</td><td>dag-walk (control)</td><td class="mono">ivory-sadly-drown</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill escalated">escalated</span> 1/2</td><td class="mono" style="font-size:12.5px">night-arbel-20260909-0110/arbel-dag-walk</td><td class="mono">03:20 → 04:23 UTC</td></tr>
+        <tr><td>arbel</td><td>qua-agents · opus-5</td><td class="mono">elude-fend-gills</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill completed">completed</span> 2/2</td><td class="mono" style="font-size:12.5px">night-arbel-20260909-0110/arbel-opus-5-high</td><td class="mono">23:05 → 00:47 UTC</td></tr>
+        <tr><td>arbel</td><td>qua-agents · sonnet-5</td><td class="mono">knelt-fence-gooey</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill completed">completed</span> 2/2</td><td class="mono" style="font-size:12.5px">night-arbel-20260909-0110/arbel-sonnet-5-high</td><td class="mono">00:47 → 03:20 UTC</td></tr>
+        <tr><td>arbel</td><td>tinycal · opus-5</td><td class="mono">night_arbel_tinycal_opus5_high_20260909-0110</td><td style="font-size:12.5px;color:var(--muted)">tinycal run dir</td><td><span class="pill escalated">partial</span> 1/2</td><td class="mono" style="font-size:12.5px">night-arbel-20260909-0110/arbel-tinycal-opus-5-high</td><td class="mono">06:23 → 09:33 UTC</td></tr>
+        <tr><td>qolab</td><td>dag-walk (control)</td><td class="mono">award-anger-grope</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill escalated">escalated</span> 1/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110/qolab-dag-walk</td><td class="mono">01:26 → 01:57 UTC</td></tr>
+        <tr><td>qolab</td><td>qua-agents · opus-5</td><td class="mono">mumbo-igloo-fact</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill infra">killed by chip fault</span> 0/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110/qolab-opus-5-high</td><td class="mono">23:04 → 23:37 UTC</td></tr>
+        <tr><td>qolab</td><td>qua-agents · opus-5 (rerun)</td><td class="mono">sleek-vice-panda</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill infra">killed by chip fault</span> 0/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110-rerun/qolab-opus-5-high</td><td class="mono">02:34 → 02:56 UTC</td></tr>
+        <tr><td>qolab</td><td>qua-agents · sonnet-5</td><td class="mono">ocean-aroma-tribe</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill infra">killed by chip fault</span> 0/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110/qolab-sonnet-5-high</td><td class="mono">00:10 → 01:26 UTC</td></tr>
+        <tr><td>qolab</td><td>qua-agents · sonnet-5 (rerun)</td><td class="mono">hazy-given-mull</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill infra">killed by chip fault</span> 0/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110-rerun/qolab-sonnet-5-high</td><td class="mono">02:56 → 04:37 UTC</td></tr>
+        <tr><td>qolab</td><td>tinycal · opus-5</td><td class="mono">night_qolab_tinycal_opus5_high_20260909-0110</td><td style="font-size:12.5px;color:var(--muted)">tinycal run dir</td><td><span class="pill infra">killed by chip fault</span> 0/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110/qolab-tinycal-opus-5-high</td><td class="mono">03:58 → 04:32 UTC</td></tr>
+        <tr><td>qolab</td><td>tinycal · opus-5 (rerun)</td><td class="mono">night_qolab_tinycal_opus5_high_20260909-0110_rerun</td><td style="font-size:12.5px;color:var(--muted)">tinycal run dir</td><td><span class="pill escalated">escalated</span> 1/2</td><td class="mono" style="font-size:12.5px">night-qolab-20260909-0110-rerun/qolab-tinycal-opus-5-high</td><td class="mono">06:37 → 07:36 UTC</td></tr>
+        <tr><td>gilboa</td><td>dag-walk (control)</td><td class="mono">void-elk-spoon</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill completed">completed</span> 2/2</td><td class="mono" style="font-size:12.5px">night-gilboa-20260909-0110/gilboa-dag-walk</td><td class="mono">04:12 → 04:25 UTC</td></tr>
+        <tr><td>gilboa</td><td>qua-agents · opus-5</td><td class="mono">jelly-sham-lance</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill completed">completed</span> 2/2</td><td class="mono" style="font-size:12.5px">night-gilboa-20260909-0110/gilboa-opus-5-high</td><td class="mono">23:04 → 00:12 UTC</td></tr>
+        <tr><td>gilboa</td><td>qua-agents · sonnet-5</td><td class="mono">remix-wispy-poker</td><td style="font-size:12.5px;color:var(--muted)">audit db / GUI</td><td><span class="pill escalated">escalated</span> 1/2</td><td class="mono" style="font-size:12.5px">night-gilboa-20260909-0110/gilboa-sonnet-5-high</td><td class="mono">00:12 → 04:11 UTC</td></tr>
+        <tr><td>gilboa</td><td>tinycal · opus-5</td><td class="mono">night_gilboa_tinycal_opus5_high_20260909-0110</td><td style="font-size:12.5px;color:var(--muted)">tinycal run dir</td><td><span class="pill completed">completed</span> 2/2</td><td class="mono" style="font-size:12.5px">night-gilboa-20260909-0110/gilboa-tinycal-opus-5-high</td><td class="mono">06:25 → 06:54 UTC</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">Assembled 9 Sep 2026 from the per-cell <span class="mono">result.json</span> documents (tinycal's projected by <span class="mono">scripts/project_tinycal.py</span>), <span class="mono">qab inspect-state / accept / compare-models</span>, and the run logs. Runs are <span class="mono">dev</span>: not loaded into the ledger, not comparable with the pinned-workload history or with the 8 Sep daytime runs (different scramble spec).</div>
+</div>
+
+<script>
+const DATA = [{"backend": "arbel", "cell": "arbel-dag-walk", "framework": "dag-walk", "model": "scripted:dag-walk", "rerun": false, "run_id": "ivory-sadly-drown", "status": "escalated", "started": "2026-09-09T03:20:58.127928Z", "ended": "2026-09-09T04:23:30.325493Z", "wall_min": 63, "turns": 54, "executions": 27, "re_executions": 2, "tokens_in": null, "tokens_out": null, "cache_read": null, "cache_write": null, "cost": null, "empties": 4, "model_min": 0, "series": "dag", "label": "dag-walk (control)", "done": 1, "n": 2, "model_min_targets": 0, "queue_min": 79, "first_exec": 25, "calibrated": 0}, {"backend": "arbel", "cell": "arbel-opus-5-high", "framework": "qua-agents", "model": "anthropic:claude-opus-5", "rerun": false, "run_id": "elude-fend-gills", "status": "completed", "started": "2026-09-08T23:05:56.918089Z", "ended": "2026-09-09T00:47:35.500038Z", "wall_min": 102, "turns": 81, "executions": 41, "re_executions": 7, "tokens_in": 5916729, "tokens_out": 139955, "cache_read": 3531772, "cache_write": 2384795, "cost": 20.1705, "empties": 0, "model_min": 34, "series": "opus", "label": "qua-agents \u00b7 opus-5", "done": 2, "n": 2, "model_min_targets": 34, "queue_min": 112, "first_exec": 34, "calibrated": 2}, {"backend": "arbel", "cell": "arbel-sonnet-5-high", "framework": "qua-agents", "model": "anthropic:claude-sonnet-5", "rerun": false, "run_id": "knelt-fence-gooey", "status": "completed", "started": "2026-09-09T00:47:50.651973Z", "ended": "2026-09-09T03:20:41.624611Z", "wall_min": 153, "turns": 96, "executions": 47, "re_executions": 13, "tokens_in": 6854980, "tokens_out": 186866, "cache_read": 4204210, "cache_write": 2650578, "cost": 9.3363, "empties": 0, "model_min": 39, "series": "sonnet", "label": "qua-agents \u00b7 sonnet-5", "done": 2, "n": 2, "model_min_targets": 40, "queue_min": 191, "first_exec": 34, "calibrated": 2}, {"backend": "arbel", "cell": "arbel-tinycal-opus-5-high", "framework": "tinycal", "model": "anthropic:claude-opus-5", "rerun": false, "run_id": "night_arbel_tinycal_opus5_high_20260909-0110", "status": "partial", "started": "2026-09-09T06:23:34+02:00", "ended": "2026-09-09T09:33:35+02:00", "wall_min": 190, "turns": 74, "executions": 41, "re_executions": 13, "tokens_in": 5382412, "tokens_out": 60245, "cache_read": 5116778, "cache_write": 265486, "cost": 5.7246, "empties": 0, "model_min": 18, "series": "tinycal", "label": "tinycal \u00b7 opus-5", "done": 1, "n": 2, "model_min_targets": 18, "queue_min": 302, "first_exec": 28, "calibrated": 1}, {"backend": "gilboa", "cell": "gilboa-dag-walk", "framework": "dag-walk", "model": "scripted:dag-walk", "rerun": false, "run_id": "void-elk-spoon", "status": "completed", "started": "2026-09-09T04:12:07.139494Z", "ended": "2026-09-09T04:25:37.884461Z", "wall_min": 14, "turns": 69, "executions": 35, "re_executions": 1, "tokens_in": null, "tokens_out": null, "cache_read": null, "cache_write": null, "cost": null, "empties": 0, "model_min": 0, "series": "dag", "label": "dag-walk (control)", "done": 2, "n": 2, "model_min_targets": 0, "queue_min": 12, "first_exec": 34, "calibrated": 0}, {"backend": "gilboa", "cell": "gilboa-opus-5-high", "framework": "qua-agents", "model": "anthropic:claude-opus-5", "rerun": false, "run_id": "jelly-sham-lance", "status": "completed", "started": "2026-09-08T23:04:46.296350Z", "ended": "2026-09-09T00:12:10.895841Z", "wall_min": 67, "turns": 103, "executions": 52, "re_executions": 18, "tokens_in": 7800506, "tokens_out": 190196, "cache_read": 4496117, "cache_write": 3304183, "cost": 27.6551, "empties": 0, "model_min": 46, "series": "opus", "label": "qua-agents \u00b7 opus-5", "done": 2, "n": 2, "model_min_targets": 46, "queue_min": 34, "first_exec": 34, "calibrated": 1}, {"backend": "gilboa", "cell": "gilboa-sonnet-5-high", "framework": "qua-agents", "model": "anthropic:claude-sonnet-5", "rerun": false, "run_id": "remix-wispy-poker", "status": "escalated", "started": "2026-09-09T00:12:59.383386Z", "ended": "2026-09-09T04:11:50.172593Z", "wall_min": 239, "turns": 244, "executions": 125, "re_executions": 91, "tokens_in": 20491407, "tokens_out": 861166, "cache_read": 10784586, "cache_write": 9706333, "cost": 35.0354, "empties": 0, "model_min": 168, "series": "sonnet", "label": "qua-agents \u00b7 sonnet-5", "done": 1, "n": 2, "model_min_targets": 167, "queue_min": 39, "first_exec": 34, "calibrated": 1}, {"backend": "gilboa", "cell": "gilboa-tinycal-opus-5-high", "framework": "tinycal", "model": "anthropic:claude-opus-5", "rerun": false, "run_id": "night_gilboa_tinycal_opus5_high_20260909-0110", "status": "completed", "started": "2026-09-09T06:25:41+02:00", "ended": "2026-09-09T06:54:07+02:00", "wall_min": 28, "turns": 114, "executions": 50, "re_executions": 17, "tokens_in": 10245268, "tokens_out": 69856, "cache_read": 9932803, "cache_write": 312237, "cost": 8.6655, "empties": 0, "model_min": 22, "series": "tinycal", "label": "tinycal \u00b7 opus-5", "done": 2, "n": 2, "model_min_targets": 22, "queue_min": 12, "first_exec": 33, "calibrated": 1}];
+const COLOR = {dag: 'var(--dag)', opus: 'var(--opus)', sonnet: 'var(--sonnet)', tinycal: 'var(--tinycal)'};
+const BACKENDS = ['arbel', 'gilboa'];
+const ORDER = ['dag', 'opus', 'sonnet', 'tinycal'];
+const tip = document.getElementById('tip');
+function showTip(e, html) { tip.innerHTML = html; tip.style.opacity = 1; tip.style.left = (e.clientX + 12) + 'px'; tip.style.top = (e.clientY + 12) + 'px'; }
+function hideTip() { tip.style.opacity = 0; }
+function pick(series, backend) { return DATA.find(c => c.series === series && c.backend === backend && !c.rerun); }
+function grouped(svgId, valueOf, fmt, unit, partOf) {
+  const svg = document.getElementById(svgId); if (!svg) return;
+  const W = 320, H = 250, padL = 38, padR = 8, padT = 12, padB = 30;
+  const cells = [];
+  BACKENDS.forEach((b, bi) => ORDER.forEach((s, si) => { const c = pick(s, b); if (c) cells.push({b, bi, s, si, c, v: valueOf(c), p: partOf ? partOf(c) : null}); }));
+  const max = Math.max(...cells.map(x => x.v || 0)) * 1.12 || 1;
+  const groupW = (W - padL - padR) / BACKENDS.length, barW = (groupW - 24) / ORDER.length - 2;
+  const y = v => padT + (H - padT - padB) * (1 - v / max);
+  let out = '';
+  const ticks = 4;
+  for (let i = 0; i <= ticks; i++) { const v = max / ticks * i; out += `<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${padL - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="JetBrains Mono, monospace">${fmt(v)}</text>`; }
+  cells.forEach(x => {
+    if (x.v == null) {
+      const gx = padL + x.bi * groupW + 12 + x.si * (barW + 2);
+      out += `<text x="${gx + barW / 2}" y="${y(0) - 6}" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="JetBrains Mono, monospace">n/a</text>`;
+      return;
+    }
+    const gx = padL + x.bi * groupW + 12 + x.si * (barW + 2);
+    const h = (H - padT - padB) * (x.v / max);
+    out += `<rect x="${gx}" y="${y(x.v)}" width="${barW}" height="${h}" rx="3" fill="${COLOR[x.s]}" data-tip="${x.b} · ${x.c.label}: ${fmt(x.v)}${unit}${x.p != null ? ' (' + fmt(x.p) + ' re-executions)' : ''}"/>`;
+    if (x.p != null && x.p > 0) {
+      const hp = (H - padT - padB) * (x.p / max);
+      out += `<rect x="${gx}" y="${y(x.p)}" width="${barW}" height="${hp}" rx="3" fill="var(--surface)" opacity="0.45" pointer-events="none"/>`;
+      out += `<line x1="${gx}" x2="${gx + barW}" y1="${y(x.p)}" y2="${y(x.p)}" stroke="var(--surface)" stroke-width="2" pointer-events="none"/>`;
+    }
+    out += `<text x="${gx + barW / 2}" y="${y(x.v) - 4}" text-anchor="middle" font-size="9.5" fill="var(--ink-2)" font-family="JetBrains Mono, monospace" pointer-events="none">${fmt(x.v)}</text>`;
+  });
+  BACKENDS.forEach((b, bi) => { out += `<text x="${padL + bi * groupW + groupW / 2}" y="${H - 10}" text-anchor="middle" font-size="12" fill="var(--ink-2)" font-family="Source Sans 3, sans-serif">${b}</text>`; });
+  out += `<line x1="${padL}" x2="${W - padR}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line-strong)"/>`;
+  svg.innerHTML = out;
+  svg.querySelectorAll('rect[data-tip]').forEach(r => { r.addEventListener('mousemove', e => showTip(e, r.dataset.tip)); r.addEventListener('mouseleave', hideTip); });
+}
+grouped('c-exec', c => c.executions, v => v.toFixed(0), ' node runs', c => c.re_executions);
+grouped('c-cost', c => c.cost, v => '$' + v.toFixed(0), '');
+grouped('c-cw', c => c.cache_write == null ? null : c.cache_write / 1e6, v => v.toFixed(1), ' M cache-write tokens');
+</script>
+</body>
+</html>
