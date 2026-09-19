@@ -62,8 +62,9 @@ TARGET_INCIDENTS = {
         "frequency and angle (the model's diagnosis: weakly dispersive to the only reachable resonator)",
     ("night2-arbel-20260919-0106-n1", "arbel-" + CELL_SUFFIX, "qD1"):
         "stopped by the operator at 02:38 after 90 min: committed a false flux maximum at 0.033 V (true 0.218) and a narrow line visible "
-        "only at 1x drive (5.0337 GHz; reference 5.0146), then met a flat power Rabi by lengthening x180 to 6 µs and 25 µs and adding a "
-        "2.1 MHz x90 detuning instead of doubting the frequency",
+        "only at 1x drive (5.0337 GHz; reference 5.0146), then met a flat power Rabi by lengthening x180 to 6 µs and 25 µs and bisecting "
+        "the x180/x90 DragCosine detuning to 2.1 MHz instead of doubting the frequency. Its record is in the run's qD1/ folder only: the "
+        "resume for qC2/qC3 rewrote run.json's target list",
 }
 # The qubit-runs the operator killed (the other two failures stopped themselves).
 OPERATOR_STOPS = {

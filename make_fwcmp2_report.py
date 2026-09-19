@@ -18,6 +18,7 @@ import html
 import json
 import os
 import re
+import sqlite3
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -585,6 +586,220 @@ def pivot_table(cells):
     return f'<div class="scroll"><table class="grid pivot">{head}<tbody>' + "".join(body) + "</tbody></table></div>"
 
 
+# ----------------------------------------------------------------------------- what fills the context
+CHARS_PER_TOKEN = 3.6  # rough average for this English-plus-numbers prose; every "≈ tokens" below is chars / 3.6, not measured
+AUDIT_DB = Path.home() / "qua-agents-db/audit.sqlite3"
+# The like-for-like gilboa round, target qD3: one tinycal and one qua-agents cell per model.
+CONTEXT_REF = [
+    ("opus-5 high", "fwcmp2-gilboa-20260914-1757", "gilboa-tinycal-opus-5-high", "gilboa-opus-5-high"),
+    ("sonnet-5 high", "fwcmp2-gilboa-20260914-2340", "gilboa-tinycal-sonnet-5-high", "gilboa-sonnet-5-high"),
+    ("qwen3.8-27b", "fwcmp2-gilboa-20260916-0932", "gilboa-tinycal-qwen3-8-27b-openrouter", "gilboa-qwen3-8-27b-openrouter"),
+]
+CONTEXT_TARGET = "qD3"
+
+
+def _run_id(work: str, cell: str):
+    try:
+        return json.load(open(RUNS / work / cell / "result.json")).get("run_id")
+    except Exception:
+        return None
+
+
+def _tinycal_context(run_id: str):
+    """Character count per block type in the final transcript, image count, and the measured prompt size over the run."""
+    d = TINYCAL_RUNS / run_id / CONTEXT_TARGET
+    try:
+        tr = json.load(open(d / "transcript.json"))
+        ev = [json.loads(l) for l in open(d / "events.jsonl")]
+    except Exception:
+        return None
+    msgs = tr if isinstance(tr, list) else tr.get("messages", [])
+    parts = {"node results (tool_result text)": 0, "figures kept in context": 0, "tool-call arguments": 0,
+             "model text (notes, reasoning shown)": 0, "system prompt (recipe + catalogue)": 0, "task message": 0}
+    images = 0
+    for m in msgs:
+        content = m.get("content") if isinstance(m.get("content"), list) else [{"type": "text", "text": str(m.get("content", ""))}]
+        for b in content:
+            t = b.get("type")
+            if t == "text":
+                parts["model text (notes, reasoning shown)" if m.get("role") == "assistant" else "task message"] += len(b.get("text", ""))
+            elif t == "tool_use":
+                parts["tool-call arguments"] += len(json.dumps(b.get("input", {})))
+            elif t == "tool_result":
+                for c in b.get("content", []):
+                    if c.get("type") == "text":
+                        parts["node results (tool_result text)"] += len(c.get("text", ""))
+                    elif c.get("type") == "image":
+                        images += 1
+            elif t == "image":
+                images += 1
+    try:
+        parts["system prompt (recipe + catalogue)"] = len((d / "system_prompt.md").read_text())
+    except Exception:
+        pass
+    turns = [e for e in ev if e.get("kind") == "model_turn" and (e.get("usage") or {}).get("input_tokens")]
+    series = [(e["turn"], e["usage"]["input_tokens"]) for e in turns]
+    # Anthropic prices a 1500x900 px figure at about w*h/750 tokens; OpenAI-compatible endpoints vary, so this is the same estimate for all
+    parts["figures kept in context"] = images * 1800 * CHARS_PER_TOKEN
+    return {"parts": parts, "images": images, "series": series, "turns": len(turns)}
+
+
+def _qua_agents_context(run_id: str):
+    """The audit's own payload_sizes for the last worker turn on the reference target, plus the measured prompt-size series."""
+    if not AUDIT_DB.exists():
+        return None
+    con = sqlite3.connect(f"file:{AUDIT_DB}?mode=ro", uri=True)
+    rows = con.execute(
+        "select json_extract(payload,'$.payload') from events where run_id=? and json_extract(payload,'$.kind')='model.turn.completed' "
+        "and json_extract(payload,'$.payload.target')=? order by sequence", (run_id, CONTEXT_TARGET)).fetchall()
+    con.close()
+    if not rows:
+        return None
+    turns = [json.loads(r[0]) for r in rows]
+    last = turns[-1]
+    ps = last.get("payload_sizes") or {}
+    static, dynamic = ps.get("static_by_key") or {}, ps.get("dynamic_by_key") or {}
+    parts = {
+        "node catalogue (static)": static.get("node_catalog", 0),
+        "graph guide + writable-state catalogue + connectivity (static)": sum(v for k, v in static.items() if k != "node_catalog"),
+        "target state + committed state": dynamic.get("target_state", 0) + dynamic.get("committed_state", 0),
+        "search notes (the model's own)": dynamic.get("search_notes", 0),
+        "recent node summaries + history": dynamic.get("nodes", 0) + dynamic.get("history", 0),
+        "everything else dynamic": sum(v for k, v in dynamic.items() if k not in ("target_state", "committed_state", "search_notes", "nodes", "history")),
+        "figures attached": (last.get("image_token_estimate") or 0) * CHARS_PER_TOKEN,
+    }
+    series = [(t.get("turn_index"), (t.get("usage") or {}).get("input_tokens")) for t in turns if (t.get("usage") or {}).get("input_tokens")]
+    u = last.get("usage") or {}
+    return {"parts": parts, "series": series, "turns": len(turns), "cache_creation": u.get("cache_creation_tokens"),
+            "cached": u.get("cache_read_tokens"), "images_tokens": last.get("image_token_estimate")}
+
+
+def _ktok(chars):
+    return f"{chars / CHARS_PER_TOKEN / 1000:.0f}k"
+
+
+def context_section():
+    cols, tiny, qua = [], {}, {}
+    for model, work, tcell, qcell in CONTEXT_REF:
+        cols.append(model)
+        t_id, q_id = _run_id(work, tcell), _run_id(work, qcell)
+        tiny[model] = _tinycal_context(t_id) if t_id else None
+        qua[model] = _qua_agents_context(q_id) if q_id else None
+
+    def table(data, framework):
+        keys = []
+        for v in data.values():
+            if v:
+                for k in v["parts"]:
+                    if k not in keys:
+                        keys.append(k)
+        head = "".join(f"<th>{esc(m)}</th>" for m in cols)
+        body = []
+        for k in keys:
+            tds = "".join(f"<td class='num'>{data[m]['parts'][k] / 1000:.0f}k chars ≈ {_ktok(data[m]['parts'][k])} tok</td>" if data[m] else "<td>—</td>" for m in cols)
+            body.append(f"<tr><th class='rowh'>{esc(k)}</th>{tds}</tr>")
+        tds = "".join(f"<td class='num'>{sum(data[m]['parts'].values()) / 1000:.0f}k chars ≈ {_ktok(sum(data[m]['parts'].values()))} tok</td>" if data[m] else "<td>—</td>" for m in cols)
+        body.append(f"<tr><th class='rowh'>sum of the parts (estimate)</th>{tds}</tr>")
+        def meas(v):
+            if not v or not v["series"]:
+                return "—"
+            s = v["series"]
+            mid = s[len(s) // 2]
+            return f"turn {s[0][0]}: {s[0][1] / 1000:.0f}k · turn {mid[0]}: {mid[1] / 1000:.0f}k · turn {s[-1][0]}: {s[-1][1] / 1000:.0f}k"
+        body.append(f"<tr><th class='rowh'><b>measured prompt, tokens</b> (first · middle · last turn)</th>" + "".join(f"<td class='num'>{meas(data[m])}</td>" for m in cols) + "</tr>")
+        if framework == "tinycal":
+            body.append("<tr><th class='rowh'>figures in the final prompt</th>" + "".join(f"<td class='num'>{data[m]['images']}</td>" if data[m] else "<td>—</td>" for m in cols) + "</tr>")
+        else:
+            body.append("<tr><th class='rowh'>last turn: cached / written to cache, tokens</th>" + "".join(
+                f"<td class='num'>{(data[m]['cached'] or 0) / 1000:.0f}k / {(data[m]['cache_creation'] or 0) / 1000:.0f}k</td>" if data[m] else "<td>—</td>" for m in cols) + "</tr>")
+        return (f'<div class="scroll"><table class="grid pivot"><thead><tr><th>{framework}, gilboa {CONTEXT_TARGET}, final prompt</th>{head}</tr></thead>'
+                f"<tbody>{''.join(body)}</tbody></table></div>")
+
+    return f"""
+<h3>What fills the context</h3>
+<p class="small muted">Prompt composition at the end of the like-for-like gilboa round, target {CONTEXT_TARGET}, one cell per framework and model.
+Characters are measured: tinycal from the final transcript.json of the run, qua-agents from the payload_sizes its audit records on every
+worker turn. "≈ tok" is characters ÷ {CHARS_PER_TOKEN}, an estimate; figures are counted at ~1,800 tokens each (a 1500×900 px PNG under
+Anthropic's w·h/750 rule, used for every model here). The <b>measured prompt</b> row is the real input-token count the provider reported,
+cached prefix included. It runs up to 2× the sum of the parts on the tinycal side: node result text is mostly digits, which tokenise at
+nearer 2 characters per token than 3.6, and the tool schemas and message framing are not in the parts at all. Read the parts as shares,
+and the measured row as the size.</p>
+{table(tiny, "tinycal")}
+<p class="small">tinycal keeps the whole conversation: nothing is summarised and only figures beyond its 16-image window are dropped, so the
+prompt grows by roughly 3–4k tokens per turn and a 60–80-turn qubit ends at 150–250k. Almost all of it is cached prefix, which is why it stays
+cheap, but every call still reads it. The biggest block is the node result text (fit tables and numerics for every node run), then the figures.
+The recipe and catalogue in the system prompt are a rounding error.</p>
+{table(qua, "qua-agents")}
+<p class="small">qua-agents rebuilds the prompt from a template every turn, so it plateaus instead of growing: the static part (node catalogue,
+graph guide, writable-state catalogue) is identical on every call and sits behind a cache breakpoint; the dynamic part (target state, the model's
+search notes, recent node summaries) is rewritten each turn, and the "written to cache" figure is what that costs. The node catalogue alone is
+larger than everything tinycal carries except its node results. Reduction levers, both framework-side: tinycal could summarise node results
+older than ~10 turns and cap figures at 8; qua-agents could send a short catalogue index with per-node detail on demand and order the dynamic
+block so its stable parts sit before the breakpoint.</p>
+"""
+
+
+# ----------------------------------------------------------------------------- pins
+CHECKOUTS = {  # what the drivers pointed at; the sha a new run must match to be comparable
+    "qua-agents-benchmark (judge, workload, drivers)": BENCH,
+    "tinycal": Path.home() / "code/QM/tinycal",
+    "qua-agents (integration checkout)": Path.home() / "qab-runs/qua-agents-integration",
+    "qua-libs (frozen checkout, both frameworks)": Path.home() / "qab-runs/qua-libs-latest",
+}
+
+
+def _git(path: Path, *args: str) -> str:
+    try:
+        return subprocess.run(["git", "-C", str(path), *args], capture_output=True, text=True, timeout=20).stdout.strip()
+    except Exception:  # noqa: BLE001
+        return ""
+
+
+def pins_table(cells):
+    """Every sha and digest a new cell must reproduce, read from the documents where they are recorded."""
+    from collections import Counter, defaultdict
+    fw_sha, libs, spec, snap, srcdir = defaultdict(Counter), Counter(), Counter(), defaultdict(Counter), defaultdict(set)
+    for c in cells:
+        try:
+            r = json.load(open(RUNS / c["work"] / c["cell"] / "result.json"))
+        except Exception:  # noqa: BLE001
+            continue
+        fp = r.get("fingerprint") or {}
+        fw_sha[c["fw"] if c["fw"] != "dag-walk" else "qua-agents"][str(fp.get("git_sha", ""))[:7]] += 1
+        cc = fp.get("calibration_content") or {}
+        libs[str(cc.get("version", cc) if isinstance(cc, dict) else cc)[:7]] += 1
+        sc = r.get("scramble") or {}
+        spec[str(sc.get("spec_hash", ""))] += 1
+        snap[c["backend"]][str(sc.get("source_hash", ""))] += 1
+        srcdir[c["backend"]].add(c["work"])
+    def fmt_counter(cnt):
+        return ", ".join(f"<span class='mono'>{esc(k)}</span> ({v} cells)" for k, v in cnt.most_common()) or "—"
+    rows = []
+    for label, path in CHECKOUTS.items():
+        sha = _git(path, "rev-parse", "--short", "HEAD")
+        dirty = _git(path, "status", "--short").replace("\n", "; ") or "clean"
+        recorded = ""
+        if label.startswith("tinycal"):
+            recorded = "document fingerprint.git_sha: " + fmt_counter(fw_sha["tinycal"])
+        elif label.startswith("qua-agents ("):
+            recorded = "document fingerprint.git_sha: " + fmt_counter(fw_sha["qua-agents"])
+        elif label.startswith("qua-libs"):
+            recorded = "document fingerprint.calibration_content: " + fmt_counter(libs) + "; deps.yaml pin " + esc(
+                (_git(Path.home() / "qab-runs/qua-agents-integration", "show", "HEAD:benchmarks/deps.yaml") or "").split("qua_libs_ref:")[-1].strip().split("\n")[0][:7])
+        else:
+            recorded = "not in the documents; the judge's spec digests below are what it enforces"
+        rows.append(f"<tr><td>{esc(label)}</td><td class='mono'>{esc(sha)}</td><td class='small'>{esc(dirty)}</td><td class='small'>{recorded}</td></tr>")
+    rows.append(f"<tr><td>scramble spec (workloads/decalibrate_chip.yaml)</td><td class='mono'>{esc(next(iter(spec), ''))}</td><td class='small'>judge refuses a document with another digest</td><td class='small'>document scramble.spec_hash: {fmt_counter(spec)}</td></tr>")
+    rows.append("<tr><td>acceptance spec (workloads/acceptance.yaml)</td><td class='mono'>821bb4dd1d5d0e5a</td><td class='small'>—</td><td class='small'>stamped by qab accept</td></tr>")
+    for b in sorted(snap):
+        dirs = sorted(srcdir[b])
+        rows.append(f"<tr><td>{esc(b)} snapshot (source-state)</td><td class='mono'>{esc(next(iter(snap[b]), ''))}</td>"
+                    f"<td class='small'>seed a new work dir from <span class='mono'>{esc(dirs[0])}/source-state</span>; qab scramble is deterministic</td>"
+                    f"<td class='small'>document scramble.source_hash: {fmt_counter(snap[b])}</td></tr>")
+    return ('<div class="scroll"><table class="grid small"><thead><tr><th>component</th><th>sha / digest</th>'
+            '<th>uncommitted at report generation</th><th>as recorded in the cell documents</th></tr></thead><tbody>' + "".join(rows) + "</tbody></table></div>")
+
+
 def hard_cases(cells):
     """One row per qubit × model where at least one framework did not calibrate (infrastructure casualties excluded)."""
     by = {}
@@ -880,6 +1095,13 @@ arbel — {esc(SNAPSHOT_NOTE['arbel'])}; gilboa — {esc(SNAPSHOT_NOTE['gilboa']
 Phase 1: arbel qB4 qC2 qC3, gilboa qD3 qD5 qC3, qolab Q1 Q2 Q3 as three-qubit cells; phase 2 adds the remaining qubits one per round,
 each round = both frameworks × both models. Phase 3 (16–17 Sep): qwen3.8-27b on gilboa qD3 qD5 qC3 and qD2 qD4 qC5, qolab Q1 Q2 Q3 and
 Q4 Q5 Q6, arbel qB4 qC2 qC3, both frameworks, no dag-walk; turn budgets capped at 150 per target from 16 Sep 19:45.</p>
+<h3>Pins: what a new cell must use to be comparable</h3>
+<p class="small muted">Shas and digests read from the cell documents themselves (framework sha, qua-libs sha, scramble spec and snapshot
+digests) next to the state of each checkout when this page was generated. A comparable run uses the same four checkouts at these shas
+with the same uncommitted template edits, seeds its work dir from the listed source-state (the scramble is deterministic, so the spec and
+source digests come out identical and the judge accepts the document), and the same matrix picks. Per-cell profile hashes differ by
+design (they carry the model and effort) and are in the run-identifier table.</p>
+{pins_table(cells)}
 <div class="tiles">{"".join(tiles)}</div>
 <p class="small muted">How to read the tables: one qubit-run = one framework calibrating one qubit from the scrambled state with one model.
 Gate fidelity = 1 − (RB error per Clifford ÷ 1.875), the qua-libs RB convention. "Per calibration" = the total over every qubit-run the
@@ -899,6 +1121,7 @@ operator-side incidents are excluded. A run that finished the graph with a poor 
 by this rule; those are in the side-by-side tables below. "escalated" on the tinycal side means its model declared itself stuck; on the
 qua-agents side it means the turn budget ran out.</p>
 {hard_cases(cells)}
+{context_section()}
 
 {"".join(f'<h3>Per qubit, framework side by side — {esc(m)}</h3>{qubit_side_by_side(cells, m)}' for m in MODEL_LABELS)}
 {cost_fig}
