@@ -494,7 +494,10 @@ reports — with the 18 Sep changes: the resonator flux map proposes the measure
 proposes nothing when the sweep never reaches the punch-out onset (its old fallback, the top of the sweep, was what qwen committed on 16–17 Sep)
 and reports the sweep in volts; flux sweeps are checked against the flux port's own range instead of fixed ±1 V bounds; long sweeps are refused
 before they hold the queue (the 300 s executor cap); fit-derived cause clauses were dropped from every node's failure text; the fine qubit
-spectroscopy drives at the search amplitude over 30 MHz; and the bring-up graph's qubit flux map defaults to 31 × 121 × 100 so it finishes inside one job.
+spectroscopy drives at the search amplitude over 30 MHz; and the bring-up graph's qubit flux map defaults to 31 × 121 × 100 so it finishes inside one job. One thing the night ran with and
+the next run will not: the qubit flux map passed its pulse duration in nanoseconds where QuAM counts clock cycles of 4 ns, so its flux step
+and saturation drive were four times longer than the state says (80 µs per shot for a 20 µs pulse); both stayed aligned, so the maps read
+the right frequencies, and the fix (qua-libs 4ca26fb, 19 Sep) shortens the shot rather than changing what it measures.
 The recipe (tinycal bringup_recipes/flux_tunable_1q.md, identical in every work dir's recipe_in_force.md) gained: a provisional low power when
 no onset appears; the resonator flux map widened until the maximum is inside the data, never the minimum, with the other maximum a period away
 as the fallback; a second power sweep at the sweet spot; and a fine f_01 re-measurement at the committed bias before power Rabi.
