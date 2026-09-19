@@ -237,6 +237,53 @@ def qubit_table(cells):
     return f'<div class="scroll"><table class="grid small">{head}<tbody>' + "".join(rows) + "</tbody></table></div>"
 
 
+# What would have caught each hard case, by (backend, qubit); the operator's reading of the transcripts.
+HARD_CASE_NOTE = {
+    ("gilboa", "qB4"): "a guard on the committed f_01: a line found hundreds of MHz from the seed, at 1x drive only, and within 300 MHz of the "
+                       "qubit's own resonator is not a qubit; and write_state refusing a state whose xy IF exceeds 500 MHz",
+    ("gilboa", "qB2"): "the same two guards; qB2 reproduced qB4's failure step for step",
+    ("arbel", "qD1"): "the qubit flux map anchored on the measured maximum (qua-libs a0e818b) would have refused the 0.033 V apex; a recipe line that a "
+                      "flat power Rabi at a sane pulse length means the drive is off resonance, not that the pulse is too short",
+    ("gilboa", "qB3"): "unknown whether the qubit is reachable at all: the line at 5.62 GHz sits 1.83 GHz below the only resonator the model could read; "
+                       "a reference measurement on qB3 is needed before this counts against the model",
+    ("gilboa", "qC4"): "not this run's doing: every parameter through T1 was in place when another target's write made the shared config "
+                       "unbuildable; a per-target stop and a config check in write_state would have left it to finish",
+    ("qolab", "Q4"): "completed at 99.84 % with the idle flux 0.25 V from the sweet spot and f_01 119 MHz below the reference: the qubit flux map's fit "
+                     "extrapolated a turning point just outside a monotonic sweep and the model kept the idle. Fixed in the node (a0e818b): no fit "
+                     "overlay and no proposal when the maximum is on an edge; the replay experiment is in the context section",
+    ("gilboa", "qC1"): "a calibration miss, not the chip: T1 32 µs / T2echo 45 µs allow well over 99.8 %, and the one ballpark miss is the x180 amplitude "
+                       "(100 ns @ 0.390 committed). First attempt on qC1 by any model; its Rabi and DRAG transcripts are the place to look",
+    ("gilboa", "qC5"): "below the 99.1–99.9 % of every framework round on this qubit (qwen in tinycal 99.69 %) with DRAG skipped (17/18 nodes); T1/T2echo "
+                       "unchanged, so a calibration miss",
+    ("gilboa", "qD2"): "the qubit's ceiling: T1 7.9 µs tonight (1.2 µs in the source state); 98.74–98.81 % in the framework rounds",
+    ("gilboa", "qD5"): "below the 99.86–99.95 % of every framework round; T1/T2echo unchanged (33 / 66 µs), readout 97 %, so the gate itself — "
+                       "a calibration miss of unlocated origin",
+}
+
+
+def hard_cases(cells):
+    """One row per qubit-run that did not finish the graph, then the completed ones with a poor or wrong result."""
+    rows = []
+    for c in cells:
+        for t in c["targets"]:
+            poor = t["status"] == "completed" and t["gate_fid"] is not None and t["gate_fid"] < 0.99
+            wrong = (c["backend"], t["target"]) == ("qolab", "Q4")
+            if t["status"] == "completed" and not (poor or wrong):
+                continue
+            fid = f" · {pct(t['gate_fid'])}" if t["gate_fid"] is not None else ""
+            outcome = (f"{status_chip(t['status'])} {t['nodes'] or 0}/18{fid}<br><span class='small'>{minutes(t['model_s'])} agent · "
+                       f"{fmt(t['cost'], '${:.2f}')} · {fmt(t['turns'], '{}')} turns</span>")
+            what = t["cause"] if t["status"] != "completed" else ("finished the graph with a wrong flux point" if wrong else "finished the graph with a poor number")
+            note = HARD_CASE_NOTE.get((c["backend"], t["target"]), "")
+            rank = 0 if t["status"] != "completed" else (1 if wrong else 2)
+            rows.append((rank, c["backend"], t["target"], c["started"], outcome, what, note))
+    rows.sort()
+    body = "".join(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td><td>{o}</td><td class='small'>{esc(w)}</td><td class='small'>{esc(n)}</td></tr>"
+                   for _, b, q, _, o, w, n in rows)
+    return ('<div class="scroll"><table class="grid small"><thead><tr><th>qubit</th><th>outcome</th>'
+            '<th>what happened</th><th>what would have caught it</th></tr></thead><tbody>' + body + "</tbody></table></div>")
+
+
 # ----------------------------------------------------------------------------- what fills the context (tinycal only)
 CHARS_PER_TOKEN = base.CHARS_PER_TOKEN
 CONTEXT_REF = [  # column label, tinycal run id, target
@@ -472,6 +519,13 @@ Context = prompt size per model call in tokens, cached prefix included, from tin
 on the four scrambled parameters (resonator frequency, f_01, readout amplitude, x180 amplitude) against the source snapshot; a miss there is
 often the snapshot's, see below.</p>
 {qubit_table(cells)}
+
+<h3>Hard cases: qubits that were not calibrated, or not calibrated right</h3>
+<p class="small muted">One row per qubit-run that did not reach the end of the graph, then the completed ones whose result is poor (gate fidelity
+under 99 %) or wrong (qolab Q4). The framework reports' rule excluded finished-but-poor runs from this table; with one framework they are the
+next most interesting rows, so they are here with a note on whether the number is the chip's or the calibration's. The right-hand column is the
+operator's reading of the transcript, not something the cell recorded.</p>
+{hard_cases(cells)}
 {cost_fig}
 {err_fig}
 {context_section()}
@@ -482,8 +536,9 @@ qubits it tried (readout power committed at the top of the sweep, idle flux left
 gate fidelity, in 47–67 min of wall time and $0.65–0.82 each — the same fidelities Opus and Sonnet reached on Q1–Q3 in the framework comparison,
 for about a tenth of Opus's per-calibration cost in that report ($7.65). Over the whole night the completion rate, 19/25, is the same
 76 % that qwen in tinycal had on the 14–17 Sep set (9/12), on a set that now includes gilboa's B row; per completed calibration it cost
-$1.04 against $1.42. On gilboa the eleven qubits it completed came out where the earlier rounds put them (qD3 99.92 %, qD5 98.89 %,
-qC3 99.62 %, qD2 98.30 % with its 1.2 µs T1), and five qubits that had never been attempted by any model (qD1, qD4, qB1, qB5, qC1) finished at
+$1.04 against $1.42. On gilboa nine of the eleven it completed came out where the earlier rounds put them (qD3 99.92 %,
+qC3 99.62 %, qC2 99.77 %, qD2 98.30 % at its short T1); qD5 (98.89 %) and qC5 (97.87 %) landed one to two points below the framework rounds
+with the coherence unchanged, which makes them calibration misses. Five qubits that had never been attempted by any model (qD1, qD4, qB1, qB5, qC1) finished at
 97.4–99.9 %. Arbel's two completed qubits landed on IQCC's own numbers (qC2 99.64 %, qC3 99.75 %).</p>
 <p><b>Every failure was the same failure.</b> Five qubit-runs did not finish the graph on their own account, and four of them (gilboa qB4 twice, qB2,
 arbel qD1) are one pattern: the qubit search at the seed frequency found nothing, a feature hundreds of MHz away — 800 MHz for the gilboa B row,
