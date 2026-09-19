@@ -94,6 +94,11 @@ INCIDENTS = [
     ("19 Sep 04:30", "arbel done: qC2 99.64 %, qC3 99.75 %. qC3's f_01 came out 5.7153 GHz against a 17 Sep reference of 5.6249 with a consistent "
                      "Ramsey pair, so the arbel reference is stale, not the run."),
     ("19 Sep 05:33", "gilboa grey batch done; qB3 self-declared stuck at 10/18. Night over: 24 targets, 19 completed the graph."),
+    ("19 Sep, review", "Reading the plots afterwards: every B-row resonator identification on gilboa (readout line con1/1/1) carries a 10 MHz, ~10:1 "
+                       "ripple — two paths 100 ns apart of comparable strength, the through signal ~8x weaker than on the C line — so the B row's "
+                       "readout has an SNR floor no node can lift. The source snapshot has all five B qubits at gate fidelity 0 with template readout "
+                       "values, so the line was like this before the night. Hardware to check (raw ADC trace, room-temperature cabling, amplifier) "
+                       "before the B row is run again."),
 ]
 
 # ----------------------------------------------------------------------------- collect
@@ -240,25 +245,36 @@ def qubit_table(cells):
 
 # What would have caught each hard case, by (backend, qubit); the operator's reading of the transcripts.
 HARD_CASE_NOTE = {
-    ("gilboa", "qB4"): "a guard on the committed f_01: a line found hundreds of MHz from the seed, at 1x drive only, and within 300 MHz of the "
-                       "qubit's own resonator is not a qubit; and write_state refusing a state whose xy IF exceeds 500 MHz",
-    ("gilboa", "qB2"): "the same two guards; qB2 reproduced qB4's failure step for step",
+    ("gilboa", "qB4"): "the readout feedline: every B-row identification (con1/1/1) shows a 10 MHz, ~10:1 ripple — two paths 100 ns apart of comparable "
+                       "strength, with the through signal ~8x weaker than on the C line — so the qubit search saw noise and a 5.2 sigma bump the node itself "
+                       "called 'consistent with noise' was committed as f_01. A guard on the committed f_01 (hundreds of MHz from the seed, within 300 MHz of "
+                       "the qubit's own resonator, rejected by the node) and write_state refusing a state whose inferred xy IF the port cannot deliver",
+    ("gilboa", "qB2"): "the same feedline and the same two guards; qB2 reproduced qB4's failure step for step",
     ("arbel", "qD1"): "the qubit flux map anchored on the measured maximum (qua-libs a0e818b) would have refused the 0.033 V apex; a recipe line that a "
                       "flat power Rabi at a sane pulse length means the drive is off resonance, not that the pulse is too short",
-    ("gilboa", "qB3"): "unknown whether the qubit is reachable at all: the line at 5.62 GHz sits 1.83 GHz below the only resonator the model could read; "
-                       "a reference measurement on qB3 is needed before this counts against the model",
+    ("gilboa", "qB3"): "the same feedline: resonator arc R^2 0.03-0.10 at every setting, no qubit line ever reached the node's threshold, and the f_01 it "
+                       "committed (5.62 GHz) came from a fine scan the node had stamped 'NOT accepted'. Not evidence about the qubit until the line is fixed",
     ("gilboa", "qC4"): "not this run's doing: every parameter through T1 was in place when another target's write made the shared config "
-                       "unbuildable; a per-target stop and a config check in write_state would have left it to finish",
+                       "unbuildable; write_state refusing a state the ports cannot execute would have left it to finish",
     ("qolab", "Q4"): "completed at 99.84 % with the idle flux 0.25 V from the sweet spot and f_01 119 MHz below the reference: the qubit flux map's fit "
                      "extrapolated a turning point just outside a monotonic sweep and the model kept the idle. Fixed in the node (a0e818b): no fit "
                      "overlay and no proposal when the maximum is on an edge; the replay experiment is in the context section",
-    ("gilboa", "qC1"): "a calibration miss, not the chip: T1 32 µs / T2echo 45 µs allow well over 99.8 %, and the one ballpark miss is the x180 amplitude "
-                       "(100 ns @ 0.390 committed). First attempt on qC1 by any model; its Rabi and DRAG transcripts are the place to look",
-    ("gilboa", "qC5"): "below the 99.1–99.9 % of every framework round on this qubit (qwen in tinycal 99.69 %) with DRAG skipped (17/18 nodes); T1/T2echo "
-                       "unchanged, so a calibration miss",
-    ("gilboa", "qD2"): "the qubit's ceiling: T1 7.9 µs tonight (1.2 µs in the source state); 98.74–98.81 % in the framework rounds",
-    ("gilboa", "qD5"): "below the 99.86–99.95 % of every framework round; T1/T2echo unchanged (33 / 66 µs), readout 97 %, so the gate itself — "
-                       "a calibration miss of unlocated origin",
+    ("gilboa", "qC1"): "DRAG. The Rabi arch is clean (pi at 365-390 mV; the 0.720 V 'reference' is a snapshot of a qubit no one had calibrated), but the DRAG "
+                       "map has a fast fringe at every alpha and no vertex in [-4, 4]: the driven frequency differs from the Ramsey frequency by ~MHz "
+                       "(the snapshot carries a -2.8 MHz pulse detuning for qC1 that no node calibrates). The fit said +8.3, four re-runs failed, the "
+                       "model committed -3.6. A pulse-detuning step before DRAG, and no alpha from a failed map",
+    ("gilboa", "qC5"): "a defect in the source state, not the run: qC5's y90_DragCosine amplitude is a literal (0.0989 V) where every other qubit's "
+                       "references x90, so tonight's x90 = 0.203 V left y90 at a 44-degree rotation. Across every qC5 run the y90/x90 ratio tracks the "
+                       "fidelity (1.0 -> 99.7-99.9 %, 0.73 -> 99.1-99.3 %, 0.49 tonight -> 97.87 %); the snapshot itself records qC5 at 96.3 %. "
+                       "One reference in state.json fixes it; the same literal exists on arbel qC5",
+    ("gilboa", "qD2"): "a wrong flux point, Q4's pattern one node earlier: the power sweep found the onset at -13.6 dBm but proposed -37.3 dBm (17 mV), the "
+                       "flux map at that power is noise (R^2 0.19) and the node fell back to a 'measured maximum' at -0.11 V on a 250 mV noise plateau "
+                       "(sweet spot +0.021 V). f_01 came out 173 MHz low; T1 7.9 us there against 1.3 us at the sweet spot is the wrong point, not a "
+                       "better one. The resonator map needs the same refusal the qubit map got, and the power node a floor on SNR",
+    ("gilboa", "qD5"): "DRAG: both runs failed, the wide map's chevron vertex is at alpha ~ +0.15 (node argmin 0.2, reference 0.12) and the model "
+                       "committed -2.708 from alpha_fitfree — an aliasing artefact of the pulse step of 3 (a fringe of 1/3 cycle per pulse reads as "
+                       "static), which showed the same false valley in both windows and so looked 'consistent'. Every other qD5 value matches the "
+                       "reference to four digits",
 }
 
 
@@ -541,14 +557,17 @@ gate fidelity, in 47–67 min of wall time and $0.65–0.82 each — the same fi
 for about a tenth of Opus's per-calibration cost in that report ($7.65). Over the whole night the completion rate, 19/25, is the same
 76 % that qwen in tinycal had on the 14–17 Sep set (9/12), on a set that now includes gilboa's B row; per completed calibration it cost
 $1.04 against $1.42. On gilboa nine of the eleven it completed came out where the earlier rounds put them (qD3 99.92 %,
-qC3 99.62 %, qC2 99.77 %, qD2 98.30 % at its short T1); qD5 (98.89 %) and qC5 (97.87 %) landed one to two points below the framework rounds
-with the coherence unchanged, which makes them calibration misses. Five qubits that had never been attempted by any model (qD1, qD4, qB1, qB5, qC1) finished at
+qC3 99.62 %, qC2 99.77 %); qD2 (98.30 %), qD5 (98.89 %) and qC5 (97.87 %) landed below the framework rounds, and the plots locate each miss —
+see "What the plots say" below. Five qubits that had never been attempted by any model (qD1, qD4, qB1, qB5, qC1) finished at
 97.4–99.9 %. Arbel's two completed qubits landed on IQCC's own numbers (qC2 99.64 %, qC3 99.75 %).</p>
-<p><b>Every failure was the same failure.</b> Five qubit-runs did not finish the graph on their own account, and four of them (gilboa qB4 twice, qB2,
+<p><b>Every failure was the same failure, and on gilboa it had one cause underneath.</b> Five qubit-runs did not finish the graph on their own account, and four of them (gilboa qB4 twice, qB2,
 arbel qD1) are one pattern: the qubit search at the seed frequency found nothing, a feature hundreds of MHz away — 800 MHz for the gilboa B row,
 just below their own resonators — was accepted as the qubit, and the run then rationalised every later contradiction (a flat Rabi became a request
 for a 25 µs pulse on arbel qD1). The fifth, gilboa qB3, found a flux-tunable line but never saw two readout blobs at any power, frequency or angle,
-and stopped itself. qC4 is a casualty of the harness, not of its own run: every parameter up to T1 was calibrated when qB4's false f_01 put an xy
+and stopped itself. All three gilboa failures sit on one readout line: every B-row identification on con1/1/1 shows a 10 MHz, ~10:1 ripple (two paths
+100 ns apart of comparable strength, the through signal ~8x weaker than on the C line), the resonator dips are 5–10 % of it, and the qubit searches
+were reading noise — qB4's "line" was a 5.2 sigma bump the node itself called consistent with noise. qB1 and qB5 finished on the same line only because their
+dips are deep. The snapshot has all five B qubits at gate fidelity 0, so this predates the night; it is a hardware check, not a model result. qC4 is a casualty of the harness, not of its own run: every parameter up to T1 was calibrated when qB4's false f_01 put an xy
 intermediate frequency at 900 MHz into the state <i>all targets share</i>, and no target could open the machine until the operator reverted it by
 hand. That happened twice (qB4 at 03:19, qB2 at 03:59). Three guards would have contained the night's damage: write_state refusing a state that
 fails generate_config, a stop for one target that leaves the others running, and a cap on identical repeated tool calls within one turn
@@ -561,6 +580,16 @@ model's own prose removed found no effect of context length or content; attachin
 decision into a mostly-wrong one. The qubit flux map node has since been changed to propose the measured ridge maximum, refuse a maximum on an
 edge of the tracked data or a ridge that leaves the frequency window, and draw no fit when it has nothing to propose (qua-libs a0e818b, after
 this night).</p>
+<p><b>What the plots say about the three poor completions.</b> qD5 is DRAG: both runs failed, the wide map's chevron vertex sits at α ≈ +0.15
+(reference 0.12) and the model committed −2.708 from the node's fit-free estimator, which lands on an aliasing artefact of the pulse step of 3 and
+showed the same false valley in both windows. Everything else on qD5 matches the reference to four digits. qC5 is a defect in the source state:
+its y90 amplitude is a literal where every other qubit's references x90, so after tonight's Rabi y90 rotated 44°; across every qC5 run the y90/x90
+ratio tracks the fidelity (1.0 → 99.7–99.9 %, 0.73 → 99.1–99.3 %, 0.49 tonight → 97.87 %). qD2 is a wrong flux point, Q4's pattern one node earlier:
+the power sweep proposed a readout power 24 dB below the onset, the flux map at that power is noise, and the node's fallback picked a "measured
+maximum" at −0.11 V on a plateau of noise (sweet spot +0.021 V); the qubit was then found 173 MHz low and every later node said so. qC1, a first
+attempt, is DRAG again but for a different reason: its map has no vertex in [−4, 4] because the driven frequency is off the Ramsey frequency by
+~MHz (the snapshot carries a −2.8 MHz pulse detuning for it that no node calibrates); the model committed −3.6 from failed maps. Four rows,
+and in all four the committed number came from a node that had refused to propose it.</p>
 <p><b>The references are not all trustworthy.</b> arbel qC3's f_01 came out 5.7153 GHz against a 17 Sep reference of 5.6249, with a consistent
 two-sided Ramsey pair and 99.75 % RB behind it; the snapshot is stale, not the run, and the same doubt applies to arbel qD1's "true" 5.0146 GHz.
 gilboa's ballpark misses are mostly the readout amplitude (the scrambled value is ~2× the operating point on several qubits, and the graph
