@@ -266,14 +266,17 @@ HARD_CASE_NOTE = {
     ("gilboa", "qC5"): "a defect in the source state, not the run: qC5's y90_DragCosine amplitude is a literal (0.0989 V) where every other qubit's "
                        "references x90, so tonight's x90 = 0.203 V left y90 at a 44-degree rotation. Across every qC5 run the y90/x90 ratio tracks the "
                        "fidelity (1.0 -> 99.7-99.9 %, 0.73 -> 99.1-99.3 %, 0.49 tonight -> 97.87 %); the snapshot itself records qC5 at 96.3 %. "
-                       "One reference in state.json fixes it; the same literal exists on arbel qC5",
+                       "The literal is in every gilboa pull through 20 Sep 14:01 and arbel qC5 has one of its own (0.3129 V); one reference in the "
+                       "cloud state.json fixes it — see 'qC5's y90 pulse' under What the numbers say",
     ("gilboa", "qD2"): "a wrong flux point, Q4's pattern one node earlier: the power sweep found the onset at -13.6 dBm but proposed -37.3 dBm (17 mV), the "
                        "flux map at that power is noise (R^2 0.19) and the node fell back to a 'measured maximum' at -0.11 V on a 250 mV noise plateau "
                        "(sweet spot +0.021 V). f_01 came out 173 MHz low; T1 7.9 us there against 1.3 us at the sweet spot is the wrong point, not a "
                        "better one. The resonator map needs the same refusal the qubit map got, and the power node a floor on SNR",
     ("gilboa", "qD5"): "DRAG: both runs failed, the wide map's chevron vertex is at alpha ~ +0.15 (node argmin 0.2, reference 0.12) and the model "
-                       "committed -2.708 from alpha_fitfree — an aliasing artefact of the pulse step of 3 (a fringe of 1/3 cycle per pulse reads as "
-                       "static), which showed the same false valley in both windows and so looked 'consistent'. Every other qD5 value matches the "
+                       "committed -2.708 from alpha_fitfree — a defect of that estimator, not of the map: its 'ground level' was read from pulse rows "
+                       "up to N = 16, where 48 ns fringes have already swung, so the metric was a flat plateau and its minimum noise; the same false "
+                       "valley in the narrow re-scan looked 'consistent'. Fixed after the night (qua-libs f9bf1de: baseline from the first pulse row, "
+                       "cross-checks withheld without a vertex in the window; the same map now reads +0.24). Every other qD5 value matches the "
                        "reference to four digits",
 }
 
@@ -581,15 +584,28 @@ decision into a mostly-wrong one. The qubit flux map node has since been changed
 edge of the tracked data or a ridge that leaves the frequency window, and draw no fit when it has nothing to propose (qua-libs a0e818b, after
 this night).</p>
 <p><b>What the plots say about the three poor completions.</b> qD5 is DRAG: both runs failed, the wide map's chevron vertex sits at α ≈ +0.15
-(reference 0.12) and the model committed −2.708 from the node's fit-free estimator, which lands on an aliasing artefact of the pulse step of 3 and
-showed the same false valley in both windows. Everything else on qD5 matches the reference to four digits. qC5 is a defect in the source state:
-its y90 amplitude is a literal where every other qubit's references x90, so after tonight's Rabi y90 rotated 44°; across every qC5 run the y90/x90
-ratio tracks the fidelity (1.0 → 99.7–99.9 %, 0.73 → 99.1–99.3 %, 0.49 tonight → 97.87 %). qD2 is a wrong flux point, Q4's pattern one node earlier:
+(reference 0.12) and the model committed −2.708 from the node's fit-free estimator, whose ground level was read from pulse rows where 48 ns
+fringes had already swung (a plateau metric with a noise minimum; the narrow re-scan repeated it, so it looked consistent) — fixed after the night in
+qua-libs f9bf1de. Everything else on qD5 matches the reference to four digits. qC5 is a defect in the source state, the next paragraph.
+qD2 is a wrong flux point, Q4's pattern one node earlier:
 the power sweep proposed a readout power 24 dB below the onset, the flux map at that power is noise, and the node's fallback picked a "measured
 maximum" at −0.11 V on a plateau of noise (sweet spot +0.021 V); the qubit was then found 173 MHz low and every later node said so. qC1, a first
 attempt, is DRAG again but for a different reason: its map has no vertex in [−4, 4] because the driven frequency is off the Ramsey frequency by
 ~MHz (the snapshot carries a −2.8 MHz pulse detuning for it that no node calibrates); the model committed −3.6 from failed maps. Four rows,
 and in all four the committed number came from a node that had refused to propose it.</p>
+<p><b>qC5's y90 pulse: a defect in the gilboa and arbel source states, and the cap on every qC5 result.</b> In the IQCC QuAM state each
+qubit stores one amplitude per axis and derives the rest by reference — <code>-x90</code>, <code>y90</code> and <code>-y90</code> point at
+<code>x90</code>, <code>y180</code> at <code>x180</code> — so a Rabi calibration moves the whole set. On qC5 alone, <code>y90_DragCosine/amplitude</code>
+is a number: 0.0989 V on gilboa (x90 there is 0.136 V, so y90 is a 65° rotation as pulled) and 0.3129 V on arbel (x90 0.192 V, a 147° rotation). It is in
+every one of the 56 snapshots pulled from the three devices between 6 Sep and 20 Sep 14:01, it is the only literal on a derived pulse anywhere in them,
+and no run wrote it — the models' states inherit it. Nothing in the graph before RB plays y90, so f_01, readout, T1/T2 and DRAG all pass their checks
+and the defect shows only in the last node, where every Clifford containing a y90 carries the error (and <code>-y90</code>, still by reference, does
+not, so y90·−y90 ≠ 1 on that qubit). The y90/x90 ratio at the end of a run predicts its fidelity: 1.0 → 99.7–99.9 % (the two tinycal runs on 15 and 17 Sep
+whose model noticed the literal and set y90 = x90 by hand), 0.73 → 99.1–99.3 % (runs that left x90 near the pull), 0.49 tonight → 97.87 % (x90
+re-fitted to 0.203 V; the more the Rabi moves, the worse RB gets), and the snapshot's own recorded fidelity for qC5 is 96.3 %. The fix is one
+reference in the cloud state — <code>"#../x90_DragCosine/amplitude"</code> — on both devices; it is not a harness change, the recipe never asks for y90
+and the grader reads the final state as-is. Until it lands, every qC5 number in these reports (including the 20 Sep re-runs) is bounded by the
+defect, not by the calibration.</p>
 <p><b>The references are not all trustworthy.</b> arbel qC3's f_01 came out 5.7153 GHz against a 17 Sep reference of 5.6249, with a consistent
 two-sided Ramsey pair and 99.75 % RB behind it; the snapshot is stale, not the run, and the same doubt applies to arbel qD1's "true" 5.0146 GHz.
 gilboa's ballpark misses are mostly the readout amplitude (the scrambled value is ~2× the operating point on several qubits, and the graph

@@ -1201,6 +1201,16 @@ fidelity agrees within about 0.05 % (gilboa qD3 99.84–99.88 %, qD5 99.93–99.
 qubit-runs; gilboa qD4 99.84–99.88 %). The chip sets the number, not the agent: qD2 has T1 ≈ 1.3 µs, and the gilboa qubits sit near a rough
 T1/T2 bound with the IQCC pulse lengths kept (48–56 ns). Where IQCC's own dashboard has a number (arbel qC2 99.90 %, qC3 99.75 %) both
 frameworks land on it.</p>
+<p><b>The one qubit where the numbers spread, gilboa qC5, is a defect in the source state, not a framework difference.</b> Its six completed
+runs span 99.14–99.91 %: qua-agents Opus 99.28, Sonnet 99.14, qwen 99.30; tinycal Sonnet 99.31, Opus 99.91, qwen 99.69. In the QuAM state every
+qubit derives <code>y90</code>, <code>-y90</code> and <code>-x90</code> from <code>x90</code> by reference, but on qC5 <code>y90_DragCosine/amplitude</code>
+is a literal 0.0989 V (x90 is 0.136 V, so the pulled y90 is a 65° rotation) — present in every gilboa snapshot pulled between 6 and 20 Sep, and
+matched by a literal 0.3129 V on arbel's qC5 (x90 0.192 V; no arbel qC5 has been run yet). Only RB plays y90, so the other seventeen nodes and
+the ballpark checks pass; the fidelity is set by the y90/x90 ratio at the end of the run: the four runs that left it at 0.73 scored 99.1–99.3 %,
+and the two tinycal runs at 99.7–99.9 % are the ones whose model read the state, saw the literal and wrote y90 = x90 by hand (Opus at 12:59 on
+15 Sep: "unlike its siblings it was stored as a literal and never tracked"; qwen at 06:48 on 17 Sep). That is a tinycal affordance — the model sees
+and edits the state — rather than a calibration result, and the fix belongs in the cloud state: one reference,
+<code>"#../x90_DragCosine/amplitude"</code>, on both devices. The 18–19 Sep report has the same defect at ratio 0.49 → 97.87 %.</p>
 <p><b>Where they differ is cost and time.</b> tinycal does the same job at roughly a quarter to a third of the judge-priced cost of qua-agents
 on both models, in about half the agent time, with fewer node re-runs. Sonnet halves the cost again on both frameworks at similar fidelity,
 with more turns and re-runs.</p>
