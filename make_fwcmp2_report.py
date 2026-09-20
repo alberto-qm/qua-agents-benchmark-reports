@@ -586,6 +586,67 @@ def pivot_table(cells):
     return f'<div class="scroll"><table class="grid pivot">{head}<tbody>' + "".join(body) + "</tbody></table></div>"
 
 
+def matched_pivot_table(cells):
+    """The pivot again, but per model only on qubits BOTH frameworks calibrated, and only their completed runs.
+
+    Removes two things the plain pivot mixes in: failures (whose spend is charged to the completions) and
+    differences in which qubits each framework was measured on. One qubit-run per framework, model and qubit:
+    the best-founded completed run (``pick_run``) when a qubit was calibrated more than once.
+    """
+    cols = [(model, fw) for model in MODEL_LABELS for fw in ("tinycal", "qua-agents")]
+    stats, matched_qubits = [], {}
+    for model in MODEL_LABELS:
+        best = {}
+        for fw in ("tinycal", "qua-agents"):
+            by = {}
+            for c in cells:
+                if not included(c) or c["model"] != model or c["fw"] != fw:
+                    continue
+                for t in c["targets"]:
+                    if t["status"] == "completed" and not infra_hit(t):
+                        by.setdefault((c["backend"], t["target"]), []).append((c, t))
+            best[fw] = {k: pick_run(v) for k, v in by.items()}
+        common = sorted(set(best["tinycal"]) & set(best["qua-agents"]))
+        matched_qubits[model] = common
+        for fw in ("tinycal", "qua-agents"):
+            runs = [best[fw][k] for k in common]
+            n = len(runs) or 1
+            fids = sorted(t["gate_fid"] for _, t in runs if t["gate_fid"] is not None)
+            tot = lambda k: sum((t[k] or 0) for _, t in runs)
+            tokt = lambda k: sum((t["tokens"].get(k) or 0) for _, t in runs)
+            per_dev = {}
+            for (b, q) in common:
+                per_dev.setdefault(b, []).append(q)
+            stats.append({
+                "qubits": "<br>".join(f"<b class='dev'>{b}</b> {', '.join(sorted(qs))}" for b, qs in sorted(per_dev.items())) or "—",
+                "n": f"{len(runs)}",
+                "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}</span>") if fids else "—",
+                "agent": minutes(tot("model_s") / n), "qpu": minutes(tot("qpu_s") / n), "queue": minutes(tot("queue_s") / n),
+                "cost": f"${sum((t['cost'] or 0) for _, t in runs) / n:.2f}",
+                "turns": f"{tot('turns') / n:.0f}", "nodes": f"{tot('nodes_run') / n:.0f} ({tot('reruns') / n:.0f})",
+                "ctx_med": (lambda v: ktok(sum(v) / len(v)) if v else "—")([t["ctx"]["median"] for _, t in runs if t["ctx"]["median"]]),
+                "ctx_end": (lambda v: ktok(sum(v) / len(v)) if v else "—")([t["ctx"]["end"] for _, t in runs if t["ctx"]["end"]]),
+                "tin": mtok(tokt("input") / n), "tout": mtok(tokt("output") / n),
+                "tcache": f"{mtok(tokt('cache_read') / n)} / {mtok(tokt('cache_creation') / n)}",
+            } if runs else None)
+    rows = [("qubits in the comparison (calibrated by both)", "qubits"), ("calibrations compared", "n"),
+            ("single-qubit gate fidelity, median (min – max)", "fid"), ("agent time / calibration", "agent"),
+            ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"), ("judge cost / calibration", "cost"),
+            ("model turns / calibration", "turns"), ("node runs (re-runs) / calibration", "nodes"),
+            ("context per model call, median, in k tokens (mean over qubit-runs)", "ctx_med"),
+            ("context at the end of a bring-up, k tokens (mean over qubit-runs)", "ctx_end"),
+            ("input tokens / calibration", "tin"), ("output tokens / calibration", "tout"),
+            ("cached tokens read / written / calibration", "tcache")]
+    body = []
+    for label, key in rows:
+        cls = "small mono wrap" if key == "qubits" else "num"
+        tds = "".join(f"<td class='{cls}'>{st[key] if st else '—'}</td>" for st in stats)
+        body.append(f"<tr><th class='rowh'>{label}</th>{tds}</tr>")
+    head = ('<thead><tr><th></th>' + "".join(f'<th colspan="2" class="grp">{esc(m)}</th>' for m in MODEL_LABELS) + '</tr>'
+            '<tr><th></th>' + "".join(f"<th>{fw_chip(fw, model).replace(' · ' + model, '')}</th>" for model, fw in cols) + '</tr></thead>')
+    return f'<div class="scroll"><table class="grid pivot">{head}<tbody>' + "".join(body) + "</tbody></table></div>"
+
+
 # ----------------------------------------------------------------------------- what fills the context
 CHARS_PER_TOKEN = 3.6  # rough average for this English-plus-numbers prose; every "≈ tokens" below is chars / 3.6, not measured
 AUDIT_DB = Path.home() / "qua-agents-db/audit.sqlite3"
@@ -1114,6 +1175,13 @@ The dag-walk control (no model, the graph's defaults) stopped at node 2 of 18 on
 comparison tables; its rows are in the run list.</p>
 {legend}
 {pivot_table(cells)}
+<h3>Same qubits, completed runs only</h3>
+<p class="small muted">The table above once more, restricted per model to the qubits <b>both</b> frameworks calibrated to the end of the
+graph, and to those completed runs. This removes the two things the first table mixes in: failed qubit-runs, whose spend is charged to
+the completions, and differences in which qubits each framework was measured on. One qubit-run per framework, model and qubit (the
+best-founded completed run when a qubit was calibrated more than once), so within a model column pair the two frameworks are compared on
+an identical set of qubits. Where a model has no qubit calibrated by both, the pair is empty.</p>
+{matched_pivot_table(cells)}
 
 <h3>Hard cases: qubits one framework could not calibrate</h3>
 <p class="small muted">One row per qubit and model where at least one framework did not reach the end of the graph. Runs ended by the
