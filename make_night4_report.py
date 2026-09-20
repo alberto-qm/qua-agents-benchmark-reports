@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import glob
 import json
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -54,8 +55,12 @@ EXCLUDED_DIRS = {
     "night4-arbel-20260920-1633.refused-scramble": "the fresh arbel pull: the scrambler refused it (readout stored as a QuAM reference); "
                                                    "relaunched a minute later from the 19 Sep snapshot.",
 }
-TARGET_INCIDENTS = {}
-OPERATOR_STOPS = set()
+TARGET_INCIDENTS = {
+    ("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash", "Q1"):
+        "stopped by the operator at 20:55 after 4.9 h: three consecutive 10 000-token turns with no tool call; RB was flat since "
+        "turn 46 after the model's DRAG change broke its own readout",
+}
+OPERATOR_STOPS = {("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash", "Q1")}
 # Completed runs whose RB number is not a measurement (the fit's own warning says so); their fidelity is withheld from every table.
 INVALID_RB = {
     ("gilboa", "openrouter", "qD1"): "finished the graph on an RB fit that is not a measurement (0.009 decay lengths, amplitude 16.5)",
@@ -98,6 +103,11 @@ INCIDENTS = [
                      "fit of 0.009 decay lengths (99.998 % with amplitude 16.5 — meaningless), after three re-runs with a hand-written depth "
                      "list crashed the node. qolab Splash Q1: three of its last turns hit the 10 000-token cap (9–25 min each) but each "
                      "eventually issued a tool call, so it was left running."),
+    ("20 Sep 20:55", "qolab Splash Q1 stopped by the operator after 4.9 h: turns 60–62 all ended at the 10 000-token cap with no tool call "
+                     "(13–25 min each). The run had reached RB at turn 46 with a flat trace — its own DRAG change had broken the readout — "
+                     "and never recovered. Its interim document stands; the cell was relaunched on Q2–Q6 (splash-B) so the Splash stream "
+                     "is not spent on it. The first relaunch carried its own caffeinate, which the chain counted as a third Splash driver; "
+                     "restarted without it a minute later."),
 ]
 
 # What would have caught each hard case, by (backend, provider token, qubit); the operator's reading of the transcripts.
@@ -111,6 +121,9 @@ HARD_CASE_NOTE = {
                                      "return no number",
     ("gilboa", "openrouter", "qD2"): "the T1 ≈ 1.3 µs qubit: 95.9 % against 98.7–98.8 % in the framework rounds; a genuine calibration, poorer "
                                      "than the best on this qubit",
+    ("qolab", "splash", "Q1"): "calibrated to RB at turn 45, then committed a DRAG alpha the fit did not support, which broke the readout it had; "
+                              "from turn 49 on, 10 000-token reasoning turns with no action (9 of 14 hit the cap). A breaker on consecutive "
+                              "capped turns without a tool call, and a rule that a change followed by a worse IQ_blobs is reverted",
     ("qolab", "openrouter", "Q2"): "readout power committed at 0.035 V with no punch-out onset in the sweep, ~50 % IQ contrast, flat RB; the "
                                    "night-2 recipe's 'provisional low power' line was followed, but no second power sweep at the sweet spot",
     ("arbel", "openrouter", "qC2"): "a line 103 MHz below the reference committed as f_01 (χ ≈ 0 at the upper sweet spot); the model saw the "
@@ -155,6 +168,7 @@ def collect():
             live = live_status(r.get("run_id") or "")
             final = (work / f"cell-{cell.name.split('qwen3-8-27b-')[-1]}.log").exists() and \
                 "done →" in (work / f"cell-{cell.name.split('qwen3-8-27b-')[-1]}.log").read_text()
+            alive = final or subprocess.run(["pgrep", "-f", r.get("run_id") or "none"], capture_output=True).returncode == 0
             targets = []
             for x in r["targets"]:
                 q = x.get("quality") or {}
@@ -168,6 +182,8 @@ def collect():
                 status = x["status"]
                 if status == "pending":
                     status = live.get(x["target"], "pending")  # running / queued while the cell is alive
+                    if not alive:  # the cell was stopped: the running target is the one the operator stopped, the rest never started
+                        status = "stopped" if (work.name, cell.name, x["target"]) in OPERATOR_STOPS else "not run"
                 cause = TARGET_INCIDENTS.get((work.name, cell.name, x["target"]))
                 targets.append({
                     "model_s": at.get("model_s"), "qpu_s": at.get("qpu_execution_s"), "queue_s": at.get("queue_wait_s"),
@@ -195,8 +211,8 @@ def collect():
             c = {
                 "work": work.name, "cell": cell.name, "backend": backend, "fw": colour, "model": label, "provider": token,
                 "qubits": qubits, "round": (backend, "+".join(qubits)), "run_id": r.get("run_id"),
-                "status": r["status"] if final else "running", "started": local(r.get("started_at")),
-                "ended": local(r.get("ended_at")) if final else "—",
+                "status": r["status"] if final else ("stopped" if not alive else "running"), "started": local(r.get("started_at")),
+                "ended": local(r.get("ended_at")) if final else ("stopped" if not alive else "—"),
                 "wall_s": t["time"]["total_s"], "model_s": t["time"].get("model_s"),
                 "queue_s": t["time"].get("queue_wait_s"), "qpu_s": t["time"].get("qpu_execution_s"),
                 "turns": t["turns"]["total"], "nodes": t["nodes"]["executions"], "reruns": t["nodes"]["re_executions"],
@@ -206,7 +222,7 @@ def collect():
                 "targets": targets,
                 "finished": sum(1 for x in targets if x["status"] == "completed"),
                 "chip": chip_counters(cell, r.get("run_id") or ""),
-                "incident": None, "superseded": False, "final": final,
+                "incident": None, "superseded": False, "final": final or not alive,
             }
             row = cm.get(cell.name, {})
             c["cost"], c["cw_tokens"], c["graph_frac"] = row.get("cost"), row.get("tokens"), row.get("graph")
@@ -216,16 +232,57 @@ def collect():
 
 
 # ----------------------------------------------------------------------------- tables specific to this night
-def pivot_table(cells, token):
-    """night2's pivot for one provider: metrics as rows, one column per backend and one for all."""
-    label, _, colour = PROVIDERS[token]
-    sub = [c for c in cells if c["provider"] == token]
-    if not sub:
-        return f"<p class='muted small'>no {esc(label)} cell has a document yet</p>"
-    night2.MODEL = label
-    html = night2.pivot_table(sub)
-    chip = f'<span class="chip"><i style="background:{base.FW_COLOR[colour]}"></i>{esc("tinycal · " + label)}</span>'
-    return html.replace(base.fw_chip("tinycal", label), chip)
+def pivot_table(cells):
+    """Metrics as rows; one column per host, each over all three backends. Only started targets count as attempted."""
+    cols = [(PROVIDERS[t][0], t) for t in ("openrouter", "splash")]
+    stats = []
+    for _, token in cols:
+        runs = [(c, t) for c in cells if c["provider"] == token for t in c["targets"]
+                if t["status"] not in ("queued", "not run", "pending")]
+        done = [(c, t) for c, t in runs if t["status"] == "completed"]
+        n = len(done) or 1
+        fids = sorted(t["gate_fid"] for _, t in done if t["gate_fid"] is not None)
+        tot = lambda k: sum((t[k] or 0) for _, t in runs)  # noqa: E731
+        tokt = lambda k: sum((t["tokens"].get(k) or 0) for _, t in runs)  # noqa: E731
+        per_dev = {}
+        for c, t in runs:
+            done_here = per_dev.setdefault(c["backend"], {}).get(t["target"], False)
+            per_dev[c["backend"]][t["target"]] = done_here or t["status"] == "completed"
+
+        def qubit_list(qs):
+            return ", ".join(q if ok else f"<span class='qfail' title='not calibrated'>{q}</span>" for q, ok in sorted(qs.items()))
+        priced = token == "openrouter"
+        stats.append({
+            "qubits": "<br>".join(f"<b class='dev'>{b}</b> {qubit_list(qs)}" for b, qs in sorted(per_dev.items())) or "—",
+            "done": f"{len(done)}/{len(runs)} ({100 * len(done) / len(runs):.0f}%)" if runs else "—",
+            "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}</span>") if fids else "—",
+            "agent": minutes(tot("model_s") / n), "qpu": minutes(tot("qpu_s") / n), "queue": minutes(tot("queue_s") / n),
+            "cost": f"${sum((t['cost'] or 0) for _, t in runs) / n:.2f}" if priced else "unpriced",
+            "spent": f"${sum((t['cost'] or 0) for _, t in runs):.2f}" if priced else "unpriced",
+            "turns": f"{tot('turns') / n:.0f}", "nodes": f"{tot('nodes_run') / n:.0f} ({tot('reruns') / n:.0f})",
+            "ctx_med": (lambda v: ktok(sum(v) / len(v)) if v else "—")([t["ctx"]["median"] for _, t in runs if t["ctx"]["median"]]),
+            "ctx_end": (lambda v: ktok(sum(v) / len(v)) if v else "—")([t["ctx"]["end"] for _, t in done if t["ctx"]["end"]]),
+            "tin": mtok(tokt("input") / n), "tout": mtok(tokt("output") / n),
+            "tcache": f"{mtok(tokt('cache_read') / n)} / {mtok(tokt('cache_creation') / n)}",
+        } if runs else None)
+    rows = [("qubits measured (red: not calibrated)", "qubits"), ("calibrations completed / attempted", "done"),
+            ("single-qubit gate fidelity, median (min – max)", "fid"), ("agent time / calibration", "agent"),
+            ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"), ("judge cost / calibration", "cost"),
+            ("judge cost, total spent", "spent"),
+            ("model turns / calibration", "turns"), ("node runs (re-runs) / calibration", "nodes"),
+            ("context per model call, median, in k tokens (mean over qubit-runs)", "ctx_med"),
+            ("context at the end of a bring-up, k tokens (mean over completed qubit-runs)", "ctx_end"),
+            ("input tokens / calibration", "tin"), ("output tokens / calibration", "tout"),
+            ("cached tokens read / written / calibration", "tcache")]
+    body = []
+    for label, key in rows:
+        cls = "small mono wrap" if key == "qubits" else "num"
+        tds = "".join(f"<td class='{cls}'>{st[key] if st else '—'}</td>" for st in stats)
+        body.append(f"<tr><th class='rowh'>{label}</th>{tds}</tr>")
+    head = ('<thead><tr><th></th>' + "".join(
+        f'<th class="grp"><span class="chip"><i style="background:{base.FW_COLOR[PROVIDERS[t][2]]}"></i>{esc("tinycal · " + label)}</span>'
+        f'<br><span class="small muted">all three backends</span></th>' for label, t in cols) + '</tr></thead>')
+    return f'<div class="scroll"><table class="grid pivot">{head}<tbody>' + "".join(body) + "</tbody></table></div>"
 
 
 def qubit_table(cells):
@@ -241,7 +298,7 @@ def qubit_table(cells):
             return "<td colspan='6' class='muted small'>not attempted</td>"
         c, t = entry
         done = t["status"] == "completed"
-        cause = "" if done else f"<br><span class='small muted'>{esc(t['cause'] if t['status'] not in ('running', 'queued') else t['status'])}</span>"
+        cause = "" if done else f"<br><span class='small muted'>{esc(t['cause'] if t['status'] not in ('running', 'queued', 'not run') else t['status'])}</span>"
         fid = pct(t["gate_fid"]) if done else "—"
         return (f"<td>{status_chip(t['status'])}{cause}</td><td class='num'>{t['nodes'] if t['nodes'] is not None else 0}/{t['graph'] or 18}</td>"
                 f"<td class='num'>{fid}</td><td class='num'>{t['ballpark'] if t['ballpark'] is not None else '—'}/{t['graded'] or 4}</td>"
@@ -260,7 +317,7 @@ def hard_cases(cells):
     rows = []
     for c in cells:
         for t in c["targets"]:
-            if t["status"] in ("running", "queued", "pending"):
+            if t["status"] in ("running", "queued", "pending", "not run"):
                 continue
             poor = t["status"] == "completed" and t["gate_fid"] is not None and t["gate_fid"] < 0.99
             invalid = INVALID_RB.get((c["backend"], c["provider"], t["target"]))
@@ -356,7 +413,7 @@ def build():
     night2.EXCLUDED_DIRS.clear()
     night2.EXCLUDED_DIRS.update(EXCLUDED_DIRS)
     runs = [(c, t) for c in cells for t in c["targets"]]
-    settled = [(c, t) for c, t in runs if t["status"] not in ("running", "queued", "pending")]
+    settled = [(c, t) for c, t in runs if t["status"] not in ("running", "queued", "pending", "not run")]
     done = [(c, t) for c, t in runs if t["status"] == "completed"]
     flight = in_flight(cells)
     live = bool(flight) or any(not c["final"] for c in cells)
@@ -427,8 +484,7 @@ Gate fidelity = 1 − (RB error per Clifford ÷ 1.875). "Per calibration" = the 
 number completed. Agent time is time inside model calls; QPU time is execution on the chip; queue wait is the cloud queue. Splash tokens are
 counted but unpriced (self-hosted). Context = prompt size per model call in tokens, from tinycal's events.jsonl.</p>
 <h3>By host</h3>
-{pivot_table(cells, "openrouter")}
-{pivot_table(cells, "splash")}
+{pivot_table(cells)}
 
 <h3>Per qubit, host side by side</h3>
 {qubit_table(cells)}
