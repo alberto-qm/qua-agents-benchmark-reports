@@ -15,6 +15,7 @@ and make_night2_report.py.
 from __future__ import annotations
 
 import glob
+import re
 import json
 import subprocess
 import sys
@@ -34,8 +35,10 @@ ARTIFACT_DIR = __import__("os").environ.get("REPORT_ARTIFACT_DIR")  # also write
 PROVIDERS = {  # cell-dir token -> (label, document model_id for pricing, colour key for the bar figures)
     "openrouter": ("qwen3.8-27b · OpenRouter", "qwen/qwen3.8-27b", "tinycal"),
     "splash": ("qwen3.8-27b · Splash", "incoai/Qwen3.8-27B-Splash", "splash"),
+    "flash": ("qwen3.8-flash · OpenRouter", "qwen/qwen3.8-flash", "flash"),  # added 21 Sep 14:29, fixed flux-map node
 }
 base.FW_COLOR["splash"] = "var(--qua)"  # blue for Splash; OpenRouter keeps tinycal's green
+base.FW_COLOR["flash"] = "var(--warn)"  # amber for the flash model
 
 # ----------------------------------------------------------------------------- operator log
 SNAPSHOT_NOTE = {
@@ -59,10 +62,99 @@ TARGET_INCIDENTS = {
     ("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash", "Q1"):
         "stopped by the operator at 20:55 after 4.9 h: three consecutive 10 000-token turns with no tool call; RB was flat since "
         "turn 46 after the model's DRAG change broke its own readout",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-A", "qC5"):
+        "stopped by the operator at 02:11 after 2.3 h: three consecutive 10 000-token turns with no tool call, on a run that had "
+        "already committed the −0.12 V apex from a failed fit",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-C", "qD1"):
+        "stopped by the operator at 07:24 after 5.2 h: three consecutive 10 000-token turns with no tool call; the run had been "
+        "circling between power Rabi and T1 for three hours",
+    ("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash-B", "Q6"):
+        "stopped by the operator at 08:30 after 1.6 h: three consecutive 10 000-token turns with no tool call, at qubit spectroscopy",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash", "qB4"):
+        "Splash answered HTTP 408 'HTTP I/O timed out' at 10:26 (turn 27, at power Rabi after 1.8 h) and tinycal did not retry a 408; "
+        "not a model failure — re-run as qB4 · rerun under the tinycal that retries it",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash", "qC2"):
+        "Splash HTTP 408 at 10:32 (turn 5, right after resonator identification); re-run as qC2 · rerun",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-D", "qD4"):
+        "Splash HTTP 408 at 10:35 (turn 6, at readout power); re-run as qD4 · rerun",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-B", "qB4"):
+        "the 408 rerun, stopped by the operator at 14:23 after 1.4 h: turns 18–20 at the 10 000-token cap with no tool call, at qubit "
+        "spectroscopy with readout and flux already fine (joint_offset 0.05 V, reference 0.042). Fifth capped-loop stop of the night; "
+        "qC2 continues as arbel Splash-C",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-C", "qC2"):
+        "stopped by the operator at 16:15 at turn 29 (power Rabi) to restart on effort medium; it had been in 503 'memory did not "
+        "become available' retries since 16:03 while a probe ran as a third Splash stream. Continues as qC2 · rerun in arbel Splash-D",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-D", "qC2"):
+        "meant to be stopped at 16:15 (turn 2) for the restart on medium, but the target's process survived the kill and ran on, "
+        "uncounted, as a third Splash stream at effort high until the operator found and killed it at 23:14 (84 turns, 43 retries, "
+        "at DRAG). Not graded; qC2 was re-run as Splash-G. Its KV footprint is why the two counted streams saw 503 memory errors "
+        "and lost their prefix cache from 16:24 on",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-F", "qC3"):
+        "stopped by the operator at 21:23 after 3.6 h: turns 44–46 at the 10 000-token cap with no tool call — the first capped loop on "
+        "medium effort. Readout, flux and f_01 were right (5.6488 GHz, ref 5.6487), but at turn 24 it committed x180 = 0.019 V from a "
+        "low-SNR Rabi (readout amplitude set to 0.06 V, ref 0.18; the OpenRouter run used 0.38–0.58 V for the same pulse) — a π pulse "
+        "25× too weak. IQ blobs then overlapped (51 %), the '55 kHz dispersive shift' was an artefact of not exciting the qubit, and the "
+        "model spent turns 39–43 searching 7.2–7.5 GHz for a different qubit rather than revisiting the Rabi. Its cell continues as "
+        "Splash-H (qC4, qD4 · rerun)",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-flash-openrouter-flash3", "qC2"):
+        "never started: OpenRouter 429 'qwen/qwen3.8-flash is temporarily rate-limited' again at 21:24–21:34",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-flash-openrouter-flash4", "qC2"):
+        "started at 22:29 through an intermittent OpenRouter 429, then hit a solid one at turn 7 (23:16–23:25, ladder exhausted) and "
+        "aborted; 20 retries in 56 min. Four attempts, no arbel qC2 result in the flash column",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-flash-openrouter-flash2", "qC2"):
+        "never started: OpenRouter answered 429 'qwen/qwen3.8-flash is temporarily rate-limited' for the whole ten-minute retry ladder at "
+        "20:55–21:05; retried as flash3",
+    ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-D", "qC2"):
+        "the medium-effort rerun ran the whole graph in 4.6 h (23/25 nodes) and declared itself stuck on a weak dispersive readout; its RB "
+        "trace is flat (the '100 %' is not a measurement)",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-F", "qC2"):
+        "the medium-effort rerun, aborted at 17:48 at turn 17 (qubit flux map) after ten minutes of connection errors: the tailnet "
+        "dropped and Splash lives on the other side of it. Not a model failure; re-run once more as Splash-G after the cell ends",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-D", "qD2"):
+        "readout and flux done (joint_offset 0.024 V, reference 0.016), then 5.0–6.3 GHz of qubit spectroscopy found nothing and the "
+        "model retuned qD2's dedicated xy upconverter to 8.85 GHz (accepted by write_state — the identity-guard gap again) before "
+        "declaring itself stuck at turn 46 after 3 h",
 }
-OPERATOR_STOPS = {("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash", "Q1")}
+# Cells that re-run targets an earlier cell lost (besides the "-R" readout reruns): their rows are labelled "· rerun".
+RERUN_CELLS = {"arbel-tinycal-qwen3-8-27b-splash-B", "arbel-tinycal-qwen3-8-27b-splash-C", "arbel-tinycal-qwen3-8-27b-splash-D",
+               "gilboa-tinycal-qwen3-8-27b-splash-E"}
+# gilboa Splash-F re-runs qC2 (stopped at turn 2) and continues qC3 qC4, plus the qD4 rerun: qC2 and qD4 are reruns, the others first runs.
+RERUN_TARGETS = {("gilboa-tinycal-qwen3-8-27b-splash-F", "qC2"), ("gilboa-tinycal-qwen3-8-27b-splash-F", "qD4"),
+                 ("gilboa-tinycal-qwen3-8-27b-splash-G", "qC2"), ("gilboa-tinycal-qwen3-8-27b-splash-H", "qD4"),
+                 ("arbel-tinycal-qwen3-8-flash-openrouter-flash2", "qC2"), ("arbel-tinycal-qwen3-8-flash-openrouter-flash3", "qC2"),
+                 ("arbel-tinycal-qwen3-8-flash-openrouter-flash4", "qC2")}
+
+
+def is_rerun(cell_name):
+    return cell_name.endswith("-R") or cell_name.endswith("-R2") or cell_name in RERUN_CELLS
+
+
+def rerun_label(cell_name, target=None):
+    """Suffix for a target label: '' for a first run, ' · rerun' for the readout reruns, ' · rerun 2' for the node-fix reruns."""
+    if cell_name.endswith("-R2"):
+        return " · rerun 2"
+    if target is not None and (cell_name, target) in RERUN_TARGETS:
+        return " · rerun"
+    return " · rerun" if is_rerun(cell_name) else ""
+
+
+OPERATOR_STOPS = {("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash", "Q1"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-A", "qC5"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-C", "qD1"),
+                  ("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-splash-B", "Q6"),
+                  ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-B", "qB4"),
+                  ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-C", "qC2"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-D", "qC2"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-F", "qC3")}
 # Completed runs whose RB number is not a measurement (the fit's own warning says so); their fidelity is withheld from every table.
 INVALID_RB = {
+    ("gilboa", "openrouter", "qC2"): "a Rabi that never showed an oscillation at any amplitude or length (124 turns, 51 node runs) until the "
+                                     "30 min hardware budget ended it; the RB '100 %' is a flat trace. The x180 the model finally wrote at 92 ns / "
+                                     "12 mV says the drive was far too weak or off resonance; the write_state guard refused one of its writes",
+    ("gilboa", "openrouter", "qC5 · rerun"): "readout fixed by the new wording (0.13–0.2 V), then the ±0.5 V apex at −0.15 V again, then 50 turns "
+                                              "rewiring the drive (LO literal, upconverter 1↔0, LO = 0) before declaring the wiring broken. Two guards: "
+                                              "no apex from a failed fit, and write_state refusing identity fields (ports, upconverter, opx_output, LO "
+                                              "references)",
     ("gilboa", "openrouter", "qD1"): "finished the graph on an RB fit that is not a measurement (0.009 decay lengths, amplitude 16.5)",
 }
 INCIDENTS = [
@@ -108,6 +200,102 @@ INCIDENTS = [
                      "and never recovered. Its interim document stands; the cell was relaunched on Q2–Q6 (splash-B) so the Splash stream "
                      "is not spent on it. The first relaunch carried its own caffeinate, which the chain counted as a third Splash driver; "
                      "restarted without it a minute later."),
+    ("20 Sep 21:55", "Recipe line 2 (readout power) reworded by the user in the tinycal working tree: finding the punch-out is now stated as "
+                     "important — too low a power gives no SNR, too high no state discrimination — and the provisional-power fallback applies "
+                     "only when no punch-out is visible at all. tinycal reads the recipe when a target starts, so every target that started after "
+                     "this (gilboa OpenRouter qC4 at 21:58 and the whole Splash queue) runs with the new wording; earlier targets kept the old one. "
+                     "Every OpenRouter failure of the night so far (qolab Q2, gilboa qD5 qC5, arbel qB4 qC2) began with 'no onset in the swept "
+                     "range' followed by a provisional power 10–20× below the working point."),
+    ("20 Sep 22:02", "Reruns of those five with the new wording (user-approved), OpenRouter, same scrambles, cell suffix -R: arbel qB4 qC2 and "
+                     "qolab Q2 at once (qolab shares the QPU with the Splash-B cell, separate state copies), gilboa qD5 qC5 chained behind the "
+                     "gilboa OpenRouter cell so gilboa never exceeds three targets. They appear as their own rows; the original attempts stay."),
+    ("21 Sep 00:10", "Third instance of the ±0.5 V apex, this time on Splash (gilboa qC5): the model asked for ±0.7 V, was refused by the port "
+                     "check, swept ±0.5 V, and committed the node's 'measured apex' at −0.12 V from a fit with R² 0.41 — after it had found a "
+                     "good readout power (0.084 V, 2 dB under the fade onset). Same node defect, both hosts; qD5 and qC5 attract it because their "
+                     "first power sweep finds no onset and the model then reaches for the widest sweep it can get."),
+    ("21 Sep 02:02", "gilboa OpenRouter cell done: qC2 ended on the hardware budget after 124 turns on a Rabi that stayed flat (RB "
+                     "'100 %' on a flat trace, stuck); the rerun chain launched gilboa qD5 qC5 at once. arbel qC2's rerun completed at "
+                     "99.84 % where the original had stopped on a wrong line: the readout step went differently (max_power_dbm raised, "
+                     "onset found at −20 dBm, 0.092 V committed)."),
+    ("21 Sep 02:11", "gilboa Splash-A stopped by the operator on qC5: turns 28–30 all at the 10 000-token cap with no action, on the "
+                     "−0.12 V flux point. Its remaining targets and splash-B's qC3 qC4 continue as one cell (splash-C, one at a time); "
+                     "the arbel Splash cell follows. The 'stopped' Q1 and qC5 rows keep their interim documents."),
+    ("21 Sep 03:41", "Reruns done: 4 of 5 recovered — qolab Q2 99.81 %, arbel qC2 99.84 %, arbel qB4 99.85 %, gilboa qD5 99.91 % — each "
+                     "on a readout power found by raising the sweep or by the optimisation node instead of the old provisional 10–20× low value. "
+                     "gilboa qC5 failed again: readout fine this time (0.13–0.2 V) but the ±0.5 V resonator sweep and its 'apex' at −0.15 V "
+                     "a fourth time; the node fix, not the recipe, is what qC5 needs. Worse, from 02:32 the model started rewiring the drive: "
+                     "it replaced xy/LO_frequency's reference with a literal 5.8 GHz, toggled xy/upconverter between 1 and 0 (a different "
+                     "physical channel), pointed LO_frequency at another port's upconverter (con1/1/6, then con1/2/6), and at 03:23 wrote "
+                     "LO_frequency = 0, all accepted; write_state refused four other writes (a junk upconverter_frequency key, a dict for "
+                     "opx_output). It then declared the wiring 'missing' — it is not (wiring.json: con1/2/6). The guard checks executability; "
+                     "it needs an identity rule too: ports, upconverter, opx_output and LO references are not calibration and must be refused."),
+    ("21 Sep 07:24", "gilboa Splash-C stopped by the operator on qD1: turns 49–51 at the cap with no action, 5.2 h on one qubit that never "
+                     "got past power Rabi (two of three Splash stops are on gilboa's power Rabi). The remaining six gilboa targets continue as "
+                     "splash-D; the arbel Splash cell follows. qolab Splash Q5 finished at 99.94 %; Q6 is its last."),
+    ("21 Sep 08:30", "qolab Splash-B stopped by the operator on Q6, its last target: turns 24–26 at the cap with no action, at qubit "
+                     "spectroscopy after 1.6 h. Fourth Splash stop of the night, all the same shape. qolab Splash ends 4 of 6 (Q2 99.45, Q3 "
+                     "99.95, Q4 99.95, Q5 99.94); the freed stream goes to the arbel Splash cell."),
+    ("21 Sep 00:23", "arbel's cloud queue slowed: power Rabi and IQ_blobs on the reruns waited 208–953 s for a few seconds of execution "
+                     "(gilboa's waits stayed under a minute). Nodes complete; the runs are just slower."),
+    ("21 Sep 10:00", "Recipe edited again by the user: a paragraph asking the model to check on the figure that a node's fit and the point it "
+                     "proposes make physical sense before committing (motivated by qC5's flux-map apex, see the debugging note). tinycal reads the "
+                     "recipe at target start, so gilboa Splash-D from qD4 on and arbel Splash from qC2 on run under it; qD2 and qB4 do not."),
+    ("21 Sep 10:26", "Splash degraded: HTTP 408 'HTTP I/O timed out' on three requests between 10:26 and 10:36, then 503 'native frame write "
+                     "timed out' / 'engine is recovering' at 11:09. tinycal retried the 503s but not the 408s, so arbel qB4 (turn 27, 1.8 h in), "
+                     "arbel qC2 (turn 5) and gilboa qD4 (turn 6) aborted. Fixed in tinycal (392a629: 408 joins 429/5xx in the retry ladder); "
+                     "a fifth chain re-runs the three as qB4/qC2 · rerun (arbel Splash-B) and qD4 · rerun (gilboa Splash-E), each once the "
+                     "backend's current Splash driver has finished, never more than two Splash streams. gilboa Splash-D qD2 ended 'stuck' at "
+                     "10:26 on its own: readout and flux fine, no qubit line in 5.0–6.3 GHz, upconverter retuned to 8.85 GHz."),
+    ("21 Sep 13:55", "gilboa qC2 and qC5 re-run on OpenRouter at the user's request (cell openrouter-R2, two in parallel, rows 'qC2 · rerun 2' "
+                     "and 'qC5 · rerun 2'), with two changes: the resonator flux-map node fix (qua-libs fix/flux-map-dip-track b8a3e1d — the "
+                     "dip tracked on the background-subtracted map, no proposal from a failed fit; this cell imports it from a worktree while "
+                     "the Splash cells keep the unfixed working copy) and the recipe's new 'check the figure' paragraph. Same scramble, same "
+                     "state as the 17:12 cells. Three gilboa targets in flight (qC1 on Splash)."),
+    ("21 Sep 23:26", "All cells done. gilboa Splash-H finished qD4 · rerun at 99.93 % in 35 minutes (64 turns, 27 nodes, no capped turn, 99 % "
+                     "prefix-cache hits) — the fastest Splash bring-up of the night, and the only one that ever ran as the sole stream. arbel "
+                     "flash4 qC2 aborted at turn 7 on a solid OpenRouter 429 (fourth and last attempt)."),
+    ("21 Sep 23:14", "A third Splash stream had been running unseen since 16:06: gilboa Splash-D's qC2 target survived the 16:15 kill (its "
+                     "python process outlived the driver; the check counted drivers, not run pids) and ran on at effort high for seven hours, "
+                     "84 turns, 43 retries. Killed by pid. Every 'two-stream' observation since 16:24 had three streams behind it, which is where "
+                     "the 503 memory errors and the zero-cache turns on G/H came from (their hit rate 0.86–0.91, D's 0.67; all three lost the "
+                     "prefix at 21:28). Post-mortem of arbel flash qB4 (92.3 %): it calibrated the 0→2 two-photon line (6507 MHz = f_01 − α/2) "
+                     "end to end — see the hard-case note; the same trap took OpenRouter's first qB4 and qC2."),
+    ("21 Sep 23:08", "gilboa Splash-G finished qC2 · rerun at 99.92 % and Splash-H finished qC4 at 99.09 % — both on medium effort with no capped "
+                     "turn; H moved on to qD4 · rerun (the 408-aborted target). arbel flash4 qC2 got through OpenRouter's rate limit at the fourth "
+                     "attempt and is running. The power_rabi node fix (first turning point no longer overrides a good fit when it moves the other "
+                     "way or sits far below it; qua-libs 65b4755) landed at 23:05 and applies to targets launched from now on."),
+    ("21 Sep 21:23", "gilboa Splash-F stopped by the operator on qC3: turns 44–46 at the cap with no action — medium effort is not immune, "
+                     "it just pushes the loops to longer contexts (58k here) and rarer situations (a 7.2–7.5 GHz qubit search with no line). "
+                     "Relaunched as two streams: Splash-G (qC2 · rerun) and Splash-H (qC4, then qD4 · rerun). arbel Splash-D qC2 ended 'stuck' at "
+                     "21:00 after the full graph on a weak dispersive readout (flat RB); the arbel flash qC2 that followed never started — "
+                     "OpenRouter rate-limited qwen3.8-flash for ten minutes — and was relaunched as flash3. Splash server restarts by the user "
+                     "at 18:54, 19:19, 20:03 were all retried through."),
+    ("21 Sep 17:48", "The tailnet dropped for ~12 minutes; Splash (on the user's MacBook) was unreachable. gilboa Splash-F qC2 exhausted its "
+                     "retry ladder and aborted at turn 17; the cell moved on to qC3. arbel Splash-D qC2 rode it out on a timeout retry. Chain v6 "
+                     "re-runs gilboa qC2 as Splash-G after Splash-F ends. First hour on medium: no capped turn, reasoning at most 2.4k tokens, "
+                     "every turn a tool call."),
+    ("21 Sep 16:24", "Splash moved to effort medium for everything from here (matrix.yaml). A probe replayed two turns that had ended at the "
+                     "10 000-token cap: Splash honours the effort level — medium thought 840–1 280 reasoning tokens where high used 4 000–9 300, "
+                     "made the same decisions and took a fifth of the time — but ignores reasoning.max_tokens (6 100–6 400 tokens against a "
+                     "4 000 budget). The probe's third stream pushed the arbel qC2 rerun into 503 'memory did not become available' retries at "
+                     "16:03, so both Splash cells were stopped at a node boundary (gilboa qC2 at turn 2, arbel qC2 at turn 29) and relaunched on "
+                     "medium and the now-merged node fix: gilboa Splash-F (qC2 qC3 qC4 qD4) and arbel Splash-D (qC2). The Splash column is "
+                     "therefore split three ways: high effort + old node (everything up to qC1), high + old node with the figure paragraph "
+                     "(qD4… none completed), and medium + fixed node from 16:24."),
+    ("21 Sep 16:06", "gilboa Splash qC1 completed at 99.02 % after 69 turns and 5.5 h (OpenRouter: 99.68 %), the last target on high effort."),
+    ("21 Sep 15:36", "qua-libs feat/qualibrate-ai fast-forwarded to the flux-map fix (b8a3e1d). Running processes keep the code they loaded; "
+                     "every target started afterwards runs on the fixed node."),
+    ("21 Sep 14:47", "gilboa qC2 · rerun 2 (OpenRouter, fixed flux-map node) completed at 99.89 % after 51 turns — the flux map proposed "
+                     "0.011 V (reference 0.006) and every node after it went through first time, on the qubit whose two earlier runs had "
+                     "committed −0.16 V and ended at the hardware budget with a flat Rabi. qC5 · rerun 2 is at T1 with 25/26 nodes clean."),
+    ("21 Sep 14:29", "qwen3.8-flash (OpenRouter, effort high, 16k max_tokens) added at the user's request as a third column: qolab Q1–Q6 three "
+                     "at a time and arbel qB4 + qC3 now, arbel qC2 chained behind the Splash qC2 rerun so the qubit is never driven by two agents. "
+                     "Same snapshots and scramble as the other cells; runs on the fixed flux-map node and the recipe with the figure paragraph, "
+                     "like the OpenRouter rerun-2 cell."),
+    ("21 Sep 14:23", "arbel Splash-B stopped by the operator on the qB4 rerun: turns 18–20 at the cap with no action, at qubit spectroscopy "
+                     "(readout and flux done). The remaining target continues as arbel Splash-C (qC2 · rerun). Meanwhile the OpenRouter "
+                     "rerun-2 cell with the fixed flux-map node proposed the arc's top on both qubits — qC2 0.011 V (ref 0.006), qC5 "
+                     "0.025 V (ref 0.030) — where every earlier run of these two had committed −0.13…−0.16 V."),
 ]
 
 # What would have caught each hard case, by (backend, provider token, qubit); the operator's reading of the transcripts.
@@ -116,6 +304,17 @@ HARD_CASE_NOTE = {
                                      "sweep that spans several flux periods; the node must propose nothing without a fit, and warn when the sweep "
                                      "is wider than a period",
     ("gilboa", "openrouter", "qC5"): "the same −0.13 V 'measured apex' from a failed fit (R² 0.16) over ±0.5 V; same fix",
+    ("gilboa", "splash", "qD1"): "a Rabi with poor contrast at the readout it chose, three hours between power Rabi and T1, then three capped "
+                                 "reasoning turns with no action; a breaker on consecutive capped turns, and a lower effort level for Splash",
+    ("gilboa", "splash", "qC5"): "the same ±0.5 V sweep and a −0.12 V 'measured apex' from a fit with R² 0.41, committed with a good readout power "
+                                 "already in hand; the node must propose nothing without a fit",
+    ("gilboa", "openrouter", "qC2"): "a Rabi that never showed an oscillation at any amplitude or length (124 turns, 51 node runs) until the "
+                                     "30 min hardware budget ended it; the RB '100 %' is a flat trace. The x180 the model finally wrote at 92 ns / "
+                                     "12 mV says the drive was far too weak or off resonance; the write_state guard refused one of its writes",
+    ("gilboa", "openrouter", "qC5 · rerun"): "readout fixed by the new wording (0.13–0.2 V), then the ±0.5 V apex at −0.15 V again, then 50 turns "
+                                              "rewiring the drive (LO literal, upconverter 1↔0, LO = 0) before declaring the wiring broken. Two guards: "
+                                              "no apex from a failed fit, and write_state refusing identity fields (ports, upconverter, opx_output, LO "
+                                              "references)",
     ("gilboa", "openrouter", "qD1"): "the RB node reported 99.998 % from a fit covering 0.009 decay lengths with amplitude 16.5; the fit's own "
                                      "warning was in the result and the model declared completion anyway. A fit that far outside [0, 1] should "
                                      "return no number",
@@ -124,17 +323,34 @@ HARD_CASE_NOTE = {
     ("qolab", "splash", "Q1"): "calibrated to RB at turn 45, then committed a DRAG alpha the fit did not support, which broke the readout it had; "
                               "from turn 49 on, 10 000-token reasoning turns with no action (9 of 14 hit the cap). A breaker on consecutive "
                               "capped turns without a tool call, and a rule that a change followed by a worse IQ_blobs is reverted",
+    ("qolab", "splash", "Q6"): "the same capped-reasoning stall, at qubit spectroscopy this time; a breaker on consecutive capped turns without "
+                              "a tool call, and a lower effort level for Splash",
     ("qolab", "openrouter", "Q2"): "readout power committed at 0.035 V with no punch-out onset in the sweep, ~50 % IQ contrast, flat RB; the "
                                    "night-2 recipe's 'provisional low power' line was followed, but no second power sweep at the sweet spot",
-    ("arbel", "openrouter", "qC2"): "a line 103 MHz below the reference committed as f_01 (χ ≈ 0 at the upper sweet spot); the model saw the "
-                                    "flat power Rabi and flat blobs and blamed the readout instead of the frequency",
-    ("arbel", "openrouter", "qB4"): "the hardware budget (30 min of QPU) ran out at turn 112 after 48 node runs; the cap worked as designed — "
-                                    "the run had spent its time on readout re-optimisation",
+    ("arbel", "openrouter", "qC2"): "the 0→2 two-photon line committed as f_01: 5798.05 MHz against a reference f_01 of 5901.15 and α = 205 MHz "
+                                    "(f_01 − α/2 = 5798.5); χ ≈ 0, flat power Rabi and flat blobs followed, and the model blamed the readout",
+    ("arbel", "openrouter", "qB4"): "the same 0→2 two-photon line: qubit_spectroscopy identified 6504 MHz (reference f_01 6605.69, α = 194 MHz, "
+                                    "f_01 − α/2 = 6508.5); the budget then ran out at turn 112 after 48 node runs of readout re-optimisation",
+    ("arbel", "flash", "qB4"): "the 0→2 two-photon line again, calibrated end to end: qubit_spectroscopy's 300 MHz window held a sharp 16σ line at "
+                               "6507 MHz that moves with flux (the two-photon line tracks f_01 exactly) and only a broad 4σ hump at the real "
+                               "6.58–6.61 GHz, so the node reported identified=True at 6507.2 and the model never doubted it. Everything after is "
+                               "the |0⟩→|2⟩ transition driven through two photons: the 48 ns π 'needed 4 V' (9× the reference V·ns), so the gate was "
+                               "lengthened to 400 ns; x90 = x180/2 failed because the two-photon angle goes as amplitude²; the 'T1' of 55 µs is "
+                               "the |2⟩→|1⟩→|0⟩ cascade (reference T1 31 µs); DRAG had no signal; RB 92.3 %. The rerun that reached 99.85 % "
+                               "escaped only because its first 100 MHz window (6505–6605) left the 6507 line on the edge and the flux arc "
+                               "then found the apex at 6605",
 }
 
 
 # ----------------------------------------------------------------------------- collect
+def cell_log_token(cell_name: str) -> str:
+    """The driver's log is cell-<token>.log, token = the cell name after the model key's family prefix."""
+    return re.sub(r".*qwen3-8-(27b|flash)-", "", cell_name)
+
+
 def provider_of(cell_name: str) -> str:
+    if "-flash-" in cell_name:  # qwen3-8-flash-openrouter cells also contain "-openrouter"
+        return "flash"
     for token in PROVIDERS:
         if f"-{token}" in cell_name:
             return token
@@ -166,8 +382,8 @@ def collect():
             r = json.load(open(doc))
             t = r["totals"]
             live = live_status(r.get("run_id") or "")
-            final = (work / f"cell-{cell.name.split('qwen3-8-27b-')[-1]}.log").exists() and \
-                "done →" in (work / f"cell-{cell.name.split('qwen3-8-27b-')[-1]}.log").read_text()
+            final = (work / f"cell-{cell_log_token(cell.name)}.log").exists() and \
+                "done →" in (work / f"cell-{cell_log_token(cell.name)}.log").read_text()
             alive = final or subprocess.run(["pgrep", "-f", r.get("run_id") or "none"], capture_output=True).returncode == 0
             targets = []
             for x in r["targets"]:
@@ -182,7 +398,9 @@ def collect():
                 status = x["status"]
                 if status == "pending":
                     status = live.get(x["target"], "pending")  # running / queued while the cell is alive
-                    if not alive:  # the cell was stopped: the running target is the one the operator stopped, the rest never started
+                    # the cell is over (its driver wrote "done", or nothing of it is running): a target still pending in
+                    # result.json is the one the operator stopped, or one that never started
+                    if final or not alive:
                         status = "stopped" if (work.name, cell.name, x["target"]) in OPERATOR_STOPS else "not run"
                 cause = TARGET_INCIDENTS.get((work.name, cell.name, x["target"]))
                 targets.append({
@@ -234,7 +452,7 @@ def collect():
 # ----------------------------------------------------------------------------- tables specific to this night
 def pivot_table(cells):
     """Metrics as rows; one column per host, each over all three backends. Only started targets count as attempted."""
-    cols = [(PROVIDERS[t][0], t) for t in ("openrouter", "splash")]
+    cols = [(PROVIDERS[t][0], t) for t in ("openrouter", "splash", "flash")]
     stats = []
     for _, token in cols:
         runs = [(c, t) for c in cells if c["provider"] == token for t in c["targets"]
@@ -245,13 +463,15 @@ def pivot_table(cells):
         tot = lambda k: sum((t[k] or 0) for _, t in runs)  # noqa: E731
         tokt = lambda k: sum((t["tokens"].get(k) or 0) for _, t in runs)  # noqa: E731
         per_dev = {}
-        for c, t in runs:
-            done_here = per_dev.setdefault(c["backend"], {}).get(t["target"], False)
-            per_dev[c["backend"]][t["target"]] = done_here or t["status"] == "completed"
+        for c, t in runs:  # completed beats running beats failed, per qubit
+            rank = {"completed": 2, "running": 1}.get(t["status"], 0)
+            prev = per_dev.setdefault(c["backend"], {}).get(t["target"], -1)
+            per_dev[c["backend"]][t["target"]] = max(prev, rank)
 
         def qubit_list(qs):
-            return ", ".join(q if ok else f"<span class='qfail' title='not calibrated'>{q}</span>" for q, ok in sorted(qs.items()))
-        priced = token == "openrouter"
+            return ", ".join(q if r == 2 else (f"<span class='muted' title='still running'>{q}&nbsp;(running)</span>" if r == 1
+                                               else f"<span class='qfail' title='not calibrated'>{q}</span>") for q, r in sorted(qs.items()))
+        priced = token in ("openrouter", "flash")
         stats.append({
             "qubits": "<br>".join(f"<b class='dev'>{b}</b> {qubit_list(qs)}" for b, qs in sorted(per_dev.items())) or "—",
             "done": f"{len(done)}/{len(runs)} ({100 * len(done) / len(runs):.0f}%)" if runs else "—",
@@ -265,7 +485,7 @@ def pivot_table(cells):
             "tin": mtok(tokt("input") / n), "tout": mtok(tokt("output") / n),
             "tcache": f"{mtok(tokt('cache_read') / n)} / {mtok(tokt('cache_creation') / n)}",
         } if runs else None)
-    rows = [("qubits measured (red: not calibrated)", "qubits"), ("calibrations completed / attempted", "done"),
+    rows = [("qubits measured (red: not calibrated; grey: still running)", "qubits"), ("calibrations completed / attempted", "done"),
             ("single-qubit gate fidelity, median (min – max)", "fid"), ("agent time / calibration", "agent"),
             ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"), ("judge cost / calibration", "cost"),
             ("judge cost, total spent", "spent"),
@@ -290,7 +510,7 @@ def qubit_table(cells):
     by = {}
     for c in cells:
         for t in c["targets"]:
-            by.setdefault((c["backend"], t["target"]), {})[c["provider"]] = (c, t)
+            by.setdefault((c["backend"], t["target"] + rerun_label(c["cell"], t["target"])), {})[c["provider"]] = (c, t)
     order = {"gilboa": 0, "qolab": 1, "arbel": 2}
 
     def cell_html(entry):
@@ -305,11 +525,13 @@ def qubit_table(cells):
                 f"<td class='num'>{minutes(t['model_s'])} · {minutes(t['qpu_s'])}</td><td class='num'>{fmt(t['turns'], '{}')} · {fmt(t['cost'], '${:.2f}')}</td>")
     rows = []
     for (b, q), prov in sorted(by.items(), key=lambda kv: (order.get(kv[0][0], 9), kv[0][1])):
-        rows.append(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td>{cell_html(prov.get('splash'))}{cell_html(prov.get('openrouter'))}</tr>")
+        rows.append(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td>{cell_html(prov.get('splash'))}{cell_html(prov.get('openrouter'))}"
+                    f"{cell_html(prov.get('flash'))}</tr>")
     sub = "<th>status</th><th>nodes</th><th>gate fid.</th><th>ballpark</th><th>agent · QPU</th><th>turns · cost</th>"
-    head = (f'<thead><tr><th></th><th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["splash"]}">Splash</th>'
-            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["tinycal"]}">OpenRouter</th></tr>'
-            f'<tr><th>qubit</th>{sub}{sub}</tr></thead>')
+    head = (f'<thead><tr><th></th><th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["splash"]}">27b · Splash</th>'
+            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["tinycal"]}">27b · OpenRouter</th>'
+            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["flash"]}">flash · OpenRouter</th></tr>'
+            f'<tr><th>qubit</th>{sub}{sub}{sub}</tr></thead>')
     return f'<div class="scroll"><table class="grid small">{head}<tbody>' + "".join(rows) + "</tbody></table></div>"
 
 
@@ -327,9 +549,10 @@ def hard_cases(cells):
             outcome = (f"{status_chip(t['status'])} {t['nodes'] or 0}/18{fid}<br><span class='small'>{minutes(t['model_s'])} agent · "
                        f"{fmt(t['cost'], '${:.2f}')} · {fmt(t['turns'], '{}')} turns</span>")
             what = t["cause"] if t["status"] != "completed" else (invalid or "finished the graph with a poor number")
-            note = HARD_CASE_NOTE.get((c["backend"], c["provider"], t["target"]), "")
+            label = t["target"] + rerun_label(c["cell"], t["target"])
+            note = HARD_CASE_NOTE.get((c["backend"], c["provider"], label), HARD_CASE_NOTE.get((c["backend"], c["provider"], t["target"]), ""))
             rank = 0 if t["status"] != "completed" else (1 if invalid else 2)
-            rows.append((rank, c["backend"], t["target"], c["provider"], outcome, what, note))
+            rows.append((rank, c["backend"], t["target"] + rerun_label(c["cell"], t["target"]), c["provider"], outcome, what, note))
     rows.sort()
     body = "".join(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td><td>{esc(PROVIDERS[p][0].split(' · ')[1])}</td><td>{o}</td>"
                    f"<td class='small'>{esc(w)}</td><td class='small'>{esc(n)}</td></tr>" for _, b, q, p, o, w, n in rows)
@@ -344,7 +567,7 @@ def in_flight(cells):
     for c in cells:
         for t in c["targets"]:
             if t["status"] in ("running", "queued"):
-                items.append(f"{c['backend']} {t['target']} ({PROVIDERS[c['provider']][0].split(' · ')[1]}, {t['status']})")
+                items.append(f"{c['backend']} {t['target']}{rerun_label(c['cell'], t['target']).replace(' · ', ' ')} ({PROVIDERS[c['provider']][0].split(' · ')[1]}, {t['status']})")
     return items
 
 
@@ -419,6 +642,12 @@ def build():
     live = bool(flight) or any(not c["final"] for c in cells)
     spent = sum((t["cost"] or 0) for _, t in runs)
     now = datetime.now().strftime("%d %b %Y %H:%M")
+    spent_27b = sum((t["cost"] or 0) for c, t in runs if c["provider"] == "openrouter")
+    spent_flash = sum((t["cost"] or 0) for c, t in runs if c["provider"] == "flash")
+    n_27b = sum(1 for c, t in runs if c["provider"] == "openrouter" and t["status"] not in ("queued", "pending", "not run"))
+    n_flash = sum(1 for c, t in runs if c["provider"] == "flash" and t["status"] not in ("queued", "pending", "not run"))
+    cost_line = (f"${spent:,.2f} of OpenRouter credit for the whole night at judge prices: ${spent_27b:,.2f} for {n_27b} qubit-runs of qwen3.8-27b "
+                 f"(${spent_27b / max(n_27b, 1):.2f} per run, reruns included) and ${spent_flash:,.2f} for {n_flash} of qwen3.8-flash.")
 
     def prov_stats(token):
         d = [t for c, t in done if c["provider"] == token]
@@ -428,11 +657,11 @@ def build():
     so, ss, mo, lo_o, hi_o = prov_stats("openrouter")
     sp, sps, mp, lo_p, hi_p = prov_stats("splash")
     tiles = [
-        f'<div class="tile"><div class="v">{len(done)}/{len(settled)}</div><div class="k">calibrations completed / settled so far'
+        f'<div class="tile"><div class="v">{len(done)}/{len(settled)}</div><div class="k">calibrations completed / settled{" so far" if live else ""}'
         f'{" · " + str(len(flight)) + " in flight or queued" if flight else ""}</div></div>',
         f'<div class="tile"><div class="v">{so}/{ss}</div><div class="k">OpenRouter: completed / settled — median {pct(mo)} ({pct(lo_o)} – {pct(hi_o)})</div></div>',
         f'<div class="tile"><div class="v">{sp}/{sps}</div><div class="k">Splash: completed / settled — median {pct(mp)} ({pct(lo_p)} – {pct(hi_p)})</div></div>',
-        f'<div class="tile"><div class="v">${spent:,.2f}</div><div class="k">judge-priced spend so far (OpenRouter only; Splash is self-hosted and unpriced)</div></div>',
+        f'<div class="tile"><div class="v">${spent:,.2f}</div><div class="k">judge-priced spend{" so far" if live else ""} (OpenRouter only; Splash is self-hosted and unpriced)</div></div>',
     ]
 
     def lab(it, plain=False):
@@ -503,10 +732,35 @@ gilboa's qubits 14–30 mV from their sweet spots without any node saying so —
 apex to an idle that was never applied. One line in the state (active_qubit_names) explains the qD5 99.27 % / 97.72 %, the "+20 mV per map" walk and
 qC5's blank maps; patched in the run copies at 17:10, the relaunched gilboa qD3 landed its offset within 0.6 mV of the reference. This and the qC5
 y90 literal are both cloud-state defects for IQCC.</p>
-<p><b>OpenRouter, so far:</b> qolab 5/6 at 99.89–99.96 % (Q2 lost to readout power), arbel qC3 99.74 % with qC2 on a wrong line and qB4 out of hardware
-budget, gilboa qD3 99.82 % with the flux fix, qD2 95.9 % on the short-T1 qubit, and two targets (qD5, qC5) sent to −0.13 V by a resonator flux map that
-proposed an apex from a fit it had rejected — the one new node defect of the night. <b>Splash</b> is slower per turn (its 10 000-token generations take
-5–25 min under two streams, and it returned 503 memory errors to the other stream while doing so); its results are in the tables as they land.</p>
+<p><b>Same model, same recipe, same qubits: the serving host decided the night far more than the model did.</b> Counting a target as done when
+any of its runs reached the end of the graph with a valid RB: <b>qwen3.8-27b on OpenRouter finished 19 of 19</b> (qolab 6/6, arbel 3/3, gilboa 10/10; four
+needed a rerun, one of them twice), <b>the same weights on Splash finished 11 of 19</b> (qolab 4/6, arbel 1/3, gilboa 6/10), and <b>qwen3.8-flash on
+OpenRouter 5 of 9</b> (qolab 4/6, arbel 1/3; it had no gilboa cells). Where both hosts finished, they agree: 99.9 %-class RB on the good qubits (qolab Q3–Q5,
+gilboa qD3/qD4/qD5, arbel qC3 at 99.74 vs 99.80), and the same physics-limited numbers on the bad ones (gilboa qC1 99.7/99.0, qC4 99.5/99.1). The model
+calibrates; nothing in the Splash column failed because Splash's answers were worse when they arrived.</p>
+<p><b>What Splash lost.</b> Every Splash target that did not finish died of serving, not physics: two HTTP 408s tinycal did not retry (fixed at 10:45),
+one tailnet drop, one 503 storm from a third stream, and six capped-reasoning loops — three consecutive 10 000-token turns with no tool call — at effort
+high (qolab Q1/Q6, gilboa qC5/qD1, arbel qB4) and one at medium (gilboa qC3, at 58k tokens of context). The loops are the model spending its whole output
+budget thinking; the same turns replayed at effort medium make the same decisions in 840–1 280 reasoning tokens. Speed was the other cost: at effort
+high with two or three streams a Splash bring-up took 2.3–5.5 h against 0.5–1.5 h on OpenRouter, because Splash's KV pool (~180k tokens) cannot hold two
+60k-token conversations plus generation, so prefixes were evicted and re-prefilled at ~7–30 tok/s. The one cell that ran as the sole stream at medium —
+Splash-H qD4, after the stray third stream was killed at 23:14 — finished in 35 minutes with 99 % cache hits: OpenRouter speed on a laptop. Three
+concurrent streams, which the plan assumed Splash could take, it cannot; two is marginal past 60k tokens; one is fine.</p>
+<p><b>What flash lost.</b> qwen3.8-flash is fast and right when its first pass is right (qolab Q1/Q4/Q6 at 99.93–99.96 %, arbel qC3 99.78) and burns the
+30-minute QPU budget when it is not: it re-runs nodes rather than reasoning about them (qolab Q2/Q3, arbel qB4 out of budget), and OpenRouter
+rate-limited the model for the whole retry ladder four times on arbel qC2. Cheap per token, expensive per calibration.</p>
+<p><b>The physics traps were shared, and two of them are now node fixes.</b> (1) The resonator flux map proposed an apex from a fit it had rejected
+(gilboa qC5, qD5, qD4, three hosts); it now tracks the dip on the background-subtracted map and proposes only what the data supports — 511 stored maps
+checked, gilboa qC2/qC5 reruns landed within 10 mV of the reference. (2) The power-Rabi node let a model-free "first turning point" override a good fit
+unconditionally; on gilboa qC3 that turned a drive switch-on dip at 20 mV into the π amplitude (24× too small) and started a capped loop. The turning
+point now has to be a Rabi turning point — same direction as the fitted lobe, not far below it — before it wins (369 stored sweeps checked). (3) Not yet
+fixed: <b>the 0→2 two-photon line</b>. At the default 0.5× saturation drive the two-photon transition, half an anharmonicity below f_01, is sharp and
+16σ while the power-broadened f_01 is a 4σ hump, so qubit_spectroscopy identified it — it moves with flux exactly like f_01 — on arbel qB4 (three of four
+runs) and qC2. Everything downstream then measures |2⟩: a π pulse "needing 4 V", x90 ≠ x180/2, a T1 that is the |2⟩→|1⟩→|0⟩ cascade, 92 % RB. The
+discriminator is the power scaling (two-photon contrast falls as amplitude⁴), which needs a low-drive condition in the identification node; α is not
+reliably known at that stage, so it cannot be a lookup. (4) gilboa's cloud state parked non-active z lines at 0 V (above), qC5's weak χ and 1 µs gates
+(96 %) and qD2's 18 µs T1 (95.9 %) are chip facts, not calibration failures.</p>
+<p><b>Cost.</b> {cost_line} Splash's marginal cost was the electricity of one MacBook and the operator's evening.</p>
 
 <h2 id="stuck">Where things got stuck</h2>
 <h3>Incident timeline</h3>
