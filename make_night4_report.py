@@ -117,7 +117,14 @@ TARGET_INCIDENTS = {
 }
 # Cells that re-run targets an earlier cell lost (besides the "-R" readout reruns): their rows are labelled "· rerun".
 RERUN_CELLS = {"arbel-tinycal-qwen3-8-27b-splash-B", "arbel-tinycal-qwen3-8-27b-splash-C", "arbel-tinycal-qwen3-8-27b-splash-D",
-               "gilboa-tinycal-qwen3-8-27b-splash-E"}
+               "gilboa-tinycal-qwen3-8-27b-splash-E",
+               # 22 Sep single-stream chain (night4-chain-v7.sh): every Splash target the first pass lost, at effort medium
+               "qolab-tinycal-qwen3-8-27b-splash-C", "arbel-tinycal-qwen3-8-27b-splash-E", "gilboa-tinycal-qwen3-8-27b-splash-I",
+               # 22 Sep 00:14 flash reruns of the flash column's losses (gilboa's flash cell is a first run, not listed here)
+               "qolab-tinycal-qwen3-8-flash-openrouter-flash2", "arbel-tinycal-qwen3-8-flash-openrouter-flash5"}
+# Targets on their third or later attempt on the same host: label "· rerun N".
+RERUN_ORDINAL = {("arbel-tinycal-qwen3-8-27b-splash-E", "qB4"): 2, ("arbel-tinycal-qwen3-8-27b-splash-E", "qC2"): 3,
+                 ("arbel-tinycal-qwen3-8-flash-openrouter-flash5", "qC2"): 3}
 # gilboa Splash-F re-runs qC2 (stopped at turn 2) and continues qC3 qC4, plus the qD4 rerun: qC2 and qD4 are reruns, the others first runs.
 RERUN_TARGETS = {("gilboa-tinycal-qwen3-8-27b-splash-F", "qC2"), ("gilboa-tinycal-qwen3-8-27b-splash-F", "qD4"),
                  ("gilboa-tinycal-qwen3-8-27b-splash-G", "qC2"), ("gilboa-tinycal-qwen3-8-27b-splash-H", "qD4"),
@@ -133,6 +140,8 @@ def rerun_label(cell_name, target=None):
     """Suffix for a target label: '' for a first run, ' · rerun' for the readout reruns, ' · rerun 2' for the node-fix reruns."""
     if cell_name.endswith("-R2"):
         return " · rerun 2"
+    if target is not None and (cell_name, target) in RERUN_ORDINAL:
+        return f" · rerun {RERUN_ORDINAL[(cell_name, target)]}"
     if target is not None and (cell_name, target) in RERUN_TARGETS:
         return " · rerun"
     return " · rerun" if is_rerun(cell_name) else ""
@@ -251,6 +260,11 @@ INCIDENTS = [
                      "dip tracked on the background-subtracted map, no proposal from a failed fit; this cell imports it from a worktree while "
                      "the Splash cells keep the unfixed working copy) and the recipe's new 'check the figure' paragraph. Same scramble, same "
                      "state as the 17:12 cells. Three gilboa targets in flight (qC1 on Splash)."),
+    ("22 Sep 00:14", "Second pass. The single-stream Splash chain (23:51) was restructured into two staggered streams on different backends: "
+                     "gilboa Splash-I (qC3 qC5 qD1 qD2) started while qolab Q1 was mid-run at 45k tokens, so the two tails do not meet in the "
+                     "KV pool; arbel Splash-E (qB4, qC2) follows when the qolab driver ends. In parallel, qwen3.8-flash re-runs its losses on "
+                     "OpenRouter — qolab Q2 Q3, arbel qB4 qC2 — and runs all ten gilboa C/D qubits for the first time (PAR 2), which keeps every "
+                     "backend at three targets. All on the fixed nodes (qua-libs 65b4755)."),
     ("21 Sep 23:26", "All cells done. gilboa Splash-H finished qD4 · rerun at 99.93 % in 35 minutes (64 turns, 27 nodes, no capped turn, 99 % "
                      "prefix-cache hits) — the fastest Splash bring-up of the night, and the only one that ever ran as the sole stream. arbel "
                      "flash4 qC2 aborted at turn 7 on a solid OpenRouter 429 (fourth and last attempt)."),
@@ -408,7 +422,7 @@ def collect():
                     "tokens": ag.get("tokens") or {}, "cost": token_cost(ag.get("tokens") or {}, model_id, prices),
                     "nodes_run": g(ag, "nodes", "executions"), "reruns": g(ag, "nodes", "re_executions"),
                     "gate_fid": (gate_fidelity(rb.get("error_per_clifford")) if x["status"] == "completed"
-                                 and (backend, token, x["target"]) not in INVALID_RB else None),
+                                 and (backend, token, x["target"] + rerun_label(cell.name, x["target"])) not in INVALID_RB else None),
                     "ctx": (lambda cs: {"median": median(cs), "end": cs[-1] if cs else None, "max": max(cs) if cs else None, "n": len(cs)})(
                         context_series(cell, r.get("run_id") or "", x["target"], "tinycal")),
                     "target": x["target"], "status": status,
@@ -469,11 +483,13 @@ def pivot_table(cells):
             per_dev[c["backend"]][t["target"]] = max(prev, rank)
 
         def qubit_list(qs):
-            return ", ".join(q if r == 2 else (f"<span class='muted' title='still running'>{q}&nbsp;(running)</span>" if r == 1
-                                               else f"<span class='qfail' title='not calibrated'>{q}</span>") for q, r in sorted(qs.items()))
+            return ", ".join(f"<span class='qok' title='calibrated'>{q}</span>" if r == 2
+                             else (f"<span class='muted' title='still running'>{q}&nbsp;(running)</span>" if r == 1
+                                   else f"<span class='qfail' title='not calibrated'>{q}</span>") for q, r in sorted(qs.items()))
         priced = token in ("openrouter", "flash")
         stats.append({
-            "qubits": "<br>".join(f"<b class='dev'>{b}</b> {qubit_list(qs)}" for b, qs in sorted(per_dev.items())) or "—",
+            "qubits": ("<div class='devs'>" + "".join(f"<div class='dev'>{b}</div><div>{qubit_list(qs)}</div>" for b, qs in sorted(per_dev.items()))
+                       + "</div>") if per_dev else "—",
             "done": f"{len(done)}/{len(runs)} ({100 * len(done) / len(runs):.0f}%)" if runs else "—",
             "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}</span>") if fids else "—",
             "agent": minutes(tot("model_s") / n), "qpu": minutes(tot("qpu_s") / n), "queue": minutes(tot("queue_s") / n),
@@ -485,7 +501,7 @@ def pivot_table(cells):
             "tin": mtok(tokt("input") / n), "tout": mtok(tokt("output") / n),
             "tcache": f"{mtok(tokt('cache_read') / n)} / {mtok(tokt('cache_creation') / n)}",
         } if runs else None)
-    rows = [("qubits measured (red: not calibrated; grey: still running)", "qubits"), ("calibrations completed / attempted", "done"),
+    rows = [("qubits measured (green: calibrated; red: not calibrated; grey: still running)", "qubits"), ("calibrations completed / attempted", "done"),
             ("single-qubit gate fidelity, median (min – max)", "fid"), ("agent time / calibration", "agent"),
             ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"), ("judge cost / calibration", "cost"),
             ("judge cost, total spent", "spent"),
@@ -542,7 +558,7 @@ def hard_cases(cells):
             if t["status"] in ("running", "queued", "pending", "not run"):
                 continue
             poor = t["status"] == "completed" and t["gate_fid"] is not None and t["gate_fid"] < 0.99
-            invalid = INVALID_RB.get((c["backend"], c["provider"], t["target"]))
+            invalid = INVALID_RB.get((c["backend"], c["provider"], t["target"] + rerun_label(c["cell"], t["target"])))
             if t["status"] == "completed" and not (poor or invalid):
                 continue
             fid = f" · {pct(t['gate_fid'])}" if t["gate_fid"] is not None else ""
@@ -560,6 +576,127 @@ def hard_cases(cells):
         body = "<tr><td colspan='5' class='muted'>none yet</td></tr>"
     return ('<div class="scroll"><table class="grid small"><thead><tr><th>qubit</th><th>served by</th><th>outcome</th>'
             '<th>what happened</th><th>what would have caught it</th></tr></thead><tbody>' + body + "</tbody></table></div>")
+
+
+# ----------------------------------------------------------------------------- final per-target table
+# Short labels for attempts that did not finish, keyed by (cell, target); anything not listed shows its status.
+ATTEMPT_SHORT = {
+    ("qolab-tinycal-qwen3-8-27b-splash", "Q1"): "capped loop, high",
+    ("qolab-tinycal-qwen3-8-27b-splash-B", "Q6"): "capped loop, high",
+    ("qolab-tinycal-qwen3-8-27b-openrouter", "Q2"): "readout power",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash", "Q2"): "QPU budget",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash", "Q3"): "QPU budget",
+    ("arbel-tinycal-qwen3-8-27b-openrouter", "qB4"): "two-photon line",
+    ("arbel-tinycal-qwen3-8-27b-openrouter", "qC2"): "two-photon line",
+    ("arbel-tinycal-qwen3-8-27b-splash", "qB4"): "408",
+    ("arbel-tinycal-qwen3-8-27b-splash", "qC2"): "408",
+    ("arbel-tinycal-qwen3-8-27b-splash-B", "qB4"): "capped loop, high",
+    ("arbel-tinycal-qwen3-8-27b-splash-C", "qC2"): "503",
+    ("arbel-tinycal-qwen3-8-27b-splash-D", "qC2"): "wrong line",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash", "qB4"): "two-photon line",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash2", "qC2"): "429",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash3", "qC2"): "429",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash4", "qC2"): "429",
+    ("gilboa-tinycal-qwen3-8-27b-openrouter", "qC2"): "flat Rabi",
+    ("gilboa-tinycal-qwen3-8-27b-openrouter", "qC5"): "flux apex from a rejected fit",
+    ("gilboa-tinycal-qwen3-8-27b-openrouter", "qD5"): "flux apex from a rejected fit",
+    ("gilboa-tinycal-qwen3-8-27b-openrouter-R", "qC5"): "flux apex from a rejected fit",
+    ("gilboa-tinycal-qwen3-8-27b-splash-A", "qC5"): "capped loop, high",
+    ("gilboa-tinycal-qwen3-8-27b-splash-C", "qD1"): "capped loop, high",
+    ("gilboa-tinycal-qwen3-8-27b-splash-D", "qD4"): "408",
+    ("gilboa-tinycal-qwen3-8-27b-splash-F", "qC2"): "tailnet drop",
+    ("gilboa-tinycal-qwen3-8-27b-splash-F", "qC3"): "capped loop, medium",
+}
+# Attempts that do not count as attempts (a stray process, not a graded run).
+ATTEMPT_EXCLUDE = {("gilboa-tinycal-qwen3-8-27b-splash-D", "qC2")}
+# Notes on completed runs whose number needs a reason, and the earlier failure worth naming next to a rerun's result.
+FINAL_NOTE = {("gilboa", "openrouter", "qC5"): "weak χ, 1 µs gates, ref 96.8", ("gilboa", "openrouter", "qD2"): "T1 0.7 µs, ref 98.8",
+              ("gilboa", "openrouter", "qD1"): "extrapolated"}
+SERVER_CAUSES = {"408", "503", "429", "tailnet drop"}
+FIRST_RUN_NOTE = {("arbel", "openrouter", "qB4"): "two-photon line", ("arbel", "openrouter", "qC2"): "two-photon line"}
+
+
+def final_table(cells):
+    """One row per qubit, one column per host: the best settled run, with the failed attempts before it in brief."""
+    attempts = {}  # (backend, target, provider) -> [(cell, t)] in order of the cell's start
+    def started(c):
+        try:
+            return datetime.strptime("2026 " + (c["started"] or ""), "%Y %d %b %H:%M")
+        except ValueError:
+            return datetime.max
+    for c in sorted(cells, key=started):
+        for t in c["targets"]:
+            if t["status"] == "not run" or (c["cell"], t["target"]) in ATTEMPT_EXCLUDE:
+                continue
+            attempts.setdefault((c["backend"], t["target"], c["provider"]), []).append((c, t))
+
+    def label(c, t):
+        """(text for the table, short reason) of one attempt."""
+        st = t["status"]
+        note = FINAL_NOTE.get((c["backend"], c["provider"], t["target"]))
+        if st == "completed":
+            if INVALID_RB.get((c["backend"], c["provider"], t["target"] + rerun_label(c["cell"], t["target"]))):
+                return ("completed, RB invalid" + (f" ({note})" if note else "")), None
+            fid = f"{100 * t['gate_fid']:.2f}" if t["gate_fid"] is not None else "completed"
+            return (f"{fid} ({note})" if note else fid), None
+        if st in ("running", "queued"):
+            return st, st
+        plain = {"escalated": "stuck", "failed": "aborted"}.get(st, st)
+        short = ATTEMPT_SHORT.get((c["cell"], t["target"]))
+        rb = gate_fidelity(t["rb"]) if t.get("rb") is not None else None
+        if st == "escalated" and rb is not None and 0.5 < rb < 0.99:
+            return f"{100 * rb:.1f} ({short or plain})", short
+        if st == "failed" or short in SERVER_CAUSES:  # a serving failure names its cause alone: "408", "tailnet drop"
+            return (short or plain), short
+        return (f"{plain} ({short})" if short else plain), short
+
+    def cell_text(key):
+        runs = attempts.get(key)
+        if not runs:
+            return "—", None
+        both = [label(c, t) for c, t in runs]
+        labels = [b[0] for b in both]
+        last_c, last_t = runs[-1]
+        if last_t["status"] == "completed":
+            text = labels[-1] + rerun_label(last_c["cell"], last_t["target"]).replace(" · rerun", " · r").replace("r ", "r")
+            first = FIRST_RUN_NOTE.get((last_c["backend"], last_c["provider"], last_t["target"]))
+            if first and len(runs) > 1:
+                text += f" (first run: {first})"
+            return text, ("valid" if last_t["gate_fid"] is not None else "invalid")
+        # every attempt failed (or the last is still running): the chain, repeats collapsed
+        if len(runs) > 1 and all(t["status"] == "failed" for _, t in runs) and len(set(labels)) == 1:
+            turns = max((t["turns"] or 0) for _, t in runs)
+            return (f"never ran ({labels[0]} ×{len(runs)})" if turns <= 1 else f"{labels[0]} ×{len(runs)}, never past turn {turns}"), None
+        parts = []
+        for i, l in enumerate(labels):
+            if parts and parts[-1][0] == l:
+                parts[-1][1] += 1
+            else:
+                parts.append([l, 1, i])
+        return " → ".join((("r " if i > 0 else "") + l + (f" ×{n}" if n > 1 else "")) for l, n, i in parts), None
+
+    order = {"qolab": 0, "arbel": 1, "gilboa": 2}
+    targets = sorted({(b, q) for b, q, _ in attempts}, key=lambda k: (order.get(k[0], 9), k[1]))
+    provs = ["openrouter", "splash", "flash"]
+    rows, finished, via_rerun, attempted = [], {p: 0 for p in provs}, {p: 0 for p in provs}, {p: 0 for p in provs}
+    for b, q in targets:
+        tds = []
+        for pv in provs:
+            text, kind = cell_text((b, q, pv))
+            if (b, q, pv) in attempts:
+                attempted[pv] += 1
+            if kind in ("valid", "invalid"):
+                finished[pv] += 1
+                if " · r" in text:
+                    via_rerun[pv] += 1
+            klass = "" if kind == "valid" else (" class='muted'" if text == "—" else " class='small'")
+            tds.append(f"<td{klass}>{esc(text)}</td>")
+        rows.append(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td>{''.join(tds)}</tr>")
+    foot = "".join(f"<td><b>{finished[pv]}/{attempted[pv]}</b>" + (f" ({via_rerun[pv]} via rerun)" if via_rerun[pv] else "") + "</td>" for pv in provs)
+    head = ("<thead><tr><th>qubit</th>" + "".join(f"<th>{esc(' · '.join(reversed(PROVIDERS[pv][0].split(' · ', 1))))}</th>"
+            for pv in provs) + "</tr></thead>")
+    return (f'<div class="scroll"><table class="grid small">{head}<tbody>' + "".join(rows) +
+            f"<tr><td><b>finished</b></td>{foot}</tr></tbody></table></div>")
 
 
 def in_flight(cells):
@@ -681,7 +818,9 @@ def build():
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Splash vs OpenRouter, qwen tinycal</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
-<style>{CSS}</style></head><body><div class="page">
+<style>{CSS}
+table.pivot .devs{{display:grid;grid-template-columns:max-content 1fr;column-gap:14px;row-gap:3px;align-items:baseline}}
+.pivot .qok{{color:var(--good);font-weight:600}}</style></head><body><div class="page">
 <div class="eyebrow">qua-agents benchmark · same model, two hosts, overnight run · generated {esc(now)}</div>
 <h1 style="margin-top:8px">tinycal with qwen3.8-27b served by Splash and by OpenRouter, on gilboa C/D, qolab and three arbel qubits, 20–21 Sep 2026</h1>
 <p class="lede">One framework, one model, two hosts. The same scrambled snapshot per backend was handed to tinycal twice: once with qwen3.8-27b on
@@ -705,6 +844,11 @@ arbel — {esc(SNAPSHOT_NOTE['arbel'])}.</p>
 <p><b>Scheduling.</b> Splash serves at most two streams, so its cells run one target at a time and the chain starts the next Splash cell only when a
 stream frees; OpenRouter cells run two targets at a time (three on arbel), and no backend ever has more than three targets in flight across the
 two providers. Both providers on a backend share one scramble but hold separate copies of the state, so a bad write by one never reaches the other.</p>
+<h3>Final per-target results</h3>
+<p class="small muted">Best settled run per qubit and host; "· r" = that result came from a rerun (r2, r3: the third, fourth attempt). Where no attempt
+finished, the attempts in order, "→" between them. Updated as reruns land.</p>
+{final_table(cells)}
+
 <h3>Pins: what a new cell must use to be comparable</h3>
 {pins_table(cells)}
 <div class="tiles">{"".join(tiles)}</div>
@@ -715,13 +859,13 @@ counted but unpriced (self-hosted). Context = prompt size per model call in toke
 <h3>By host</h3>
 {pivot_table(cells)}
 
-<h3>Per qubit, host side by side</h3>
-{qubit_table(cells)}
-
 <h3>Hard cases: qubits that were not calibrated, or not calibrated right</h3>
 <p class="small muted">One row per settled qubit-run that did not reach the end of the graph, then the completed ones under 99 %. Running and queued
 targets are not listed. The right-hand column is the operator's reading of the transcript, not something the cell recorded.</p>
 {hard_cases(cells)}
+
+<h3>Per qubit, host side by side</h3>
+{qubit_table(cells)}
 {cost_fig}
 {err_fig}
 
@@ -759,7 +903,11 @@ fixed: <b>the 0→2 two-photon line</b>. At the default 0.5× saturation drive t
 runs) and qC2. Everything downstream then measures |2⟩: a π pulse "needing 4 V", x90 ≠ x180/2, a T1 that is the |2⟩→|1⟩→|0⟩ cascade, 92 % RB. The
 discriminator is the power scaling (two-photon contrast falls as amplitude⁴), which needs a low-drive condition in the identification node; α is not
 reliably known at that stage, so it cannot be a lookup. (4) gilboa's cloud state parked non-active z lines at 0 V (above), qC5's weak χ and 1 µs gates
-(96 %) and qD2's 18 µs T1 (95.9 %) are chip facts, not calibration failures.</p>
+(95.9 %, reference 96.8 %) and qD2's 0.7 µs T1 (95.9 %, reference 98.8 %) are chip facts, not calibration failures — both land near the
+reference fidelities of those qubits.</p>
+<p><b>22 Sep, after the first pass.</b> The eight Splash targets the first pass lost are being re-run as one Splash stream at effort medium on the
+fixed nodes (qolab Q1 Q6, then arbel qB4 qC2, then gilboa qC3 qC5 qD1 qD2 — chain launched 23:51); their rows land in the tables above as they
+finish, labelled "· rerun". The tallies in this section are those of the first pass.</p>
 <p><b>Cost.</b> {cost_line} Splash's marginal cost was the electricity of one MacBook and the operator's evening.</p>
 
 <h2 id="stuck">Where things got stuck</h2>

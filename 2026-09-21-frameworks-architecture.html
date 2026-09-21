@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>qua-agents and tinycal, architecture</title>
+<style>
+:root { --bg:#fcfcfb; --fg:#1d1f21; --muted:#6b7378; --line:#e3e5e7; --card:#ffffff; --band:#f3f4f2;
+  --qua:#2a78d6; --tinycal:#1baf7a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#1a1a19; --fg:#e8e8e4; --muted:#9aa2a7; --line:#33363a; --card:#212223; --band:#1f2020;
+  --qua:#3987e5; --tinycal:#199e70; } }
+:root[data-theme="dark"] {
+  --bg:#1a1a19; --fg:#e8e8e4; --muted:#9aa2a7; --line:#33363a; --card:#212223; --band:#1f2020;
+  --qua:#3987e5; --tinycal:#199e70; }
+body { background:var(--bg); color:var(--fg); font:14px/1.45 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  margin:0; padding:24px 16px 48px; }
+main { max-width:1180px; margin:0 auto; }
+h1 { font-size:22px; margin:0 0 4px; }
+h2 { font-size:16px; margin:28px 0 8px; }
+.lead { color:var(--muted); margin:0 0 20px; max-width:90ch; }
+.diagrams { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(480px, 100%), 1fr)); gap:20px; }
+figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px 10px; min-width:0; }
+figure h3 { font-size:15px; margin:0 0 2px; }
+figure h3 .key { margin-right:8px; }
+figcaption { color:var(--muted); font-size:12px; margin-bottom:10px; max-width:70ch; }
+figure p.after { color:var(--muted); font-size:12px; margin:10px 0 0; }
+svg.arch { width:100%; height:auto; display:block; overflow:visible; color:var(--fg); }
+svg.arch text { font-family:inherit; font-size:11px; fill:currentColor; }
+svg.arch text.t { font-size:12px; font-weight:600; }
+svg.arch text.h { font-weight:600; }
+svg.arch text.band { font-size:10px; font-weight:600; letter-spacing:.08em; fill:var(--muted); }
+svg.arch text.m { fill:var(--muted); }
+svg.arch text.mono { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; }
+svg.arch text.lbl { font-size:10.5px; fill:var(--muted); }
+svg.arch rect.box { fill:var(--card); stroke:currentColor; stroke-width:1; rx:6; }
+svg.arch rect.grp { fill:var(--band); stroke:var(--line); stroke-width:1; stroke-dasharray:4 3; rx:8; }
+svg.arch rect.acc { stroke-width:2; }
+svg.qua rect.acc { stroke:var(--qua); } svg.tinycal rect.acc { stroke:var(--tinycal); }
+svg.arch .ar { fill:none; stroke:currentColor; stroke-width:1.2; }
+.key { display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-1px; }
+.key.tinycal { background:var(--tinycal); } .key.quaagents { background:var(--qua); }
+.scroll { overflow-x:auto; }
+table.grid { border-collapse:collapse; width:100%; font-size:13px; }
+table.grid th, table.grid td { padding:7px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+table.grid th { color:var(--muted); font-weight:600; white-space:nowrap; }
+table.grid td:first-child { white-space:nowrap; font-weight:600; }
+.mono { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
+.small { font-size:12px; } .muted { color:var(--muted); }
+ul.notes { padding-left:18px; max-width:90ch; } ul.notes li { margin-bottom:4px; }
+</style></head><body>
+<main>
+<h1>qua-agents and tinycal, side by side</h1>
+<p class="lead">The two agent frameworks the benchmark runs against the same qua-libs nodes and the same IQCC backends, drawn on
+the same five rows so each row can be compared directly: how a run is launched, what one model turn sees and may call,
+what stands between a tool call and the hardware, how a node reaches the QPU, and what is written down. Read from the
+checkouts of 21 Sep 2026: qua-agents <span class="mono">61209cf</span> (integration), tinycal <span class="mono">1125d0c</span> (main).</p>
+
+<div class="diagrams">
+
+<figure>
+<h3><span class="key quaagents"></span>qua-agents</h3>
+<figcaption>A LangGraph supervisor fans out one worker graph per target. Every turn the worker rebuilds the model's view
+from the SQLite audit trace, and every tool call is proposed, authorised and executed through a guard layer that enforces
+the graph's traversal order and holds the run until a proposed state update is accepted or rejected.</figcaption>
+<svg class="arch qua" viewBox="0 0 560 750" role="img" aria-label="qua-agents architecture: profile to composition to LangGraph supervisor; per-target worker with a WorkerContext rebuilt from the audit trace, a ModelBackend and three tools; every tool call passes DefaultWorkerPolicy and GuardedExecutionService before the qualibrate_ai backend runs a node on the IQCC cloud; results persist to the SQLite audit ledger and accepted updates commit to state.json through SharedQuamStore.">
+<defs><marker id="qa-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+
+<text class="band" x="16" y="14">LAUNCH</text>
+<rect class="box" x="16" y="32" width="110" height="44"/>
+<text class="t" x="71" y="50" text-anchor="middle">profile.yaml</text>
+<text class="m" x="71" y="64" text-anchor="middle">graph, model, budgets</text>
+<rect class="box" x="156" y="32" width="150" height="44"/>
+<text class="t" x="231" y="50" text-anchor="middle">composition</text>
+<text class="m" x="231" y="64" text-anchor="middle">factories pick the adapters</text>
+<rect class="box" x="336" y="32" width="208" height="44"/>
+<text class="t" x="440" y="50" text-anchor="middle">BringUpSupervisor</text>
+<text class="m" x="440" y="64" text-anchor="middle">LangGraph fan-out, ≤ max_workers</text>
+<path class="ar" d="M126,54 H156" marker-end="url(#qa-ar)"/>
+<path class="ar" d="M306,54 H336" marker-end="url(#qa-ar)"/>
+<path class="ar" d="M440,76 V124" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="448" y="104">one worker graph per target</text>
+
+<text class="band" x="16" y="112">AGENT TURN</text>
+<rect class="grp" x="16" y="124" width="528" height="236"/>
+<text class="m" x="28" y="140" font-style="italic">TargetWorker: a LangGraph ReAct graph, bounded by recursion_limit in graph steps</text>
+<rect class="box" x="30" y="152" width="200" height="96"/>
+<text class="t" x="40" y="168">WorkerContext</text>
+<text x="40" y="183">rebuilt each turn from the trace</text>
+<text x="40" y="196">static: catalog + graph, cached</text>
+<text x="40" y="209">dynamic: last 12 events, pending</text>
+<text x="40" y="222">proposal, plots of ≤ 2 nodes</text>
+<text class="m" x="40" y="238">no transcript is kept</text>
+<rect class="box acc" x="246" y="152" width="142" height="96"/>
+<text class="t" x="317" y="168" text-anchor="middle">ModelBackend</text>
+<text x="317" y="183" text-anchor="middle">LangChain client</text>
+<text x="317" y="196" text-anchor="middle">one multimodal model, or</text>
+<text x="317" y="209" text-anchor="middle">perception+orchestration</text>
+<text class="m" x="317" y="225" text-anchor="middle">tool call or JSON action</text>
+<rect class="box" x="400" y="152" width="134" height="96"/>
+<text class="t" x="467" y="168" text-anchor="middle">3 tools</text>
+<text class="mono" x="467" y="186" text-anchor="middle">run_calibration_node</text>
+<text class="mono" x="467" y="200" text-anchor="middle">apply_state_updates</text>
+<text class="mono" x="467" y="214" text-anchor="middle">finish</text>
+<path class="ar" d="M230,200 H246" marker-end="url(#qa-ar)"/>
+<path class="ar" d="M388,200 H400" marker-end="url(#qa-ar)"/>
+<path class="ar" d="M467,248 V262" marker-end="url(#qa-ar)"/>
+<rect class="box" x="30" y="262" width="500" height="84"/>
+<text class="t" x="40" y="278">DefaultWorkerPolicy</text>
+<text x="40" y="293">turn routing: finish · state update · tool call · empty turn</text>
+<text x="40" y="306">pending-state gate: a proposal must be accepted or rejected before the next node</text>
+<text x="40" y="319">escalation: 5 identical rejections or failures on one node end the attempt streak</text>
+<text class="m" x="40" y="334">rejections go back to the model as local feedback, not persisted</text>
+<path class="ar" d="M280,346 V388" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="288" y="370">execute_tool(ToolInvocation)</text>
+
+<text class="band" x="16" y="376">GATE</text>
+<rect class="box" x="16" y="388" width="528" height="84"/>
+<text class="t" x="30" y="404">GuardedExecutionService — every effecting call</text>
+<text class="h" x="30" y="420">ExecutionPolicyEngine</text>
+<text x="30" y="433">parameter shape, fixed params,</text>
+<text x="30" y="446">restricted params, allowlist</text>
+<text class="h" x="206" y="420">GraphTraversalPolicy</text>
+<text x="206" y="433">one_forward_any_back on the</text>
+<text x="206" y="446">graph's recommended edges</text>
+<text class="h" x="382" y="420">PendingStatePolicy</text>
+<text x="382" y="433">no calibration move while a</text>
+<text x="382" y="446">proposed update is unresolved</text>
+<text class="m" x="280" y="464" text-anchor="middle">proposal → authorization → submission intent → execute, each persisted as a row</text>
+<path class="ar" d="M116,472 V516" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="124" y="496">execute(proposal, authorization)</text>
+<path class="ar" d="M258,472 V684" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="266" y="678">accepted paths of apply_state_updates → commit</text>
+
+<text class="band" x="16" y="500">HARDWARE</text>
+<rect class="box" x="16" y="516" width="200" height="52"/>
+<text class="t" x="116" y="532" text-anchor="middle">CalibrationBackend</text>
+<text x="116" y="546" text-anchor="middle">qualibrate_ai adapter in propose</text>
+<text x="116" y="560" text-anchor="middle">mode: runs, never commits state</text>
+<rect class="box" x="300" y="516" width="110" height="52"/>
+<text class="t" x="355" y="532" text-anchor="middle">QUAlibrate</text>
+<text x="355" y="546" text-anchor="middle">qua-libs 1Q nodes</text>
+<text class="m" x="355" y="560" text-anchor="middle">recipe.md per node</text>
+<rect class="box" x="424" y="516" width="120" height="52"/>
+<text class="t" x="484" y="532" text-anchor="middle">IQCC cloud</text>
+<text x="484" y="546" text-anchor="middle">arbel, gilboa, qolab</text>
+<text class="m" x="484" y="560" text-anchor="middle">queues jobs itself</text>
+<path class="ar" d="M216,542 H300" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="258" y="531" text-anchor="middle">run node</text>
+<path class="ar" d="M410,542 H424" marker-end="url(#qa-ar)"/>
+<path class="ar" d="M116,568 V612" marker-end="url(#qa-ar)"/>
+<text class="lbl" x="130" y="598">receipt, observation, proposed_state_updates</text>
+
+<text class="band" x="16" y="584">RECORD &amp; STATE</text>
+<rect class="box" x="16" y="612" width="200" height="56"/>
+<text class="t" x="116" y="628" text-anchor="middle">SQLite audit ledger</text>
+<text x="116" y="642" text-anchor="middle">authoritative: runs, proposals,</text>
+<text x="116" y="656" text-anchor="middle">results, ordered trace events</text>
+<rect class="box" x="300" y="612" width="110" height="56"/>
+<text class="t" x="355" y="628" text-anchor="middle">filesystem CAS</text>
+<text x="355" y="642" text-anchor="middle">plots and artifacts</text>
+<text x="355" y="656" text-anchor="middle">by content hash</text>
+<rect class="box" x="424" y="612" width="120" height="56"/>
+<text class="t" x="484" y="628" text-anchor="middle">LangGraph</text>
+<text x="484" y="642" text-anchor="middle">checkpoints</text>
+<text class="m" x="484" y="656" text-anchor="middle">recovery only</text>
+<rect class="box" x="16" y="684" width="280" height="56"/>
+<text class="t" x="156" y="700" text-anchor="middle">SharedQuamStore → state.json</text>
+<text x="156" y="714" text-anchor="middle">compare-and-swap commit of the</text>
+<text x="156" y="728" text-anchor="middle">accepted paths; nodes never write</text>
+<rect class="box" x="316" y="684" width="228" height="56"/>
+<text class="t" x="430" y="700" text-anchor="middle">FastAPI · console · CLI</text>
+<text x="430" y="714" text-anchor="middle">read model projected from the</text>
+<text x="430" y="728" text-anchor="middle">audit trace; export bundles</text>
+</svg>
+<p class="after">Rows: launch · agent turn · gate · hardware · record and state. The blue box is the model. <span class="mono">src/qua_agents</span> is
+about 33.7k lines of Python, plus the 2.2k-line <span class="mono">qualibrate_ai</span> authoring package.</p>
+</figure>
+
+<figure>
+<h3><span class="key tinycal"></span>tinycal</h3>
+<figcaption>One subprocess per target runs a single loop function (<span class="mono">run_target</span>, about 90 lines). The model keeps its entire transcript, chooses any node in any
+order, and calls <span class="mono">run_node</span> straight into QUAlibrate. Only <span class="mono">write_state</span> is
+guarded: a path allowlist, a dry-run mode, a file lock and one git commit per write.</figcaption>
+<svg class="arch tinycal" viewBox="0 0 560 750" role="img" aria-label="tinycal architecture: profile to tinycal run to one subprocess per target; loop.py with an append-only message transcript, a thin model client and five tools; run_node goes straight to QUAlibrate and the IQCC cloud, write_state alone passes a guard of allowlist, dry-run mode, file lock and git commit; the record is a runs directory of JSONL, transcript, notebook and plots, and state.json is written through QuAM with a git commit.">
+<defs><marker id="tc-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+
+<text class="band" x="16" y="14">LAUNCH</text>
+<rect class="box" x="16" y="32" width="110" height="44"/>
+<text class="t" x="71" y="50" text-anchor="middle">profile.yaml</text>
+<text class="m" x="71" y="64" text-anchor="middle">recipe, model, budgets</text>
+<rect class="box" x="156" y="32" width="150" height="44"/>
+<text class="t" x="231" y="50" text-anchor="middle">tinycal run</text>
+<text class="m" x="231" y="64" text-anchor="middle">cli.py, --set overrides</text>
+<rect class="box" x="336" y="32" width="208" height="44"/>
+<text class="t" x="440" y="50" text-anchor="middle">one subprocess per target</text>
+<text class="m" x="440" y="64" text-anchor="middle">≤ max_parallel_agents, no supervisor</text>
+<path class="ar" d="M126,54 H156" marker-end="url(#tc-ar)"/>
+<path class="ar" d="M306,54 H336" marker-end="url(#tc-ar)"/>
+<path class="ar" d="M440,76 V124" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="448" y="104">each process runs loop.py</text>
+
+<text class="band" x="16" y="112">AGENT TURN</text>
+<rect class="grp" x="16" y="124" width="528" height="236"/>
+<text class="m" x="28" y="140" font-style="italic">loop.py: complete → dispatch → append, up to max_turns; tool errors come back as text</text>
+<rect class="box" x="30" y="152" width="200" height="96"/>
+<text class="t" x="40" y="168">messages (the transcript)</text>
+<text x="40" y="183">append-only, every turn verbatim</text>
+<text x="40" y="196">text, calls, results, images</text>
+<text x="40" y="209">oldest images become a path</text>
+<text x="40" y="222">beyond max_images_in_context</text>
+<text class="m" x="40" y="238">the transcript is the memory</text>
+<rect class="box acc" x="246" y="152" width="142" height="96"/>
+<text class="t" x="317" y="168" text-anchor="middle">Client.complete</text>
+<text x="317" y="183" text-anchor="middle">Anthropic Messages, or</text>
+<text x="317" y="196" text-anchor="middle">OpenAI-compatible</text>
+<text x="317" y="209" text-anchor="middle">(OpenRouter, NIM, vLLM)</text>
+<text class="m" x="317" y="225" text-anchor="middle">native tool calls only</text>
+<rect class="box" x="400" y="152" width="134" height="96"/>
+<text class="t" x="467" y="168" text-anchor="middle">5 tools</text>
+<text class="mono" x="467" y="184" text-anchor="middle">describe_node</text>
+<text class="mono" x="467" y="197" text-anchor="middle">run_node</text>
+<text class="mono" x="467" y="210" text-anchor="middle">read_state</text>
+<text class="mono" x="467" y="223" text-anchor="middle">write_state</text>
+<text class="mono" x="467" y="236" text-anchor="middle">finish</text>
+<path class="ar" d="M230,200 H246" marker-end="url(#tc-ar)"/>
+<path class="ar" d="M388,200 H400" marker-end="url(#tc-ar)"/>
+<rect class="box" x="30" y="262" width="390" height="84"/>
+<text class="t" x="40" y="278">system prompt, about 60 lines, plus inbox.md</text>
+<text x="40" y="293">objective · recipe as prose · node catalog, one line per node</text>
+<text x="40" y="306">five rules · every tool takes a required note (the notebook)</text>
+<text x="40" y="319">no traversal policy, retry budget or verdict vocabulary: the model</text>
+<text x="40" y="332">picks the next node; inbox.md notes arrive as the next user message</text>
+<path class="ar" d="M430,248 V388" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="438" y="370">write_state</text>
+<path class="ar" d="M520,248 V506 H116 V516" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="475" y="290" text-anchor="middle">run_node,</text>
+<text class="lbl" x="475" y="302" text-anchor="middle">read_state,</text>
+<text class="lbl" x="475" y="314" text-anchor="middle">describe_node:</text>
+<text class="lbl" x="475" y="326" text-anchor="middle">not gated</text>
+
+<text class="band" x="16" y="376">GATE</text>
+<rect class="box" x="16" y="388" width="460" height="84"/>
+<text class="t" x="30" y="404">write_state guard — the one guarded surface</text>
+<text x="30" y="420">allowlist: qubits.&lt;target&gt;.** by default; anything else is refused</text>
+<text x="30" y="433">dry_run validates and records; apply writes through QuAM load and save</text>
+<text x="30" y="446">file lock over load → set → save → git commit; the only coordination</text>
+<text class="m" x="30" y="464">no cap on writes per path; nodes run with their update action disabled</text>
+<path class="ar" d="M258,472 V684" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="266" y="678">apply: QuAM load → set → save, git commit</text>
+
+<text class="band" x="16" y="500">HARDWARE</text>
+<rect class="box" x="16" y="516" width="200" height="52"/>
+<text class="t" x="116" y="532" text-anchor="middle">qualibrate.py</text>
+<text x="116" y="546" text-anchor="middle">node copy, storage detached,</text>
+<text x="116" y="560" text-anchor="middle">state-update action skipped</text>
+<rect class="box" x="300" y="516" width="110" height="52"/>
+<text class="t" x="355" y="532" text-anchor="middle">QUAlibrate</text>
+<text x="355" y="546" text-anchor="middle">qua-libs 1Q nodes</text>
+<text class="m" x="355" y="560" text-anchor="middle">self-describing</text>
+<rect class="box" x="424" y="516" width="120" height="52"/>
+<text class="t" x="484" y="532" text-anchor="middle">IQCC cloud</text>
+<text x="484" y="546" text-anchor="middle">arbel, gilboa, qolab</text>
+<text class="m" x="484" y="560" text-anchor="middle">queues jobs itself</text>
+<path class="ar" d="M216,542 H300" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="258" y="531" text-anchor="middle">run node</text>
+<path class="ar" d="M410,542 H424" marker-end="url(#tc-ar)"/>
+<path class="ar" d="M116,568 V612" marker-end="url(#tc-ar)"/>
+<text class="lbl" x="130" y="598">plots, fit numerics, proposed updates → tool result</text>
+
+<text class="band" x="16" y="584">RECORD &amp; STATE</text>
+<rect class="box" x="16" y="612" width="200" height="56"/>
+<text class="t" x="116" y="628" text-anchor="middle">runs/&lt;run_id&gt;/&lt;target&gt;/</text>
+<text class="mono" x="116" y="642" text-anchor="middle">events.jsonl · transcript.json</text>
+<text class="mono" x="116" y="656" text-anchor="middle">notebook.md · plots/</text>
+<rect class="box" x="300" y="612" width="110" height="56"/>
+<text class="t" x="355" y="628" text-anchor="middle">tinycal ui</text>
+<text x="355" y="642" text-anchor="middle">reads those files,</text>
+<text x="355" y="656" text-anchor="middle">live refresh</text>
+<rect class="box" x="424" y="612" width="120" height="56"/>
+<text class="t" x="484" y="628" text-anchor="middle">benchmark</text>
+<text x="484" y="642" text-anchor="middle">project_tinycal.py</text>
+<text class="m" x="484" y="656" text-anchor="middle">from events.jsonl</text>
+<rect class="box" x="16" y="684" width="280" height="56"/>
+<text class="t" x="156" y="700" text-anchor="middle">state.json via QuAM</text>
+<text x="156" y="714" text-anchor="middle">one git commit per write with the run id</text>
+<text x="156" y="728" text-anchor="middle">in the message; rollback is git revert</text>
+<rect class="box" x="316" y="684" width="228" height="56"/>
+<text class="t" x="430" y="700" text-anchor="middle">operator</text>
+<text x="430" y="714" text-anchor="middle">notebook.md open in an editor,</text>
+<text x="430" y="728" text-anchor="middle">notes appended to inbox.md</text>
+</svg>
+<p class="after">Same rows. The green box is the model. <span class="mono">src/tinycal</span> is about 2.7k lines of Python; no database,
+no server, no supervisor graph.</p>
+</figure>
+
+</div>
+
+<h2>The same rows, in words</h2>
+<div class="scroll"><table class="grid">
+<thead><tr><th></th><th><span class="key quaagents"></span> qua-agents</th><th><span class="key tinycal"></span> tinycal</th></tr></thead>
+<tbody>
+<tr><td>Per-target runner</td><td>LangGraph supervisor graph fans out nested worker graphs, ≤ <span class="mono">max_workers</span> in parallel; checkpoints keyed <span class="mono">{run_id}:{target}</span> for resume</td><td>One OS subprocess per target, ≤ <span class="mono">max_parallel_agents</span>; the only thing they share is the state file and its lock</td></tr>
+<tr><td>What the model sees</td><td>A JSON view rebuilt from the audit trace every turn: a byte-identical static prefix (full node catalog, graph topology, cached by the provider) and a dynamic body with the last 12 timeline entries, the pending proposal, plots from at most 2 nodes</td><td>Its own whole transcript, verbatim: every earlier turn, tool call, result and image; only images are capped, the oldest replaced by a path (16 in the benchmark profiles)</td></tr>
+<tr><td>Prompt</td><td>YAML prompt pack (<span class="mono">structure.yaml</span> + <span class="mono">instructions.yaml</span>) with situational templates, checklists and a recency suffix after the plots; per-node Markdown recipes rendered into the catalog</td><td>About 60 lines: objective, the bring-up recipe as prose, one catalog line per node, five rules; per-node knowledge lives in the node script and is fetched with <span class="mono">describe_node</span></td></tr>
+<tr><td>Tools</td><td><span class="mono">run_calibration_node</span>, <span class="mono">apply_state_updates</span> (accept or reject the node's proposal), <span class="mono">finish</span></td><td><span class="mono">describe_node</span>, <span class="mono">run_node</span>, <span class="mono">read_state</span>, <span class="mono">write_state</span>, <span class="mono">finish</span>; each takes a required <span class="mono">note</span> that becomes the notebook</td></tr>
+<tr><td>Who decides the next node</td><td>The model proposes; <span class="mono">GraphTraversalPolicy</span> (<span class="mono">one_forward_any_back</span>) rejects a move that is not a direct downstream neighbour, a retry, or a jump to an ancestor</td><td>The model. The recipe's order is advice; nothing enforces it</td></tr>
+<tr><td>Between a call and the hardware</td><td><span class="mono">DefaultWorkerPolicy</span> (routing, pending-state gate, escalation streaks) then <span class="mono">GuardedExecutionService</span>: parameter shape and fixed-parameter checks, traversal policy, pending-state policy; proposal, authorization and submission intent persisted before execute</td><td>Nothing for <span class="mono">run_node</span>: parameters are validated by the node's own Pydantic schema and the call goes to QUAlibrate</td></tr>
+<tr><td>State writes</td><td>Node runs in propose mode and never commits; the model accepts or rejects proposed paths with <span class="mono">apply_state_updates</span>; <span class="mono">SharedQuamStore</span> commits by compare-and-swap; a calibration move is blocked while a proposal is unresolved</td><td>Node runs with its update action disabled; the proposal is information in the tool result; the model writes what it chooses with <span class="mono">write_state</span> through an allowlist, a dry-run/apply mode, a file lock and one git commit per write</td></tr>
+<tr><td>Retries and stuck loops</td><td>Escalation guardrails end a streak of 5 identical rejections or execution failures on one node; <span class="mono">recursion_limit</span> (360 graph steps in the Claude profile) bounds the worker</td><td>A rule in the prompt ("a retry that repeats the parameters repeats the result"); <span class="mono">max_turns</span> (360) and <span class="mono">max_wall_s</span> bound the loop; stuck is a valid <span class="mono">finish</span> status</td></tr>
+<tr><td>Model client</td><td>LangChain (<span class="mono">openai:</span>, <span class="mono">anthropic:</span>, <span class="mono">google_genai:</span>, or any OpenAI-compatible <span class="mono">base_url</span>); native tool calls with a JSON-action parser as fallback; optional perception + orchestration split across two models</td><td>Two implementations of one <span class="mono">complete()</span> protocol: Anthropic Messages and OpenAI-compatible chat completions; native tool calls only</td></tr>
+<tr><td>Record</td><td>SQLite audit ledger (authoritative), content-addressed artifact store, LangGraph checkpoint DB, optional model-turn transcripts; read through FastAPI, the console and the CLI</td><td>A directory per run and target: <span class="mono">events.jsonl</span>, <span class="mono">transcript.json</span>, <span class="mono">notebook.md</span>, <span class="mono">plots/</span>, <span class="mono">status.json</span>; readable in an editor while live, browsed with <span class="mono">tinycal ui</span></td></tr>
+<tr><td>Operator intervention</td><td>Operator notes through the API, checkpointed per worker (<span class="mono">operator_note</span>); supervisor briefs encoded into the plan overlay</td><td>Append to <span class="mono">inbox.md</span>; delivered as the next user message</td></tr>
+<tr><td>Size</td><td>≈ 33.7k lines in <span class="mono">src/qua_agents</span> + 2.2k in <span class="mono">packages/qualibrate_ai</span></td><td>≈ 2.7k lines in <span class="mono">src/tinycal</span></td></tr>
+</tbody></table></div>
+
+<h2>What both share</h2>
+<ul class="notes">
+<li>The same calibration content: the qua-libs fork's 1Q node scripts run through QUAlibrate, with the node's own fit and proposed updates captured without being applied. tinycal reads the node set and presets from the same bring-up graph file qua-agents traverses, and ignores its edges.</li>
+<li>The same hardware path: jobs go to the IQCC cloud, which queues them itself; neither framework serialises node runs locally.</li>
+<li>The same device state file: <span class="mono">state.json</span> under QuAM, shared by all agents on a backend. qua-agents commits by compare-and-swap in <span class="mono">SharedQuamStore</span>; tinycal holds a file lock and commits to git.</li>
+<li>The same benchmark contract: both produce the usage fields the judge prices (<span class="mono">input_tokens</span>, <span class="mono">output_tokens</span>, cache read and write, reasoning) per model turn, and node executions with target, node, parameters, status and numerics; <span class="mono">project_tinycal.py</span> maps tinycal's <span class="mono">events.jsonl</span> onto the document schema the qua-agents projection produces.</li>
+</ul>
+
+<h2>Sources</h2>
+<ul class="notes small">
+<li>qua-agents: <span class="mono">README.md</span>, <span class="mono">docs/architecture.md</span>, <span class="mono">docs/components.md</span>, <span class="mono">docs/prompt-engineering.md</span>, <span class="mono">prompts/bringup-worker/v1/structure.yaml</span>, <span class="mono">core/application/bringup/workers/escalation_policy.py</span>, <span class="mono">profiles/flux_tunable_bringup_claude.yaml</span>, at <span class="mono">61209cf</span>.</li>
+<li>tinycal: <span class="mono">README.md</span>, <span class="mono">DESIGN.md</span>, <span class="mono">src/tinycal/loop.py</span>, <span class="mono">tools.py</span>, <span class="mono">profiles/flux_tunable_qolab.yaml</span>, at <span class="mono">1125d0c</span>.</li>
+<li>Line counts are <span class="mono">wc -l</span> over <span class="mono">*.py</span> under each package's <span class="mono">src/</span>, tests excluded. The outcome numbers for the two frameworks are in <a href="2026-09-21-frameworks-side-by-side.html">the side-by-side report</a>.</li>
+</ul>
+</main>
+</body></html>
