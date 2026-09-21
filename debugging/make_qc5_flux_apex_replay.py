@@ -168,7 +168,7 @@ a 15–20 MHz span or more flux points. None tried an out-of-range sweep.</p>
 <h3>Every trial</h3>
 {''.join(trials)}
 
-<h2>What to change</h2>
+<h2>What to change (written before the node analysis below)</h2>
 <ul>
 <li><b>Recipe</b>: add the note as written; it costs nothing and fixes the clean-figure case outright.</li>
 <li><b>Node (qua-libs 02c)</b>: do not put <span class="mono">joint_offset</span> into <span class="mono">proposed_updates</span> when the arc fit fails,
@@ -179,7 +179,59 @@ the warning still accepts it 80 % of the time.</li>
 line in the recipe (already applied for the reruns) is the fix there.</li>
 </ul>
 
-<h2>Figures</h2>
+<h2>The node was proposing the wrong value in the first place</h2>
+<p>Re-running the analysis steps by hand on the two stored datasets (<span class="mono">~/.qualibrate/user_storage/tinycal/data/m-XRRNY2</span>,
+<span class="mono">m-VKHBB9</span>) shows where the star comes from. The node tracked the dip as <span class="mono">ds.IQ_abs.idxmin("detuning")</span>
+— the per-column minimum of the <em>raw</em> amplitude. The raw |IQ| has a background slope across the window (−4 % on m-XRRNY2, −21 % on
+m-VKHBB9, top versus bottom) and the dip is ~2 MHz wide and shallow, so in many columns the slope wins and the column minimum sits on the
+<em>top bin of the frequency window</em>. That is literally the star: 7.61675 GHz and 7.61877 GHz are the window's top bins. The cosine fit
+cannot describe such a trace (R² 0.16 / 0.65), and the fallback then picks the highest point of a trace that follows the frame, not the
+resonator. The node already computed and plotted the background-subtracted map — it just did not analyse it.</p>
+<div class="scroll"><table class="grid small"><thead><tr><th>dataset</th><th>track on</th><th>R²</th><th>period</th><th>fitted apex</th></tr></thead><tbody>
+<tr><td rowspan="2">m-XRRNY2 (readout 10× low)</td><td>raw |IQ| (node)</td><td class="num">0.16 → 0.31</td><td class="num">1.8 V</td><td class="num">+0.03 V</td></tr>
+<tr><td>background-subtracted</td><td class="num"><b>0.75</b></td><td class="num">1.23 V</td><td class="num"><b>+0.027 V</b></td></tr>
+<tr><td rowspan="2">m-VKHBB9 (readout ok)</td><td>raw |IQ| (node)</td><td class="num">0.65 → 0.70</td><td class="num">3.2 V</td><td class="num">+0.01 V</td></tr>
+<tr><td>background-subtracted</td><td class="num"><b>0.99</b></td><td class="num">1.18 V</td><td class="num"><b>+0.021 V</b></td></tr>
+</tbody></table></div>
+<p class="small muted">Hand re-analysis: track on the named map, smooth 5 bins along frequency before the argmin, drop columns whose minimum lands on
+the window's edge bins, cosine fit. Reference sweet spot 0.030 V (gilboa state of 20 Sep), period ≈ 1.2 V.</p>
+
+<h3>The fix (qua-libs <span class="mono">fix/flux-map-dip-track</span>, b8a3e1d)</h3>
+<ul>
+<li><b>Track on the background-subtracted map</b>, the same trace the figure shows, with the frequency smoothing; a column is left untracked when its
+dip sits on the window's edge bins, does not stand 3 robust σ above the column noise, or disagrees with its neighbours. The same trace feeds the fit.</li>
+<li><b>Propose only what the data shows.</b> The fitted apex is the proposal when the fit describes the data (R² ≥ 0.8), lies inside the sweep and clear
+of its edges, on the measured plateau and above both edge zones. A good fit whose apex is beyond the sweep, or that disagrees with where the trace
+peaks, proposes nothing and says which way to widen. The measured maximum is used only when the fit fails, and only as an interior, on-band column
+that is not beside a hole in the trace and agrees with the (period-folded) fitted apex to a tenth of the sweep.</li>
+<li><b>Figure</b>: the tracked dip, the fitted cosine when it is the proposal, and the crosshair + star; <em>no overlay at all</em> when nothing is
+proposed — the title says so instead.</li>
+</ul>
+<h3>Checked against every stored resonator flux map</h3>
+<p>511 datasets under <span class="mono">~/.qualibrate/user_storage/tinycal/data</span> (all three backends, 8–21 Sep), old analysis versus new,
+each with a stub node built from the dataset (<span class="mono">run_fluxmap_corpus.py</span>, <span class="mono">compare_fluxmap_corpus.py</span>,
+results in <span class="mono">fluxmap_corpus_before.json</span> / <span class="mono">fluxmap_corpus_after.json</span>):</p>
+<div class="tiles">
+<div class="tile"><div class="v">0.57 → 0.97</div><div class="k">median arc R² (old → new)</div></div>
+<div class="tile"><div class="v">209 → 277</div><div class="k">maps with R² ≥ 0.8, of 511</div></div>
+<div class="tile"><div class="v">202</div><div class="k">old proposals made from a fit below threshold</div></div>
+<div class="tile"><div class="v">154 / 47</div><div class="k">of those: now withheld / now from a fit that passes</div></div>
+</div>
+<p>Where old and new both propose and disagree by more than 20 mV, or a confident old proposal is now withheld, every case was inspected: gilboa
+qC5 lands at +0.023 V and +0.021 V (was −0.13 / −0.15; reference 0.030), qC2 at −0.001 V (was −0.16; reference 0.006), the eight gilboa qD4 maps
+that never fitted (R² 0.1–0.5) now fit at 0.99 and land at 0.014–0.024 V (reference 0.016); qolab Q1/Q2 flank sweeps that used to yield a
+"maximum" 0.3–0.5 V from the sweet spot (m-38P041, m-F0VPHK, m-X7E7FK, m-JP2NX6, m-2TXDN6, m-61P6GJ, m-6VP8X9) are now withheld with "widen
+toward …"; arbel qB4 m-B0ZFRX, whose arc top lies above the frequency window, is proposed at 0.040 V from the fit through both flanks (reference
+0.042). Two known losses: qolab Q2 m-9YM627 (apex 0.02 V from the sweep edge) and arbel qB4 m-E82EA8 (a ±0.03 V sweep whose dip is wider than the
+background window) are now withheld where the old analysis was right. The qubit flux map keeps its previous apex rules.</p>
+<figure><figcaption><b>After the fix — m-XRRNY2</b> (the faint, readout-low map): tracked dip, arc fit (R² 0.97), star on the arc's top at +0.023 V.</figcaption>
+<img src="figures/qC5-original-m-XRRNY2-fixed.png" alt="qC5 flux map after the fix"></figure>
+<figure><figcaption><b>After the fix — m-VKHBB9</b>: R² 0.99, apex +0.021 V.</figcaption><img src="figures/qC5-rerun-m-VKHBB9-fixed.png" alt="qC5 rerun flux map after the fix"></figure>
+<figure><figcaption><b>After the fix — qC2 m-19X710</b>: R² 0.94, apex −0.001 V.</figcaption><img src="figures/qC2-original-m-19X710-fixed.png" alt="qC2 flux map after the fix"></figure>
+<figure><figcaption><b>After the fix — a healthy map (gilboa qD1, m-6A3W4M)</b> and <b>a flank with no apex inside the sweep (qolab Q1, m-T62G6T)</b>: the first gets the full overlay, the second nothing but the title.</figcaption>
+<img src="figures/qD1-healthy-m-6A3W4M-fixed.png" alt="qD1 after the fix"><img src="figures/Q1-qolab-flank-m-T62G6T-fixed.png" alt="Q1 flank after the fix"></figure>
+
+<h2>Figures from the runs</h2>
 {''.join(figs)}
 
 <h2>Reproduce</h2>
