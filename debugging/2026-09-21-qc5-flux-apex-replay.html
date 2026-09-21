@@ -1,0 +1,142 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>qC5 flux-apex replay</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: light;
+  --ground:#f5f7f7; --surface:#fff; --surface-2:#eef2f2; --ink:#151a1d; --ink-2:#4b555b; --muted:#7f8a90;
+  --line:#d8dfe1; --line-strong:#b9c3c7; --accent:#0f766e; --accent-ink:#0b5f59;
+  --warn:#b45309; --warn-bg:#fdf3e6; --crit:#b91c1c; --crit-bg:#fdecec; --good:#0f766e; --good-bg:#e6f4f2; --run-bg:#e8eefb;
+  --qua:#2a78d6; --tinycal:#1baf7a; --dag:#7f8a90; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark;
+  --ground:#121516; --surface:#1a1e20; --surface-2:#22282b; --ink:#edf1f2; --ink-2:#b6bfc4; --muted:#8a959b;
+  --line:#2c3437; --line-strong:#414c50; --accent:#2dbfb2; --accent-ink:#5fd3c8;
+  --warn:#f0a24a; --warn-bg:#2d2214; --crit:#f07575; --crit-bg:#331a1a; --good:#5fd3c8; --good-bg:#16302d; --run-bg:#1d2a3d;
+  --qua:#3987e5; --tinycal:#199e70; --dag:#8a959b; } }
+:root[data-theme="dark"] { color-scheme: dark;
+  --ground:#121516; --surface:#1a1e20; --surface-2:#22282b; --ink:#edf1f2; --ink-2:#b6bfc4; --muted:#8a959b;
+  --line:#2c3437; --line-strong:#414c50; --accent:#2dbfb2; --accent-ink:#5fd3c8;
+  --warn:#f0a24a; --warn-bg:#2d2214; --crit:#f07575; --crit-bg:#331a1a; --good:#5fd3c8; --good-bg:#16302d; --run-bg:#1d2a3d;
+  --qua:#3987e5; --tinycal:#199e70; --dag:#8a959b; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--ground); color:var(--ink); font-family:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif; font-size:16px; line-height:1.5; }
+.page { max-width:1180px; margin:0 auto; padding:36px 24px 72px; }
+h1,h2,h3,h4 { font-family:"Bricolage Grotesque","Source Sans 3",Helvetica,Arial,sans-serif; margin:0; text-wrap:balance; }
+h1 { font-size:36px; font-weight:700; line-height:1.1; letter-spacing:-0.01em; }
+h2 { font-size:23px; font-weight:600; margin-top:52px; padding-top:16px; border-top:1px solid var(--line-strong); }
+h3 { font-size:18px; font-weight:600; margin-top:28px; }
+h4 { font-size:16px; font-weight:600; margin-top:18px; }
+p { max-width:76ch; margin:10px 0; }
+.eyebrow { font-family:"JetBrains Mono",Menlo,Consolas,monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.lede { font-size:18px; color:var(--ink-2); max-width:70ch; }
+.mono,.num { font-family:"JetBrains Mono",Menlo,Consolas,monospace; font-variant-numeric:tabular-nums; }
+.num { font-size:.92em; white-space:nowrap; }
+.small { font-size:.86em; } .muted { color:var(--muted); }
+a { color:var(--accent-ink); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:20px 0; }
+.tile { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+.tile .v { font-family:"Bricolage Grotesque",sans-serif; font-size:26px; font-weight:700; line-height:1.1; }
+.tile .k { color:var(--muted); font-size:13px; margin-top:4px; }
+table.grid { width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--line); font-size:14px; }
+table.grid th { text-align:left; font-weight:600; color:var(--ink-2); background:var(--surface-2); padding:8px 9px; border-bottom:1px solid var(--line-strong); position:sticky; top:0; }
+table.grid td { padding:7px 9px; border-bottom:1px solid var(--line); vertical-align:top; }
+table.grid.small { font-size:13px; }
+tr.sup td { opacity:.55; }
+table.ids td { white-space:nowrap; }
+table.pivot .dev{font-family:inherit;font-weight:700;letter-spacing:.02em} .pivot .qfail{color:var(--crit);font-weight:600}
+.pivot th.rowh { text-align:left; font-weight:600; color:var(--ink-2); background:var(--surface-2); position:static; width:24%; }
+table.pivot td.wrap { white-space:normal; font-size:12px; line-height:1.35; }
+table.pivot { table-layout:fixed; }
+table.pivot th.grp { text-align:center; font-size:15px; border-left:1px solid var(--line-strong); }
+table.pivot td { text-align:left; vertical-align:top; }
+table.pivot thead tr:nth-child(2) th { border-left:1px solid var(--line); }
+.scroll { overflow-x:auto; }
+.chip { display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
+.chip i { width:10px; height:10px; border-radius:3px; display:inline-block; }
+.st { display:inline-block; padding:1px 7px; border-radius:6px; font-size:12px; font-family:"JetBrains Mono",monospace; background:var(--surface-2); }
+.st.ok { background:var(--good-bg); color:var(--good); } .st.warn { background:var(--warn-bg); color:var(--warn); }
+.st.crit { background:var(--crit-bg); color:var(--crit); } .st.run { background:var(--run-bg); }
+.tag { display:inline-block; padding:0 6px; border-radius:6px; font-size:11px; background:var(--warn-bg); color:var(--warn); font-family:"JetBrains Mono",monospace; }
+figure { margin:20px 0; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+figcaption { margin-bottom:10px; }
+.bars { display:grid; gap:5px; }
+.bar-row { display:grid; grid-template-columns:minmax(200px,34%) 1fr 72px; align-items:center; gap:10px; font-size:13px; }
+.bar-track { background:var(--surface-2); border-radius:4px; height:14px; position:relative; }
+.bar { height:14px; border-radius:0 4px 4px 0; min-width:2px; }
+.bar-val { text-align:right; }
+.legend { display:flex; gap:18px; flex-wrap:wrap; margin:8px 0 4px; font-size:13px; }
+.timeline td:first-child { white-space:nowrap; font-family:"JetBrains Mono",monospace; font-size:13px; }
+.note { background:var(--surface-2); border-left:3px solid var(--accent); padding:10px 14px; border-radius:6px; margin:14px 0; max-width:80ch; }
+@media (max-width:640px) { .bar-row { grid-template-columns:1fr; gap:3px; } h1 { font-size:28px; } }
+
+figure img { max-width:100%; height:auto; display:block; }
+blockquote { margin:14px 0; padding:10px 16px; border-left:3px solid var(--accent); background:var(--surface); max-width:76ch; }
+</style></head><body><div class="page">
+<div class="eyebrow">debugging · gilboa · tinycal · qwen3.8-27b via OpenRouter · 21 Sep 2026</div>
+<h1>Does a "check the figure" recipe note stop the model committing a bad flux-map apex?</h1>
+<p class="lede">Gilboa qC5 failed twice on the 20–21 Sep night because the model committed the flux offset that
+<span class="mono">resonator_spectroscopy_vs_flux</span> proposed from a failed arc fit. The proposed point was visibly off the
+resonator dip in the node's own figure. We replayed the exact commit turn — same system prompt, tools, messages and
+images — five times each with and without one generic sentence added to the bring-up recipe, on both contexts.</p>
+
+<h2>The failure</h2>
+<p>On gilboa's C row the resonator arc is shallow (≈2 MHz peak to peak over a ≈1 V flux period) and its apex is within a
+few mV of 0 V (reference <span class="mono">joint_offset</span> 0.006 V). The node's cosine fit fails on the noisy arc
+(R² 0.16 and 0.65 against a 0.80 threshold) and falls back to a "measured maximum", which lands on the noisiest column of the
+trace: the star is drawn at the <em>top of the frequency axis</em>, −0.13 V / −0.15 V, nowhere near the dip. The proposal
+still goes into <span class="mono">proposed_updates</span>, and the model committed it in both runs (turn 12 of the first
+attempt, turn 14 of the readout-fix rerun) with notes such as "the measured apex is clearly visible in the plot". At −0.15 V the
+qubit sits ≈0.15 Φ₀ down the arc: f₀₁ far from the seed, tiny dispersive shift, and the rest of the run (19 spectroscopies,
+22 flat Rabis, then a drive-line rewiring) never recovered.</p>
+
+<h2>Contexts replayed</h2>
+<div class="scroll"><table class="grid small"><thead><tr><th>Context</th><th>Run · transcript</th><th>Replayed turn</th><th>Node run</th>
+<th>Readout amplitude at the time</th><th>Arc R²</th><th>Period coverage</th><th>Node's star</th><th>Images in context</th></tr></thead>
+<tbody><tr><td>Context A — first attempt</td><td><a href="http://127.0.0.1:8765/#/run/n4_gilboa_openrouter_20260920-1712/qC5">n4_gilboa_openrouter_20260920-1712</a> · qC5<br><span class="small mono">~/code/QM/tinycal/runs/n4_gilboa_openrouter_20260920-1712/qC5/transcript.json</span></td><td class="num">turn 12 (messages[:23])</td><td class="mono">m-XRRNY2</td><td>0.05 V (provisional, ~10× too low — the readout-power failure fixed by the recipe change)</td><td class="num">0.157</td><td>0.96 of a fitted 1.04 V period</td><td class="num">−0.13 V</td><td class="num">7</td></tr><tr><td>Context B — readout-fix rerun</td><td><a href="http://127.0.0.1:8765/#/run/n4_gilboa_openrouter-R_20260920-1712/qC5">n4_gilboa_openrouter-R_20260920-1712</a> · qC5<br><span class="small mono">~/code/QM/tinycal/runs/n4_gilboa_openrouter-R_20260920-1712/qC5/transcript.json</span></td><td class="num">turn 14 (messages[:27])</td><td class="mono">m-VKHBB9</td><td>0.126 V (punch-out found, readout fine)</td><td class="num">0.646</td><td>0.38 of a fitted period</td><td class="num">−0.15 V</td><td class="num">11</td></tr></tbody></table></div>
+<p class="small muted">Contexts are <span class="mono">transcript.json[:N]</span> of the run with the plot pointers restored to the
+PNGs that were still inside tinycal's 16-image window at that turn (first image drop in both runs was at turn 20). Model config from
+the run's start event: qwen/qwen3.8-27b, effort high, max_tokens 16 000, tool history native. 27–31 k input tokens per call.</p>
+
+<h2>The note</h2>
+<p>Inserted into <span class="mono">bringup_recipes/flux_tunable_1q.md</span> as its own paragraph just before "When a node fails or its
+result contradicts an earlier one" — i.e. in the system prompt, not as a per-turn message:</p>
+<blockquote>Every node that fits the data draws its fit and the point it proposes (a sweet spot, a resonance, an optimum) on its figure. Before committing a proposal, look at the figure and check that the fit actually follows the data and that the marked point sits where physics says it should — the fit can be wrong, and a proposal from a poor fit is not evidence. If the marked point does not make physical sense, do not commit it; re-measure so that the feature is unambiguous instead.</blockquote>
+
+<h2>Results — 5 trials per cell</h2>
+<div class="scroll"><table class="grid"><thead><tr><th>Context</th><th>Recipe</th><th>commits the node&#x27;s star (wrong)</th><th>commits ≈0 V read off the figure (right)</th><th>re-measures the flux map</th></tr></thead><tbody><tr><td>Context A — first attempt</td><td>without note</td><td class="num"><span class="st crit">4/5</span></td><td class="num"><span class="st muted">0/5</span></td><td class="num"><span class="st warn">1/5</span></td></tr><tr><td>Context A — first attempt</td><td>with note</td><td class="num"><span class="st crit">3/5</span></td><td class="num"><span class="st muted">0/5</span></td><td class="num"><span class="st warn">2/5</span></td></tr><tr><td>Context B — readout-fix rerun</td><td>without note</td><td class="num"><span class="st crit">4/5</span></td><td class="num"><span class="st muted">0/5</span></td><td class="num"><span class="st warn">1/5</span></td></tr><tr><td>Context B — readout-fix rerun</td><td>with note</td><td class="num"><span class="st muted">0/5</span></td><td class="num"><span class="st ok">4/5</span></td><td class="num"><span class="st warn">1/5</span></td></tr></tbody></table></div>
+<p><b>With a clean figure the note flips the outcome.</b> On context B every trial with the note rejected the star: four wrote
+<span class="mono">joint_offset = 0</span> reasoning that "the arc clearly peaks near 0 V, not at −0.15 V where the fit placed it"
+(true sweet spot 0.006 V), one re-ran the node with more shots. Without the note the same figure was committed at −0.15 V in 4 of 5
+trials, one of them "confirmed by visual inspection of the raw data".</p>
+<p><b>With a faint figure the note barely helps.</b> On context A the arc is only marginally above the noise (readout 10× too low), and
+the model still commits −0.13 V in 3 of 5 trials with the note. The trials that re-measured reasoned correctly ("the proposed apex
+frequency is at the edge of the sweep window, not where the dip is visible at ~7.6108 GHz") but were also the long ones (4 000+ output
+tokens); the short replies commit. That failure is upstream of the flux map and is what the readout-power recipe change already addresses.</p>
+<p>Every re-measure choice was sensible: the same ±0.5 V range (the port limit on gilboa's direct LF-FEM z lines), 200–300 shots,
+a 15–20 MHz span or more flux points. None tried an out-of-range sweep.</p>
+
+<h3>Every trial</h3>
+<div class="scroll"><table class="grid small"><thead><tr><th>Context</th><th>Recipe</th><th>#</th><th>Reply</th><th>Model's own note (excerpt)</th><th>out tok</th><th>s</th></tr></thead><tbody><tr><td>original (turn 12)</td><td>without note</td><td class="num">#1</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Flux sweep shows a clear arc with apex at -0.13 V, 7.61675 GHz. The fit R²=0.157 is poor but the measured apex is clearly visible in the data. Committing the idle flux offset and readout frequency at the sweet spot. Skipping phi0 since the period fit is unreli</td><td class="num">2079</td><td class="num">42.9</td></tr><tr><td>original (turn 12)</td><td>without note</td><td class="num">#2</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Flux arc shows a clear U-shape with measured apex at -0.13 V (7.61675 GHz). R² is low due to port-limited period coverage (0.96), but the maximum is clearly inside the data. Committing the idle flux offset at the upper sweet spot and the corresponding readout </td><td class="num">1787</td><td class="num">39.0</td></tr><tr><td>original (turn 12)</td><td>without note</td><td class="num">#3</td><td><span class="st warn">re-measures resonator_spectroscopy_vs_flux {&quot;use_state_discrimination&quot;: false, &quot;min_flux_o</span></td><td>First flux map had R²=0.157 (unreliable fit) and the proposed apex frequency (7.61675 GHz) is at the edge of the 10 MHz sweep window, not where the dip is visible (~7.6108 GHz). Re-running with 200 shots and 15 MHz span for a better fit.</td><td class="num">4127</td><td class="num">68.6</td></tr><tr><td>original (turn 12)</td><td>without note</td><td class="num">#4</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Flux arc apex at -0.13 V, 7.61675 GHz is the upper sweet spot. Committing idle flux offset, readout frequency, and phi0 values. R² is low due to low readout power but the arc structure is clear in both plots.</td><td class="num">1918</td><td class="num">40.6</td></tr><tr><td>original (turn 12)</td><td>without note</td><td class="num">#5</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Flux sweep shows the arc maximum at -0.13 V (upper sweet spot). R² is low due to &lt;1 period coverage, but the arc shape is clearly visible. Committing the proposed flux offset and readout frequency. The frequency will be refined in later steps (readout_frequenc</td><td class="num">4809</td><td class="num">62.3</td></tr><tr><td>original (turn 12)</td><td>with note</td><td class="num">#1</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Flux map shows a clear arc with apex at -0.13 V, 7.61675 GHz. Cosine fit is poor (R²=0.157) because the sweep covers only 96% of the flux period, but the measured maximum is visually clear. Committing the measured apex as idle flux offset and readout frequency</td><td class="num">1446</td><td class="num">21.8</td></tr><tr><td>original (turn 12)</td><td>with note</td><td class="num">#2</td><td><span class="st crit">commits apex -0.13 V</span></td><td>Committing the measured arc apex: idle flux offset -0.13 V and resonator frequency 7.61675 GHz. Skipping phi0_voltage and phi0_current because the fit R²=0.157 is far below the 0.8 threshold — those values are unreliable. The flux offset will be refined by ram</td><td class="num">3524</td><td class="num">46.6</td></tr><tr><td>original (turn 12)</td><td>with note</td><td class="num">#3</td><td><span class="st warn">re-measures resonator_spectroscopy_vs_flux {&quot;min_flux_offset_in_v&quot;: -0.5, &quot;max_flux_offset</span></td><td>R²=0.157 is far below the 0.80 threshold — the fit is unreliable and the proposed apex is outside the data. The raw data shows a clear arc but with too much noise at 100 shots. Re-running with 300 shots and a wider 20 MHz frequency span to capture the full arc</td><td class="num">4604</td><td class="num">59.5</td></tr><tr><td>original (turn 12)</td><td>with note</td><td class="num">#4</td><td><span class="st crit">commits apex -0.13 V</span></td><td>The flux arc shows a clear measured maximum at -0.13 V, 7.61675 GHz. The fit R² is poor (0.157) so phi0 values are unreliable, but the measured apex is physical and inside the sweep. Committing the idle offset and readout frequency at the arc maximum (upper sw</td><td class="num">1987</td><td class="num">27.6</td></tr><tr><td>original (turn 12)</td><td>with note</td><td class="num">#5</td><td><span class="st warn">re-measures resonator_spectroscopy_vs_flux {&quot;num_shots&quot;: 300, &quot;min_flux_offset_in_v&quot;: -0.5</span></td><td>Previous run had R²=0.157 (very poor fit) likely due to low SNR at 100 shots. Re-running with 300 shots, 15 MHz frequency span and 0.05 MHz step for a cleaner arc measurement.</td><td class="num">2188</td><td class="num">28.8</td></tr><tr><td>rerun (turn 14)</td><td>without note</td><td class="num">#1</td><td><span class="st crit">commits apex -0.15 V</span></td><td>Setting the flux bias to the measured sweet spot at -0.15 V and updating the resonator frequency to 7.61877 GHz at that bias point. Skipping phi0 values since period coverage was only 38%.</td><td class="num">2278</td><td class="num">45.3</td></tr><tr><td>rerun (turn 14)</td><td>without note</td><td class="num">#2</td><td><span class="st crit">commits apex -0.15 V</span></td><td>Flux port is limited to ±0.5 V so cannot cover a full period. The measured apex at -0.15 V / 7.61877 GHz is the best available from this sweep. Committing the joint offset, resonator frequency at that point, and the full_scale_power from the earlier power swee</td><td class="num">716</td><td class="num">14.9</td></tr><tr><td>rerun (turn 14)</td><td>without note</td><td class="num">#3</td><td><span class="st crit">commits apex -0.15 V</span></td><td>Flux port limited to ±0.5 V so can&#x27;t cover full period. The arc peak is clearly visible near -0.15 V in the data. Committing the measured apex: joint_offset = -0.15 V and resonator frequency at that point (7.61877 GHz). Not committing phi0 values as they are f</td><td class="num">830</td><td class="num">19.3</td></tr><tr><td>rerun (turn 14)</td><td>without note</td><td class="num">#4</td><td><span class="st warn">re-measures resonator_spectroscopy_vs_flux {&quot;use_state_discrimination&quot;: false, &quot;min_flux_o</span></td><td>The ±1.0 V range exceeds the port limit of ±0.5 V. The raw plot shows the arc maximum is near 0 V, not -0.15 V. I&#x27;ll re-run with a narrower sweep (-0.5 to +0.5 V) but more flux points near the apex to improve the local fit quality.</td><td class="num">915</td><td class="num">20.3</td></tr><tr><td>rerun (turn 14)</td><td>without note</td><td class="num">#5</td><td><span class="st crit">commits apex -0.15 V</span></td><td>Setting the flux idle offset to -0.15 V, which is where the measured apex of the arc is (confirmed by both the node&#x27;s measurement and visual inspection of the raw data). The R² is low due to only 38% period coverage but the apex position is clearly visible. I&#x27;</td><td class="num">1462</td><td class="num">28.1</td></tr><tr><td>rerun (turn 14)</td><td>with note</td><td class="num">#1</td><td><span class="st warn">re-measures resonator_spectroscopy_vs_flux {&quot;use_state_discrimination&quot;: false, &quot;num_flux_p</span></td><td>Flux port limited to ±0.5 V. The arc is visible but noisy with only 100 shots. Re-running with 200 shots and 151 flux points to improve data quality and hopefully get a better R².</td><td class="num">1034</td><td class="num">21.4</td></tr><tr><td>rerun (turn 14)</td><td>with note</td><td class="num">#2</td><td><span class="st ok">commits apex 0 V</span></td><td>The arc clearly peaks near 0 V in the plot, not at -0.15 V where the numerical fit placed the apex (R²=0.65, unreliable). Using 0 V as the flux offset. Readout frequency set to 7.61197 GHz from the power sweep at low power.</td><td class="num">1414</td><td class="num">23.4</td></tr><tr><td>rerun (turn 14)</td><td>with note</td><td class="num">#3</td><td><span class="st ok">commits apex 0 V</span></td><td>The raw data clearly shows the arc maximum at ~0 V. The node proposed -0.15 V but R²=0.65 indicates the fit is unreliable with only 38% period coverage. The measured apex frequency of 7.61877 GHz is at the arc peak. Committing idle flux at 0 V and updating rea</td><td class="num">2129</td><td class="num">32.2</td></tr><tr><td>rerun (turn 14)</td><td>with note</td><td class="num">#4</td><td><span class="st ok">commits apex 0 V</span></td><td>The flux arc peaks at 0 V with resonator frequency 7.612 GHz. The fit period is unreliable (only 38% period coverage) so I&#x27;m not committing phi0. Setting idle flux offset to 0 V and updating the resonator/readout frequency to the apex value.</td><td class="num">799</td><td class="num">14.4</td></tr><tr><td>rerun (turn 14)</td><td>with note</td><td class="num">#5</td><td><span class="st ok">commits apex 0 V</span></td><td>The flux arc peaks at 0 V (the true upper sweet spot). The fit R² is limited by the ±0.5 V hardware range only covering ~38% of the period, but the measured maximum is unambiguous in the data. Setting joint_offset to 0 V and updating resonator frequency to ~7.</td><td class="num">783</td><td class="num">13.7</td></tr></tbody></table></div>
+
+<h2>What to change</h2>
+<ul>
+<li><b>Recipe</b>: add the note as written; it costs nothing and fixes the clean-figure case outright.</li>
+<li><b>Node (qua-libs 02c)</b>: do not put <span class="mono">joint_offset</span> into <span class="mono">proposed_updates</span> when the arc fit fails,
+and never draw the star off the measured trace — the "measured maximum" fallback picked a noise column at the frame edge in all three
+gilboa cases (qC5 twice, qC2 once). A model that is told "inspect before accepting" in the legend and "proposing the measured maximum instead" in
+the warning still accepts it 80 % of the time.</li>
+<li><b>Readout first</b>: the faint-figure context shows that no wording rescues a map taken at 10× too little readout power; the punch-out
+line in the recipe (already applied for the reruns) is the fix there.</li>
+</ul>
+
+<h2>Figures</h2>
+<figure><figcaption><b>Context A — first attempt</b> — background-subtracted resonator-vs-flux map the model saw at turn 12 (node run m-XRRNY2, run n4_gilboa_openrouter_20260920-1712). The star is the node's proposal; the dotted lines show where it sits relative to the dip.</figcaption><img src="figures/qC5-original-m-XRRNY2-bg.png" alt="qC5 flux map, background subtracted"></figure><figure><figcaption>Same measurement, raw |IQ| (also in the context).</figcaption><img src="figures/qC5-original-m-XRRNY2-raw.png" alt="qC5 flux map, raw"></figure><figure><figcaption><b>Context B — readout-fix rerun</b> — background-subtracted resonator-vs-flux map the model saw at turn 14 (node run m-VKHBB9, run n4_gilboa_openrouter-R_20260920-1712). The star is the node's proposal; the dotted lines show where it sits relative to the dip.</figcaption><img src="figures/qC5-rerun-m-VKHBB9-bg.png" alt="qC5 flux map, background subtracted"></figure><figure><figcaption>Same measurement, raw |IQ| (also in the context).</figcaption><img src="figures/qC5-rerun-m-VKHBB9-raw.png" alt="qC5 flux map, raw"></figure><figure><figcaption><b>Same pattern on qC2</b> (run n4_gilboa_openrouter_20260920-1712, node run m-19X710, committed at turn 10): arc apex near 0 V, R² 0.37, star at −0.16 V at the top of the frame. Not replayed here.</figcaption><img src="figures/qC2-original-m-19X710-bg.png" alt="qC2 flux map, background subtracted"></figure>
+
+<h2>Reproduce</h2>
+<p class="small"><span class="mono">replay_qc5.py</span> (copy of <span class="mono">~/qab-runs/replay_qc5.py</span>) rebuilds the contexts from the run
+directories and calls the model through tinycal's own client; <span class="mono">replay_qc5_results.jsonl</span> holds the 20 replies. Run with
+<span class="mono">cd ~/code/QM/tinycal && set -a && source .env && set +a && PYTHONPATH=&lt;this dir&gt; .venv/bin/python replay_qc5.py 5</span>.
+Runs in the tinycal UI: <a href="http://127.0.0.1:8765/#/run/n4_gilboa_openrouter_20260920-1712/qC5">n4_gilboa_openrouter_20260920-1712/qC5</a>,
+<a href="http://127.0.0.1:8765/#/run/n4_gilboa_openrouter-R_20260920-1712/qC5">n4_gilboa_openrouter-R_20260920-1712/qC5</a>,
+<a href="http://127.0.0.1:8765/#/run/n4_gilboa_openrouter_20260920-1712/qC2">n4_gilboa_openrouter_20260920-1712/qC2</a>.
+Context: <a href="../2026-09-20-splash-vs-openrouter-qwen-tinycal.html">the 20–21 Sep Splash-vs-OpenRouter report</a>.</p>
+</div></body></html>
