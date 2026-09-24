@@ -317,6 +317,32 @@ def build() -> str:
                          num(v["sat_03a_one_drive_240"], "{:.0f} s"), num(v["sat_03a_seven_drives_240"], "{:.0f} s"),
                          num(v["chirp_03b"], "{:.1f} s"), num(v["sat_03b_same_area"], "{:.0f} s")])
 
+    # --- time to a frequency and a sweet spot ------------------------------------------------------
+    tta = json.loads((DATA / "replay/time_to_answer.json").read_text())
+
+    def verdict(ok, text_ok="✓", text_no="no answer"):
+        return text_ok if ok else f'<span class="muted">{text_no}</span>'
+
+    tta_rows, tot = [], {"chirp": 0.0, "sat": 0.0, "n": 0}
+    for r in tta:
+        c_total = r["chirp_03a"] + r["chirp_03b"]
+        s_03a = r["sat_03a_tries"] * r["sat_03a_pass"]
+        s_total = s_03a + r["sat_03b"]
+        sat_res = {"pass": "✓", "imprecise": "1–5 MHz off", "wrong": "wrong line"}.get(r["sat_03a_result"])
+        tta_rows.append([
+            r["backend"], f'<b>{r["qubit"]}</b>', num(r["T1"], "{:.1f}"),
+            f'{num(r["chirp_03a"], "{:.1f} s")} {verdict(r["chirp_03a_ok"], "✓", "refused")}',
+            f'{num(r["chirp_03b"], "{:.1f} s")} ' + (f'±{num(r["chirp_x0_err"] * 1e3, "{:.2f}")} mV' if r["chirp_03b_ok"] else verdict(False)),
+            f'<b>{num(c_total, "{:.0f} s")}</b>',
+            f'{num(s_03a, "{:.1f} s")} ({r["sat_03a_tries"]} {"try" if r["sat_03a_tries"] == 1 else "tries"}) '
+            + (sat_res if sat_res else '<span class="muted">refused</span>'),
+            f'{num(r["sat_03b"], "{:.1f} s")} ' + (f'±{num(r["sat_x0_err"] * 1e3, "{:.2f}")} mV' if r["sat_03b_ok"] else verdict(False)),
+            f'<b>{num(s_total, "{:.0f} s")}</b>'])
+        if r["T1"] > 10:
+            tot["chirp"] += c_total
+            tot["sat"] += s_total
+            tot["n"] += 1
+
     # --- QPU ----------------------------------------------------------------------------------
     qpu_rows = []
     all_qpu = []
@@ -602,6 +628,21 @@ for the chirp's ±120 MHz against the chirp's 49 band centres. So its default ±
 long-T1 qubits and ~220× on gilboa's short-T1 pair. For the flux map both wait 5×T1 per shot
 and saturation adds a 20–100 µs drive and five times the frequency points: 3–5× more QPU for the same area (21 columns, −40…+30 MHz,
 50 shots against the chirp's 100).</p>
+<h3>Time to a frequency and a sweet spot</h3>
+<p>The whole path per qubit: 03a for the frequency, then 03b for the sweet spot, at each node's defaults, with the stored f₀₁
+right. The chirp side is the measured start-of-session runs. For saturation's 03a the replays of its drive ladder stand in for an
+agent that halves the drive each time the node refuses, from its default down, each try charged a full pass (±50 MHz, 0.15 MHz
+steps, 300 shots); its 03b is the measured saturation-mode map (15 columns, −25…+10 MHz, 50 shots — a smaller area than the chirp's
+21 columns over −40…+30 MHz). The fine saturation scan that follows either path (1–2 s) is left out.</p>
+{table(["backend", "qubit", "T1 [µs]", "chirp 03a", "chirp 03b (sweet spot)", "chirp total", "saturation 03a", "saturation 03b (sweet spot)",
+        "saturation total"], tta_rows)}
+<p>On the {tot["n"]} qubits with T1 ≥ 11 µs the chirp reached a frequency and a sweet spot in {tot["chirp"]:.0f} s of QPU against
+{tot["sat"]:.0f} s for saturation, in two jobs per qubit against two to five, and answered wherever saturation did (neither found an
+arc on arbel qD1). Saturation's extra cost is its 03a: at its default drive the node refused the line on five of those seven qubits
+— too broad on arbel, where the default is 21–28 MHz Rabi, too noisy on qolab Q1, and on gilboa qD5 — and on arbel qB4 and qA5 the answer it
+finally accepted was 1–5 MHz off. Where its default drive suits the qubit (qolab Q2 and Q5) saturation is as cheap or cheaper,
+because its shots skip the 5×T1 wait. The sweet spots of the two methods are about equally precise. On gilboa's short-T1 pair only
+saturation answers: both frequencies, and qC3's sweet spot in 12 s. Each job also costs compile and queue time, 5–90 s per job today.</p>
 <p class="small muted">Plus {len(fx)} jobs for the 03b/09a fix tests ({fix_qpu:.0f} s of QPU). No job reported a timeout or partial result on stderr.
 The pre-flight estimates ran 1.3–1.6× the measured QPU time, the safe side by design. Wide maps and reference scans are part of the test, not
 of the nodes' default cost.</p>
