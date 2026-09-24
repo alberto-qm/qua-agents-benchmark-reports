@@ -281,6 +281,15 @@ def build() -> str:
     old_jobs, old_qpu = len(old_recs), sum(r["qpu_s"] for r in old_recs)
     st1 = json.loads((DATA / "shortT1/shortT1_variants.json").read_text())
 
+    # --- chirp against saturation, QPU per qubit ------------------------------------------------
+    qc = json.loads((DATA / "replay/qpu_compare.json").read_text())
+    cmp_rows = []
+    for k, v in qc.items():
+        be, q = k.split("/")
+        cmp_rows.append([be, f"<b>{q}</b>", num(v["T1_us"], "{:.1f}"), num(v["chirp_03a"], "{:.1f} s"), num(v["sat_03a_default"], "{:.1f} s"),
+                         num(v["sat_03a_one_drive_240"], "{:.0f} s"), num(v["sat_03a_seven_drives_240"], "{:.0f} s"),
+                         num(v["chirp_03b"], "{:.1f} s"), num(v["sat_03b_same_area"], "{:.0f} s")])
+
     # --- QPU ----------------------------------------------------------------------------------
     qpu_rows = []
     all_qpu = []
@@ -520,6 +529,19 @@ versions agree (idle 16–1000 ns, 11 flux points): sweet spot {num(r9m.get("flu
 
 <h2>7 · Cost against the 60 s cap</h2>
 {table(["backend", "node jobs", "QPU", "longest job", "wall (incl. queue)"], qpu_rows)}
+<h3>Chirp against saturation: QPU time for the same scan</h3>
+<p>Per qubit, from the jobs above and the saturation ladder at the node's defaults (0.15 MHz steps, 300 shots). A qubit's share of a
+multi-qubit job is split by its time per shot.</p>
+{table(["backend", "qubit", "T1 [µs]", "03a chirp: 7 drives, ±120 MHz", "saturation: 1 drive, ±50 MHz (its default)",
+        "saturation: 1 drive, ±120 MHz", "saturation: 7 drives, ±120 MHz", "03b chirp map", "03b saturation, same area"], cmp_rows)}
+<p>The two nodes spend their time differently. A chirp shot waits 5×T1 for the qubit to relax, so 03a costs from under 1 s (gilboa's
+short-T1 qubits) to 14 s (qolab Q2, T1 80 µs), and active reset would cut it about tenfold once a readout threshold exists. The
+saturation node never waits for T1 — 36 µs a shot whatever the qubit — but a line ~1 MHz wide needs 0.15 MHz steps: 1,600 points
+for the chirp's ±120 MHz against the chirp's 49 band centres. So its default ±50 MHz scan at one drive costs about what the chirp's
+±120 MHz, seven-drive scan does on long-T1 qubits, and the same coverage costs 8× (qolab Q2) to 45× (arbel qA5) more on
+long-T1 qubits and ~220× on gilboa's short-T1 pair. For the flux map both wait 5×T1 per shot
+and saturation adds a 20–100 µs drive and five times the frequency points: 3–5× more QPU for the same area (21 columns, −40…+30 MHz,
+50 shots against the chirp's 100).</p>
 <p class="small muted">Plus {len(fx)} jobs for the 03b/09a fix tests ({fix_qpu:.0f} s of QPU). No job reported a timeout or partial result on stderr.
 The pre-flight estimates ran 1.3–1.6× the measured QPU time, the safe side by design. Wide maps and reference scans are part of the test, not
 of the nodes' default cost.</p>
