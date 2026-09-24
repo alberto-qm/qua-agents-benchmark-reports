@@ -1,0 +1,133 @@
+2026-09-24 19:27:50,053 - qm - INFO     - Starting session: d59533f8-3681-486d-82f0-8d60b927c2a5
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+19:27:53 [gilboa/hs] qD2: T1 1.3 us, sweep 268 ns, IF -149 MHz, window -130..35 MHz (48 centres), targets lin 0.273 hs 0.386
+19:27:53 [gilboa/hs] qC3: T1 1.8 us, sweep 360 ns, IF 99 MHz, window -130..35 MHz (48 centres), targets lin 0.217 hs 0.306
+19:27:53 [gilboa/hs] qD5: T1 43.3 us, sweep 4000 ns, IF -83 MHz, window -130..35 MHz (48 centres), targets lin 0.040 hs 0.056
+2026-09-24 19:27:55,816 - qm - INFO     - Opening QM
+/Users/atosato/qab-runs/chirp-nodes-20260924/hs_test.py:156: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  return declare_stream(), declare_stream()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[19:28:00] QUA program submitted to gilboa (id =                computers.py:416
+           643dd203-8f19-4976-bd6a-64c92835ed82)                                
+           Execution started                                    computers.py:455
+[19:28:10] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:28:10 [gilboa/hs] qD2_ladder: QPU 5.8 s, wall 14 s
+[19:28:12] QUA program submitted to gilboa (id =                computers.py:416
+           a0550485-2a01-4bc1-bfa7-30c28f76a4b5)                                
+           Execution started                                    computers.py:455
+[19:28:22] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:28:22 [gilboa/hs] qC3_ladder: QPU 7.1 s, wall 12 s
+[19:28:25] QUA program submitted to gilboa (id =                computers.py:416
+           dea4c851-9754-4ff3-a5a3-49e237689aca)                                
+           Execution started                                    computers.py:455
+[19:28:54] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:28:54 [gilboa/hs] qD5_ladder: QPU 25.7 s, wall 32 s
+[19:28:57] QUA program submitted to gilboa (id =                computers.py:416
+           6932c5ff-2f6c-41e8-8304-1dbd6cf56d32)                                
+           Execution started                                    computers.py:455
+[19:29:03] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:03 [gilboa/hs] qD2_ref: QPU 2.6 s, wall 9 s
+[19:29:06] QUA program submitted to gilboa (id =                computers.py:416
+           7c51b53f-e9ef-4cdf-a387-14906fe62292)                                
+           Execution started                                    computers.py:455
+[19:29:10] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:10 [gilboa/hs] qC3_ref: QPU 2.7 s, wall 7 s
+[19:29:12] QUA program submitted to gilboa (id =                computers.py:416
+           4c30dd82-f7c6-44fb-8688-27e59bdd8b13)                                
+[19:29:13] Execution started                                    computers.py:455
+[19:29:28] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:28 [gilboa/hs] qD5_ref: QPU 13.8 s, wall 18 s
+[19:29:30] QUA program submitted to gilboa (id =                computers.py:416
+           9b311c02-5366-4160-b670-183464c285d4)                                
+[19:29:31] Execution started                                    computers.py:455
+[19:29:34] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:34 [gilboa/hs] qD2_map_lin_up: QPU 2.1 s, wall 6 s
+[19:29:36] QUA program submitted to gilboa (id =                computers.py:416
+           8f306ddf-62c6-4745-8421-aa3f83432cdc)                                
+           Execution started                                    computers.py:455
+[19:29:40] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:40 [gilboa/hs] qD2_map_hs_up: QPU 2.5 s, wall 6 s
+[19:29:42] QUA program submitted to gilboa (id =                computers.py:416
+           59746acd-8172-440c-9b5c-2058153ebbc5)                                
+           Execution started                                    computers.py:455
+[19:29:47] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:47 [gilboa/hs] qC3_map_lin_up: QPU 2.4 s, wall 6 s
+[19:29:48] QUA program submitted to gilboa (id =                computers.py:416
+           293e6498-c33d-4cad-b757-801081926935)                                
+           Execution started                                    computers.py:455
+[19:29:53] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:29:53 [gilboa/hs] qC3_map_hs_up: QPU 2.8 s, wall 6 s
+[19:29:55] QUA program submitted to gilboa (id =                computers.py:416
+           a5fdb61f-8050-4610-a9b6-4315762cea97)                                
+           Execution started                                    computers.py:455
+[19:30:08] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:30:08 [gilboa/hs] qD5_map_lin_up: QPU 10.9 s, wall 15 s
+[19:30:10] QUA program submitted to gilboa (id =                computers.py:416
+           eae9ccd2-e35c-47cc-aaf3-8715c67ce931)                                
+           Execution started                                    computers.py:455
+[19:30:26] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:30:26 [gilboa/hs] qD5_map_hs_up: QPU 14.3 s, wall 18 s
+[19:30:28] QUA program submitted to gilboa (id =                computers.py:416
+           22987c8a-8969-4798-9762-80216dd3b864)                                
+           Execution started                                    computers.py:455
+[19:30:35] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:30:35 [gilboa/hs] qD2_map_sat: QPU 5.1 s, wall 9 s
+[19:30:36] QUA program submitted to gilboa (id =                computers.py:416
+           964d1d8c-84fb-4f6d-af4b-70c7214bf7ee)                                
+[19:30:37] Execution started                                    computers.py:455
+[19:30:43] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:30:43 [gilboa/hs] qC3_map_sat: QPU 5.3 s, wall 9 s
+[19:30:46] QUA program submitted to gilboa (id =                computers.py:416
+           7ac83d54-5cdb-4c08-a1b3-a6f01c509a4a)                                
+           Execution started                                    computers.py:455
+[19:31:06] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+19:31:06 [gilboa/hs] qD5_map_sat: QPU 18.4 s, wall 23 s
+2026-09-24 19:31:07,080 - qm - INFO     - Closing QM
+19:31:07 [gilboa/hs] done: ladder,ref,maps_chirp,maps_sat

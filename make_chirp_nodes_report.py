@@ -31,7 +31,7 @@ def sync():
     DATA.mkdir(exist_ok=True)
     for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures", "shortT1",
                 "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
-                "satladder/arbel", "satladder/qolab", "satladder/gilboa"):
+                "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out"):
@@ -281,6 +281,42 @@ def build() -> str:
     old_jobs, old_qpu = len(old_recs), sum(r["qpu_s"] for r in old_recs)
     st1 = json.loads((DATA / "shortT1/shortT1_variants.json").read_text())
 
+    # --- hyperbolic secant against the linear chirp -------------------------------------------
+    hs = json.loads((DATA / "hs_test/summary.json").read_text())
+    hs_qpu = sum(sum(json.loads(f.read_text())["qpu_s"].values()) for f in (DATA / "hs_test").glob("*_meta.json"))
+
+    def fam_cell(res, fam):
+        pr = (res.get("pulses") or {}).get(fam)
+        if not pr or pr["full_level"] is None:
+            return "–"
+        lv = {x["level"]: x for x in pr["levels"]}
+        full = lv[pr["full_level"]]
+        tp = lv.get(pr["two_photon_level"]) if pr["two_photon_level"] is not None else None
+        bias = full["bias_mean"] if full["bias_mean"] is not None else full["bias_up"]
+        up = full["bias_up"]
+        s = f'{num(bias / 1e6 if bias is not None else None, "{:+.2f}")} MHz'
+        if up is not None and bias is not None and abs(up - bias) > 0.3e6:
+            s += f' (up only {num(up / 1e6, "{:+.2f}")})'
+        s += f'; full at {num(full["rabi_mhz"], "{:.1f}")} MHz; 0→2 ' + (f'from {num(tp["rabi_mhz"], "{:.0f}")} MHz' if tp else "not seen")
+        return s
+
+    def map_cell(res, kind):
+        m = (res.get("maps") or {}).get(kind)
+        if not m:
+            return "–"
+        if m["x0"] is None or m["x0"] != m["x0"]:
+            return f'<span class="muted">no arc ({m["tracked"]}/{m["columns"]})</span>'
+        return f'{num(m["x0"] * 1e3, "{:+.2f}")} ± {num(m["x0_error"] * 1e3, "{:.2f}")}'
+
+    hs_rows = []
+    for k in ("gilboa/qD2", "gilboa/qC3", "arbel/qA6", "arbel/qB4", "gilboa/qD5"):
+        r = hs.get(k)
+        if not r:
+            continue
+        ref = r.get("reference") or {}
+        hs_rows.append([k.replace("/", " "), num(r["T1_us"], "{:.1f}"), f'{num(ref.get("offset", float("nan")) / 1e6, "{:+.2f}")} MHz',
+                        fam_cell(r, "lin"), fam_cell(r, "hs"), map_cell(r, "lin_up"), map_cell(r, "hs_up"), map_cell(r, "sat")])
+
     # --- chirp against saturation, QPU per qubit ------------------------------------------------
     qc = json.loads((DATA / "replay/qpu_compare.json").read_text())
     cmp_rows = []
@@ -488,6 +524,39 @@ against −4.75; qC3 +2.1…+2.6 against −0.1), more at stronger drive, with t
 at the sweep direction; alternating up- and down-sweeps would test it. Below T1 ≈ 5 µs saturation stays the better tool: its fine
 scan put qC3's line at the right place with a 0.6 MHz width.</p>
 
+<h3>Hyperbolic secant against the node's pulse, with controls</h3>
+<p>A second test ({hs_qpu:.0f} s of QPU in 26 jobs) put the hyperbolic secant next to the node's linear chirp on five qubits —
+gilboa qD2 and qC3 (T1 1.3, 1.8 µs), arbel qA6 (5.2 µs, the only one between 2 and 10 µs), and arbel qB4 and gilboa qD5 as long-T1
+controls — each pulse swept up and down at five drives, with a fine saturation scan of the same session as the reference, and
+flux maps with the linear chirp (at the node's 03b drive), the hyperbolic secant (at its full-box drive) and saturation.</p>
+{table(["qubit", "T1 [µs]", "reference line − stored f₀₁", "linear chirp: box centre − reference, up/down mean", "hyperbolic secant: same",
+        "sweet spot, linear map [mV]", "hyperbolic-secant map", "saturation map"], hs_rows)}
+{img("hs_ladder.png", "Population against band centre at five drives: linear chirp up and down (left pair), hyperbolic secant up and down (right pair). Red dotted: the reference line; orange dotted: the 0→2 line.", "ladders of both pulses, both directions")}
+{img("hs_maps.png", "Flux maps of the same qubits: linear chirp, hyperbolic secant, saturation.", "flux maps with three pulses")}
+<ul class="tight">
+<li><b>Long T1: no reason to switch.</b> On qB4 and qD5 both pulses place the line within 0.1–0.3 MHz of the reference. The
+hyperbolic secant's edges are not sharper (0.8–0.9 MHz, against 0.4–1.6 MHz for the linear chirp), but its box fills only at ~3 MHz
+Rabi against ~1 MHz, while the 0→2 line appears from ~11 MHz (or not at all up to 11 MHz) against ~8 MHz: less room between the two. Its flux maps are 3–4× less
+precise (±0.23 against ±0.06 mV) with poorer fits, and agree with the linear and saturation maps within that error.</li>
+<li><b>T1 = 5.2 µs (qA6): both work</b> within 0.2 MHz at moderate drive; the linear chirp breaks at 16 MHz Rabi, the hyperbolic secant
+only drifts to −0.9 MHz at 22 MHz. qA6 showed no arc in any map (1 of 15 columns with every pulse): like arbel qD1, its stored idle
+point is probably not a sweet spot.</li>
+<li><b>Sweep direction explains most of qD2's high reading.</b> On qD2 the hyperbolic secant swept up reads +9 to +10 MHz at 22–28 MHz
+Rabi, but the mean of up and down reads +3; at the drive where the box fills (11 MHz) the mean is +0.8 MHz. The same averaging removes a
+smaller effect on long-T1 qubits (qB4's linear chirp at weak drive: up −0.6, mean −0.04 MHz). The node sweeps up only; alternating
+directions costs twice the shots.</li>
+<li><b>qD2: the hyperbolic secant is the only pulse that mapped it.</b> Its map found the arc in 12 of 15 columns, sweet spot
++3.41 ± 0.09 mV with f₀₁ 0.6 MHz above the reference; the linear chirp tracked the spurious arc again (f₀₁ +24.5 MHz) and saturation
+found no arc. There is no independent sweet spot to check it against.</li>
+<li><b>qC3 is not solved.</b> Both pulses, in both directions, put the box 0.5–3.9 MHz above a clean saturation reference (0.7 MHz wide)
+at every drive — with the hyperbolic secant the offset shrinks as the drive grows, the opposite of a Stark shift — and the
+hyperbolic-secant map's sweet spot
+(+1.91 ± 0.31 mV) disagrees with the saturation map's (−0.54 ± 0.08 mV) by 2.4 mV. The cause is not known.</li>
+</ul>
+<p>So: the linear chirp stays for T1 above ~5 µs, where it is at least as good and gives better maps. Below that the hyperbolic secant
+with up- and down-sweeps averaged is the only chirp that works at all, on one of the two qubits tried; saturation remains the
+fallback until it is tried on more.</p>
+
 <h3>Telling the 0→1 line from the 0→2 line</h3>
 <p>03a decides in three steps. When both lines are in the window, the one that appears at the lowest drive is 0→1 and a later one
 40–250 MHz below it is its 0→2 partner — robust, and it decided every such case. For a lone line it falls back on how the line grows
@@ -549,9 +618,9 @@ of the nodes' default cost.</p>
 <h2>8 · Open</h2>
 <ol class="recs">
 <li>Agents have not used the nodes yet; the recipes are written but untested in a campaign.</li>
-<li>Short-T1 qubits need the saturation fallback in 03a (the old node) and 03b (<span class="mono">pulse='saturation'</span>). A wider
-band or a hyperbolic-secant pulse gives clean boxes at T1 1.3–1.8 µs but reads 1–3 MHz high; alternating sweep directions is the next
-test.</li>
+<li>Short-T1 qubits need the saturation fallback in 03a (the old node) and 03b (<span class="mono">pulse='saturation'</span>). The
+hyperbolic secant with up- and down-sweeps averaged worked on qD2 (the only map of it) but not on qC3, whose 1–3 MHz offset is
+unexplained; it needs more short-T1 qubits before it goes into the nodes.</li>
 <li>For a lone line, replace the growth fit with a partner scan 40–250 MHz above it, and use the box's IQ direction against an x180
 reference as a second check; extend the window down to −200 MHz.</li>
 <li>The −0.2 MHz frequency bias: alternate sweep directions.</li>

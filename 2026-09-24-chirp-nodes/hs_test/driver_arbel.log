@@ -1,0 +1,13 @@
+19:27:53 [arbel/hs] qA6: T1 5.2 us, sweep 1048 ns, IF -342 MHz, window -28..34 MHz (26 centres), targets lin 0.049 hs 0.070
+19:27:53 [arbel/hs] qB4: T1 30.9 us, sweep 4000 ns, IF -93 MHz, window -130..35 MHz (48 centres), targets lin 0.044 hs 0.063
+19:28:15 [arbel/hs] qA6_ladder: QPU 9.2 s, wall 20 s
+19:28:43 [arbel/hs] qB4_ladder: QPU 21.4 s, wall 28 s
+19:29:54 [arbel/hs] qA6_ref: QPU 4.3 s, wall 71 s
+19:30:10 [arbel/hs] qB4_ref: QPU 11.4 s, wall 16 s
+19:30:18 [arbel/hs] qA6_map_lin_up: QPU 3.8 s, wall 8 s
+19:30:26 [arbel/hs] qA6_map_hs_up: QPU 4.2 s, wall 8 s
+19:30:43 [arbel/hs] qB4_map_lin_up: QPU 8.6 s, wall 17 s
+19:31:00 [arbel/hs] qB4_map_hs_up: QPU 11.1 s, wall 17 s
+19:31:13 [arbel/hs] qA6_map_sat: QPU 7.5 s, wall 13 s
+19:31:33 [arbel/hs] qB4_map_sat: QPU 15.1 s, wall 20 s
+19:31:34 [arbel/hs] done: ladder,ref,maps_chirp,maps_sat
