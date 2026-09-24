@@ -1,0 +1,57 @@
+03a chirp, 1D cut, 5 MHz steps, band 20 MHz; centre error [MHz] mean +- sd, box height, max tail outside
+  no memory frequency inner, upward (now)      bias  +0.09  sd  0.58  height 1.01  tail 0.00  fails 0
+  no memory up/down alternating                bias  +0.09  sd  0.58  height 1.01  tail 0.00  fails 0
+  no memory one fixed shuffle                  bias  +0.09  sd  0.58  height 1.01  tail 0.00  fails 0
+  no memory 8 shuffles, cycled                 bias  +0.09  sd  0.58  height 1.01  tail 0.00  fails 0
+  no memory shots inner (repeat each point)    bias  +0.20  sd  0.52  height 1.00  tail 0.00  fails 0
+  5 T1      frequency inner, upward (now)      bias  +0.12  sd  0.52  height 1.00  tail 0.00  fails 0
+  5 T1      up/down alternating                bias  +0.15  sd  0.65  height 1.00  tail 0.00  fails 0
+  5 T1      one fixed shuffle                  bias  +0.10  sd  0.57  height 1.01  tail 0.01  fails 0
+  5 T1      8 shuffles, cycled                 bias  +0.12  sd  0.63  height 1.01  tail 0.00  fails 0
+  5 T1      shots inner (repeat each point)    bias  +0.20  sd  0.52  height 1.00  tail 0.00  fails 0
+  3 T1      frequency inner, upward (now)      bias  +0.08  sd  0.62  height 0.96  tail 0.02  fails 0
+  3 T1      up/down alternating                bias  -0.01  sd  0.59  height 0.96  tail 0.02  fails 0
+  3 T1      one fixed shuffle                  bias  -0.03  sd  0.53  height 1.00  tail 0.05  fails 0
+  3 T1      8 shuffles, cycled                 bias  +0.13  sd  0.60  height 1.00  tail 0.02  fails 0
+  3 T1      shots inner (repeat each point)    bias  +0.14  sd  0.51  height 0.95  tail 0.00  fails 0
+  2 T1      frequency inner, upward (now)      bias  +0.32  sd  0.57  height 0.90  tail 0.06  fails 0
+  2 T1      up/down alternating                bias  +0.01  sd  0.58  height 0.90  tail 0.04  fails 0
+  2 T1      one fixed shuffle                  bias  +0.05  sd  0.63  height 0.98  tail 0.13  fails 0
+  2 T1      8 shuffles, cycled                 bias  +0.17  sd  0.57  height 0.98  tail 0.05  fails 0
+  2 T1      shots inner (repeat each point)    bias  +0.15  sd  0.55  height 0.88  tail 0.00  fails 0
+  1 T1      frequency inner, upward (now)      bias  +0.73  sd  0.69  height 0.74  tail 0.17  fails 0
+  1 T1      up/down alternating                bias  +0.03  sd  0.81  height 0.74  tail 0.11  fails 0
+  1 T1      one fixed shuffle                  bias  -3.06  sd 18.93  height 0.92  tail 0.36  fails 0
+  1 T1      8 shuffles, cycled                 bias  +0.23  sd  0.73  height 0.93  tail 0.14  fails 0
+  1 T1      shots inner (repeat each point)    bias  +0.12  sd  0.51  height 0.73  tail 0.00  fails 0
+  0.5 T1    frequency inner, upward (now)      bias  +1.08  sd  0.99  height 0.59  tail 0.28  fails 8
+  0.5 T1    up/down alternating                bias  +0.06  sd  0.92  height 0.59  tail 0.15  fails 0
+  0.5 T1    one fixed shuffle                  bias  +3.50  sd 32.27  height 0.82  tail 0.59  fails 7
+  0.5 T1    8 shuffles, cycled                 bias  +0.16  sd  1.04  height 0.83  tail 0.26  fails 0
+  0.5 T1    shots inner (repeat each point)    bias  +0.04  sd  0.57  height 0.62  tail 0.01  fails 0
+
+03b chirp, 29 x 21 map; sweet-spot error in flux steps (mean +- sd), apex frequency error [MHz]
+  no memory flux inner, upward (now)   x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  no memory flux inner, snake          x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  no memory frequency inner, upward    x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  no memory 8 shuffles, cycled         x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  5 T1      flux inner, upward (now)   x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  5 T1      flux inner, snake          x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  5 T1      frequency inner, upward    x0 bias +0.002 steps  sd 0.005   f0 bias +0.01  fails 0
+  5 T1      8 shuffles, cycled         x0 bias +0.002 steps  sd 0.006   f0 bias +0.01  fails 0
+  3 T1      flux inner, upward (now)   x0 bias +0.004 steps  sd 0.006   f0 bias +0.01  fails 0
+  3 T1      flux inner, snake          x0 bias +0.002 steps  sd 0.006   f0 bias +0.01  fails 0
+  3 T1      frequency inner, upward    x0 bias +0.002 steps  sd 0.006   f0 bias +0.02  fails 0
+  3 T1      8 shuffles, cycled         x0 bias +0.002 steps  sd 0.006   f0 bias +0.01  fails 0
+  2 T1      flux inner, upward (now)   x0 bias +0.012 steps  sd 0.027   f0 bias -0.03  fails 0
+  2 T1      flux inner, snake          x0 bias +0.003 steps  sd 0.007   f0 bias -0.01  fails 0
+  2 T1      frequency inner, upward    x0 bias +0.004 steps  sd 0.008   f0 bias +0.06  fails 0
+  2 T1      8 shuffles, cycled         x0 bias +0.002 steps  sd 0.009   f0 bias +0.01  fails 0
+  1 T1      flux inner, upward (now)   x0 bias +0.051 steps  sd 0.157   f0 bias -0.08  fails 0
+  1 T1      flux inner, snake          x0 bias +0.002 steps  sd 0.026   f0 bias -0.07  fails 0
+  1 T1      frequency inner, upward    x0 bias +0.002 steps  sd 0.028   f0 bias +0.26  fails 0
+  1 T1      8 shuffles, cycled         x0 bias +0.004 steps  sd 0.015   f0 bias +0.02  fails 0
+  0.5 T1    flux inner, upward (now)   x0 bias +0.331 steps  sd 0.130   f0 bias -0.34  fails 0
+  0.5 T1    flux inner, snake          x0 bias +0.018 steps  sd 0.148   f0 bias -0.33  fails 0
+  0.5 T1    frequency inner, upward    x0 bias +0.001 steps  sd 0.113   f0 bias +0.93  fails 0
+  0.5 T1    8 shuffles, cycled         x0 bias +0.006 steps  sd 0.030   f0 bias +0.04  fails 0

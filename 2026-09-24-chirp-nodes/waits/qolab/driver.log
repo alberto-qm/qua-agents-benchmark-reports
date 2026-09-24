@@ -1,0 +1,25 @@
+20:45:04 [qolab/waits] 03a-2T1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], waits {'Q1': 95424, 'Q2': 159728, 'Q5': 84080} ns {}
+20:45:25 [qolab/waits] 03a-2T1-Q1-Q2-Q5: done -- QPU 13.0 s, wall 20 s
+20:45:25 [qolab/waits]    Q1: {'f_01': 5271986367.586615, 'frequency_shift': -177957.2940122428, 'f_01_error': 243755.15009484108, 'line_identity': '0-1', 'drive_scale': 0.9876320825574898, 'box_height': 0.0004199751566512842, 'box_snr': 23.65201234782903} warnings=[]
+20:45:25 [qolab/waits]    Q2: {'f_01': 5105896348.84767, 'frequency_shift': -12338.418769322394, 'f_01_error': 169418.0010344243, 'line_identity': '0-1', 'drive_scale': 1.0340132095630552, 'box_height': 0.00043845078857008066, 'box_snr': 35.1793625309248} warnings=[]
+20:45:25 [qolab/waits]    Q5: {'f_01': 5095770651.195503, 'frequency_shift': -768116.1731435009, 'f_01_error': 268379.62352329167, 'line_identity': '0-1', 'drive_scale': 1.0149273729382053, 'box_height': 0.00025475299655421964, 'box_snr': 20.954016544821105} warnings=[]
+20:45:25 [qolab/waits] 03a-5T1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], waits {'Q1': 238568, 'Q2': 399324, 'Q5': 210200} ns {}
+20:46:00 [qolab/waits] 03a-5T1-Q1-Q2-Q5: done -- QPU 30.4 s, wall 35 s
+20:46:00 [qolab/waits]    Q1: {'f_01': 5271774546.543175, 'frequency_shift': -389778.33745237597, 'f_01_error': 212675.3474457386, 'line_identity': '0-1', 'drive_scale': 1.0235006797877977, 'box_height': 0.0005440659970947616, 'box_snr': 34.53953867545123} warnings=[]
+20:46:00 [qolab/waits]    Q2: {'f_01': 5105423831.727651, 'frequency_shift': -484855.5387882693, 'f_01_error': 111341.84511156776, 'line_identity': '0-1', 'drive_scale': 0.9823800055741164, 'box_height': 0.00047545485449265664, 'box_snr': 42.39741066335724} warnings=[]
+20:46:00 [qolab/waits]    Q5: {'f_01': 5096316829.741128, 'frequency_shift': -221937.62751871024, 'f_01_error': 169913.67972812007, 'line_identity': '0-1', 'drive_scale': 0.9882268627838853, 'box_height': 0.0002951433255158584, 'box_snr': 27.233517094656545} warnings=[]
+20:46:01 [qolab/waits] 03b-2T1-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'], waits {'Q2': 159728} ns {}
+20:46:16 [qolab/waits] 03b-2T1-Q2: done -- QPU 10.8 s, wall 15 s
+20:46:16 [qolab/waits]    Q2: {'f_01': 5105715065.477429, 'frequency_shift': -193621.78900945696, 'f_01_error': 48959.23353425407, 'idle_offset_shift': 5.335856168329271e-05, 'idle_offset_shift_error': 9.32982589727637e-05, 'column_precision': 115323.20871556249, 'tracked_columns': 17, 'chi2_red': 1.2860274667220981} warnings=[]
+20:46:16 [qolab/waits] 03b-2T1-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'], waits {'Q1': 95424, 'Q5': 84080} ns {}
+20:46:34 [qolab/waits] 03b-2T1-Q1-Q5: done -- QPU 12.9 s, wall 18 s
+20:46:34 [qolab/waits]    Q1: {'f_01': 5272051863.375905, 'frequency_shift': -112461.50472126373, 'f_01_error': 66928.4617586294, 'idle_offset_shift': 8.651667009139924e-05, 'idle_offset_shift_error': 0.0001373203039469936, 'column_precision': 162505.08775253076, 'tracked_columns': 15, 'chi2_red': 1.0996147425837555} warnings=[]
+20:46:34 [qolab/waits]    Q5: {'f_01': 5096232959.520531, 'frequency_shift': -305807.8481161069, 'f_01_error': 109281.26590933681, 'idle_offset_shift': -0.00021799945528298863, 'idle_offset_shift_error': 0.00019622705031110583, 'column_precision': 513246.6774109776, 'tracked_columns': 17, 'chi2_red': 0.9175840198579233} warnings=[]
+20:46:35 [qolab/waits] 03b-5T1-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'], waits {'Q2': 399324} ns {}
+20:47:05 [qolab/waits] 03b-5T1-Q2: done -- QPU 25.4 s, wall 30 s
+20:47:05 [qolab/waits]    Q2: {'f_01': 5105839614.105068, 'frequency_shift': -69073.16137046838, 'f_01_error': 47501.63342021752, 'idle_offset_shift': -5.1219750498480126e-05, 'idle_offset_shift_error': 8.992588329407798e-05, 'column_precision': 110297.65722278012, 'tracked_columns': 17, 'chi2_red': 1.348758031294859} warnings=[]
+20:47:05 [qolab/waits] 03b-5T1-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'], waits {'Q1': 238568, 'Q5': 210200} ns {}
+20:47:39 [qolab/waits] 03b-5T1-Q1-Q5: done -- QPU 29.3 s, wall 34 s
+20:47:39 [qolab/waits]    Q1: {'f_01': 5272089064.558858, 'frequency_shift': -75260.32176884466, 'f_01_error': 47229.8199215612, 'idle_offset_shift': 0.00025028751627474173, 'idle_offset_shift_error': 0.00010621377406227025, 'column_precision': 117044.28519955956, 'tracked_columns': 15, 'chi2_red': 0.6924326509321955} warnings=[]
+20:47:39 [qolab/waits]    Q5: {'f_01': 5096304043.040675, 'frequency_shift': -234724.32797133215, 'f_01_error': 72373.47815928083, 'idle_offset_shift': 2.8359508971282367e-05, 'idle_offset_shift_error': 0.0001963777435172788, 'column_precision': 186987.26616023516, 'tracked_columns': 16, 'chi2_red': 0.9826075762141595} warnings=[]
+20:47:39 [qolab/waits] all done

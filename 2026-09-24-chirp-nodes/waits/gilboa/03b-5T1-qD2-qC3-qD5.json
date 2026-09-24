@@ -1,0 +1,198 @@
+{
+ "tag": "03b-5T1-qD2-qC3-qD5",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "factor": 5,
+ "waits_ns": {
+  "qD2": 6712,
+  "qC3": 9016,
+  "qD5": 216576
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 23.007393958047032,
+ "qpu_s": 18.079672813415527,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -8630838325.595207,
+   "column_precision": 530502.3591796878,
+   "chi2_red": NaN,
+   "tracked_columns": 6,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.5454242177112795,
+   "sweep_length_ns": 268.0,
+   "short_sweep": true,
+   "warnings": [
+    "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "a line was located in 6 of 21 flux columns (need 7)"
+   ]
+  },
+  "qC3": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -10305876434.22233,
+   "column_precision": 463551.7453323847,
+   "chi2_red": NaN,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.43306224127944576,
+   "sweep_length_ns": 360.0,
+   "short_sweep": true,
+   "warnings": [
+    "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ]
+  },
+  "qD5": {
+   "idle_offset_shift": 0.002786359938102214,
+   "idle_offset_shift_error": 5.193181987363912e-05,
+   "joint_offset": 0.022795469366132463,
+   "independent_offset": NaN,
+   "f_01": 5816861771.972708,
+   "RF_frequency": 5816861771.972708,
+   "f_01_error": 37273.08469669066,
+   "frequency_shift": -110594.06214683817,
+   "curvature": -11076198269.905466,
+   "curvature_error": 36683520.44902382,
+   "stored_curvature": -10584901306.441132,
+   "column_precision": 111963.77634629984,
+   "chi2_red": 1.2987831819085105,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.07940336636618783,
+   "sweep_length_ns": 4000.0,
+   "short_sweep": false,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/xy/RF_frequency": {
+   "old": 5816972366.034855,
+   "new": 5816861771.972708
+  },
+  "/qubits/qD5/f_01": {
+   "old": 5816972366.034855,
+   "new": 5816861771.972708
+  },
+  "/qubits/qD5/z/joint_offset": {
+   "old": 0.02000910942803025,
+   "new": 0.022795469366132463
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 268,
+   "qC3": 360,
+   "qD5": 4000
+  },
+  "rates": {
+   "qD2": 74627,
+   "qC3": 55556,
+   "qD5": 5000
+  },
+  "drive_amplitudes": {
+   "qD2": 0.5454242177112795,
+   "qC3": 0.43306224127944576,
+   "qD5": 0.07940336636618783
+  },
+  "flux_offsets": {
+   "qD2": [
+    -0.07220707723635246,
+    -0.06498636951271722,
+    -0.05776566178908197,
+    -0.05054495406544672,
+    -0.04332424634181148,
+    -0.03610353861817623,
+    -0.02888283089454098,
+    -0.02166212317090574,
+    -0.01444141544727049,
+    -0.007220707723635242,
+    0.0,
+    0.007220707723635242,
+    0.014441415447270498,
+    0.02166212317090574,
+    0.02888283089454098,
+    0.03610353861817624,
+    0.04332424634181148,
+    0.05054495406544672,
+    0.057765661789081976,
+    0.0649863695127172,
+    0.07220707723635246
+   ],
+   "qC3": [
+    -0.06607905011297313,
+    -0.05947114510167582,
+    -0.0528632400903785,
+    -0.046255335079081195,
+    -0.03964743006778388,
+    -0.033039525056486566,
+    -0.026431620045189258,
+    -0.019823715033891944,
+    -0.013215810022594629,
+    -0.0066079050112973145,
+    0.0,
+    0.0066079050112973076,
+    0.013215810022594615,
+    0.019823715033891937,
+    0.026431620045189244,
+    0.033039525056486566,
+    0.03964743006778387,
+    0.04625533507908118,
+    0.0528632400903785,
+    0.05947114510167581,
+    0.06607905011297313
+   ],
+   "qD5": [
+    -0.06520229019841034,
+    -0.058682061178569306,
+    -0.05216183215872827,
+    -0.04564160313888724,
+    -0.039121374119046204,
+    -0.03260114509920517,
+    -0.026080916079364136,
+    -0.019560687059523102,
+    -0.013040458039682068,
+    -0.006520229019841034,
+    0.0,
+    0.006520229019841034,
+    0.013040458039682068,
+    0.019560687059523102,
+    0.026080916079364136,
+    0.03260114509920517,
+    0.039121374119046204,
+    0.04564160313888724,
+    0.05216183215872827,
+    0.058682061178569306,
+    0.06520229019841034
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 50
+ }
+}

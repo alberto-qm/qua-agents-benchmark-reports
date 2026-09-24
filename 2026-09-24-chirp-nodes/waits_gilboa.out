@@ -1,0 +1,152 @@
+2026-09-24 20:44:57,904 - qm - INFO     - Starting session: 075ff1bc-e7de-48a1-bc64-6696888c84fb
+20:45:04 [gilboa/waits] 03a-2T1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], waits {'qD2': 2684, 'qC3': 3604, 'qD5': 86628} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 268 ns over 20 MHz (74627 Hz/ns), drive levels 0.03409, 0.06818, 0.1364, 0.2727, 0.5454, 0.99, 0.99 (x180 prior)
+qC3: sweep 360 ns over 20 MHz (55556 Hz/ns), drive levels 0.02707, 0.05413, 0.1083, 0.2165, 0.4331, 0.8661, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176 (x180 prior)
+estimated QPU time 6 s: 686 sweep points x 50 shots x 111 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 20:45:06,782 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[20:45:08] QUA program submitted to gilboa (id =                computers.py:416
+           583addf5-29cf-41f4-90ca-5fee2012e2c0)                                
+           Execution started                                    computers.py:455
+[20:45:17] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-24 20:45:17,057 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:278: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: f_01 5.746808 GHz +- 214 kHz (shift -4.20 MHz), identity short-sweep, drive for 03b 0.2727, drive scale vs x180 1.38, 0->2 line found -> anharmonicity ~183 MHz
+	Warnings: the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us
+Results for qubit qC3: no 0->1 line found. the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us; no line in the window at any drive level
+Results for qubit qD5: f_01 5.816561 GHz +- 168 kHz (shift -0.41 MHz), identity 0-1, drive for 03b 0.0397, drive scale vs x180 0.97, 0->2 line found -> anharmonicity ~207 MHz
+update_state: qD2: line identity short-sweep; nothing proposed.
+20:45:18 [gilboa/waits] 03a-2T1-qD2-qC3-qD5: done -- QPU 5.8 s, wall 14 s
+20:45:18 [gilboa/waits]    qD2: {'f_01': 5746807751.462181, 'frequency_shift': -4199155.408978856, 'f_01_error': 213761.11627634018, 'line_identity': 'short-sweep', 'drive_scale': 1.378326841457918, 'box_height': 0.002433161013682506, 'box_snr': 27.836031804994654} warnings=['the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us']
+20:45:18 [gilboa/waits]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'line_identity': 'short-sweep', 'drive_scale': nan, 'box_height': nan, 'box_snr': nan} warnings=['the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us', 'no line in the window at any drive level']
+20:45:18 [gilboa/waits]    qD5: {'f_01': 5816561220.242328, 'frequency_shift': -411145.79252735584, 'f_01_error': 168445.27805729362, 'line_identity': '0-1', 'drive_scale': 0.9663599529542201, 'box_height': 0.0023986654957412114, 'box_snr': 29.04748101865705} warnings=[]
+20:45:19 [gilboa/waits] 03a-5T1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 268 ns over 20 MHz (74627 Hz/ns), drive levels 0.03409, 0.06818, 0.1364, 0.2727, 0.5454, 0.99, 0.99 (x180 prior)
+qC3: sweep 360 ns over 20 MHz (55556 Hz/ns), drive levels 0.02707, 0.05413, 0.1083, 0.2165, 0.4331, 0.8661, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176 (x180 prior)
+estimated QPU time 13 s: 686 sweep points x 50 shots x 251 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 20:45:20,601 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[20:45:21] QUA program submitted to gilboa (id =                computers.py:416
+           df383e7d-a8e5-4ac5-891f-997f49686ba4)                                
+           Execution started                                    computers.py:455
+[20:45:34] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-24 20:45:34,374 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibration_utils/qubit_spectroscopy_chirp/analysis.py:129: OptimizeWarning: Covariance of the parameters could not be estimated
+  popt, _ = curve_fit(model, a, h, p0=[H0, a0, 2.0], sigma=np.full(a.size, sigma),
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:278: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: f_01 5.746687 GHz +- 382 kHz (shift -4.32 MHz), identity short-sweep, drive for 03b 0.1364, drive scale vs x180 1.42, 0->2 line found -> anharmonicity ~184 MHz
+	Warnings: the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us
+Results for qubit qC3: f_01 5.648865 GHz +- 286 kHz (shift +0.18 MHz), identity short-sweep, drive for 03b 0.2165, drive scale vs x180 1.59
+	Warnings: the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us
+Results for qubit qD5: f_01 5.817010 GHz +- 146 kHz (shift +0.04 MHz), identity 0-1, drive for 03b 0.0397, drive scale vs x180 1.06, 0->2 line found -> anharmonicity ~206 MHz
+update_state: qD2: line identity short-sweep; nothing proposed.
+update_state: qC3: line identity short-sweep; nothing proposed.
+20:45:35 [gilboa/waits] 03a-5T1-qD2-qC3-qD5: done -- QPU 10.5 s, wall 16 s
+20:45:35 [gilboa/waits]    qD2: {'f_01': 5746686985.946543, 'frequency_shift': -4319920.924616964, 'f_01_error': 382124.6341899482, 'line_identity': 'short-sweep', 'drive_scale': 1.4156337922901174, 'box_height': 0.002132504727285244, 'box_snr': 13.235512730174687} warnings=['the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us']
+20:45:35 [gilboa/waits]    qC3: {'f_01': 5648864690.285291, 'frequency_shift': 180541.62850541613, 'f_01_error': 285696.8351703801, 'line_identity': 'short-sweep', 'drive_scale': 1.5883102009804246, 'box_height': 0.0008377808240808129, 'box_snr': 13.034557899114194} warnings=['the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us']
+20:45:35 [gilboa/waits]    qD5: {'f_01': 5817009929.053834, 'frequency_shift': 37563.01897945915, 'f_01_error': 146346.0077109691, 'line_identity': '0-1', 'drive_scale': 1.06257264441938, 'box_height': 0.0028589236256510867, 'box_snr': 44.86945472702497} warnings=[]
+20:45:35 [gilboa/waits] 03b-2T1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], waits {'qD2': 2684, 'qC3': 3604, 'qD5': 86628} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 268 ns at amplitude 0.5454; flux step 5404 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: chirp 360 ns at amplitude 0.4331; flux step 5540 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 11 s: 1218 sweep points x 50 shots x 117 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 20:45:37,126 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[20:45:38] QUA program submitted to gilboa (id =                computers.py:416
+           db92958e-cfbb-4a7e-8682-3fe8c2d80942)                                
+           Execution started                                    computers.py:455
+[20:45:51] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-24 20:45:51,188 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: sweet spot +3.104 +- 0.626 mV from idle, f_01 5.775851 GHz +- 392 kHz, curvature -4.631 kHz/mV^2, 8/21 columns, chi2_red 0.3
+	Warnings: the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us
+Results for qubit qC3: no arc. the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us; a line was located in 5 of 21 flux columns (need 7)
+Results for qubit qD5: sweet spot +2.775 +- 0.056 mV from idle, f_01 5.816988 GHz +- 55 kHz, curvature -11.131 kHz/mV^2, 16/21 columns, chi2_red 1.2
+update_state: qD2: the chirp is too short for a clean passage; nothing proposed.
+20:45:52 [gilboa/waits] 03b-2T1-qD2-qC3-qD5: done -- QPU 9.5 s, wall 16 s
+20:45:52 [gilboa/waits]    qD2: {'f_01': 5775851001.064459, 'frequency_shift': 24844094.19329973, 'f_01_error': 392262.0967962327, 'idle_offset_shift': 0.003104220603910702, 'idle_offset_shift_error': 0.0006263169273378107, 'column_precision': 528566.8059412175, 'tracked_columns': 8, 'chi2_red': 0.31368174863232884} warnings=['the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us']
+20:45:52 [gilboa/waits]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 641468.4810759082, 'tracked_columns': 5, 'chi2_red': nan} warnings=['the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us', 'a line was located in 5 of 21 flux columns (need 7)']
+20:45:52 [gilboa/waits]    qD5: {'f_01': 5816988331.138058, 'frequency_shift': 15965.103203212202, 'f_01_error': 54983.01464695793, 'idle_offset_shift': 0.002775029012300484, 'idle_offset_shift_error': 5.6098513509144695e-05, 'column_precision': 143395.8130056863, 'tracked_columns': 16, 'chi2_red': 1.1532824083018312} warnings=[]
+20:45:52 [gilboa/waits] 03b-5T1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 268 ns at amplitude 0.5454; flux step 5404 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: chirp 360 ns at amplitude 0.4331; flux step 5540 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 23 s: 1218 sweep points x 50 shots x 257 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 20:45:53,755 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[20:45:54] QUA program submitted to gilboa (id =                computers.py:416
+           d1226e67-845e-4073-becb-59d86f940468)                                
+           Execution started                                    computers.py:455
+[20:46:14] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-24 20:46:14,509 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: no arc. the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us; a line was located in 6 of 21 flux columns (need 7)
+Results for qubit qC3: no arc. the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us; a line was located in 2 of 21 flux columns (need 7)
+Results for qubit qD5: sweet spot +2.786 +- 0.052 mV from idle, f_01 5.816862 GHz +- 37 kHz, curvature -11.076 kHz/mV^2, 16/21 columns, chi2_red 1.3
+20:46:15 [gilboa/waits] 03b-5T1-qD2-qC3-qD5: done -- QPU 18.1 s, wall 23 s
+20:46:15 [gilboa/waits]    qD2: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 530502.3591796878, 'tracked_columns': 6, 'chi2_red': nan} warnings=['the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us', 'a line was located in 6 of 21 flux columns (need 7)']
+20:46:15 [gilboa/waits]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 463551.7453323847, 'tracked_columns': 2, 'chi2_red': nan} warnings=['the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us', 'a line was located in 2 of 21 flux columns (need 7)']
+20:46:15 [gilboa/waits]    qD5: {'f_01': 5816861771.972708, 'frequency_shift': -110594.06214683817, 'f_01_error': 37273.08469669066, 'idle_offset_shift': 0.002786359938102214, 'idle_offset_shift_error': 5.193181987363912e-05, 'column_precision': 111963.77634629984, 'tracked_columns': 16, 'chi2_red': 1.2987831819085105} warnings=[]
+20:46:15 [gilboa/waits] all done

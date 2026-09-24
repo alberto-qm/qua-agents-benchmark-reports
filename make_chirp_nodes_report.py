@@ -24,17 +24,18 @@ OUT = HERE / "2026-09-24-chirp-spectroscopy-nodes.html"
 TITLE = "Chirp spectroscopy nodes"
 QUBITS = {"arbel": ["qB4", "qA5", "qD1"], "qolab": ["Q1", "Q2", "Q5"], "gilboa": ["qD2", "qC3", "qD5"]}
 BRANCH = "feat/chirp-spectroscopy"
-COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c", "flat": "7dc6187", "grey": "11f0670"}
+COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c", "flat": "7dc6187", "grey": "11f0670", "updown": "80c3db3"}
 
 
 def sync():
     DATA.mkdir(exist_ok=True)
     for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures", "shortT1",
                 "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
-                "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test"):
+                "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test",
+                "waits", "waits/arbel", "waits/qolab", "waits/gilboa"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
-            if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out"):
+            if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out", ".txt"):
                 if sub.startswith("satladder/") and f.suffix == ".nc":
                     continue  # the superseded 150-shot ladder: fit results and logs only
                 shutil.copy(f, DATA / sub / f.name)
@@ -112,6 +113,13 @@ def appendix():
                 fines.append(img(f"{be}/fine-{q}_amplitude.png", f"{be} {q} · fine saturation scan (saturation node 03a, ±5 MHz, 0.3 MHz Rabi)", f"fine scan {be} {q}"))
     parts.append(f"<details><summary>Fine saturation scans ({len(fines)} figures)</summary>{''.join(fines)}</details>")
     parts.append(group("Smoke run, qolab Q1", "*_smoke-*.png", "smoke run"))
+    waits = []
+    for be in QUBITS:
+        for f in sorted((DATA / "waits" / be).glob("*.png")):
+            tag = f.stem.rsplit("_", 1)[0] if f.stem.endswith("_ladder") else f.stem.replace("_flux_map", "")
+            waits.append(img(f"waits/{be}/{f.name}", f"{be} · {tag} · up-and-down sweeps", f"{be} {tag}"))
+    if waits:
+        parts.append(f"<details><summary>2 T1 against 5 T1, as the nodes draw them ({len(waits)} figures)</summary>{''.join(waits)}</details>")
     return "\n".join(p for p in parts if p)
 
 
@@ -163,6 +171,7 @@ def build() -> str:
     # --- live table ---------------------------------------------------------------------------
     rows = []
     diffs = []
+    fine_abs = {}
     for be, qs in QUBITS.items():
         for q in qs:
             a0, a1 = pick(live, be, q, "r0-03a"), pick(live, be, q, "end-03a")
@@ -199,6 +208,8 @@ def build() -> str:
                     stored_f = fr["f_01"] - fr["frequency_shift"]
                     fine_off = (fine["live"]["f_01"] - stored_f) / 1e6
                     good = (fine["live"].get("r_squared") or 0) > 0.6
+                    if good:
+                        fine_abs[f"{be}/{q}"] = fine["live"]["f_01"]
                     fine_cell = num(fine_off, "{:+.2f}") if good else '<span class="muted">no line</span>'
                     if good:
                         for fa in (fa0, fa1):
@@ -384,6 +395,75 @@ def build() -> str:
     chirp_qD5 = (pick(live, "gilboa", "qD5", "r0-03b") or {}).get("final", {})
     sat_qD5 = (pick(live, "gilboa", "qD5", "sat-") or {}).get("final", {})
 
+    # --- up-and-down sweeps, 2 T1 against 5 T1 ---------------------------------------------------
+    ws = json.loads((DATA / "waits/summary.json").read_text())
+    w_runs = [json.loads(l) for f in sorted((DATA / "waits").glob("*/runs.jsonl")) for l in f.read_text().splitlines()]
+    w_qpu = {f: sum(r["qpu_s"] for r in w_runs if r["factor"] == f) for f in (2, 5)}
+    w_node_qpu = {(n, f): sum(r["qpu_s"] for r in w_runs if r["factor"] == f and r["node"].startswith(n)) for n in ("03a", "03b") for f in (2, 5)}
+
+    def fin(v):
+        return v is not None and v == v
+
+    def short(r):
+        return any("too short" in w for w in (r.get("warnings") or []))
+
+    w3a_rows, w3b_rows = [], []
+    wd, wh, ud2, ud5, wbd, wbs = [], [], [], [], [], []
+    for be, qs in QUBITS.items():
+        for q in qs:
+            a = ws.get(f"{be}/{q}/03a") or {}
+            a2, a5 = a.get("2") or {}, a.get("5") or {}
+            ok2, ok5 = a2.get("line_identity") == "0-1", a5.get("line_identity") == "0-1"
+
+            def acell(r, ok):
+                if not r:
+                    return "–"
+                if not ok:
+                    return f'<span class="muted">refused: {"short sweep" if short(r) else esc(str(r.get("line_identity")))}</span>'
+                return f'{num(r["frequency_shift"] / 1e6, "{:+.2f}")} ± {num(r["f_01_error"] / 1e6, "{:.2f}")}'
+
+            if ok2 and ok5:
+                d = (a2["frequency_shift"] - a5["frequency_shift"]) / 1e6
+                h = a2["box_height"] / a5["box_height"]
+                u2 = (a2["shift_up"] - a2["shift_down"]) / 1e6
+                u5 = (a5["shift_up"] - a5["shift_down"]) / 1e6
+                wd.append(d); wh.append(h); ud2.append(u2); ud5.append(u5)
+                extra = [num(d, "{:+.2f}"), num(h, "{:.2f}"), num(u2, "{:+.2f}"), num(u5, "{:+.2f}")]
+            else:
+                extra = ["–"] * 4
+            w3a_rows.append([be, f"<b>{q}</b>", num(T1[q], "{:.1f}"), acell(a2, ok2), acell(a5, ok5)] + extra)
+
+            b = ws.get(f"{be}/{q}/03b") or {}
+            b2, b5 = b.get("2") or {}, b.get("5") or {}
+
+            def bcell(r):
+                if not r:
+                    return "–"
+                if short(r):
+                    return '<span class="muted">refused: short sweep</span>'
+                if not fin(r.get("idle_offset_shift")):
+                    return f'<span class="muted">no arc ({r.get("tracked_columns")}/{r.get("flux_columns")} columns)</span>'
+                return f'{num(r["idle_offset_shift"] * 1e3, "{:+.2f}")} ± {num(r["idle_offset_shift_error"] * 1e3, "{:.2f}")}'
+
+            both = all(r and not short(r) and fin(r.get("idle_offset_shift")) for r in (b2, b5))
+            if both:
+                d = (b2["idle_offset_shift"] - b5["idle_offset_shift"]) * 1e3
+                sig = d / (((b2["idle_offset_shift_error"] ** 2 + b5["idle_offset_shift_error"] ** 2) ** 0.5) * 1e3)
+                wbd.append(d); wbs.append(sig)
+                dcell = f'{num(d, "{:+.2f}")} ({num(abs(sig), "{:.1f}")}σ)'
+            else:
+                dcell = "–"
+            w3b_rows.append([be, f"<b>{q}</b>", bcell(b2), bcell(b5), dcell,
+                             f'{num((b2.get("column_precision") or float("nan")) / 1e6, "{:.2f}")} / {num((b5.get("column_precision") or float("nan")) / 1e6, "{:.2f}")}',
+                             f'{num(b2.get("qpu_s"), "{:.1f}")} / {num(b5.get("qpu_s"), "{:.1f}")} s'])
+    w_rms = (sum(d * d for d in wd) / len(wd)) ** 0.5
+    w_h = sum(wh) / len(wh)
+    w_ud2 = sum(ud2) / len(ud2)
+    w_ud5 = sum(ud5) / len(ud5)
+    w_fine = [((ws[f"{k}/03a"]["5"]["f_01"]) - f) / 1e6 for k, f in fine_abs.items()
+              if (ws.get(f"{k}/03a") or {}).get("5", {}).get("line_identity") == "0-1"]
+    w_fine_mean = sum(w_fine) / len(w_fine)
+
     CSS = base.CSS + """
 figure img { display:block; }
 ol.recs li, ul.tight li { margin:6px 0; max-width:82ch; }
@@ -407,7 +487,8 @@ replays over wrong frequencies, wrong drive calibrations and wrong idle points t
 also found where the chirp stops working (T1 below ~5 µs) and one way 03a could be fooled by a two-photon line; both are
 now refused by the nodes rather than answered. Replayed the same way, the saturation node answered a fifth of the grid on the
 long-T1 qubits and picked the 0→2 line in 4 % of it; it is the better tool only below T1 ≈ 5 µs. The fix to node 03b's pulse timing
-was tested on the same day.</p>
+was tested on the same day. A later change sweeps the frequency up and then down in every shot round; with it both nodes gave the
+same answers at a 2 T1 reset wait as at the 5 T1 default, for half the QPU time (§5b).</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{n_wrong} / {n_rep:,}</div><div class="k">replays that proposed a wrong line or sweet spot (the rest passed or refused)</div></div>
@@ -424,6 +505,8 @@ generated config at run time only, so nothing new reaches the saved state.</p>
     ["pulse", "linear chirp over a 20 MHz band, raised-cosine edges; length the shorter of 4 µs and T1/5", "same pulse; drive amplitude from 03a or twice the x180 prediction"],
     ["scan", "band centres f₀₁ ± 120 MHz in 5 MHz steps × 7 drive levels a factor 2 apart, centred on the amplitude the stored x180 predicts (or 0.005–0.64 of full scale with <span class='mono'>drive_prior='none'</span>)",
      "21 flux offsets over ±1.5× the offset that lowers f₀₁ by 20 MHz (from the stored curvature) × band centres f₀₁ −40…+30 MHz in 2.5 MHz steps; the flux step starts 5 µs before the drive and outlasts it"],
+    ["order", f"each shot round sweeps the band centre up and then down at every drive level; the fit averages the two (since <span class='mono'>{COMMITS['updown']}</span>, §5b)",
+     "frequency inside flux, swept up and then down at every flux offset (same commit)"],
     ["analysis", "an erf-edged box fit per line and level; the 0→1 line is the one that appears at the lowest drive, a later line 40–250 MHz below it is its 0→2 partner (→ anharmonicity); the growth with drive gives the Rabi rate (<span class='mono'>drive_scale</span> against the x180)",
      "a box fit per column, a weighted parabola through the columns → sweet spot (relative to idle), f₀₁ there, curvature"],
     ["writes", "f₀₁ and RF frequency, only for a line identified as 0→1. The drive is reported, not written: <span class='mono'>selected_drive_amplitude</span> (for 03b), <span class='mono'>drive_scale</span> and an x180/x90 amplitude guess, which it writes only with <span class='mono'>update_pulses_amplitude=True</span> (default off)", "idle offset (joint or independent) and f₀₁, only when the turning point lies inside the sweep"],
@@ -443,7 +526,7 @@ the nodes answered live.</p>
 the scan was centred on 03a's refused answer). α appears where the window held the 0→2 line (α/2 &lt; 120 MHz); on qolab it lies 148–150 MHz below f₀₁ and the
 wide map (§3) gives α = 297, 300 and 297 MHz for Q1, Q2, Q5 — the stored 215.5 MHz is a placeholder. Drive scale is the measured
 Rabi rate over the one the stored x180 predicts. 03a's f₀₁ differs from the fine scan by {mean:+.2f} MHz on average
-(rms {rms:.2f}, worst {worst:.2f}), consistent with a 5 MHz step and a slightly tilted box top (T1 decay during the up-sweep); fine
+(rms {rms:.2f}, worst {worst:.2f}), consistent with a 5 MHz step; it is not the sweep direction (§5b). Fine
 spectroscopy after the flux map removes it.</p>
 
 <p>Every qubit follows, chirp against saturation with the qubits as columns: first the 1D spectroscopy (the chirp's drive
@@ -549,8 +632,9 @@ the predicted drive is now refused. The price: with a drive 8× weaker than the 
 <li><b>arbel qD1 is not at a sweet spot.</b> Its line moves ~3 MHz per mV at the stored idle point (+0.227 V), so 7 mV columns land 20–30 MHz
 apart and no map — chirped, saturation or wide — holds more than three columns; both nodes refused. Its stored curvature assumes a
 sweet spot; a map around the real one needs a wider, finer flux scan.</li>
-<li><b>The chirp reads f₀₁ ~0.2 MHz low</b> on average against the fine scan (§2), and the apex 0–0.3 MHz off the saturation map; likely the
-box top tilting with T1 decay during an up-sweep. Alternating up and down sweeps would cancel it; not done.</li>
+<li><b>The chirp reads f₀₁ ~0.2 MHz low</b> on average against the fine scan (§2), and the apex 0–0.3 MHz off the saturation map. The
+suspect was the box top tilting with T1 decay during an up-sweep, but the up-and-down sweeps added since (§5b) read the same offset, so
+the sweep direction is not the cause.</li>
 </ul></div>
 
 <h3>Short T1: a wider band and a hyperbolic-secant pulse</h3>
@@ -584,8 +668,8 @@ only drifts to −0.9 MHz at 22 MHz. qA6 showed no arc in any map (1 of 15 colum
 point is probably not a sweet spot.</li>
 <li><b>Sweep direction explains most of qD2's high reading.</b> On qD2 the hyperbolic secant swept up reads +9 to +10 MHz at 22–28 MHz
 Rabi, but the mean of up and down reads +3; at the drive where the box fills (11 MHz) the mean is +0.8 MHz. The same averaging removes a
-smaller effect on long-T1 qubits (qB4's linear chirp at weak drive: up −0.6, mean −0.04 MHz). The node sweeps up only; alternating
-directions costs twice the shots.</li>
+smaller effect on long-T1 qubits (qB4's linear chirp at weak drive: up −0.6, mean −0.04 MHz). The nodes now alternate
+directions, at the same total number of shots (§5b).</li>
 <li><b>qD2: the hyperbolic secant is the only pulse that mapped it.</b> Its map found the arc in 12 of 15 columns, sweet spot
 +3.41 ± 0.09 mV with f₀₁ 0.6 MHz above the reference; the linear chirp tracked the spurious arc again (f₀₁ +24.5 MHz) and saturation
 found no arc. There is no independent sweet spot to check it against.</li>
@@ -612,6 +696,59 @@ On all seven qubits where both lines appear, the 0→2 box points 6–24° away 
 direction holds to 2–6° across drives. Against an x180 reference this labels a lone line in one measurement — clear on arbel and
 gilboa (13–24°), marginal on qolab Q2 and Q5 (6°).</li>
 </ul>
+
+<h2>5b · Up-and-down sweeps, and a 2 T1 reset wait</h2>
+<p>A chirp inside its box swaps |0⟩ and |1⟩, so excitation the reset wait has not removed is carried into the next shot and flipped
+back. In a sweep that always runs upward it lands on the next points up the scan: a tail above every box that pulls its centre up.
+In 03b, which stepped flux inside frequency, it landed on the next flux column and shifted the arc sideways — and with it the sweet
+spot. At the 5 T1 default the effect is negligible, but it grows fast when the wait is short, as it is when the stored T1 is too low
+or unknown (QuAM then waits 5 × 10 µs). Since commit <span class="mono">{COMMITS['updown']}</span> both nodes sweep the frequency up
+and then down in every shot round and average the two, and 03b sweeps frequency inside flux, so what is left lands in the same
+column, on both sides of the line. <span class="mono">num_shots</span> rounds up to an even number, so the QPU time is unchanged; the
+raw dataset keeps both directions.</p>
+<p>Simulated with the nodes' own fits, carrying each shot's excited population into the next (40 random line positions; with no
+carry-over at all the 03a fit itself reads +0.1 ± 0.1 MHz):</p>
+{table(["", "5 T1 wait", "2 T1", "1 T1", "0.5 T1"], [
+    ["03a line centre [MHz], box height — upward sweeps (before)", "+0.12, 1.00", "+0.32, 0.90", "+0.73, 0.74", "+1.08, 0.59; 8 of 40 fits fail"],
+    ["03a — up and down (now)", "+0.15, 1.00", "+0.01, 0.90", "+0.03, 0.74", "+0.06, 0.59"],
+    ["03b sweet-spot error [flux steps] (scatter) — flux inside frequency (before)", "0.002 (0.005)", "0.012 (0.027)", "0.05 (0.16)", "0.33 (0.13)"],
+    ["03b — frequency inside flux, up and down (now)", "0.002 (0.005)", "0.003 (0.006)", "0.001 (0.012)", "0.003 (0.023)"]])}
+<p class="small muted">Frequency inside flux alone already removes the sweet-spot bias (the carry-over then shifts every column by the
+same frequency); alternating the direction also removes the apex-frequency bias that leaves (+0.23 MHz at 1 T1) and cuts the
+sweet-spot scatter 2–5× below 1 T1. Shuffled orders work too, but one fixed shuffle can build a ghost box the node takes for the line.</p>
+
+<h3>2 T1 against 5 T1 on hardware</h3>
+<p>The same nine qubits ran 03a and 03b chirp at their defaults with the new sweeps, once with every qubit's thermalization factor
+at 2 (a 2 T1 wait between shots) and once at 5 (the default), back to back: {len(w_runs)} jobs, {w_qpu[2] + w_qpu[5]:.0f} s of QPU,
+20:45–20:48, on the same local state copies in propose mode.</p>
+{table(["backend", "qubit", "T1 [µs]", "03a f₀₁ − stored, 2 T1 [MHz]", "5 T1", "2 T1 − 5 T1", "box height 2 T1 / 5 T1",
+        "up − down, 2 T1 [MHz]", "up − down, 5 T1"], w3a_rows)}
+{table(["backend", "qubit", "03b sweet spot, 2 T1 [mV]", "5 T1", "2 T1 − 5 T1", "column error 2 T1 / 5 T1 [MHz]", "QPU of the job, 2 T1 / 5 T1"], w3b_rows)}
+<p class="small muted">"up − down": the 0→1 line fitted on the up sweeps alone minus the down sweeps alone. QPU is the job's, shared when
+it held several qubits (qolab's 03b ran Q2 alone and Q1 with Q5).</p>
+<ul class="tight">
+<li><b>2 T1 works on every long-T1 qubit.</b> In 03a all seven identify the 0→1 line at both waits with the same drive scale, and f₀₁
+moves by {w_rms:.2f} MHz rms between the waits — the chirp's usual spread against a fine scan (§2). In 03b the six sweet spots agree
+within {max(abs(x) for x in wbs):.1f}σ ({min(wbd):+.2f}…{max(wbd):+.2f} mV) with similar errors; qolab Q5's columns are noisier at 2 T1
+but its sweet-spot error is unchanged. arbel qD1 found no arc and gilboa qD2 and qC3 were refused at both waits, as at noon.</li>
+<li><b>Half the QPU time.</b> 03a took {w_node_qpu[("03a", 2)]:.0f} s against {w_node_qpu[("03a", 5)]:.0f} s, 03b
+{w_node_qpu[("03b", 2)]:.0f} s against {w_node_qpu[("03b", 5)]:.0f} s: {100 * w_qpu[2] / w_qpu[5]:.0f} % in all.</li>
+<li><b>The signal drops as predicted.</b> The box at 2 T1 is {w_h:.2f} of its 5 T1 height on average, the 1/(1 + e⁻²) = 0.88 that the
+carried-over excitation predicts.</li>
+<li><b>The pull itself was not resolved.</b> Fitted separately, up and down sweeps should differ by about +0.6 MHz at 2 T1; they
+differ by {w_ud2:+.2f} MHz on average ({w_ud5:+.2f} at 5 T1), against ~0.3 MHz of noise per direction. The carry-over is smaller
+than simulated, or hidden in that noise; at 2 T1 the alternation guards against a wrong or unknown T1 rather than correcting something
+seen.</li>
+<li><b>Not the −0.2 MHz offset of §2.</b> Against the noon fine scans the new 03a reads {w_fine_mean:+.2f} MHz on average ({len(w_fine)}
+qubits, 5 T1), as the upward-only runs did ({mean:+.2f}): the sweep direction does not cause it. The fine scans are 8.5 hours older.</li>
+<li><b>Drift, not the new loop order.</b> gilboa qD5's and arbel qB4's sweet spots sit 0.3 and 0.2 mV below the noon maps at both
+waits; the 19:30 maps of §5, taken with the old order, already had them there (qD5 +2.67 chirp / +2.73 saturation, qB4 +0.05 / −0.09 mV).</li>
+<li><b>The default stays at 5 T1.</b> The wait is each qubit's <span class="mono">thermalization_time_factor</span> in the state, which
+every node uses; a 2 T1 default for the chirp nodes alone needs a node parameter.</li>
+</ul>
+{img("figures/waits_arbel.png", "arbel: 03a chirp at a 2 T1 wait (row 1) and at 5 T1 (row 2), 03b chirp at 2 T1 (row 3) and 5 T1 (row 4), up and down sweeps averaged. Red: the proposed f₀₁, column centres, parabola and sweet spot; grey: not proposed.", "arbel at 2 T1 and 5 T1")}
+{img("figures/waits_qolab.png", "qolab, as above.", "qolab at 2 T1 and 5 T1")}
+{img("figures/waits_gilboa.png", "gilboa, as above: qD2 and qC3 (T1 1.3 and 1.8 µs) are refused at both waits for their short sweeps.", "gilboa at 2 T1 and 5 T1")}
 
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the
@@ -679,7 +816,10 @@ hyperbolic secant with up- and down-sweeps averaged worked on qD2 (the only map 
 unexplained; it needs more short-T1 qubits before it goes into the nodes.</li>
 <li>For a lone line, replace the growth fit with a partner scan 40–250 MHz above it, and use the box's IQ direction against an x180
 reference as a second check; extend the window down to −200 MHz.</li>
-<li>The −0.2 MHz frequency bias: alternate sweep directions.</li>
+<li>The −0.2 MHz frequency offset against the fine scans is not the sweep direction (§5b); a fine scan in the same session as
+the chirp would show whether it is real.</li>
+<li>A 2 T1 reset wait halves the QPU time of both nodes with the same answers (§5b); making it their default needs a node parameter,
+since the wait is each qubit's thermalization factor, shared by every node.</li>
 <li>arbel qD1's operating point: map it with a finer, wider flux scan.</li>
 <li>qolab's stored anharmonicities (215.5 MHz) are placeholders; the chirp measured 297–300 MHz.</li>
 <li>The node branch is not merged into <span class="mono">feat/qualibrate-ai</span>: the frozen arbel and gilboa cells read that
@@ -695,7 +835,9 @@ working tree and would pick up new nodes when resumed.</li>
 <span class="mono">run_fixes.py</span> and <span class="mono">chain_fixes.sh</span> (the fix tests), <span class="mono">replay.py</span> and
 <span class="mono">reanalyse.py</span> (offline, committed analysis), <span class="mono">plot_summary.py</span>,
 <span class="mono">plot_fixes.py</span>, <span class="mono">plot_all.py</span> (every node figure, redrawn),
-<span class="mono">plot_columns.py</span> (chirp against saturation, qubits as columns). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">plot_columns.py</span> (chirp against saturation, qubits as columns), <span class="mono">order_sim.py</span> and
+<span class="mono">order_sim_03b.py</span> (shot-order simulations; outputs in <span class="mono">waits/</span>), <span class="mono">run_waits.py</span>,
+<span class="mono">waits_analyse.py</span> and <span class="mono">plot_waits.py</span> (the 2 T1 test). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>
