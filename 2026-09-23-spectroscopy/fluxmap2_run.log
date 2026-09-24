@@ -1,0 +1,49 @@
+2026-09-23 14:22:30,123 - qm - INFO     - Starting session: 922bdb27-1eb6-496c-b3fa-863e175a64cb
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: IF 72.16 MHz, flux offsets +-94.3 mV (15), quad -2.247 GHz/V^2
+2026-09-23 14:22:34,200 - qm - INFO     - Opening QM
+/Users/atosato/qab-runs/chirp-test-20260923/fluxmap2_test.py:74: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  I_st, Q_st, r0I, r0Q, r1I, r1Q = (declare_stream() for _ in range(6))
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[14:22:34] QUA program submitted to qolab (id =                 computers.py:416
+           eb6ca8bd-5160-48f1-a696-65b8a13459b2)                                
+[14:22:35] Execution started                                    computers.py:455
+[14:22:56] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+sat: 17.3 s QPU (wall 22.0 s), map shape (15, 71)
+           QUA program submitted to qolab (id =                 computers.py:416
+           598e96f5-22df-4b39-8aeb-9fd72dcd23df)                                
+[14:22:57] Execution started                                    computers.py:455
+[14:23:17] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+satm: 17.9 s QPU (wall 20.8 s), map shape (15, 71)
+           QUA program submitted to qolab (id =                 computers.py:416
+           8f21a3a8-dd21-41f9-a729-495822beffe3)                                
+           Execution started                                    computers.py:455
+[14:23:36] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+chirp: 17.6 s QPU (wall 19.8 s), map shape (15, 23)
+2026-09-23 14:23:37,099 - qm - INFO     - Closing QM
+/Users/atosato/qab-runs/chirp-test-20260923/fluxmap2_test.py:144: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  st = [(declare_stream(), declare_stream()) for _ in range(3)]
+/Users/atosato/qab-runs/chirp-test-20260923/fluxmap2_test.py:145: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  r0 = (declare_stream(), declare_stream()); r1 = (declare_stream(), declare_stream())
+2026-09-23 14:23:38,163 - qm - INFO     - Opening QM
+[14:23:38] QUA program submitted to qolab (id =                 computers.py:416
+           c1486425-3324-4a1d-8c5f-1f9a922fbfd0)                                
+[14:23:39] Execution started                                    computers.py:455
+[14:23:43] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+2026-09-23 14:23:43,830 - qm - INFO     - Closing QM
+node_check: 3.1 s QPU at +67.4 mV
+saved /Users/atosato/qab-runs/chirp-test-20260923/fluxmap2_data.npz

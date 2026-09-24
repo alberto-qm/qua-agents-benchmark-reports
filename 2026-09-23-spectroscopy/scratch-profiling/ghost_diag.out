@@ -1,0 +1,69 @@
+2026-09-23 12:56:28,785 - qm - INFO     - Starting session: b56ea343-f8e8-4ddb-8a1f-35e04e35e87c
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+2026-09-23 12:56:31,903 - qm - INFO     - Opening QM
+part 1 -- per-shot QPU time
+/private/tmp/claude-734394052/-Users-atosato-code-QM-qua-agents-benchmark/50ae3071-f59a-4af0-b332-5646b1ad4122/scratchpad/ghost_diag.py:55: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  n = declare(int); I = declare(fixed); Q = declare(fixed); s = declare_stream()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:56:32] QUA program submitted to qolab (id =                 computers.py:416
+           97535125-4f4b-4b3e-9281-74082ac0477f)                                
+           Execution started                                    computers.py:455
+[12:56:34] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+  readout only                      10.49 us/shot   (+  0.00)
+[12:56:35] QUA program submitted to qolab (id =                 computers.py:416
+           c89e3686-db6b-46c4-aee9-6e1d3ea4fa85)                                
+           Execution started                                    computers.py:455
+[12:56:37] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+  + saturation duration=5000        30.45 us/shot   (+ 19.96)
+[12:56:38] QUA program submitted to qolab (id =                 computers.py:416
+           e3aa736b-6ece-45c5-ab5d-20133954cab1)                                
+           Execution started                                    computers.py:455
+[12:56:42] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+  + saturation duration=20000       90.82 us/shot   (+ 80.33)
+[12:56:43] QUA program submitted to qolab (id =                 computers.py:416
+           f296243a-de48-49a5-8bce-42c2315943e3)                                
+           Execution started                                    computers.py:455
+[12:56:45] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+  + wait 5000 cycles                29.73 us/shot   (+ 19.24)
+[12:56:46] QUA program submitted to qolab (id =                 computers.py:416
+           05013a99-644c-401c-8bc1-5855d4994cb4)                                
+           Execution started                                    computers.py:455
+[12:56:49] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+  + wait 20000 cycles               90.03 us/shot   (+ 79.53)
+/private/tmp/claude-734394052/-Users-atosato-code-QM-qua-agents-benchmark/50ae3071-f59a-4af0-b332-5646b1ad4122/scratchpad/ghost_diag.py:123: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  st[f"{name}_I{tag}"] = declare_stream(); st[f"{name}_Q{tag}"] = declare_stream()
+[12:56:50] QUA program submitted to qolab (id =                 computers.py:416
+           b6cc7421-575d-4d78-b463-526a727c3af5)                                
+           Execution started                                    computers.py:455
+[12:57:06] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+2026-09-23 12:57:07,014 - qm - INFO     - Closing QM
+
+part 2 -- excited population, in units of the ref1 - ref0 separation (11.4 s QPU)
+  ref0               A -0.000 +/- 0.006
+  ref1               A +1.000 +/- 0.005
+  T1_20              A +0.706 +/- 0.008
+  x180|idle|B        A +0.999 +/- 0.005    B +0.710 +/- 0.008
+  x180|probe|B       A +1.004 +/- 0.005    B +0.171 +/- 0.008
+  sat_on|idle|B      A +0.749 +/- 0.008    B +0.630 +/- 0.009
+  sat_on|probe|B     A +0.763 +/- 0.008    B +0.222 +/- 0.008
+  sat_off|probe|B    A +0.033 +/- 0.006    B +0.332 +/- 0.009

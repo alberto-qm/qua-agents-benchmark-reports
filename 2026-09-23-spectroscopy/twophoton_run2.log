@@ -1,0 +1,36 @@
+2026-09-23 13:51:30,535 - qm - INFO     - Starting session: 4e4d464b-534e-4cd7-bbe8-e7081a0166a4
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1 IF 72.16 MHz; pulse amplitude at scale 1 = 0.0720 (nominal Rabi 16 MHz)
+2026-09-23 13:51:35,073 - qm - INFO     - Opening QM
+/Users/atosato/qab-runs/chirp-test-20260923/twophoton_test.py:90: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  return declare_stream(), declare_stream()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[13:51:35] QUA program submitted to qolab (id =                 computers.py:416
+           d72fade9-287b-4ed2-9a63-f8d5d90b340e)                                
+           Execution started                                    computers.py:455
+[13:51:46] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+S: 7.2 s QPU (wall 10.9 s)
+search: strongest line at f01 -148.0 MHz, deviation 0.605 over baseline 0.066 (24.6 sigma) -> alpha ~ 296.0 MHz
+           QUA program submitted to qolab (id =                 computers.py:416
+           2daed649-9657-47be-bebd-7e55f2bd0f01)                                
+           Execution started                                    computers.py:455
+[13:52:05] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+L1: 16.4 s QPU (wall 19.8 s)
+[13:52:06] QUA program submitted to qolab (id =                 computers.py:416
+           1e842f9f-d988-4540-b262-1046eccc6210)                                
+[13:52:07] Execution started                                    computers.py:455
+[13:52:15] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+L2: 5.6 s QPU (wall 9.8 s)
+2026-09-23 13:52:15,930 - qm - INFO     - Closing QM
+saved /Users/atosato/qab-runs/chirp-test-20260923/twophoton_data_-200_-135.npz
