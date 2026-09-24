@@ -1,0 +1,52 @@
+{
+ "tag": "satdef-x0.0625-Q2",
+ "g": 0.0625,
+ "factor": 0.03125,
+ "qubits": [
+  "Q2"
+ ],
+ "played_amplitude": {
+  "Q2": 0.0005674310881432426
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.03125
+ },
+ "error": null,
+ "qpu_s": 17.95561385154724,
+ "wall_s": 21.897624499863014,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q2": {
+   "frequency": 5105808687.2664385,
+   "relative_freq": -100000.0,
+   "fwhm": 674049.8640195597,
+   "iw_angle": 1.8686109096291688,
+   "saturation_amp": 0.08081506631706786,
+   "x180_amp": 0.05509722626759381,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5105808687.2664385,
+   "RF_frequency": 5105808687.2664385,
+   "saturation_amplitude": 0.08081506631706786,
+   "x180_amplitude": 0.05509722626759381,
+   "x90_amplitude": 0.027548613133796904,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=12.9 and r_squared=0.81 make this a convincing line, but fitted_fwhm=0.447 MHz is below the 0.450 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise."
+   ],
+   "swept_min_freq_hz": 4975908687.2664385,
+   "swept_max_freq_hz": 5235908687.2664385,
+   "snr": 12.948877488660976,
+   "noise_sigma": 9.199596391230098e-06,
+   "min_detectable_amplitude": 4.599798195615049e-05,
+   "r_squared": 0.8053587104866698,
+   "fitted_fwhm": 447073.84105447156,
+   "signal_detected": false,
+   "undersampled_peak": true
+  }
+ }
+}

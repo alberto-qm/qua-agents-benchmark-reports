@@ -1,0 +1,47 @@
+18:43:47 [arbel/satdef] stored saturation amplitudes {'qB4': 1.0, 'qA5': 1.0, 'qD1': 1.0}; levels [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16]
+18:43:48 [arbel/satdef] satdef-x0.0625-qB4: factor 0.03125, played amplitude 0.03125
+18:44:15 [arbel/satdef] satdef-x0.0625-qB4: done -- QPU 18.6 s; f_01 6605480214.857716 detected True snr 40.31373416450174
+18:44:16 [arbel/satdef] satdef-x0.0625-qA5: factor 0.03125, played amplitude 0.03125
+18:44:42 [arbel/satdef] satdef-x0.0625-qA5: done -- QPU 18.4 s; f_01 5706072102.714844 detected True snr 39.95729148442301
+18:44:44 [arbel/satdef] satdef-x0.0625-qD1: factor 0.03125, played amplitude 0.03125
+18:45:09 [arbel/satdef] satdef-x0.0625-qD1: done -- QPU 18.2 s; f_01 4995795878.44061 detected True snr 38.39530768168704
+18:45:10 [arbel/satdef] satdef-x0.125-qB4: factor 0.0625, played amplitude 0.0625
+18:45:48 [arbel/satdef] satdef-x0.125-qB4: done -- QPU 18.5 s; f_01 6605480214.857716 detected True snr 36.22918749696604
+18:45:49 [arbel/satdef] satdef-x0.125-qA5: factor 0.0625, played amplitude 0.0625
+18:46:29 [arbel/satdef] satdef-x0.125-qA5: done -- QPU 18.3 s; f_01 5705472102.714844 detected True snr 37.86735702539263
+18:46:30 [arbel/satdef] satdef-x0.125-qD1: factor 0.0625, played amplitude 0.0625
+18:47:08 [arbel/satdef] satdef-x0.125-qD1: done -- QPU 18.3 s; f_01 4996545878.44061 detected True snr 35.43999571102906
+18:47:08 [arbel/satdef] satdef-x0.25-qB4: factor 0.125, played amplitude 0.125
+18:47:48 [arbel/satdef] satdef-x0.25-qB4: done -- QPU 18.5 s; f_01 6507080214.857716 detected True snr 42.437371048591885
+18:47:49 [arbel/satdef] satdef-x0.25-qA5: factor 0.125, played amplitude 0.125
+18:48:27 [arbel/satdef] satdef-x0.25-qA5: done -- QPU 18.3 s; f_01 5603022102.714844 detected True snr 44.61730380238231
+18:48:28 [arbel/satdef] satdef-x0.25-qD1: factor 0.125, played amplitude 0.125
+18:49:06 [arbel/satdef] satdef-x0.25-qD1: done -- QPU 18.3 s; f_01 4889595878.44061 detected True snr 46.60458346047775
+18:49:07 [arbel/satdef] satdef-x0.5-qB4: factor 0.25, played amplitude 0.25
+18:49:46 [arbel/satdef] satdef-x0.5-qB4: done -- QPU 18.5 s; f_01 6507230214.857716 detected True snr 33.78010042016093
+18:49:47 [arbel/satdef] satdef-x0.5-qA5: factor 0.25, played amplitude 0.25
+18:50:25 [arbel/satdef] satdef-x0.5-qA5: done -- QPU 18.3 s; f_01 5602872102.714844 detected True snr 44.964656509813764
+18:50:26 [arbel/satdef] satdef-x0.5-qD1: factor 0.25, played amplitude 0.25
+18:51:04 [arbel/satdef] satdef-x0.5-qD1: done -- QPU 18.2 s; f_01 4889295878.44061 detected True snr 38.9121610737054
+18:51:05 [arbel/satdef] satdef-x1-qB4: factor 0.5, played amplitude 0.5
+18:51:45 [arbel/satdef] satdef-x1-qB4: done -- QPU 18.5 s; f_01 6507380214.857716 detected True snr 25.276295294314686
+18:51:46 [arbel/satdef] satdef-x1-qA5: factor 0.5, played amplitude 0.5
+18:52:24 [arbel/satdef] satdef-x1-qA5: done -- QPU 18.3 s; f_01 5603172102.714844 detected True snr 29.72065960482074
+18:52:24 [arbel/satdef] satdef-x1-qD1: factor 0.5, played amplitude 0.5
+18:53:03 [arbel/satdef] satdef-x1-qD1: done -- QPU 18.2 s; f_01 4889745878.44061 detected True snr 30.528048529975578
+18:53:04 [arbel/satdef] satdef-x2-qB4: factor 1, played amplitude 0.99
+18:53:42 [arbel/satdef] satdef-x2-qB4: done -- QPU 18.5 s; f_01 6507530214.857716 detected False snr 14.781920788888167
+18:53:42 [arbel/satdef] satdef-x2-qA5: factor 1, played amplitude 0.99
+18:54:20 [arbel/satdef] satdef-x2-qA5: done -- QPU 18.3 s; f_01 5602572102.714844 detected True snr 17.089782190032704
+18:54:21 [arbel/satdef] satdef-x2-qD1: factor 1, played amplitude 0.99
+18:55:00 [arbel/satdef] satdef-x2-qD1: done -- QPU 18.2 s; f_01 4887195878.44061 detected False snr 17.31227954633118
+18:55:00 [arbel/satdef] x4: qB4 skipped (would need 2.00 of full scale)
+18:55:00 [arbel/satdef] x4: qA5 skipped (would need 2.00 of full scale)
+18:55:00 [arbel/satdef] x4: qD1 skipped (would need 2.00 of full scale)
+18:55:00 [arbel/satdef] x8: qB4 skipped (would need 4.00 of full scale)
+18:55:00 [arbel/satdef] x8: qA5 skipped (would need 4.00 of full scale)
+18:55:00 [arbel/satdef] x8: qD1 skipped (would need 4.00 of full scale)
+18:55:00 [arbel/satdef] x16: qB4 skipped (would need 8.00 of full scale)
+18:55:00 [arbel/satdef] x16: qA5 skipped (would need 8.00 of full scale)
+18:55:00 [arbel/satdef] x16: qD1 skipped (would need 8.00 of full scale)
+18:55:00 [arbel/satdef] all levels done

@@ -1,0 +1,53 @@
+{
+ "tag": "satdef-x8-qC3",
+ "g": 8,
+ "factor": 1.9,
+ "qubits": [
+  "qC3"
+ ],
+ "played_amplitude": {
+  "qC3": 0.2
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 1.9
+ },
+ "error": null,
+ "qpu_s": 24.192466259002686,
+ "wall_s": 29.858886667061597,
+ "executor_stderr": [],
+ "fit_results": {
+  "qC3": {
+   "frequency": 5647834148.656785,
+   "relative_freq": -850000.0,
+   "fwhm": 3699427.084747663,
+   "iw_angle": 0.7730632521378382,
+   "saturation_amp": 0.08536172397779548,
+   "x180_amp": 3.538377454153914,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5647834148.656785,
+   "RF_frequency": 5647834148.656785,
+   "saturation_amplitude": 0.08536172397779548,
+   "x180_amplitude": 3.538377454153914,
+   "x90_amplitude": 1.769188727076957,
+   "warnings": [
+    "width estimates disagree: peak-finder fwhm=3.699 MHz vs Lorentzian fitted_fwhm=12.990 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5518684148.656785,
+   "swept_max_freq_hz": 5778684148.656785,
+   "snr": 38.11435838406497,
+   "noise_sigma": 2.3823949147532328e-05,
+   "min_detectable_amplitude": 0.00011911974573766164,
+   "r_squared": 0.7221586888156613,
+   "fitted_fwhm": 12989804.435841369,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

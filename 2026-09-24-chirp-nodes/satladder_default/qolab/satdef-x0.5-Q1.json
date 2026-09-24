@@ -1,0 +1,52 @@
+{
+ "tag": "satdef-x0.5-Q1",
+ "g": 0.5,
+ "factor": 0.25,
+ "qubits": [
+  "Q1"
+ ],
+ "played_amplitude": {
+  "Q1": 0.005394487051459409
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.25
+ },
+ "error": null,
+ "qpu_s": 17.690986394882202,
+ "wall_s": 22.846318332944065,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "frequency": 5272364324.880627,
+   "relative_freq": 200000.0,
+   "fwhm": 3042439.40745568,
+   "iw_angle": 1.096963245968091,
+   "saturation_amp": 0.02127695442639835,
+   "x180_amp": 0.11604778423044772,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5272364324.880627,
+   "RF_frequency": 5272364324.880627,
+   "saturation_amplitude": 0.02127695442639835,
+   "x180_amplitude": 0.11604778423044772,
+   "x90_amplitude": 0.05802389211522386,
+   "warnings": [
+    "NO LINE DETECTED: snr=4.5 (threshold 5.0), r_squared=0.36 (threshold 0.60), fitted_fwhm=2.391 MHz -- the reported frequency is not accepted. Continue the frequency search."
+   ],
+   "swept_min_freq_hz": 5142164324.880627,
+   "swept_max_freq_hz": 5402164324.880627,
+   "snr": 4.493376513522412,
+   "noise_sigma": 1.7430602927660934e-05,
+   "min_detectable_amplitude": 8.715301463830467e-05,
+   "r_squared": 0.3614583328888499,
+   "fitted_fwhm": 2390965.2182807345,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ }
+}

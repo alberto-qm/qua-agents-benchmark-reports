@@ -1,0 +1,118 @@
+{
+ "tag": "satladder-x0.5",
+ "g": 0.5,
+ "factor": 0.25,
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "played_amplitude": {
+  "qB4": 0.25,
+  "qA5": 0.25,
+  "qD1": 0.25
+ },
+ "stored_amplitude": {
+  "qB4": 1.0,
+  "qA5": 1.0,
+  "qD1": 1.0
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 0.25,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 25.670055627822876,
+ "wall_s": 35.080728500150144,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "frequency": 6506880214.857716,
+   "relative_freq": -99000000.0,
+   "fwhm": 1907707.76607026,
+   "iw_angle": 3.958962606991399,
+   "saturation_amp": 1.5725679023573842,
+   "x180_amp": 8.577027377286576,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 6506880214.857716,
+   "RF_frequency": 6506880214.857716,
+   "saturation_amplitude": 1.5725679023573842,
+   "x180_amplitude": 8.577027377286576,
+   "x90_amplitude": 4.288513688643288,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 6405880214.857716,
+   "swept_max_freq_hz": 6805880214.857716,
+   "snr": 28.800758359265696,
+   "noise_sigma": 6.350520808533654e-05,
+   "min_detectable_amplitude": 0.0003175260404266827,
+   "r_squared": 0.9645523347949553,
+   "fitted_fwhm": 1614398.5842356854,
+   "signal_detected": true,
+   "undersampled_peak": false
+  },
+  "qA5": {
+   "frequency": 5705072102.714844,
+   "relative_freq": -500000.0,
+   "fwhm": 12880566.025318557,
+   "iw_angle": 3.960895666135926,
+   "saturation_amp": 0.9316360768938506,
+   "x180_amp": 5.081286553800237,
+   "amplitude_estimate_valid": false,
+   "power_broadened": true,
+   "f_01": 5705072102.714844,
+   "RF_frequency": 5705072102.714844,
+   "saturation_amplitude": 0.9316360768938506,
+   "x180_amplitude": 5.081286553800237,
+   "x90_amplitude": 2.5406432769001186,
+   "warnings": [
+    "NO LINE DETECTED: snr=17.7 (threshold 5.0), r_squared=0.75 (threshold 0.60), fitted_fwhm=25.763 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "width estimates disagree: peak-finder fwhm=12.881 MHz vs Lorentzian fitted_fwhm=25.763 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable",
+    "power broadening detected; amplitude estimate used effective linewidth correction",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5505572102.714844,
+   "swept_max_freq_hz": 5905572102.714844,
+   "snr": 17.670569505022215,
+   "noise_sigma": 0.00018358958097443342,
+   "min_detectable_amplitude": 0.0009179479048721671,
+   "r_squared": 0.7541362131200762,
+   "fitted_fwhm": 25763158.738785625,
+   "signal_detected": false,
+   "undersampled_peak": false
+  },
+  "qD1": {
+   "frequency": 4889945878.44061,
+   "relative_freq": -107750000.0,
+   "fwhm": 2172693.207267699,
+   "iw_angle": 3.384933719361719,
+   "saturation_amp": 1.38077478677843,
+   "x180_amp": 7.530958205564459,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 4889945878.44061,
+   "RF_frequency": 4889945878.44061,
+   "saturation_amplitude": 1.38077478677843,
+   "x180_amplitude": 7.530958205564459,
+   "x90_amplitude": 3.7654791027822294,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 4797695878.44061,
+   "swept_max_freq_hz": 5197695878.44061,
+   "snr": 34.66403202575854,
+   "noise_sigma": 9.051207903217035e-05,
+   "min_detectable_amplitude": 0.00045256039516085176,
+   "r_squared": 0.9772196917010788,
+   "fitted_fwhm": 1873515.6234938807,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

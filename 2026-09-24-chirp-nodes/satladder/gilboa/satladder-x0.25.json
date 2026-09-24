@@ -1,0 +1,117 @@
+{
+ "tag": "satladder-x0.25",
+ "g": 0.25,
+ "factor": 0.125,
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "played_amplitude": {
+  "qD2": 0.004524728482657654,
+  "qC3": 0.00625,
+  "qD5": 0.008435705133311931
+ },
+ "stored_amplitude": {
+  "qD2": 0.03619782786126123,
+  "qC3": 0.05,
+  "qD5": 0.06748564106649545
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 0.125,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 33.63633179664612,
+ "wall_s": 46.37604224984534,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "frequency": 5746256906.87116,
+   "relative_freq": -4750000.0,
+   "fwhm": 1482921.8515669424,
+   "iw_angle": 6.075005565085156,
+   "saturation_amp": 0.07322940414495709,
+   "x180_amp": 0.19970222056298184,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5746256906.87116,
+   "RF_frequency": 5746256906.87116,
+   "saturation_amplitude": 0.07322940414495709,
+   "x180_amplitude": 0.19970222056298184,
+   "x90_amplitude": 0.09985111028149092,
+   "warnings": [
+    "NO LINE DETECTED: snr=3.7 (threshold 5.0), r_squared=0.44 (threshold 0.60), fitted_fwhm=1.299 MHz -- the reported frequency is not accepted. Continue the frequency search."
+   ],
+   "swept_min_freq_hz": 5551006906.87116,
+   "swept_max_freq_hz": 5951006906.87116,
+   "snr": 3.7289649356251733,
+   "noise_sigma": 3.6549757049908065e-05,
+   "min_detectable_amplitude": 0.00018274878524954032,
+   "r_squared": 0.44342871437455667,
+   "fitted_fwhm": 1298944.2783952493,
+   "signal_detected": false,
+   "undersampled_peak": false
+  },
+  "qC3": {
+   "frequency": 5648684148.656785,
+   "relative_freq": 0.0,
+   "fwhm": 524384.351336522,
+   "iw_angle": 0.7522797001370307,
+   "saturation_amp": 0.2860497259647208,
+   "x180_amp": 0.780079616017483,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5648684148.656785,
+   "RF_frequency": 5648684148.656785,
+   "saturation_amplitude": 0.2860497259647208,
+   "x180_amplitude": 0.780079616017483,
+   "x90_amplitude": 0.3900398080087415,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=23.9 and r_squared=0.96 make this a convincing line, but fitted_fwhm=0.406 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5448684148.656785,
+   "swept_max_freq_hz": 5848684148.656785,
+   "snr": 23.861775464630163,
+   "noise_sigma": 2.5227749446373156e-05,
+   "min_detectable_amplitude": 0.00012613874723186577,
+   "r_squared": 0.9557769669083575,
+   "fitted_fwhm": 405896.85877358465,
+   "signal_detected": false,
+   "undersampled_peak": true
+  },
+  "qD5": {
+   "frequency": 5817222366.034855,
+   "relative_freq": 250000.0,
+   "fwhm": 797173.2900585664,
+   "iw_angle": 5.958352712626308,
+   "saturation_amp": 0.25396852318598423,
+   "x180_amp": 0.6925917071910912,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5817222366.034855,
+   "RF_frequency": 5817222366.034855,
+   "saturation_amplitude": 0.25396852318598423,
+   "x180_amplitude": 0.6925917071910912,
+   "x90_amplitude": 0.3462958535955456,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=22.4 and r_squared=0.95 make this a convincing line, but fitted_fwhm=0.613 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5616972366.034855,
+   "swept_max_freq_hz": 6016972366.034855,
+   "snr": 22.395486162011274,
+   "noise_sigma": 6.822322910750226e-05,
+   "min_detectable_amplitude": 0.0003411161455375113,
+   "r_squared": 0.9471772317446745,
+   "fitted_fwhm": 612588.1062707226,
+   "signal_detected": false,
+   "undersampled_peak": true
+  }
+ }
+}

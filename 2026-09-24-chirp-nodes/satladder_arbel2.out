@@ -1,0 +1,243 @@
+2026-09-24 18:34:25,708 - qm - INFO     - Starting session: e6f93e36-225a-413b-b1d6-8b72776615cf
+18:34:29 [arbel/sat] stored saturation amplitudes {'qB4': 1.0, 'qA5': 1.0, 'qD1': 1.0}
+18:34:30 [arbel/sat] satladder-x0.0625: ['qB4', 'qA5', 'qD1'] factor 0.03125, played amplitudes {'qB4': 0.03125, 'qA5': 0.03125, 'qD1': 0.03125}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:34:34,192 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:34:38] QUA program submitted to arbel (id =                 computers.py:416
+           3c2e054a-6cec-49b2-a847-c2d6e32091ab)                                
+[18:34:54] Execution started                                    computers.py:455
+[18:35:20] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.01s
+None
+2026-09-24 18:35:20,515 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=24.0 r_squared=0.91 noise_sigma=56.5 uV -> LINE DETECTED
+	Qubit frequency: 6.606 GHz | FWHM: 2876.8 kHz | The integration weight angle: 3.965 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 1042.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 711.0 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=27.6 r_squared=0.93 noise_sigma=157.9 uV -> LINE DETECTED
+	Qubit frequency: 5.706 GHz | FWHM: 3331.5 kHz | The integration weight angle: 4.330 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 900.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 613.9 mV
+ 
+Results for qubit qD1:  PROPOSED (clean)
+	Detection: snr=25.2 r_squared=0.94 noise_sigma=77.9 uV -> LINE DETECTED
+	Qubit frequency: 4.997 GHz | FWHM: 4383.7 kHz | The integration weight angle: 3.694 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 684.4 mV | To get the desired x180 gate, the x180 amplitude is updated to: 466.6 mV
+ 
+18:35:22 [arbel/sat] satladder-x0.0625: done -- QPU 25.6 s
+18:35:22 [arbel/sat]    qB4: f_01 6605880214.857716 detected True fwhm 3897616.9834316685
+18:35:22 [arbel/sat]    qA5: f_01 5706322102.714844 detected True fwhm 3330909.884467133
+18:35:22 [arbel/sat]    qD1: f_01 4996945878.44061 detected True fwhm 4232836.926402192
+18:35:22 [arbel/sat] satladder-x0.125: ['qB4', 'qA5', 'qD1'] factor 0.0625, played amplitudes {'qB4': 0.0625, 'qA5': 0.0625, 'qD1': 0.0625}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:35:24,855 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:35:27] QUA program submitted to arbel (id =                 computers.py:416
+           31da3d0f-a531-4841-bf65-be16df182b39)                                
+[18:37:00] Execution started                                    computers.py:455
+[18:37:28] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+None
+2026-09-24 18:37:28,905 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	UNRESOLVED BUT REAL: snr=99.0 and r_squared=0.96 make this a convincing line, but fitted_fwhm=0.144 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.; width estimates disagree: peak-finder fwhm=0.411 MHz vs Lorentzian fitted_fwhm=0.144 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Candidate is unresolved at this step size; rescan finer, recentred on the candidate.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=99.0 r_squared=0.96 noise_sigma=54.5 uV -> LINE PRESENT BUT UNRESOLVED (rescan finer, recentred on the candidate)
+	Qubit frequency: 6.507 GHz | FWHM: 411.1 kHz | The integration weight angle: 3.997 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 7297.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 9950.0 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=29.5 r_squared=0.94 noise_sigma=163.8 uV -> LINE DETECTED
+	Qubit frequency: 5.705 GHz | FWHM: 5465.9 kHz | The integration weight angle: 4.289 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 548.9 mV | To get the desired x180 gate, the x180 amplitude is updated to: 748.4 mV
+ 
+Results for qubit qD1:  PROPOSED (clean)
+	Detection: snr=23.7 r_squared=0.80 noise_sigma=84.2 uV -> LINE DETECTED
+	Qubit frequency: 4.995 GHz | FWHM: 7366.2 kHz | The integration weight angle: 3.416 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 407.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 555.3 mV
+ 
+18:37:30 [arbel/sat] satladder-x0.125: done -- QPU 25.6 s
+18:37:30 [arbel/sat]    qB4: f_01 6507130214.857716 detected False fwhm 143562.31845799665
+18:37:30 [arbel/sat]    qA5: f_01 5704822102.714844 detected True fwhm 5659103.7997796815
+18:37:30 [arbel/sat]    qD1: f_01 4995195878.44061 detected True fwhm 7366199.266593356
+18:37:30 [arbel/sat] satladder-x0.25: ['qB4', 'qA5', 'qD1'] factor 0.125, played amplitudes {'qB4': 0.125, 'qA5': 0.125, 'qD1': 0.125}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:37:33,189 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:37:36] QUA program submitted to arbel (id =                 computers.py:416
+           8cd68e0d-c4c3-4783-9f13-57d28008a611)                                
+[18:39:19] Execution started                                    computers.py:455
+[18:39:47] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.01s
+None
+2026-09-24 18:39:47,479 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	UNRESOLVED BUT REAL: snr=36.7 and r_squared=0.97 make this a convincing line, but fitted_fwhm=0.468 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Candidate is unresolved at this step size; rescan finer, recentred on the candidate.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=36.7 r_squared=0.97 noise_sigma=60.7 uV -> LINE PRESENT BUT UNRESOLVED (rescan finer, recentred on the candidate)
+	Qubit frequency: 6.507 GHz | FWHM: 580.3 kHz | The integration weight angle: 3.952 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 5170.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 14099.5 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	power broadening detected; amplitude estimate used effective linewidth correction; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=26.0 r_squared=0.92 noise_sigma=171.4 uV -> LINE DETECTED
+	Qubit frequency: 5.704 GHz | FWHM: 9754.5 kHz | The integration weight angle: 4.265 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 1000.0 mV | To get the desired x180 gate, the x180 amplitude is updated to: 2727.1 mV
+ 
+Results for qubit qD1:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=34.6 r_squared=0.98 noise_sigma=80.0 uV -> LINE DETECTED
+	Qubit frequency: 4.890 GHz | FWHM: 896.4 kHz | The integration weight angle: 3.391 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 3346.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 9126.8 mV
+ 
+18:39:49 [arbel/sat] satladder-x0.25: done -- QPU 25.7 s
+18:39:49 [arbel/sat]    qB4: f_01 6507130214.857716 detected False fwhm 467701.9198984949
+18:39:49 [arbel/sat]    qA5: f_01 5704072102.714844 detected True fwhm 12146201.129612876
+18:39:49 [arbel/sat]    qD1: f_01 4889945878.44061 detected True fwhm 808101.3690728631
+18:39:50 [arbel/sat] satladder-x0.5: ['qB4', 'qA5', 'qD1'] factor 0.25, played amplitudes {'qB4': 0.25, 'qA5': 0.25, 'qD1': 0.25}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:39:52,503 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:39:54] QUA program submitted to arbel (id =                 computers.py:416
+           1eec2c40-4c9a-41ae-a459-d25c425dc75b)                                
+           Execution started                                    computers.py:455
+[18:40:23] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.01s
+None
+2026-09-24 18:40:23,911 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=28.8 r_squared=0.96 noise_sigma=63.5 uV -> LINE DETECTED
+	Qubit frequency: 6.507 GHz | FWHM: 1907.7 kHz | The integration weight angle: 3.959 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 1572.6 mV | To get the desired x180 gate, the x180 amplitude is updated to: 8577.0 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=17.7 (threshold 5.0), r_squared=0.75 (threshold 0.60), fitted_fwhm=25.763 MHz -- the reported frequency is not accepted. Continue the frequency search.; width estimates disagree: peak-finder fwhm=12.881 MHz vs Lorentzian fitted_fwhm=25.763 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; power broadening detected; amplitude estimate used effective linewidth correction; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=17.7 r_squared=0.75 noise_sigma=183.6 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.705 GHz | FWHM: 12880.6 kHz | The integration weight angle: 3.961 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 931.6 mV | To get the desired x180 gate, the x180 amplitude is updated to: 5081.3 mV
+ 
+Results for qubit qD1:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=34.7 r_squared=0.98 noise_sigma=90.5 uV -> LINE DETECTED
+	Qubit frequency: 4.890 GHz | FWHM: 2172.7 kHz | The integration weight angle: 3.385 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 1380.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 7531.0 mV
+ 
+18:40:25 [arbel/sat] satladder-x0.5: done -- QPU 25.7 s
+18:40:25 [arbel/sat]    qB4: f_01 6506880214.857716 detected True fwhm 1614398.5842356854
+18:40:25 [arbel/sat]    qA5: f_01 5705072102.714844 detected False fwhm 25763158.738785625
+18:40:25 [arbel/sat]    qD1: f_01 4889945878.44061 detected True fwhm 1873515.6234938807
+18:40:25 [arbel/sat] satladder-x1: ['qB4', 'qA5', 'qD1'] factor 0.5, played amplitudes {'qB4': 0.5, 'qA5': 0.5, 'qD1': 0.5}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:40:28,290 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:40:30] QUA program submitted to arbel (id =                 computers.py:416
+           ef39e37e-29db-4d41-9de8-4f60d0c5cdc0)                                
+           Execution started                                    computers.py:455
+[18:40:58] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+None
+2026-09-24 18:40:58,220 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=24.0 r_squared=0.79 noise_sigma=81.5 uV -> LINE DETECTED
+	Qubit frequency: 6.507 GHz | FWHM: 7155.4 kHz | The integration weight angle: 3.952 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 419.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 4573.5 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=26.6 r_squared=0.97 noise_sigma=222.4 uV -> LINE DETECTED
+	Qubit frequency: 5.603 GHz | FWHM: 4476.3 kHz | The integration weight angle: 3.928 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 670.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 7310.8 mV
+ 
+Results for qubit qD1:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=23.1 r_squared=0.87 noise_sigma=116.0 uV -> LINE DETECTED
+	Qubit frequency: 4.889 GHz | FWHM: 6866.8 kHz | The integration weight angle: 3.374 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 436.9 mV | To get the desired x180 gate, the x180 amplitude is updated to: 4765.7 mV
+ 
+18:40:59 [arbel/sat] satladder-x1: done -- QPU 25.6 s
+18:40:59 [arbel/sat]    qB4: f_01 6507130214.857716 detected True fwhm 7155395.743157569
+18:40:59 [arbel/sat]    qA5: f_01 5603322102.714844 detected True fwhm 4232795.744321933
+18:40:59 [arbel/sat]    qD1: f_01 4888695878.44061 detected True fwhm 6866774.371938518
+18:40:59 [arbel/sat] all levels done

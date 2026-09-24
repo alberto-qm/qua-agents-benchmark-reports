@@ -1,0 +1,115 @@
+{
+ "tag": "satladder-x0.125",
+ "g": 0.125,
+ "factor": 0.0625,
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "played_amplitude": {
+  "qB4": 0.0625,
+  "qA5": 0.0625,
+  "qD1": 0.0625
+ },
+ "stored_amplitude": {
+  "qB4": 1.0,
+  "qA5": 1.0,
+  "qD1": 1.0
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 0.0625,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 25.644623041152954,
+ "wall_s": 127.38233283301815,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "frequency": 6507130214.857716,
+   "relative_freq": -98750000.0,
+   "fwhm": 411115.82802378165,
+   "iw_angle": 3.996798370864262,
+   "saturation_amp": 7.297213572196642,
+   "x180_amp": 9.950031488753774,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 6507130214.857716,
+   "RF_frequency": 6507130214.857716,
+   "saturation_amplitude": 7.297213572196642,
+   "x180_amplitude": 9.950031488753774,
+   "x90_amplitude": 4.975015744376887,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=99.0 and r_squared=0.96 make this a convincing line, but fitted_fwhm=0.144 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.",
+    "width estimates disagree: peak-finder fwhm=0.411 MHz vs Lorentzian fitted_fwhm=0.144 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 6405880214.857716,
+   "swept_max_freq_hz": 6805880214.857716,
+   "snr": 98.98814984690252,
+   "noise_sigma": 5.451209114209922e-05,
+   "min_detectable_amplitude": 0.0002725604557104961,
+   "r_squared": 0.9605794191048539,
+   "fitted_fwhm": 143562.31845799665,
+   "signal_detected": false,
+   "undersampled_peak": true
+  },
+  "qA5": {
+   "frequency": 5704822102.714844,
+   "relative_freq": -750000.0,
+   "fwhm": 5465854.0684999935,
+   "iw_angle": 4.289155880254853,
+   "saturation_amp": 0.5488620739600713,
+   "x180_amp": 0.7483945570256152,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5704822102.714844,
+   "RF_frequency": 5704822102.714844,
+   "saturation_amplitude": 0.5488620739600713,
+   "x180_amplitude": 0.7483945570256152,
+   "x90_amplitude": 0.3741972785128076,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5505572102.714844,
+   "swept_max_freq_hz": 5905572102.714844,
+   "snr": 29.45549497134838,
+   "noise_sigma": 0.0001637504848905948,
+   "min_detectable_amplitude": 0.0008187524244529739,
+   "r_squared": 0.9438953682277663,
+   "fitted_fwhm": 5659103.7997796815,
+   "signal_detected": true,
+   "undersampled_peak": false
+  },
+  "qD1": {
+   "frequency": 4995195878.44061,
+   "relative_freq": -2500000.0,
+   "fwhm": 7366199.266593356,
+   "iw_angle": 3.415654124421529,
+   "saturation_amp": 0.4072656591853792,
+   "x180_amp": 0.5553223971164026,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 4995195878.44061,
+   "RF_frequency": 4995195878.44061,
+   "saturation_amplitude": 0.4072656591853792,
+   "x180_amplitude": 0.5553223971164026,
+   "x90_amplitude": 0.2776611985582013,
+   "warnings": [],
+   "swept_min_freq_hz": 4797695878.44061,
+   "swept_max_freq_hz": 5197695878.44061,
+   "snr": 23.713034450514726,
+   "noise_sigma": 8.420458146766145e-05,
+   "min_detectable_amplitude": 0.00042102290733830725,
+   "r_squared": 0.803246280208543,
+   "fitted_fwhm": 7366199.266593356,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

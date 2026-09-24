@@ -1,0 +1,50 @@
+{
+ "tag": "satdef-x0.5-Q5",
+ "g": 0.5,
+ "factor": 0.25,
+ "qubits": [
+  "Q5"
+ ],
+ "played_amplitude": {
+  "Q5": 0.005394487051459409
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.25
+ },
+ "error": null,
+ "qpu_s": 17.96049189567566,
+ "wall_s": 22.414514624979347,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q5": {
+   "frequency": 5096888767.368647,
+   "relative_freq": 350000.0,
+   "fwhm": 3133127.599671559,
+   "iw_angle": 0.44360970002377087,
+   "saturation_amp": 0.02066109424470898,
+   "x180_amp": 0.11268878801094456,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5096888767.368647,
+   "RF_frequency": 5096888767.368647,
+   "saturation_amplitude": 0.02066109424470898,
+   "x180_amplitude": 0.11268878801094456,
+   "x90_amplitude": 0.05634439400547228,
+   "warnings": [],
+   "swept_min_freq_hz": 4966538767.368647,
+   "swept_max_freq_hz": 5226538767.368647,
+   "snr": 19.19137792380677,
+   "noise_sigma": 8.283648803447953e-06,
+   "min_detectable_amplitude": 4.1418244017239766e-05,
+   "r_squared": 0.9061494800873852,
+   "fitted_fwhm": 3390742.4680075,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

@@ -1,0 +1,56 @@
+18:43:47 [gilboa/satdef] stored saturation amplitudes {'qD2': 0.03619782786126123, 'qC3': 0.05, 'qD5': 0.06748564106649545}; levels [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16]
+18:43:48 [gilboa/satdef] satdef-x0.0625-qD2: factor 0.03125, played amplitude 0.001131
+18:44:30 [gilboa/satdef] satdef-x0.0625-qD2: done -- QPU 24.1 s; f_01 5716406906.87116 detected False snr 17.576401630974875
+18:44:30 [gilboa/satdef] satdef-x0.0625-qC3: factor 0.03125, played amplitude 0.001563
+18:45:00 [gilboa/satdef] satdef-x0.0625-qC3: done -- QPU 24.2 s; f_01 5648734148.656785 detected False snr 21.72102030979015
+18:45:01 [gilboa/satdef] satdef-x0.0625-qD5: factor 0.03125, played amplitude 0.002109
+18:45:30 [gilboa/satdef] satdef-x0.0625-qD5: done -- QPU 24.1 s; f_01 5817022366.034855 detected False snr 24.47693910097609
+18:45:31 [gilboa/satdef] satdef-x0.125-qD2: factor 0.0625, played amplitude 0.002262
+18:46:01 [gilboa/satdef] satdef-x0.125-qD2: done -- QPU 24.1 s; f_01 5855756906.87116 detected False snr 4.243702226264827
+18:46:02 [gilboa/satdef] satdef-x0.125-qC3: factor 0.0625, played amplitude 0.003125
+18:46:31 [gilboa/satdef] satdef-x0.125-qC3: done -- QPU 24.2 s; f_01 5648734148.656785 detected False snr 30.871948457877867
+18:46:32 [gilboa/satdef] satdef-x0.125-qD5: factor 0.0625, played amplitude 0.004218
+18:47:01 [gilboa/satdef] satdef-x0.125-qD5: done -- QPU 24.1 s; f_01 5817022366.034855 detected False snr 28.574783826682665
+18:47:02 [gilboa/satdef] satdef-x0.25-qD2: factor 0.125, played amplitude 0.004525
+18:47:33 [gilboa/satdef] satdef-x0.25-qD2: done -- QPU 24.1 s; f_01 5745956906.87116 detected True snr 9.37894507649738
+18:47:33 [gilboa/satdef] satdef-x0.25-qC3: factor 0.125, played amplitude 0.00625
+18:48:03 [gilboa/satdef] satdef-x0.25-qC3: done -- QPU 24.4 s; f_01 5648884148.656785 detected True snr 39.46317809280931
+18:48:03 [gilboa/satdef] satdef-x0.25-qD5: factor 0.125, played amplitude 0.008436
+18:48:33 [gilboa/satdef] satdef-x0.25-qD5: done -- QPU 24.1 s; f_01 5816872366.034855 detected True snr 22.269276770182618
+18:48:33 [gilboa/satdef] satdef-x0.5-qD2: factor 0.25, played amplitude 0.009049
+18:49:03 [gilboa/satdef] satdef-x0.5-qD2: done -- QPU 24.0 s; f_01 5746106906.87116 detected False snr 4.754266275989661
+18:49:03 [gilboa/satdef] satdef-x0.5-qC3: factor 0.25, played amplitude 0.0125
+18:49:33 [gilboa/satdef] satdef-x0.5-qC3: done -- QPU 24.2 s; f_01 5648884148.656785 detected True snr 52.04180478731778
+18:49:33 [gilboa/satdef] satdef-x0.5-qD5: factor 0.25, played amplitude 0.01687
+18:50:03 [gilboa/satdef] satdef-x0.5-qD5: done -- QPU 24.1 s; f_01 5817022366.034855 detected True snr 26.304462605863918
+18:50:03 [gilboa/satdef] satdef-x1-qD2: factor 0.5, played amplitude 0.0181
+18:50:32 [gilboa/satdef] satdef-x1-qD2: done -- QPU 24.0 s; f_01 5746106906.87116 detected False snr 4.788089305982238
+18:50:33 [gilboa/satdef] satdef-x1-qC3: factor 0.5, played amplitude 0.025
+18:51:03 [gilboa/satdef] satdef-x1-qC3: done -- QPU 24.2 s; f_01 5648434148.656785 detected True snr 47.93504932385162
+18:51:03 [gilboa/satdef] satdef-x1-qD5: factor 0.5, played amplitude 0.03374
+18:51:33 [gilboa/satdef] satdef-x1-qD5: done -- QPU 24.1 s; f_01 5817322366.034855 detected False snr 18.874469830211847
+18:51:34 [gilboa/satdef] satdef-x2-qD2: factor 1, played amplitude 0.0362
+18:52:03 [gilboa/satdef] satdef-x2-qD2: done -- QPU 24.0 s; f_01 5746106906.87116 detected True snr 54.050306734954965
+18:52:03 [gilboa/satdef] satdef-x2-qC3: factor 1, played amplitude 0.05
+18:52:33 [gilboa/satdef] satdef-x2-qC3: done -- QPU 24.2 s; f_01 5648434148.656785 detected True snr 43.75470490300222
+18:52:34 [gilboa/satdef] satdef-x2-qD5: factor 1, played amplitude 0.06749
+18:53:03 [gilboa/satdef] satdef-x2-qD5: done -- QPU 24.2 s; f_01 5816722366.034855 detected True snr 17.423793163902403
+18:53:04 [gilboa/satdef] satdef-x4-qD2: factor 1.9, played amplitude 0.0724
+18:53:33 [gilboa/satdef] satdef-x4-qD2: done -- QPU 24.1 s; f_01 5746106906.87116 detected True snr 49.55375041016826
+18:53:34 [gilboa/satdef] satdef-x4-qC3: factor 1.9, played amplitude 0.1
+18:54:07 [gilboa/satdef] satdef-x4-qC3: done -- QPU 24.2 s; f_01 5649334148.656785 detected True snr 53.459706194813265
+18:54:08 [gilboa/satdef] satdef-x4-qD5: factor 1.9, played amplitude 0.135
+18:54:38 [gilboa/satdef] satdef-x4-qD5: done -- QPU 24.1 s; f_01 5712922366.034855 detected False snr 26.60333820764525
+18:54:38 [gilboa/satdef] satdef-x8-qD2: factor 1.9, played amplitude 0.1448
+18:55:09 [gilboa/satdef] satdef-x8-qD2: done -- QPU 24.0 s; f_01 5654906906.87116 detected False snr 85.93395819029038
+18:55:10 [gilboa/satdef] satdef-x8-qC3: factor 1.9, played amplitude 0.2
+18:55:39 [gilboa/satdef] satdef-x8-qC3: done -- QPU 24.2 s; f_01 5647834148.656785 detected True snr 38.11435838406497
+18:55:40 [gilboa/satdef] satdef-x8-qD5: factor 1.9, played amplitude 0.2699
+18:56:10 [gilboa/satdef] satdef-x8-qD5: done -- QPU 24.1 s; f_01 5712922366.034855 detected True snr 26.340242190234903
+18:56:10 [gilboa/satdef] satdef-x16-qD2: factor 1.9, played amplitude 0.2896
+18:56:40 [gilboa/satdef] satdef-x16-qD2: done -- QPU 24.0 s; f_01 5655056906.87116 detected True snr 67.08964566751268
+18:56:41 [gilboa/satdef] satdef-x16-qC3: factor 1.9, played amplitude 0.4
+18:57:12 [gilboa/satdef] satdef-x16-qC3: done -- QPU 24.2 s; f_01 5543284148.656785 detected True snr 42.53871615169864
+18:57:13 [gilboa/satdef] satdef-x16-qD5: factor 1.9, played amplitude 0.5399
+18:57:42 [gilboa/satdef] satdef-x16-qD5: done -- QPU 24.1 s; f_01 5712622366.034855 detected True snr 19.273876675172087
+18:57:42 [gilboa/satdef] all levels done

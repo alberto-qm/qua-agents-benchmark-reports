@@ -1,0 +1,765 @@
+2026-09-24 18:43:41,957 - qm - INFO     - Starting session: 74467f68-01a9-4757-a088-6fbdad70643c
+18:43:47 [qolab/satdef] stored saturation amplitudes {'Q1': 0.021577948205837635, 'Q2': 0.018157794820583762, 'Q5': 0.021577948205837635}; levels [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16]
+18:43:47 [qolab/satdef] satdef-x0.0625-Q1: factor 0.03125, played amplitude 0.0006743
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:43:51,063 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:43:52] QUA program submitted to qolab (id =                 computers.py:416
+           5c164209-917d-47fe-a492-76924eac5680)                                
+           Execution started                                    computers.py:455
+[18:44:13] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:44:13,407 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=43.6 (threshold 5.0), r_squared=0.56 (threshold 0.60), fitted_fwhm=0.038 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=0.352 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=0.352 MHz vs Lorentzian fitted_fwhm=0.038 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable
+	Detection: snr=43.6 r_squared=0.56 noise_sigma=18.0 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.272 GHz | FWHM: 352.2 kHz | The integration weight angle: 1.213 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 183.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 125.3 mV
+ 
+18:44:14 [qolab/satdef] satdef-x0.0625-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 43.5621174889833
+18:44:15 [qolab/satdef] satdef-x0.0625-Q2: factor 0.03125, played amplitude 0.0005674
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:44:16,709 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:44:17] QUA program submitted to qolab (id =                 computers.py:416
+           dbd01054-f1eb-4721-9167-76115ce90d54)                                
+           Execution started                                    computers.py:455
+[18:44:36] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:44:36,874 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (with warnings):
+	UNRESOLVED BUT REAL: snr=12.9 and r_squared=0.81 make this a convincing line, but fitted_fwhm=0.447 MHz is below the 0.450 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.
+	Candidate is unresolved at this step size; rescan finer, recentred on the candidate.
+	Detection: snr=12.9 r_squared=0.81 noise_sigma=9.2 uV -> LINE PRESENT BUT UNRESOLVED (rescan finer, recentred on the candidate)
+	Qubit frequency: 5.106 GHz | FWHM: 674.0 kHz | The integration weight angle: 1.869 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 80.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 55.1 mV
+ 
+18:44:37 [qolab/satdef] satdef-x0.0625-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected False snr 12.948877488660976
+18:44:37 [qolab/satdef] satdef-x0.0625-Q5: factor 0.03125, played amplitude 0.0006743
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:44:42,587 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:44:43] QUA program submitted to qolab (id =                 computers.py:416
+           82e48054-4546-4922-b851-f11065a0e2f5)                                
+           Execution started                                    computers.py:455
+[18:45:02] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:45:02,745 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (with warnings):
+	UNRESOLVED BUT REAL: snr=25.3 and r_squared=0.96 make this a convincing line, but fitted_fwhm=0.439 MHz is below the 0.450 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.
+	Candidate is unresolved at this step size; rescan finer, recentred on the candidate.
+	Detection: snr=25.3 r_squared=0.96 noise_sigma=8.0 uV -> LINE PRESENT BUT UNRESOLVED (rescan finer, recentred on the candidate)
+	Qubit frequency: 5.097 GHz | FWHM: 553.8 kHz | The integration weight angle: 0.456 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 116.9 mV | To get the desired x180 gate, the x180 amplitude is updated to: 79.7 mV
+ 
+18:45:03 [qolab/satdef] satdef-x0.0625-Q5: done -- QPU 18.0 s; f_01 5096588767.368647 detected False snr 25.268248264609877
+18:45:03 [qolab/satdef] satdef-x0.125-Q1: factor 0.0625, played amplitude 0.001349
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:45:04,676 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:45:05] QUA program submitted to qolab (id =                 computers.py:416
+           076a284b-b7b7-4117-9c1f-9de57cd56261)                                
+           Execution started                                    computers.py:455
+[18:45:26] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:45:26,813 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=4.4 (threshold 5.0), r_squared=0.63 (threshold 0.60), fitted_fwhm=0.357 MHz -- the reported frequency is not accepted. Continue the frequency search.
+	Detection: snr=4.4 r_squared=0.63 noise_sigma=18.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.272 GHz | FWHM: 684.5 kHz | The integration weight angle: 1.157 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 94.6 mV | To get the desired x180 gate, the x180 amplitude is updated to: 129.0 mV
+ 
+18:45:27 [qolab/satdef] satdef-x0.125-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 4.371964527721608
+18:45:28 [qolab/satdef] satdef-x0.125-Q2: factor 0.0625, played amplitude 0.001135
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:45:30,569 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:45:31] QUA program submitted to qolab (id =                 computers.py:416
+           0357ee3b-b64d-4f09-86fc-0ee10b174728)                                
+           Execution started                                    computers.py:455
+[18:45:51] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:45:51,866 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (clean)
+	Detection: snr=10.9 r_squared=0.84 noise_sigma=10.2 uV -> LINE DETECTED
+	Qubit frequency: 5.106 GHz | FWHM: 1555.4 kHz | The integration weight angle: 1.992 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 35.0 mV | To get the desired x180 gate, the x180 amplitude is updated to: 47.8 mV
+ 
+18:45:52 [qolab/satdef] satdef-x0.125-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected True snr 10.882625549949559
+18:45:52 [qolab/satdef] satdef-x0.125-Q5: factor 0.0625, played amplitude 0.001349
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:45:56,072 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:45:56] QUA program submitted to qolab (id =                 computers.py:416
+           80d2bb03-01d8-4961-bae0-0d9ca16656ec)                                
+           Execution started                                    computers.py:455
+[18:46:16] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:46:16,412 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (clean)
+	Detection: snr=20.1 r_squared=0.94 noise_sigma=8.0 uV -> LINE DETECTED
+	Qubit frequency: 5.096 GHz | FWHM: 1114.1 kHz | The integration weight angle: 0.427 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 58.1 mV | To get the desired x180 gate, the x180 amplitude is updated to: 79.2 mV
+ 
+18:46:17 [qolab/satdef] satdef-x0.125-Q5: done -- QPU 18.0 s; f_01 5096288767.368647 detected True snr 20.14135218750189
+18:46:17 [qolab/satdef] satdef-x0.25-Q1: factor 0.125, played amplitude 0.002697
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:46:22,537 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:46:23] QUA program submitted to qolab (id =                 computers.py:416
+           cf3b679d-7a3a-44d3-9274-a6090d43c091)                                
+           Execution started                                    computers.py:455
+[18:46:43] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:46:43,771 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=4.9 (threshold 5.0), r_squared=0.57 (threshold 0.60), fitted_fwhm=0.742 MHz -- the reported frequency is not accepted. Continue the frequency search.
+	Detection: snr=4.9 r_squared=0.57 noise_sigma=17.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.272 GHz | FWHM: 877.8 kHz | The integration weight angle: 1.182 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 73.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 201.1 mV
+ 
+18:46:44 [qolab/satdef] satdef-x0.25-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 4.935513470467056
+18:46:44 [qolab/satdef] satdef-x0.25-Q2: factor 0.125, played amplitude 0.00227
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:46:46,516 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:46:47] QUA program submitted to qolab (id =                 computers.py:416
+           82437be3-7e39-42e1-8c9e-78cdd87710ae)                                
+           Execution started                                    computers.py:455
+[18:47:06] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:47:06,790 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (clean)
+	Detection: snr=23.6 r_squared=0.92 noise_sigma=8.7 uV -> LINE DETECTED
+	Qubit frequency: 5.106 GHz | FWHM: 1605.4 kHz | The integration weight angle: 1.901 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 33.9 mV | To get the desired x180 gate, the x180 amplitude is updated to: 92.5 mV
+ 
+18:47:07 [qolab/satdef] satdef-x0.25-Q2: done -- QPU 17.9 s; f_01 5105808687.2664385 detected True snr 23.57853716247988
+18:47:07 [qolab/satdef] satdef-x0.25-Q5: factor 0.125, played amplitude 0.002697
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:47:08,927 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:47:09] QUA program submitted to qolab (id =                 computers.py:416
+           47890741-ac2b-4407-b807-5daef72beec8)                                
+           Execution started                                    computers.py:455
+[18:47:30] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:47:30,216 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (clean)
+	Detection: snr=19.0 r_squared=0.93 noise_sigma=8.2 uV -> LINE DETECTED
+	Qubit frequency: 5.096 GHz | FWHM: 1877.6 kHz | The integration weight angle: 0.442 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 34.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 94.0 mV
+ 
+18:47:30 [qolab/satdef] satdef-x0.25-Q5: done -- QPU 18.0 s; f_01 5096438767.368647 detected True snr 19.020736172226147
+18:47:30 [qolab/satdef] satdef-x0.5-Q1: factor 0.25, played amplitude 0.005394
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:47:33,029 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:47:33] QUA program submitted to qolab (id =                 computers.py:416
+           ec6f99e1-6209-40a4-94ed-3d78a20ba19f)                                
+           Execution started                                    computers.py:455
+[18:47:53] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:47:53,301 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=4.5 (threshold 5.0), r_squared=0.36 (threshold 0.60), fitted_fwhm=2.391 MHz -- the reported frequency is not accepted. Continue the frequency search.
+	Detection: snr=4.5 r_squared=0.36 noise_sigma=17.4 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.272 GHz | FWHM: 3042.4 kHz | The integration weight angle: 1.097 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 21.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 116.0 mV
+ 
+18:47:53 [qolab/satdef] satdef-x0.5-Q1: done -- QPU 17.7 s; f_01 5272364324.880627 detected False snr 4.493376513522412
+18:47:54 [qolab/satdef] satdef-x0.5-Q2: factor 0.25, played amplitude 0.004539
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:47:55,334 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:47:56] QUA program submitted to qolab (id =                 computers.py:416
+           9356a3b9-df68-4043-baac-aafbee43c321)                                
+           Execution started                                    computers.py:455
+[18:48:16] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:48:16,647 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qualibration_libs/plotting/grids.py:117: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  figure, all_axes = plt.subplots(
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (clean)
+	Detection: snr=28.8 r_squared=0.95 noise_sigma=8.3 uV -> LINE DETECTED
+	Qubit frequency: 5.105 GHz | FWHM: 2770.0 kHz | The integration weight angle: 1.937 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 19.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 107.3 mV
+ 
+18:48:17 [qolab/satdef] satdef-x0.5-Q2: done -- QPU 18.0 s; f_01 5105358687.2664385 detected True snr 28.78875700432147
+18:48:17 [qolab/satdef] satdef-x0.5-Q5: factor 0.25, played amplitude 0.005394
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:48:18,962 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:48:19] QUA program submitted to qolab (id =                 computers.py:416
+           424a4e5c-f66b-4a43-9a6a-9d64f39a5086)                                
+           Execution started                                    computers.py:455
+[18:48:39] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:48:39,363 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (clean)
+	Detection: snr=19.2 r_squared=0.91 noise_sigma=8.3 uV -> LINE DETECTED
+	Qubit frequency: 5.097 GHz | FWHM: 3133.1 kHz | The integration weight angle: 0.444 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 20.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 112.7 mV
+ 
+18:48:39 [qolab/satdef] satdef-x0.5-Q5: done -- QPU 18.0 s; f_01 5096888767.368647 detected True snr 19.19137792380677
+18:48:40 [qolab/satdef] satdef-x1-Q1: factor 0.5, played amplitude 0.01079
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:48:41,617 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:48:42] QUA program submitted to qolab (id =                 computers.py:416
+           81ab3e2b-6af5-4d3e-af3f-f483d9984d46)                                
+           Execution started                                    computers.py:455
+[18:49:02] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:49:02,997 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=5.4 (threshold 5.0), r_squared=0.50 (threshold 0.60), fitted_fwhm=2.765 MHz -- the reported frequency is not accepted. Continue the frequency search.
+	Detection: snr=5.4 r_squared=0.50 noise_sigma=17.7 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.265 GHz | FWHM: 3124.5 kHz | The integration weight angle: 4.315 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 20.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 226.0 mV
+ 
+18:49:03 [qolab/satdef] satdef-x1-Q1: done -- QPU 17.7 s; f_01 5264714324.880627 detected False snr 5.420644963146143
+18:49:03 [qolab/satdef] satdef-x1-Q2: factor 0.5, played amplitude 0.009079
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:49:04,935 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:49:05] QUA program submitted to qolab (id =                 computers.py:416
+           ff8386c8-a251-45c7-a53e-721f1a5d2b5b)                                
+           Execution started                                    computers.py:455
+[18:49:26] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:49:26,302 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (clean)
+	Detection: snr=24.4 r_squared=0.79 noise_sigma=8.3 uV -> LINE DETECTED
+	Qubit frequency: 5.106 GHz | FWHM: 4834.8 kHz | The integration weight angle: 1.952 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 11.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 122.9 mV
+ 
+18:49:26 [qolab/satdef] satdef-x1-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected True snr 24.407742739200025
+18:49:27 [qolab/satdef] satdef-x1-Q5: factor 0.5, played amplitude 0.01079
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:49:28,633 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:49:29] QUA program submitted to qolab (id =                 computers.py:416
+           840be662-47d7-4a6d-951e-ebb8e767e77f)                                
+           Execution started                                    computers.py:455
+[18:49:48] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:49:48,877 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (clean)
+	Detection: snr=19.0 r_squared=0.92 noise_sigma=8.6 uV -> LINE DETECTED
+	Qubit frequency: 5.097 GHz | FWHM: 6000.4 kHz | The integration weight angle: 0.492 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 10.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 117.7 mV
+ 
+18:49:49 [qolab/satdef] satdef-x1-Q5: done -- QPU 18.0 s; f_01 5096588767.368647 detected True snr 18.966365510546005
+18:49:49 [qolab/satdef] satdef-x2-Q1: factor 1, played amplitude 0.02158
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:49:51,546 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:49:52] QUA program submitted to qolab (id =                 computers.py:416
+           14ae6f52-dc89-46b3-b965-e114197b808c)                                
+           Execution started                                    computers.py:455
+[18:50:11] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:50:11,854 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=6.4 (threshold 5.0), r_squared=0.66 (threshold 0.60), fitted_fwhm=15.278 MHz -- the reported frequency is not accepted. Continue the frequency search.; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=6.4 r_squared=0.66 noise_sigma=17.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.274 GHz | FWHM: 10831.3 kHz | The integration weight angle: 1.100 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 6.0 mV | To get the desired x180 gate, the x180 amplitude is updated to: 130.4 mV
+ 
+18:50:12 [qolab/satdef] satdef-x2-Q1: done -- QPU 17.7 s; f_01 5273864324.880627 detected False snr 6.409467941069597
+18:50:12 [qolab/satdef] satdef-x2-Q2: factor 1, played amplitude 0.01816
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:50:13,866 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:50:14] QUA program submitted to qolab (id =                 computers.py:416
+           e712ee38-3869-4dbc-a3a7-162dfab54d83)                                
+           Execution started                                    computers.py:455
+[18:50:35] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:50:35,231 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (clean)
+	Detection: snr=22.6 r_squared=0.94 noise_sigma=8.8 uV -> LINE DETECTED
+	Qubit frequency: 5.105 GHz | FWHM: 8707.0 kHz | The integration weight angle: 1.963 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 6.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 136.5 mV
+ 
+18:50:35 [qolab/satdef] satdef-x2-Q2: done -- QPU 18.0 s; f_01 5104908687.2664385 detected True snr 22.60173042453764
+18:50:36 [qolab/satdef] satdef-x2-Q5: factor 1, played amplitude 0.02158
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:50:37,289 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:50:38] QUA program submitted to qolab (id =                 computers.py:416
+           841a8730-f836-471b-8185-554c19036c7d)                                
+           Execution started                                    computers.py:455
+[18:50:58] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:50:58,588 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (with warnings):
+	power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=17.6 r_squared=0.91 noise_sigma=8.5 uV -> LINE DETECTED
+	Qubit frequency: 5.095 GHz | FWHM: 9982.6 kHz | The integration weight angle: 0.441 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 6.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 141.5 mV
+ 
+18:50:59 [qolab/satdef] satdef-x2-Q5: done -- QPU 17.9 s; f_01 5095388767.368647 detected True snr 17.561237655236074
+18:50:59 [qolab/satdef] satdef-x4-Q1: factor 1.9, played amplitude 0.04316
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:51:01,238 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:51:01] QUA program submitted to qolab (id =                 computers.py:416
+           224fb3ff-2df4-4709-9a05-4d40384b65aa)                                
+[18:51:02] Execution started                                    computers.py:455
+[18:51:21] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:51:21,773 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=4.0 (threshold 5.0), r_squared=0.09 (threshold 0.60), fitted_fwhm=3.241 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=0.223 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=0.223 MHz vs Lorentzian fitted_fwhm=3.241 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=4.0 r_squared=0.09 noise_sigma=17.4 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.271 GHz | FWHM: 223.2 kHz | The integration weight angle: 1.141 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 305.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 12656.6 mV
+ 
+18:51:22 [qolab/satdef] satdef-x4-Q1: done -- QPU 17.7 s; f_01 5271314324.880627 detected False snr 4.037563808682532
+18:51:22 [qolab/satdef] satdef-x4-Q2: factor 1.9, played amplitude 0.03632
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:51:24,144 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:51:24] QUA program submitted to qolab (id =                 computers.py:416
+           6e145299-6e1a-4876-adf5-e9a8ad023eee)                                
+           Execution started                                    computers.py:455
+[18:51:45] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:51:45,601 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=22.0 (threshold 5.0), r_squared=0.92 (threshold 0.60), fitted_fwhm=24.579 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=16.250 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=22.0 r_squared=0.92 noise_sigma=9.6 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.107 GHz | FWHM: 16249.5 kHz | The integration weight angle: 1.880 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 1.9 mV | To get the desired x180 gate, the x180 amplitude is updated to: 77.0 mV
+ 
+18:51:46 [qolab/satdef] satdef-x4-Q2: done -- QPU 18.0 s; f_01 5107158687.2664385 detected False snr 22.00990067919859
+18:51:46 [qolab/satdef] satdef-x4-Q5: factor 1.9, played amplitude 0.04316
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:51:47,619 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:51:49] QUA program submitted to qolab (id =                 computers.py:416
+           32f39df8-b932-4bea-993a-9ae4f4a40ab3)                                
+           Execution started                                    computers.py:455
+[18:52:08] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:52:08,996 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=17.7 (threshold 5.0), r_squared=0.90 (threshold 0.60), fitted_fwhm=25.539 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=15.834 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=17.7 r_squared=0.90 noise_sigma=9.7 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.093 GHz | FWHM: 15833.9 kHz | The integration weight angle: 0.391 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 2.3 mV | To get the desired x180 gate, the x180 amplitude is updated to: 93.9 mV
+ 
+18:52:09 [qolab/satdef] satdef-x4-Q5: done -- QPU 17.9 s; f_01 5092838767.368647 detected False snr 17.70187674996279
+18:52:09 [qolab/satdef] satdef-x8-Q1: factor 1.9, played amplitude 0.08631
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:52:11,533 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:52:12] QUA program submitted to qolab (id =                 computers.py:416
+           8f211c92-f431-4a7f-b2ba-d7455b35175b)                                
+           Execution started                                    computers.py:455
+[18:52:32] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:52:32,178 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=3.2 (threshold 5.0), r_squared=0.16 (threshold 0.60), fitted_fwhm=1.521 MHz -- the reported frequency is not accepted. Continue the frequency search.; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=3.2 r_squared=0.16 noise_sigma=19.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.268 GHz | FWHM: 2168.4 kHz | The integration weight angle: 1.137 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 62.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 2605.2 mV
+ 
+18:52:32 [qolab/satdef] satdef-x8-Q1: done -- QPU 17.7 s; f_01 5267714324.880627 detected False snr 3.2102427170971657
+18:52:33 [qolab/satdef] satdef-x8-Q2: factor 1.9, played amplitude 0.07263
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:52:34,173 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:52:34] QUA program submitted to qolab (id =                 computers.py:416
+           bd19ed07-7f55-4161-b81d-a98b082530e6)                                
+           Execution started                                    computers.py:455
+[18:52:54] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:52:54,420 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=19.4 (threshold 5.0), r_squared=0.93 (threshold 0.60), fitted_fwhm=57.653 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=27.589 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=27.589 MHz vs Lorentzian fitted_fwhm=57.653 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=19.4 r_squared=0.93 noise_sigma=10.5 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.105 GHz | FWHM: 27588.8 kHz | The integration weight angle: 1.901 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 2.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 90.7 mV
+ 
+18:52:54 [qolab/satdef] satdef-x8-Q2: done -- QPU 17.9 s; f_01 5104908687.2664385 detected False snr 19.446631542987536
+18:52:55 [qolab/satdef] satdef-x8-Q5: factor 1.9, played amplitude 0.08631
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:52:56,910 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:52:57] QUA program submitted to qolab (id =                 computers.py:416
+           073e7d33-3c52-4eea-9ea0-96c7eb1d76df)                                
+           Execution started                                    computers.py:455
+[18:53:17] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:53:17,059 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=16.1 (threshold 5.0), r_squared=0.92 (threshold 0.60), fitted_fwhm=60.913 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=29.238 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=29.238 MHz vs Lorentzian fitted_fwhm=60.913 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=16.1 r_squared=0.92 noise_sigma=10.9 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.100 GHz | FWHM: 29237.9 kHz | The integration weight angle: 0.452 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 2.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 101.7 mV
+ 
+18:53:17 [qolab/satdef] satdef-x8-Q5: done -- QPU 17.9 s; f_01 5100338767.368647 detected False snr 16.114940972759097
+18:53:17 [qolab/satdef] satdef-x16-Q1: factor 1.9, played amplitude 0.1726
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 28 s: 1734 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:53:19,614 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:53:20] QUA program submitted to qolab (id =                 computers.py:416
+           93e3c976-4411-4d1b-8435-51832cbfc4da)                                
+           Execution started                                    computers.py:455
+[18:53:40] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:53:40,050 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=3.3 (threshold 5.0), r_squared=0.18 (threshold 0.60), fitted_fwhm=1.573 MHz -- the reported frequency is not accepted. Continue the frequency search.; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=3.3 r_squared=0.18 noise_sigma=19.6 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.269 GHz | FWHM: 2776.9 kHz | The integration weight angle: 1.057 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 98.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 4068.6 mV
+ 
+18:53:40 [qolab/satdef] satdef-x16-Q1: done -- QPU 17.7 s; f_01 5269364324.880627 detected False snr 3.3305234720904147
+18:53:41 [qolab/satdef] satdef-x16-Q2: factor 1.9, played amplitude 0.1453
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:53:42,394 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:53:43] QUA program submitted to qolab (id =                 computers.py:416
+           a82e3dfe-eaf9-4529-8961-d9241f996e1e)                                
+           Execution started                                    computers.py:455
+[18:54:03] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 18:54:03,614 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=12.8 (threshold 5.0), r_squared=0.85 (threshold 0.60), fitted_fwhm=95.307 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=47.487 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=47.487 MHz vs Lorentzian fitted_fwhm=95.307 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=12.8 r_squared=0.85 noise_sigma=12.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.113 GHz | FWHM: 47487.2 kHz | The integration weight angle: 1.808 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 2.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 105.4 mV
+ 
+18:54:04 [qolab/satdef] satdef-x16-Q2: done -- QPU 18.0 s; f_01 5113458687.2664385 detected False snr 12.770368946922758
+18:54:04 [qolab/satdef] satdef-x16-Q5: factor 1.9, played amplitude 0.1726
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 29 s: 1734 sweep points x 300 shots x 37 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:54:07,305 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:54:08] QUA program submitted to qolab (id =                 computers.py:416
+           e5b19a04-427c-4334-9c20-b2fc3b4deb63)                                
+           Execution started                                    computers.py:455
+[18:54:27] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 18:54:27,749 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q5:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=11.5 (threshold 5.0), r_squared=0.71 (threshold 0.60), fitted_fwhm=119.799 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=19.080 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=19.080 MHz vs Lorentzian fitted_fwhm=119.799 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; power broadening detected; amplitude estimate used effective linewidth correction
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Detection: snr=11.5 r_squared=0.71 noise_sigma=13.3 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.106 GHz | FWHM: 19079.6 kHz | The integration weight angle: 0.429 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 7.5 mV | To get the desired x180 gate, the x180 amplitude is updated to: 311.7 mV
+ 
+18:54:28 [qolab/satdef] satdef-x16-Q5: done -- QPU 18.1 s; f_01 5105888767.368647 detected False snr 11.488337657117274
+18:54:28 [qolab/satdef] all levels done

@@ -1,0 +1,58 @@
+18:32:24 [arbel/sat] stored saturation amplitudes {'qB4': 1.0, 'qA5': 1.0, 'qD1': 1.0}
+18:32:24 [arbel/sat] x0.0625: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.0625: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.0625: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qD1 skipped (stored amplitude would be 1.00)
+18:32:25 [arbel/sat] satladder-x2: ['qB4', 'qA5', 'qD1'] factor 1, played amplitudes {'qB4': 0.99, 'qA5': 0.99, 'qD1': 0.99}
+18:33:19 [arbel/sat] satladder-x2: done -- QPU 25.7 s
+18:33:19 [arbel/sat]    qB4: f_01 6506130214.857716 detected True fwhm 14439280.536485426
+18:33:19 [arbel/sat]    qA5: f_01 5602322102.714844 detected True fwhm 14230623.645737864
+18:33:19 [arbel/sat]    qD1: f_01 4890695878.44061 detected False fwhm 16590962.274389084
+18:33:19 [arbel/sat] x4: qB4 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x4: qA5 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x4: qD1 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x8: qB4 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x8: qA5 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x8: qD1 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x16: qB4 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] x16: qA5 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] x16: qD1 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] all levels done
+18:34:29 [arbel/sat] stored saturation amplitudes {'qB4': 1.0, 'qA5': 1.0, 'qD1': 1.0}
+18:34:30 [arbel/sat] satladder-x0.0625: ['qB4', 'qA5', 'qD1'] factor 0.03125, played amplitudes {'qB4': 0.03125, 'qA5': 0.03125, 'qD1': 0.03125}
+18:35:22 [arbel/sat] satladder-x0.0625: done -- QPU 25.6 s
+18:35:22 [arbel/sat]    qB4: f_01 6605880214.857716 detected True fwhm 3897616.9834316685
+18:35:22 [arbel/sat]    qA5: f_01 5706322102.714844 detected True fwhm 3330909.884467133
+18:35:22 [arbel/sat]    qD1: f_01 4996945878.44061 detected True fwhm 4232836.926402192
+18:35:22 [arbel/sat] satladder-x0.125: ['qB4', 'qA5', 'qD1'] factor 0.0625, played amplitudes {'qB4': 0.0625, 'qA5': 0.0625, 'qD1': 0.0625}
+18:37:30 [arbel/sat] satladder-x0.125: done -- QPU 25.6 s
+18:37:30 [arbel/sat]    qB4: f_01 6507130214.857716 detected False fwhm 143562.31845799665
+18:37:30 [arbel/sat]    qA5: f_01 5704822102.714844 detected True fwhm 5659103.7997796815
+18:37:30 [arbel/sat]    qD1: f_01 4995195878.44061 detected True fwhm 7366199.266593356
+18:37:30 [arbel/sat] satladder-x0.25: ['qB4', 'qA5', 'qD1'] factor 0.125, played amplitudes {'qB4': 0.125, 'qA5': 0.125, 'qD1': 0.125}
+18:39:49 [arbel/sat] satladder-x0.25: done -- QPU 25.7 s
+18:39:49 [arbel/sat]    qB4: f_01 6507130214.857716 detected False fwhm 467701.9198984949
+18:39:49 [arbel/sat]    qA5: f_01 5704072102.714844 detected True fwhm 12146201.129612876
+18:39:49 [arbel/sat]    qD1: f_01 4889945878.44061 detected True fwhm 808101.3690728631
+18:39:50 [arbel/sat] satladder-x0.5: ['qB4', 'qA5', 'qD1'] factor 0.25, played amplitudes {'qB4': 0.25, 'qA5': 0.25, 'qD1': 0.25}
+18:40:25 [arbel/sat] satladder-x0.5: done -- QPU 25.7 s
+18:40:25 [arbel/sat]    qB4: f_01 6506880214.857716 detected True fwhm 1614398.5842356854
+18:40:25 [arbel/sat]    qA5: f_01 5705072102.714844 detected False fwhm 25763158.738785625
+18:40:25 [arbel/sat]    qD1: f_01 4889945878.44061 detected True fwhm 1873515.6234938807
+18:40:25 [arbel/sat] satladder-x1: ['qB4', 'qA5', 'qD1'] factor 0.5, played amplitudes {'qB4': 0.5, 'qA5': 0.5, 'qD1': 0.5}
+18:40:59 [arbel/sat] satladder-x1: done -- QPU 25.6 s
+18:40:59 [arbel/sat]    qB4: f_01 6507130214.857716 detected True fwhm 7155395.743157569
+18:40:59 [arbel/sat]    qA5: f_01 5603322102.714844 detected True fwhm 4232795.744321933
+18:40:59 [arbel/sat]    qD1: f_01 4888695878.44061 detected True fwhm 6866774.371938518
+18:40:59 [arbel/sat] all levels done

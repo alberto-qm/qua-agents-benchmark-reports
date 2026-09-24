@@ -1,0 +1,78 @@
+2026-09-24 18:32:19,265 - qm - INFO     - Starting session: 0d6822ad-6370-4ab7-a63e-ef1fe440ce12
+18:32:24 [arbel/sat] stored saturation amplitudes {'qB4': 1.0, 'qA5': 1.0, 'qD1': 1.0}
+18:32:24 [arbel/sat] x0.0625: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.0625: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.0625: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.125: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.25: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x0.5: qD1 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qB4 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qA5 skipped (stored amplitude would be 1.00)
+18:32:24 [arbel/sat] x1: qD1 skipped (stored amplitude would be 1.00)
+18:32:25 [arbel/sat] satladder-x2: ['qB4', 'qA5', 'qD1'] factor 1, played amplitudes {'qB4': 0.99, 'qA5': 0.99, 'qD1': 0.99}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 16 s: 1600 sweep points x 150 shots x 44 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 18:32:31,965 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[18:32:44] QUA program submitted to arbel (id =                 computers.py:416
+           05f17619-60db-4d3c-98a2-bbefbd627cde)                                
+[18:32:47] Execution started                                    computers.py:455
+[18:33:17] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=150/150) --> elapsed time: 0.01s
+None
+2026-09-24 18:33:17,962 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4:  PROPOSED (with warnings):
+	power broadening detected; amplitude estimate used effective linewidth correction; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=15.0 r_squared=0.67 noise_sigma=101.9 uV -> LINE DETECTED
+	Qubit frequency: 6.506 GHz | FWHM: 14439.3 kHz | The integration weight angle: 4.217 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 205.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 4487.4 mV
+ 
+Results for qubit qA5:  PROPOSED (with warnings):
+	power broadening detected; amplitude estimate used effective linewidth correction; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=17.2 r_squared=0.71 noise_sigma=275.4 uV -> LINE DETECTED
+	Qubit frequency: 5.602 GHz | FWHM: 14230.6 kHz | The integration weight angle: 3.894 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 208.7 mV | To get the desired x180 gate, the x180 amplitude is updated to: 4553.2 mV
+ 
+Results for qubit qD1:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=16.5 (threshold 5.0), r_squared=0.64 (threshold 0.60), fitted_fwhm=16.591 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=16.591 MHz is outside the plausible range (>0.750 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; power broadening detected; amplitude estimate used effective linewidth correction; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Power broadening detected; amplitude estimate used effective linewidth correction.
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=16.5 r_squared=0.64 noise_sigma=146.1 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 4.891 GHz | FWHM: 16591.0 kHz | The integration weight angle: 3.518 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 179.0 mV | To get the desired x180 gate, the x180 amplitude is updated to: 3905.5 mV
+ 
+18:33:19 [arbel/sat] satladder-x2: done -- QPU 25.7 s
+18:33:19 [arbel/sat]    qB4: f_01 6506130214.857716 detected True fwhm 14439280.536485426
+18:33:19 [arbel/sat]    qA5: f_01 5602322102.714844 detected True fwhm 14230623.645737864
+18:33:19 [arbel/sat]    qD1: f_01 4890695878.44061 detected False fwhm 16590962.274389084
+18:33:19 [arbel/sat] x4: qB4 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x4: qA5 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x4: qD1 skipped (would need 2.00 of full scale)
+18:33:19 [arbel/sat] x8: qB4 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x8: qA5 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x8: qD1 skipped (would need 4.00 of full scale)
+18:33:19 [arbel/sat] x16: qB4 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] x16: qA5 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] x16: qD1 skipped (would need 8.00 of full scale)
+18:33:19 [arbel/sat] all levels done

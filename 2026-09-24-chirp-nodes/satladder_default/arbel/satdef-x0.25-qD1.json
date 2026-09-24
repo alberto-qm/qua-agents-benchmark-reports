@@ -1,0 +1,52 @@
+{
+ "tag": "satdef-x0.25-qD1",
+ "g": 0.25,
+ "factor": 0.125,
+ "qubits": [
+  "qD1"
+ ],
+ "played_amplitude": {
+  "qD1": 0.125
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.125
+ },
+ "error": null,
+ "qpu_s": 18.25363326072693,
+ "wall_s": 38.469094541855156,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD1": {
+   "frequency": 4889595878.44061,
+   "relative_freq": -108100000.0,
+   "fwhm": 676212.977125138,
+   "iw_angle": 3.3876190070373227,
+   "saturation_amp": 4.4364720901309,
+   "x180_amp": 12.098600804002942,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 4889595878.44061,
+   "RF_frequency": 4889595878.44061,
+   "saturation_amplitude": 4.4364720901309,
+   "x180_amplitude": 12.098600804002942,
+   "x90_amplitude": 6.049300402001471,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 4867695878.44061,
+   "swept_max_freq_hz": 5127695878.44061,
+   "snr": 46.60458346047775,
+   "noise_sigma": 6.337228776367376e-05,
+   "min_detectable_amplitude": 0.0003168614388183688,
+   "r_squared": 0.9870101666178263,
+   "fitted_fwhm": 654741.6207749455,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

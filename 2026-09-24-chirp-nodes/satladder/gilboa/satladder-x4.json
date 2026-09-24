@@ -1,0 +1,116 @@
+{
+ "tag": "satladder-x4",
+ "g": 4,
+ "factor": 1.9,
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "played_amplitude": {
+  "qD2": 0.07239565572252246,
+  "qC3": 0.1,
+  "qD5": 0.1349712821329909
+ },
+ "stored_amplitude": {
+  "qD2": 0.03619782786126123,
+  "qC3": 0.05,
+  "qD5": 0.06748564106649545
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 1.9,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 33.63487720489502,
+ "wall_s": 48.20854100002907,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "frequency": 5746006906.87116,
+   "relative_freq": -5000000.0,
+   "fwhm": 3855483.241332081,
+   "iw_angle": 4.559307416966739,
+   "saturation_amp": 0.029648405383471275,
+   "x180_amp": 1.228972943280516,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5746006906.87116,
+   "RF_frequency": 5746006906.87116,
+   "saturation_amplitude": 0.029648405383471275,
+   "x180_amplitude": 1.228972943280516,
+   "x90_amplitude": 0.614486471640258,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5551006906.87116,
+   "swept_max_freq_hz": 5951006906.87116,
+   "snr": 30.463980872500926,
+   "noise_sigma": 4.79544221215942e-05,
+   "min_detectable_amplitude": 0.000239772110607971,
+   "r_squared": 0.963832580017248,
+   "fitted_fwhm": 3671963.39221112,
+   "signal_detected": true,
+   "undersampled_peak": false
+  },
+  "qC3": {
+   "frequency": 5648184148.656785,
+   "relative_freq": -500000.0,
+   "fwhm": 3564784.4965543244,
+   "iw_angle": 0.7704786557926084,
+   "saturation_amp": 0.04429292626096313,
+   "x180_amp": 1.8360113216675604,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5648184148.656785,
+   "RF_frequency": 5648184148.656785,
+   "saturation_amplitude": 0.04429292626096313,
+   "x180_amplitude": 1.8360113216675604,
+   "x90_amplitude": 0.9180056608337802,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5448684148.656785,
+   "swept_max_freq_hz": 5848684148.656785,
+   "snr": 39.743809123396886,
+   "noise_sigma": 2.6157635709320576e-05,
+   "min_detectable_amplitude": 0.00013078817854660289,
+   "r_squared": 0.9086432719989586,
+   "fitted_fwhm": 5998701.163408659,
+   "signal_detected": true,
+   "undersampled_peak": false
+  },
+  "qD5": {
+   "frequency": 5712722366.034855,
+   "relative_freq": -104250000.0,
+   "fwhm": 621479.5301590357,
+   "iw_angle": 5.634972534599612,
+   "saturation_amp": 0.342911617188367,
+   "x180_amp": 14.214224812779035,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5712722366.034855,
+   "RF_frequency": 5712722366.034855,
+   "saturation_amplitude": 0.342911617188367,
+   "x180_amplitude": 14.214224812779035,
+   "x90_amplitude": 7.1071124063895175,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=27.7 and r_squared=0.94 make this a convincing line, but fitted_fwhm=0.317 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise.",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5616972366.034855,
+   "swept_max_freq_hz": 6016972366.034855,
+   "snr": 27.74341791085897,
+   "noise_sigma": 7.667494408649547e-05,
+   "min_detectable_amplitude": 0.00038337472043247737,
+   "r_squared": 0.9374795474086272,
+   "fitted_fwhm": 316983.7141426457,
+   "signal_detected": false,
+   "undersampled_peak": true
+  }
+ }
+}

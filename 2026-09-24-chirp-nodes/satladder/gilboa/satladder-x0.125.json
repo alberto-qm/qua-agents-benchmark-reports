@@ -1,0 +1,118 @@
+{
+ "tag": "satladder-x0.125",
+ "g": 0.125,
+ "factor": 0.0625,
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "played_amplitude": {
+  "qD2": 0.002262364241328827,
+  "qC3": 0.003125,
+  "qD5": 0.0042178525666559654
+ },
+ "stored_amplitude": {
+  "qD2": 0.03619782786126123,
+  "qC3": 0.05,
+  "qD5": 0.06748564106649545
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 0.0625,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 33.70608949661255,
+ "wall_s": 48.38571320800111,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "frequency": NaN,
+   "relative_freq": NaN,
+   "fwhm": NaN,
+   "iw_angle": 3.3238225531988874,
+   "saturation_amp": NaN,
+   "x180_amp": NaN,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "saturation_amplitude": NaN,
+   "x180_amplitude": NaN,
+   "x90_amplitude": NaN,
+   "warnings": [
+    "no peak found -- fitted position is NaN",
+    "no candidate to characterise; noise floor is 36.0 uV, so a line would need >= 179.9 uV of contrast to be detected here",
+    "fwhm=nan MHz is outside the plausible range (>0.750 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5551006906.87116,
+   "swept_max_freq_hz": 5951006906.87116,
+   "snr": NaN,
+   "noise_sigma": 3.597110535835488e-05,
+   "min_detectable_amplitude": 0.0001798555267917744,
+   "r_squared": NaN,
+   "fitted_fwhm": NaN,
+   "signal_detected": false,
+   "undersampled_peak": false
+  },
+  "qC3": {
+   "frequency": 5648684148.656785,
+   "relative_freq": 0.0,
+   "fwhm": 568596.4889648858,
+   "iw_angle": 0.7860783382539083,
+   "saturation_amp": 0.2638074678812577,
+   "x180_amp": 0.3597116332716512,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5648684148.656785,
+   "RF_frequency": 5648684148.656785,
+   "saturation_amplitude": 0.2638074678812577,
+   "x180_amplitude": 0.3597116332716512,
+   "x90_amplitude": 0.1798558166358256,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=25.7 and r_squared=0.93 make this a convincing line, but fitted_fwhm=0.286 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise."
+   ],
+   "swept_min_freq_hz": 5448684148.656785,
+   "swept_max_freq_hz": 5848684148.656785,
+   "snr": 25.707835592631298,
+   "noise_sigma": 2.515466072918168e-05,
+   "min_detectable_amplitude": 0.00012577330364590842,
+   "r_squared": 0.9302725649615241,
+   "fitted_fwhm": 285649.16189237975,
+   "signal_detected": false,
+   "undersampled_peak": true
+  },
+  "qD5": {
+   "frequency": 5816972366.034855,
+   "relative_freq": 0.0,
+   "fwhm": 587914.7880010294,
+   "iw_angle": 5.985516448922894,
+   "saturation_amp": 0.34436439996323387,
+   "x180_amp": 0.4695541098447711,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5816972366.034855,
+   "RF_frequency": 5816972366.034855,
+   "saturation_amplitude": 0.34436439996323387,
+   "x180_amplitude": 0.4695541098447711,
+   "x90_amplitude": 0.23477705492238554,
+   "warnings": [
+    "UNRESOLVED BUT REAL: snr=22.0 and r_squared=0.94 make this a convincing line, but fitted_fwhm=0.432 MHz is below the 0.750 MHz needed to call a width resolved at this step. Reduce frequency_step_in_mhz and recenter frequency_center_in_mhz on this candidate -- a narrower span around it is fine. Do not keep the previous centre, do not widen, and do not treat this as noise."
+   ],
+   "swept_min_freq_hz": 5616972366.034855,
+   "swept_max_freq_hz": 6016972366.034855,
+   "snr": 22.024575982213346,
+   "noise_sigma": 6.57099684955703e-05,
+   "min_detectable_amplitude": 0.0003285498424778515,
+   "r_squared": 0.94144067693825,
+   "fitted_fwhm": 431769.60264840536,
+   "signal_detected": false,
+   "undersampled_peak": true
+  }
+ }
+}

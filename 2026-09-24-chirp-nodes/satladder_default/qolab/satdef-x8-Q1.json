@@ -1,0 +1,53 @@
+{
+ "tag": "satdef-x8-Q1",
+ "g": 8,
+ "factor": 1.9,
+ "qubits": [
+  "Q1"
+ ],
+ "played_amplitude": {
+  "Q1": 0.08631179282335054
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 1.9
+ },
+ "error": null,
+ "qpu_s": 17.6868679523468,
+ "wall_s": 22.84490891592577,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "frequency": 5267714324.880627,
+   "relative_freq": -4450000.0,
+   "fwhm": 2168431.413929636,
+   "iw_angle": 1.1371163489786298,
+   "saturation_amp": 0.06284809252747464,
+   "x180_amp": 2.605152090105883,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5267714324.880627,
+   "RF_frequency": 5267714324.880627,
+   "saturation_amplitude": 0.06284809252747464,
+   "x180_amplitude": 2.605152090105883,
+   "x90_amplitude": 1.3025760450529416,
+   "warnings": [
+    "NO LINE DETECTED: snr=3.2 (threshold 5.0), r_squared=0.16 (threshold 0.60), fitted_fwhm=1.521 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5142164324.880627,
+   "swept_max_freq_hz": 5402164324.880627,
+   "snr": 3.2102427170971657,
+   "noise_sigma": 1.909073439189064e-05,
+   "min_detectable_amplitude": 9.54536719594532e-05,
+   "r_squared": 0.15786366443329902,
+   "fitted_fwhm": 1521159.3303659495,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ }
+}

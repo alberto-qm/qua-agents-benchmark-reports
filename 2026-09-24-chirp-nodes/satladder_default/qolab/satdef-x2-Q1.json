@@ -1,0 +1,53 @@
+{
+ "tag": "satdef-x2-Q1",
+ "g": 2,
+ "factor": 1.0,
+ "qubits": [
+  "Q1"
+ ],
+ "played_amplitude": {
+  "Q1": 0.021577948205837635
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 1.0
+ },
+ "error": null,
+ "qpu_s": 17.67882013320923,
+ "wall_s": 22.74023083318025,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "frequency": 5273864324.880627,
+   "relative_freq": 1700000.0,
+   "fwhm": 10831263.047193779,
+   "iw_angle": 1.0995189554219635,
+   "saturation_amp": 0.005976573954067573,
+   "x180_amp": 0.13038861685926934,
+   "amplitude_estimate_valid": true,
+   "power_broadened": true,
+   "f_01": 5273864324.880627,
+   "RF_frequency": 5273864324.880627,
+   "saturation_amplitude": 0.005976573954067573,
+   "x180_amplitude": 0.13038861685926934,
+   "x90_amplitude": 0.06519430842963467,
+   "warnings": [
+    "NO LINE DETECTED: snr=6.4 (threshold 5.0), r_squared=0.66 (threshold 0.60), fitted_fwhm=15.278 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "power broadening detected; amplitude estimate used effective linewidth correction"
+   ],
+   "swept_min_freq_hz": 5142164324.880627,
+   "swept_max_freq_hz": 5402164324.880627,
+   "snr": 6.409467941069597,
+   "noise_sigma": 1.7128965957838374e-05,
+   "min_detectable_amplitude": 8.564482978919188e-05,
+   "r_squared": 0.6585862014009822,
+   "fitted_fwhm": 15277816.900553623,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ }
+}

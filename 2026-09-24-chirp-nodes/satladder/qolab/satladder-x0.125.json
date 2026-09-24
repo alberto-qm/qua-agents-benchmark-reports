@@ -1,0 +1,115 @@
+{
+ "tag": "satladder-x0.125",
+ "g": 0.125,
+ "factor": 0.0625,
+ "qubits": [
+  "Q1",
+  "Q2",
+  "Q5"
+ ],
+ "played_amplitude": {
+  "Q1": 0.0013486217628648522,
+  "Q2": 0.0011348621762864851,
+  "Q5": 0.0013486217628648522
+ },
+ "stored_amplitude": {
+  "Q1": 0.021577948205837635,
+  "Q2": 0.018157794820583762,
+  "Q5": 0.021577948205837635
+ },
+ "params": {
+  "frequency_span_in_mhz": 400.0,
+  "frequency_step_in_mhz": 0.25,
+  "num_shots": 150,
+  "operation_len_in_ns": 20000,
+  "operation_amplitude_factor": 0.0625,
+  "multiplexed": false
+ },
+ "error": null,
+ "qpu_s": 25.009777784347534,
+ "wall_s": 33.122112708864734,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "frequency": 5272164324.880627,
+   "relative_freq": 0.0,
+   "fwhm": 685593.0816585385,
+   "iw_angle": 1.1794459164596631,
+   "saturation_amp": 0.09442021273160071,
+   "x180_amp": 0.12874559317186726,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5272164324.880627,
+   "RF_frequency": 5272164324.880627,
+   "saturation_amplitude": 0.09442021273160071,
+   "x180_amplitude": 0.12874559317186726,
+   "x90_amplitude": 0.06437279658593363,
+   "warnings": [
+    "NO LINE DETECTED: snr=6.9 (threshold 5.0), r_squared=0.55 (threshold 0.60), fitted_fwhm=0.286 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "fwhm=0.686 MHz is outside the plausible range (>0.750 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate",
+    "width estimates disagree: peak-finder fwhm=0.686 MHz vs Lorentzian fitted_fwhm=0.286 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable"
+   ],
+   "swept_min_freq_hz": 5072164324.880627,
+   "swept_max_freq_hz": 5472164324.880627,
+   "snr": 6.894658258688539,
+   "noise_sigma": 2.3669206372537277e-05,
+   "min_detectable_amplitude": 0.0001183460318626864,
+   "r_squared": 0.5481140837247017,
+   "fitted_fwhm": 286283.74800281576,
+   "signal_detected": false,
+   "undersampled_peak": false
+  },
+  "Q2": {
+   "frequency": 5105908687.2664385,
+   "relative_freq": 0.0,
+   "fwhm": 1623766.2528687906,
+   "iw_angle": 2.0170452096780167,
+   "saturation_amp": 0.03354755302095384,
+   "x180_amp": 0.04574337939086051,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5105908687.2664385,
+   "RF_frequency": 5105908687.2664385,
+   "saturation_amplitude": 0.03354755302095384,
+   "x180_amplitude": 0.04574337939086051,
+   "x90_amplitude": 0.022871689695430256,
+   "warnings": [
+    "width estimates disagree: peak-finder fwhm=1.624 MHz vs Lorentzian fitted_fwhm=0.791 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable"
+   ],
+   "swept_min_freq_hz": 4905908687.2664385,
+   "swept_max_freq_hz": 5305908687.2664385,
+   "snr": 9.691895904457116,
+   "noise_sigma": 1.3560646274634186e-05,
+   "min_detectable_amplitude": 6.780323137317094e-05,
+   "r_squared": 0.7160368659395068,
+   "fitted_fwhm": 791461.3629542914,
+   "signal_detected": true,
+   "undersampled_peak": false
+  },
+  "Q5": {
+   "frequency": 5096288767.368647,
+   "relative_freq": -250000.0,
+   "fwhm": 1293315.7894938176,
+   "iw_angle": 0.4321969973855033,
+   "saturation_amp": 0.05005262066958036,
+   "x180_amp": 0.0682486742137458,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5096288767.368647,
+   "RF_frequency": 5096288767.368647,
+   "saturation_amplitude": 0.05005262066958036,
+   "x180_amplitude": 0.0682486742137458,
+   "x90_amplitude": 0.0341243371068729,
+   "warnings": [],
+   "swept_min_freq_hz": 4896538767.368647,
+   "swept_max_freq_hz": 5296538767.368647,
+   "snr": 13.32072523396552,
+   "noise_sigma": 1.1518289564576222e-05,
+   "min_detectable_amplitude": 5.759144782288111e-05,
+   "r_squared": 0.9019247994153421,
+   "fitted_fwhm": 1295249.0345089168,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ }
+}

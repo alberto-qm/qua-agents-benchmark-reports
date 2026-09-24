@@ -24,15 +24,19 @@ OUT = HERE / "2026-09-24-chirp-spectroscopy-nodes.html"
 TITLE = "Chirp spectroscopy nodes"
 QUBITS = {"arbel": ["qB4", "qA5", "qD1"], "qolab": ["Q1", "Q2", "Q5"], "gilboa": ["qD2", "qC3", "qD5"]}
 BRANCH = "feat/chirp-spectroscopy"
-COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c"}
+COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c", "flat": "7dc6187", "grey": "11f0670"}
 
 
 def sync():
     DATA.mkdir(exist_ok=True)
-    for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures"):
+    for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures", "shortT1",
+                "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
+                "satladder/arbel", "satladder/qolab", "satladder/gilboa"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out"):
+                if sub.startswith("satladder/") and f.suffix == ".nc":
+                    continue  # the superseded 150-shot ladder: fit results and logs only
                 shutil.copy(f, DATA / sub / f.name)
     for f in RUNS.glob("*"):
         if f.is_file() and f.suffix in (".py", ".sh", ".png", ".out", ".log"):
@@ -243,6 +247,40 @@ def build() -> str:
     n_rep = sum(tot.values()) + sum(tot_b.values())
     n_wrong = tot["wrong"] + tot_b["wrong"]
 
+    # --- saturation replays -------------------------------------------------------------------
+    rs = json.loads((DATA / "replay/replays_sat.json").read_text())
+    LONG = ["arbel/qB4", "arbel/qA5", "arbel/qD1", "qolab/Q1", "qolab/Q2", "qolab/Q5", "gilboa/qD5"]
+    SHORTQ = ["gilboa/qD2", "gilboa/qC3"]
+
+    def tally(keys, chirp, inside=False, drive=None):
+        c = collections.Counter()
+        for k in keys:
+            cells = rep[k]["03a"]["grid"] if chirp else rs[k]["grid"]["100"]
+            for x in cells:
+                if inside and abs(x["F"]) > 45e6:
+                    continue
+                if drive and not (drive[0] <= x["m"] <= drive[1]):
+                    continue
+                c[x["outcome"]] += 1
+        n = sum(c.values())
+        parts = [f'{num(100 * c[k] / n, "{:.0f}")} % {k}' for k in ("pass", "imprecise", "wrong", "refused") if c[k]]
+        return ", ".join(parts), n, c
+
+    sat_rows = []
+    for label, keys, kw in (("7 with T1 ≥ 11 µs", LONG, {}),
+                            ("same, line inside saturation's window, drive ×1/4…×2", LONG, dict(inside=True, drive=(-2, 1))),
+                            ("gilboa qD2, qC3 (T1 1.3, 1.8 µs)", SHORTQ, {}),
+                            ("same, line inside saturation's window", SHORTQ, dict(inside=True))):
+        ch, nc, _ = tally(keys, True, **kw)
+        sa, ns, _ = tally(keys, False, **kw)
+        sat_rows.append([label, f"{nc} / {ns}", ch, sa])
+    sat_wrong_long = tally(LONG, False)[2]["wrong"]
+    sat_recs = [json.loads(p.read_text()) for p in (DATA / "satladder_default").glob("*/satdef-*.json")]
+    sat_jobs, sat_qpu = len(sat_recs), sum(r["qpu_s"] for r in sat_recs)
+    old_recs = [json.loads(p.read_text()) for p in (DATA / "satladder").glob("*/satladder-*.json")]
+    old_jobs, old_qpu = len(old_recs), sum(r["qpu_s"] for r in old_recs)
+    st1 = json.loads((DATA / "shortT1/shortT1_variants.json").read_text())
+
     # --- QPU ----------------------------------------------------------------------------------
     qpu_rows = []
     all_qpu = []
@@ -289,7 +327,9 @@ qubit line over ±120 MHz at seven drive strengths, and <b>03b chirp</b> maps th
 the drive by 5 µs. On nine qubits of three IQCC chips both nodes ran inside the 60 s job cap, and across {n_rep:,} offline
 replays over wrong frequencies, wrong drive calibrations and wrong idle points they gave <b>{n_wrong} wrong answers</b>. The test
 also found where the chirp stops working (T1 below ~5 µs) and one way 03a could be fooled by a two-photon line; both are
-now refused by the nodes rather than answered. The fix to node 03b's pulse timing was tested on the same day.</p>
+now refused by the nodes rather than answered. Replayed the same way, the saturation node answered a fifth of the grid on the
+long-T1 qubits and picked the 0→2 line in 4 % of it; it is the better tool only below T1 ≈ 5 µs. The fix to node 03b's pulse timing
+was tested on the same day.</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{n_wrong} / {n_rep:,}</div><div class="k">replays that proposed a wrong line or sweet spot (the rest passed or refused)</div></div>
@@ -346,22 +386,48 @@ right line within 1 MHz, or the sweet spot within 3σ and 0.5 mV — 1 mV on qol
 <p class="small muted">03b replays: the idle point off by up to ±1.3× the 20 MHz offset (±57 mV on arbel and gilboa, ±115–130 mV on qolab)
 and the stored f₀₁ off by up to ±10 MHz. On the five qubits with an arc every replay passed; arbel qD1 has no arc in any map (§5),
 gilboa qD2/qC3 are refused. "Lone 0→2 line": windows 130–160 MHz below f₀₁ that hold only the two-photon line.</p>
-<h3>Why so many refusals, and would saturation do better?</h3>
-<p>Three causes, one per grey region of the grid:</p>
+<h3>Why the refusals</h3>
+<p>What is left grey in the grid has two causes:</p>
 <ul class="tight">
 <li><b>Drive ≤ 1/8 of the x180 prediction (bottom rows).</b> The 0→1 line appears only at the top levels and its 0→2 partner never
 does, so it looks exactly like the 0→2 line of a qubit above the window seen at a correct drive — the case that fooled 03a on qB4
-(§5). The lone-line check refuses both. Before that check these replays passed; three more drive levels recover 40 of 66 on arbel and
-gilboa and 12–20 of 66 on qolab; a confirmation scan α/2 above a refused lone line would settle every case with one extra job.</li>
-<li><b>Drive ≥ 4× the prediction with the window shifted up (top-right patches).</b> The line is already full-height at the lowest
-level, so its growth exponent cannot be measured, and the 0→2 partner has left the bottom of the window. Extending the window
-down to −200 MHz (+33 % QPU) removed every such refusal where the wide maps allow the test (qolab Q2 14 → 0, Q5 6 → 0).</li>
+(§5). The lone-line check refuses both. Three more drive levels recover 40 of 66 on arbel and gilboa and 12–20 of 66 on qolab; a
+confirmation scan α/2 above a refused lone line would settle every case with one extra job (§5).</li>
 <li><b>T1 below ~5 µs (gilboa qD2, qC3).</b> The short-sweep guard (§5).</li>
 </ul>
-<p><b>Saturation would answer in the first two cases</b> — at a weak drive it sees only the 0→1 line, so its answer would be right. But
-it gives the same kind of answer when its window holds only a 0→2 line, and nothing in a single saturation trace says which case
-it is in: that is how the night-4 arbel runs committed qB4's 0→2 line. The chirp refuses exactly where the data cannot tell the two
-apart. In the third case saturation is simply better: its map found qC3's sweet spot, the chirp's did not.</p>
+<p>A third region, at 4–16× the predicted drive with the stored f₀₁ too low, is gone since commit
+<span class="mono">{COMMITS['flat']}</span>. There the line is at full height from the weakest level, so there is no rise to fit a
+growth exponent to; fitted anyway it came out 7.9 on qolab Q2 (refused as a possible two-photon line) and undefined on Q1 (passed).
+The exponent is now undefined without a rise, and the drive check decides: a 0→1 line saturated at the weakest level needs ~8× the
+predicted drive, a lone 0→2 line ~64×. That took the replays from 1,485 to 1,617 passes of 2,079 on the seven qubits with long T1,
+with no wrong answer and all 28 lone two-photon windows still refused.</p>
+
+<h2>3b · The same replay for saturation</h2>
+<p>The saturation node (03a, unchanged) was measured the same way: at nine drives from 1/16 to 16 times its default (half the stored
+saturation amplitude) over ±130 MHz, at its own 0.15 MHz step and 300 shots, one qubit per job ({sat_jobs} jobs, {sat_qpu:.0f} s of
+QPU). Its own analysis then ran on the crop each scrambled run would see, in its default ±50 MHz window, graded against the fine
+saturation scans (qolab Q1, whose fine scan the node rejected, against the chirp; gilboa qD2, with no line found today, against the
+23 Sep value). On arbel the stored saturation amplitude is already 1.0, so drives above ×2 are beyond full scale.</p>
+{table(["qubits", "replays", "chirp 03a", "saturation 03a"], sat_rows)}
+<ul class="tight">
+<li><b>Saturation refuses most of the grid</b>, and not only where its narrower window misses the line. Driven hard, the line
+broadens past the node's 15 MHz limit — arbel's default is already 21–28 MHz Rabi; on qolab and gilboa this happens from ×4.
+Driven weakly, the line is narrower than three steps (the node asks for a finer rescan) or under its SNR threshold. On qolab Q1 it
+stayed at SNR 3–6 at every drive, while the chirp, which waits 5×T1 between shots, saw full contrast on the same qubit; the
+saturation node does not wait for the qubit to relax.</li>
+<li><b>Its wrong answers are the 0→2 line.</b> {sat_wrong_long} of them on the long-T1 qubits, nearly all on arbel with the stored
+f₀₁ ≥55 MHz low, where the ±50 MHz window holds the narrow 0→2 line but not the power-broadened 0→1 line: offsets of −99, −103 and
+−107 MHz, α/2 — the night-4 failure, reproduced. The chirp gave none.</li>
+<li><b>At short T1 saturation answers where the chirp does not</b>: on gilboa qC3 and qD2 it passes 58 % of the replays that have the
+line in its window. qD2's 35 wrong answers come at ×8–×16 and are graded against the 23 Sep frequency.</li>
+</ul>
+{"".join(img(f"compare_capture_{be}.png", f"{be}: replay outcomes, chirp (left) and saturation (right). The drive axes differ: the chirp's is relative to the x180 prediction, saturation's to its own default, whose Rabi frequency is noted per qubit.", f"capture comparison {be}") for be in QUBITS)}
+<details><summary>The raw responses behind the grids (3 figures)</summary>
+{"".join(img(f"compare_ladder_{be}.png", f"{be}: the chirp's wide ladder (left) and the saturation ladder (right), signal against frequency, one row per drive. Red dotted: f₀₁; orange dotted: the 0→2 line.", f"ladder comparison {be}") for be in QUBITS)}
+</details>
+<p class="small muted">A first saturation ladder at 150 shots and 0.25 MHz steps ({old_jobs} jobs, {old_qpu:.0f} s of QPU) was replaced by this
+one: at a 0.25 MHz step the node rejects lines narrower than 0.75 MHz as undersampled, and at half its shots many lines fell just
+under its SNR threshold. Its fit results and logs are kept in <span class="mono">satladder/</span>.</p>
 
 <h2>4 · Chirped against saturation maps</h2>
 {img("sweetspots.png", "Sweet spot and apex frequency of the chirped map (start and end of the session) minus the saturation map taken between them, per qubit. arbel qB4/qA5 and gilboa qD5 agree to 0.25 mV or better; the apex frequencies within ±0.3 MHz.", "Chirp minus saturation sweet spots and apex frequencies")}
@@ -401,6 +467,33 @@ sweet spot; a map around the real one needs a wider, finer flux scan.</li>
 box top tilting with T1 decay during an up-sweep. Alternating up and down sweeps would cancel it; not done.</li>
 </ul></div>
 
+<h3>Short T1: a wider band and a hyperbolic-secant pulse</h3>
+<p>On gilboa qD2 and qC3 one job ({st1['qpu_s']:.0f} s of QPU) compared, at the node's sweep length (T1/5) and five drives, the node's
+20 MHz linear sweep with an 80 MHz linear sweep (sweep × band 21–29 MHz·µs) and a hyperbolic-secant pulse whose frequency follows a
+tanh over 40 MHz, written into the I/Q samples so the drive rises only while the frequency is still far from the line.</p>
+{img("shortT1_variants.png", "Excited population against band centre at five drives. Dotted: the line from saturation (qC3) and from 23 Sep (qD2).", "short-T1 chirp variants on qD2 and qC3")}
+<p>Both variants give real boxes — full height from ~11 MHz Rabi on qD2, where the node's pulse gives a narrow peak and, from 11 MHz
+Rabi, a spurious response 25–30 MHz above the line — and the hyperbolic secant gives the cleanest: a flat box with no spurious line,
+the 0→2 line small until ~22 MHz Rabi. But none is accurate: at useful drives the box centres read 1–3 MHz high (qD2 −3.8 ± 0.3 MHz
+against −4.75; qC3 +2.1…+2.6 against −0.1), more at stronger drive, with the boxes lopsided toward higher band centres. That points
+at the sweep direction; alternating up- and down-sweeps would test it. Below T1 ≈ 5 µs saturation stays the better tool: its fine
+scan put qC3's line at the right place with a 0.6 MHz width.</p>
+
+<h3>Telling the 0→1 line from the 0→2 line</h3>
+<p>03a decides in three steps. When both lines are in the window, the one that appears at the lowest drive is 0→1 and a later one
+40–250 MHz below it is its 0→2 partner — robust, and it decided every such case. For a lone line it falls back on how the line grows
+with drive: the growth exponent (fragile: two or three points in the rise with ×2 steps) and the Rabi rate against the x180 (a wide
+margin, 0.93–1.19 for real lines against 0.001–0.05 for lone 0→2 lines, but only as good as the x180). Two better tests:</p>
+<ul class="tight">
+<li><b>Look for the partner.</b> For a lone line, scan 40–250 MHz above it: a line there that appears at a lower drive means the first
+was the 0→2 line. One extra job, only when needed, no calibration involved. A window reaching further below f₀₁ (−200 MHz) also makes
+the partner visible more often.</li>
+<li><b>Where the box lands in the IQ plane.</b> A chirp through the 0→2 line leaves |2⟩, which the readout places elsewhere than |1⟩.
+On all seven qubits where both lines appear, the 0→2 box points 6–24° away from the 0→1 box, always on the same side, while the 0→1
+direction holds to 2–6° across drives. Against an x180 reference this labels a lone line in one measurement — clear on arbel and
+gilboa (13–24°), marginal on qolab Q2 and Q5 (6°).</li>
+</ul>
+
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the
 flux step under it ran for 80 µs. The fork fixed that on 19 Sep and reverted it on 20 Sep because two gilboa maps came out in absolute
@@ -434,8 +527,11 @@ of the nodes' default cost.</p>
 <h2>8 · Open</h2>
 <ol class="recs">
 <li>Agents have not used the nodes yet; the recipes are written but untested in a campaign.</li>
-<li>Short-T1 qubits need the saturation fallback in 03a (the old node) and 03b (<span class="mono">pulse='saturation'</span>); a wider band
-for short sweeps (sweep × band ≥ 20 MHz·µs) might extend the chirp to T1 ~2 µs, untested.</li>
+<li>Short-T1 qubits need the saturation fallback in 03a (the old node) and 03b (<span class="mono">pulse='saturation'</span>). A wider
+band or a hyperbolic-secant pulse gives clean boxes at T1 1.3–1.8 µs but reads 1–3 MHz high; alternating sweep directions is the next
+test.</li>
+<li>For a lone line, replace the growth fit with a partner scan 40–250 MHz above it, and use the box's IQ direction against an x180
+reference as a second check; extend the window down to −200 MHz.</li>
 <li>The −0.2 MHz frequency bias: alternate sweep directions.</li>
 <li>arbel qD1's operating point: map it with a finer, wider flux scan.</li>
 <li>qolab's stored anharmonicities (215.5 MHz) are placeholders; the chirp measured 297–300 MHz.</li>

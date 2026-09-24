@@ -1,0 +1,47 @@
+18:32:24 [gilboa/sat] stored saturation amplitudes {'qD2': 0.03619782786126123, 'qC3': 0.05, 'qD5': 0.06748564106649545}
+18:32:25 [gilboa/sat] satladder-x0.0625: ['qD2', 'qC3', 'qD5'] factor 0.03125, played amplitudes {'qD2': 0.0011311821206644135, 'qC3': 0.0015625, 'qD5': 0.0021089262833279827}
+18:33:21 [gilboa/sat] satladder-x0.0625: done -- QPU 34.3 s
+18:33:21 [gilboa/sat]    qD2: f_01 nan detected False fwhm nan
+18:33:21 [gilboa/sat]    qC3: f_01 5648684148.656785 detected False fwhm 73931.4840103249
+18:33:21 [gilboa/sat]    qD5: f_01 5816972366.034855 detected False fwhm 62500.00000000011
+18:33:22 [gilboa/sat] satladder-x0.125: ['qD2', 'qC3', 'qD5'] factor 0.0625, played amplitudes {'qD2': 0.002262364241328827, 'qC3': 0.003125, 'qD5': 0.0042178525666559654}
+18:34:10 [gilboa/sat] satladder-x0.125: done -- QPU 33.7 s
+18:34:10 [gilboa/sat]    qD2: f_01 nan detected False fwhm nan
+18:34:10 [gilboa/sat]    qC3: f_01 5648684148.656785 detected False fwhm 285649.16189237975
+18:34:10 [gilboa/sat]    qD5: f_01 5816972366.034855 detected False fwhm 431769.60264840536
+18:34:11 [gilboa/sat] satladder-x0.25: ['qD2', 'qC3', 'qD5'] factor 0.125, played amplitudes {'qD2': 0.004524728482657654, 'qC3': 0.00625, 'qD5': 0.008435705133311931}
+18:34:57 [gilboa/sat] satladder-x0.25: done -- QPU 33.6 s
+18:34:57 [gilboa/sat]    qD2: f_01 5746256906.87116 detected False fwhm 1298944.2783952493
+18:34:57 [gilboa/sat]    qC3: f_01 5648684148.656785 detected False fwhm 405896.85877358465
+18:34:57 [gilboa/sat]    qD5: f_01 5817222366.034855 detected False fwhm 612588.1062707226
+18:34:58 [gilboa/sat] satladder-x0.5: ['qD2', 'qC3', 'qD5'] factor 0.25, played amplitudes {'qD2': 0.009049456965315308, 'qC3': 0.0125, 'qD5': 0.016871410266623862}
+18:35:38 [gilboa/sat] satladder-x0.5: done -- QPU 33.6 s
+18:35:38 [gilboa/sat]    qD2: f_01 5746256906.87116 detected False fwhm 419621.6658268369
+18:35:38 [gilboa/sat]    qC3: f_01 5648684148.656785 detected True fwhm 1129378.856317481
+18:35:38 [gilboa/sat]    qD5: f_01 5816972366.034855 detected True fwhm 1203975.7047780433
+18:35:39 [gilboa/sat] satladder-x1: ['qD2', 'qC3', 'qD5'] factor 0.5, played amplitudes {'qD2': 0.018098913930630615, 'qC3': 0.025, 'qD5': 0.033742820533247724}
+18:36:19 [gilboa/sat] satladder-x1: done -- QPU 33.6 s
+18:36:19 [gilboa/sat]    qD2: f_01 5746256906.87116 detected True fwhm 1750507.5063010436
+18:36:19 [gilboa/sat]    qC3: f_01 5648934148.656785 detected True fwhm 1189072.681308471
+18:36:19 [gilboa/sat]    qD5: f_01 5816722366.034855 detected True fwhm 3821658.4296887675
+18:36:19 [gilboa/sat] satladder-x2: ['qD2', 'qC3', 'qD5'] factor 1, played amplitudes {'qD2': 0.03619782786126123, 'qC3': 0.05, 'qD5': 0.06748564106649545}
+18:37:00 [gilboa/sat] satladder-x2: done -- QPU 33.6 s
+18:37:00 [gilboa/sat]    qD2: f_01 5745756906.87116 detected False fwhm 1939677.2484438713
+18:37:00 [gilboa/sat]    qC3: f_01 5648184148.656785 detected True fwhm 3449667.9245538455
+18:37:00 [gilboa/sat]    qD5: f_01 5817472366.034855 detected True fwhm 6943300.262161745
+18:37:01 [gilboa/sat] satladder-x4: ['qD2', 'qC3', 'qD5'] factor 1.9, played amplitudes {'qD2': 0.07239565572252246, 'qC3': 0.1, 'qD5': 0.1349712821329909}
+18:37:49 [gilboa/sat] satladder-x4: done -- QPU 33.6 s
+18:37:49 [gilboa/sat]    qD2: f_01 5746006906.87116 detected True fwhm 3671963.39221112
+18:37:49 [gilboa/sat]    qC3: f_01 5648184148.656785 detected True fwhm 5998701.163408659
+18:37:49 [gilboa/sat]    qD5: f_01 5712722366.034855 detected False fwhm 316983.7141426457
+18:37:50 [gilboa/sat] satladder-x8: ['qD2', 'qC3', 'qD5'] factor 1.9, played amplitudes {'qD2': 0.14479131144504492, 'qC3': 0.2, 'qD5': 0.2699425642659818}
+18:38:50 [gilboa/sat] satladder-x8: done -- QPU 33.6 s
+18:38:50 [gilboa/sat]    qD2: f_01 5655006906.87116 detected False fwhm 172054.9364639325
+18:38:50 [gilboa/sat]    qC3: f_01 5649184148.656785 detected True fwhm 9814383.221945394
+18:38:50 [gilboa/sat]    qD5: f_01 5712722366.034855 detected True fwhm 1331385.1960406043
+18:38:50 [gilboa/sat] satladder-x16: ['qD2', 'qC3', 'qD5'] factor 1.9, played amplitudes {'qD2': 0.28958262289008985, 'qC3': 0.4, 'qD5': 0.5398851285319636}
+18:39:33 [gilboa/sat] satladder-x16: done -- QPU 33.6 s
+18:39:33 [gilboa/sat]    qD2: f_01 5655006906.87116 detected True fwhm 1164052.2848296466
+18:39:33 [gilboa/sat]    qC3: f_01 5543184148.656785 detected True fwhm 1319295.317512169
+18:39:33 [gilboa/sat]    qD5: f_01 5712222366.034855 detected True fwhm 5513793.952173657
+18:39:33 [gilboa/sat] all levels done

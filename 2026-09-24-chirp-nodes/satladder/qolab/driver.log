@@ -1,0 +1,47 @@
+18:32:24 [qolab/sat] stored saturation amplitudes {'Q1': 0.021577948205837635, 'Q2': 0.018157794820583762, 'Q5': 0.021577948205837635}
+18:32:25 [qolab/sat] satladder-x0.0625: ['Q1', 'Q2', 'Q5'] factor 0.03125, played amplitudes {'Q1': 0.0006743108814324261, 'Q2': 0.0005674310881432426, 'Q5': 0.0006743108814324261}
+18:33:11 [qolab/sat] satladder-x0.0625: done -- QPU 24.8 s
+18:33:11 [qolab/sat]    Q1: f_01 5100664324.880627 detected False fwhm 2493840.6974534714
+18:33:11 [qolab/sat]    Q2: f_01 5105908687.2664385 detected False fwhm 635519.5695760208
+18:33:11 [qolab/sat]    Q5: f_01 5096538767.368647 detected False fwhm 347941.48040321225
+18:33:12 [qolab/sat] satladder-x0.125: ['Q1', 'Q2', 'Q5'] factor 0.0625, played amplitudes {'Q1': 0.0013486217628648522, 'Q2': 0.0011348621762864851, 'Q5': 0.0013486217628648522}
+18:33:45 [qolab/sat] satladder-x0.125: done -- QPU 25.0 s
+18:33:45 [qolab/sat]    Q1: f_01 5272164324.880627 detected False fwhm 286283.74800281576
+18:33:45 [qolab/sat]    Q2: f_01 5105908687.2664385 detected True fwhm 791461.3629542914
+18:33:45 [qolab/sat]    Q5: f_01 5096288767.368647 detected True fwhm 1295249.0345089168
+18:33:45 [qolab/sat] satladder-x0.25: ['Q1', 'Q2', 'Q5'] factor 0.125, played amplitudes {'Q1': 0.0026972435257297043, 'Q2': 0.0022697243525729703, 'Q5': 0.0026972435257297043}
+18:34:21 [qolab/sat] satladder-x0.25: done -- QPU 24.8 s
+18:34:21 [qolab/sat]    Q1: f_01 5376164324.880627 detected False fwhm 62500.000007401766
+18:34:21 [qolab/sat]    Q2: f_01 5105658687.2664385 detected True fwhm 1740975.7518650854
+18:34:21 [qolab/sat]    Q5: f_01 5096038767.368647 detected True fwhm 2680159.827927518
+18:34:21 [qolab/sat] satladder-x0.5: ['Q1', 'Q2', 'Q5'] factor 0.25, played amplitudes {'Q1': 0.005394487051459409, 'Q2': 0.0045394487051459405, 'Q5': 0.005394487051459409}
+18:34:57 [qolab/sat] satladder-x0.5: done -- QPU 24.8 s
+18:34:57 [qolab/sat]    Q1: f_01 5381164324.880627 detected False fwhm 62500.000114627655
+18:34:57 [qolab/sat]    Q2: f_01 5106408687.2664385 detected True fwhm 2520948.344759608
+18:34:57 [qolab/sat]    Q5: f_01 5097038767.368647 detected True fwhm 3378383.9466211563
+18:34:57 [qolab/sat] satladder-x1: ['Q1', 'Q2', 'Q5'] factor 0.5, played amplitudes {'Q1': 0.010788974102918817, 'Q2': 0.009078897410291881, 'Q5': 0.010788974102918817}
+18:35:29 [qolab/sat] satladder-x1: done -- QPU 24.8 s
+18:35:29 [qolab/sat]    Q1: f_01 5264664324.880627 detected False fwhm 3104116.9863105156
+18:35:29 [qolab/sat]    Q2: f_01 5106408687.2664385 detected False fwhm 5039078.864281544
+18:35:29 [qolab/sat]    Q5: f_01 5096288767.368647 detected True fwhm 7443476.399726248
+18:35:29 [qolab/sat] satladder-x2: ['Q1', 'Q2', 'Q5'] factor 1, played amplitudes {'Q1': 0.021577948205837635, 'Q2': 0.018157794820583762, 'Q5': 0.021577948205837635}
+18:36:00 [qolab/sat] satladder-x2: done -- QPU 24.8 s
+18:36:00 [qolab/sat]    Q1: f_01 5124414324.880627 detected False fwhm 62500.0000012627
+18:36:00 [qolab/sat]    Q2: f_01 5111658687.2664385 detected False fwhm 606665.404487692
+18:36:00 [qolab/sat]    Q5: f_01 5095538767.368647 detected True fwhm 12286638.669640977
+18:36:01 [qolab/sat] satladder-x4: ['Q1', 'Q2', 'Q5'] factor 1.9, played amplitudes {'Q1': 0.04315589641167527, 'Q2': 0.036315589641167524, 'Q5': 0.04315589641167527}
+18:36:34 [qolab/sat] satladder-x4: done -- QPU 24.8 s
+18:36:34 [qolab/sat]    Q1: f_01 5124414324.880627 detected False fwhm 1136404.235335417
+18:36:34 [qolab/sat]    Q2: f_01 5057658687.2664385 detected False fwhm 325692.9567549336
+18:36:34 [qolab/sat]    Q5: f_01 4948288767.368647 detected True fwhm 1203318.193895218
+18:36:34 [qolab/sat] satladder-x8: ['Q1', 'Q2', 'Q5'] factor 1.9, played amplitudes {'Q1': 0.08631179282335054, 'Q2': 0.07263117928233505, 'Q5': 0.08631179282335054}
+18:37:09 [qolab/sat] satladder-x8: done -- QPU 24.8 s
+18:37:09 [qolab/sat]    Q1: f_01 5124914324.880627 detected False fwhm 3270855.244796614
+18:37:09 [qolab/sat]    Q2: f_01 5106158687.2664385 detected False fwhm 42543141.043389924
+18:37:09 [qolab/sat]    Q5: f_01 4948288767.368647 detected True fwhm 3195051.9204136967
+18:37:10 [qolab/sat] satladder-x16: ['Q1', 'Q2', 'Q5'] factor 1.9, played amplitudes {'Q1': 0.17262358564670108, 'Q2': 0.1452623585646701, 'Q5': 0.17262358564670108}
+18:37:43 [qolab/sat] satladder-x16: done -- QPU 24.8 s
+18:37:43 [qolab/sat]    Q1: f_01 5272914324.880627 detected False fwhm 577331.5498375047
+18:37:43 [qolab/sat]    Q2: f_01 4957908687.2664385 detected True fwhm 10064076.005976845
+18:37:43 [qolab/sat]    Q5: f_01 4946538767.368647 detected False fwhm 17758866.369353585
+18:37:43 [qolab/sat] all levels done

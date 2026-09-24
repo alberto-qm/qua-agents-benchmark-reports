@@ -1,0 +1,56 @@
+18:43:47 [qolab/satdef] stored saturation amplitudes {'Q1': 0.021577948205837635, 'Q2': 0.018157794820583762, 'Q5': 0.021577948205837635}; levels [0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8, 16]
+18:43:47 [qolab/satdef] satdef-x0.0625-Q1: factor 0.03125, played amplitude 0.0006743
+18:44:14 [qolab/satdef] satdef-x0.0625-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 43.5621174889833
+18:44:15 [qolab/satdef] satdef-x0.0625-Q2: factor 0.03125, played amplitude 0.0005674
+18:44:37 [qolab/satdef] satdef-x0.0625-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected False snr 12.948877488660976
+18:44:37 [qolab/satdef] satdef-x0.0625-Q5: factor 0.03125, played amplitude 0.0006743
+18:45:03 [qolab/satdef] satdef-x0.0625-Q5: done -- QPU 18.0 s; f_01 5096588767.368647 detected False snr 25.268248264609877
+18:45:03 [qolab/satdef] satdef-x0.125-Q1: factor 0.0625, played amplitude 0.001349
+18:45:27 [qolab/satdef] satdef-x0.125-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 4.371964527721608
+18:45:28 [qolab/satdef] satdef-x0.125-Q2: factor 0.0625, played amplitude 0.001135
+18:45:52 [qolab/satdef] satdef-x0.125-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected True snr 10.882625549949559
+18:45:52 [qolab/satdef] satdef-x0.125-Q5: factor 0.0625, played amplitude 0.001349
+18:46:17 [qolab/satdef] satdef-x0.125-Q5: done -- QPU 18.0 s; f_01 5096288767.368647 detected True snr 20.14135218750189
+18:46:17 [qolab/satdef] satdef-x0.25-Q1: factor 0.125, played amplitude 0.002697
+18:46:44 [qolab/satdef] satdef-x0.25-Q1: done -- QPU 17.7 s; f_01 5272214324.880627 detected False snr 4.935513470467056
+18:46:44 [qolab/satdef] satdef-x0.25-Q2: factor 0.125, played amplitude 0.00227
+18:47:07 [qolab/satdef] satdef-x0.25-Q2: done -- QPU 17.9 s; f_01 5105808687.2664385 detected True snr 23.57853716247988
+18:47:07 [qolab/satdef] satdef-x0.25-Q5: factor 0.125, played amplitude 0.002697
+18:47:30 [qolab/satdef] satdef-x0.25-Q5: done -- QPU 18.0 s; f_01 5096438767.368647 detected True snr 19.020736172226147
+18:47:30 [qolab/satdef] satdef-x0.5-Q1: factor 0.25, played amplitude 0.005394
+18:47:53 [qolab/satdef] satdef-x0.5-Q1: done -- QPU 17.7 s; f_01 5272364324.880627 detected False snr 4.493376513522412
+18:47:54 [qolab/satdef] satdef-x0.5-Q2: factor 0.25, played amplitude 0.004539
+18:48:17 [qolab/satdef] satdef-x0.5-Q2: done -- QPU 18.0 s; f_01 5105358687.2664385 detected True snr 28.78875700432147
+18:48:17 [qolab/satdef] satdef-x0.5-Q5: factor 0.25, played amplitude 0.005394
+18:48:39 [qolab/satdef] satdef-x0.5-Q5: done -- QPU 18.0 s; f_01 5096888767.368647 detected True snr 19.19137792380677
+18:48:40 [qolab/satdef] satdef-x1-Q1: factor 0.5, played amplitude 0.01079
+18:49:03 [qolab/satdef] satdef-x1-Q1: done -- QPU 17.7 s; f_01 5264714324.880627 detected False snr 5.420644963146143
+18:49:03 [qolab/satdef] satdef-x1-Q2: factor 0.5, played amplitude 0.009079
+18:49:26 [qolab/satdef] satdef-x1-Q2: done -- QPU 18.0 s; f_01 5105808687.2664385 detected True snr 24.407742739200025
+18:49:27 [qolab/satdef] satdef-x1-Q5: factor 0.5, played amplitude 0.01079
+18:49:49 [qolab/satdef] satdef-x1-Q5: done -- QPU 18.0 s; f_01 5096588767.368647 detected True snr 18.966365510546005
+18:49:49 [qolab/satdef] satdef-x2-Q1: factor 1, played amplitude 0.02158
+18:50:12 [qolab/satdef] satdef-x2-Q1: done -- QPU 17.7 s; f_01 5273864324.880627 detected False snr 6.409467941069597
+18:50:12 [qolab/satdef] satdef-x2-Q2: factor 1, played amplitude 0.01816
+18:50:35 [qolab/satdef] satdef-x2-Q2: done -- QPU 18.0 s; f_01 5104908687.2664385 detected True snr 22.60173042453764
+18:50:36 [qolab/satdef] satdef-x2-Q5: factor 1, played amplitude 0.02158
+18:50:59 [qolab/satdef] satdef-x2-Q5: done -- QPU 17.9 s; f_01 5095388767.368647 detected True snr 17.561237655236074
+18:50:59 [qolab/satdef] satdef-x4-Q1: factor 1.9, played amplitude 0.04316
+18:51:22 [qolab/satdef] satdef-x4-Q1: done -- QPU 17.7 s; f_01 5271314324.880627 detected False snr 4.037563808682532
+18:51:22 [qolab/satdef] satdef-x4-Q2: factor 1.9, played amplitude 0.03632
+18:51:46 [qolab/satdef] satdef-x4-Q2: done -- QPU 18.0 s; f_01 5107158687.2664385 detected False snr 22.00990067919859
+18:51:46 [qolab/satdef] satdef-x4-Q5: factor 1.9, played amplitude 0.04316
+18:52:09 [qolab/satdef] satdef-x4-Q5: done -- QPU 17.9 s; f_01 5092838767.368647 detected False snr 17.70187674996279
+18:52:09 [qolab/satdef] satdef-x8-Q1: factor 1.9, played amplitude 0.08631
+18:52:32 [qolab/satdef] satdef-x8-Q1: done -- QPU 17.7 s; f_01 5267714324.880627 detected False snr 3.2102427170971657
+18:52:33 [qolab/satdef] satdef-x8-Q2: factor 1.9, played amplitude 0.07263
+18:52:54 [qolab/satdef] satdef-x8-Q2: done -- QPU 17.9 s; f_01 5104908687.2664385 detected False snr 19.446631542987536
+18:52:55 [qolab/satdef] satdef-x8-Q5: factor 1.9, played amplitude 0.08631
+18:53:17 [qolab/satdef] satdef-x8-Q5: done -- QPU 17.9 s; f_01 5100338767.368647 detected False snr 16.114940972759097
+18:53:17 [qolab/satdef] satdef-x16-Q1: factor 1.9, played amplitude 0.1726
+18:53:40 [qolab/satdef] satdef-x16-Q1: done -- QPU 17.7 s; f_01 5269364324.880627 detected False snr 3.3305234720904147
+18:53:41 [qolab/satdef] satdef-x16-Q2: factor 1.9, played amplitude 0.1453
+18:54:04 [qolab/satdef] satdef-x16-Q2: done -- QPU 18.0 s; f_01 5113458687.2664385 detected False snr 12.770368946922758
+18:54:04 [qolab/satdef] satdef-x16-Q5: factor 1.9, played amplitude 0.1726
+18:54:28 [qolab/satdef] satdef-x16-Q5: done -- QPU 18.1 s; f_01 5105888767.368647 detected False snr 11.488337657117274
+18:54:28 [qolab/satdef] all levels done

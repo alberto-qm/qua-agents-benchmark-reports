@@ -1,0 +1,54 @@
+{
+ "tag": "satdef-x1-qD5",
+ "g": 1,
+ "factor": 0.5,
+ "qubits": [
+  "qD5"
+ ],
+ "played_amplitude": {
+  "qD5": 0.033742820533247724
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.5
+ },
+ "error": null,
+ "qpu_s": 24.103974103927612,
+ "wall_s": 29.709412708180025,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD5": {
+   "frequency": 5817322366.034855,
+   "relative_freq": 350000.0,
+   "fwhm": 506636.6902880418,
+   "iw_angle": 5.930285899088446,
+   "saturation_amp": 0.399609675099492,
+   "x180_amp": 4.359065345819333,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5817322366.034855,
+   "RF_frequency": 5817322366.034855,
+   "saturation_amplitude": 0.399609675099492,
+   "x180_amplitude": 4.359065345819333,
+   "x90_amplitude": 2.1795326729096667,
+   "warnings": [
+    "NO LINE DETECTED: snr=18.9 (threshold 5.0), r_squared=0.26 (threshold 0.60), fitted_fwhm=0.109 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "width estimates disagree: peak-finder fwhm=0.507 MHz vs Lorentzian fitted_fwhm=0.109 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5686972366.034855,
+   "swept_max_freq_hz": 5946972366.034855,
+   "snr": 18.874469830211847,
+   "noise_sigma": 4.9999022629535656e-05,
+   "min_detectable_amplitude": 0.0002499951131476783,
+   "r_squared": 0.2608893619534627,
+   "fitted_fwhm": 108842.8812039502,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ }
+}

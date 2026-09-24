@@ -1,0 +1,54 @@
+{
+ "tag": "satdef-x0.0625-qD2",
+ "g": 0.0625,
+ "factor": 0.03125,
+ "qubits": [
+  "qD2"
+ ],
+ "played_amplitude": {
+  "qD2": 0.0011311821206644135
+ },
+ "params": {
+  "frequency_span_in_mhz": 260.0,
+  "frequency_step_in_mhz": 0.15,
+  "num_shots": 300,
+  "operation_len_in_ns": 20000,
+  "multiplexed": false,
+  "operation_amplitude_factor": 0.03125
+ },
+ "error": null,
+ "qpu_s": 24.102030277252197,
+ "wall_s": 42.39620375004597,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "frequency": 5716406906.87116,
+   "relative_freq": -34600000.0,
+   "fwhm": 366047.7164174665,
+   "iw_angle": 6.252686897291177,
+   "saturation_amp": 0.2966648300571176,
+   "x180_amp": 0.2022569554439898,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5716406906.87116,
+   "RF_frequency": 5716406906.87116,
+   "saturation_amplitude": 0.2966648300571176,
+   "x180_amplitude": 0.2022569554439898,
+   "x90_amplitude": 0.1011284777219949,
+   "warnings": [
+    "NO LINE DETECTED: snr=17.6 (threshold 5.0), r_squared=0.50 (threshold 0.60), fitted_fwhm=0.038 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "fwhm=0.366 MHz is outside the plausible range (>0.450 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate",
+    "width estimates disagree: peak-finder fwhm=0.366 MHz vs Lorentzian fitted_fwhm=0.038 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable"
+   ],
+   "swept_min_freq_hz": 5621006906.87116,
+   "swept_max_freq_hz": 5881006906.87116,
+   "snr": 17.576401630974875,
+   "noise_sigma": 2.7697451442619448e-05,
+   "min_detectable_amplitude": 0.00013848725721309725,
+   "r_squared": 0.5008890151587531,
+   "fitted_fwhm": 37500.05289080019,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ }
+}
