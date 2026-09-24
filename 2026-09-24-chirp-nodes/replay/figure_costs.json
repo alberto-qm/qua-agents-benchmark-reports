@@ -1,0 +1,245 @@
+{
+ "arbel/qB4": {
+  "T1_us": 30.910146981745076,
+  "chirp_ladder_node": {
+   "qpu": 6.5161193241563975,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 15.029150349791323,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 110.98650574684143,
+   "jobs": 6,
+   "drives": 6,
+   "shared": false,
+   "wall": 221.90871124900877
+  },
+  "chirp_flux": {
+   "qpu": 11.120220955338528,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 14.715088551582781,
+   "shared": true
+  }
+ },
+ "arbel/qA5": {
+  "T1_us": 10.946829485520883,
+  "chirp_ladder_node": {
+   "qpu": 2.610414622962224,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 6.0206885350257835,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 109.97368907928467,
+   "jobs": 6,
+   "drives": 6,
+   "shared": false,
+   "wall": 219.3085372929927
+  },
+  "chirp_flux": {
+   "qpu": 4.682667961447613,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 5.955264570485852,
+   "shared": true
+  }
+ },
+ "arbel/qD1": {
+  "T1_us": 18.48963513302017,
+  "chirp_ladder_node": {
+   "qpu": 4.117804565302032,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 9.497369185937897,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 109.39011335372925,
+   "jobs": 6,
+   "drives": 6,
+   "shared": false,
+   "wall": 217.96775987464935
+  },
+  "chirp_flux": {
+   "qpu": 7.167213870231682,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 9.265017561601411,
+   "shared": true
+  }
+ },
+ "qolab/Q1": {
+  "T1_us": 47.71370427191526,
+  "chirp_ladder_node": {
+   "qpu": 8.559939592104737,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 22.00408434867859,
+   "jobs": 1,
+   "shared": false
+  },
+  "sat_ladder": {
+   "qpu": 159.2152738571167,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 214.11794904014096
+  },
+  "chirp_flux": {
+   "qpu": 15.40739885246987,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 18.86453104019165,
+   "shared": false
+  }
+ },
+ "qolab/Q2": {
+  "T1_us": 79.865329311777,
+  "chirp_ladder_node": {
+   "qpu": 13.986795549097616,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 36.37948417663574,
+   "jobs": 1,
+   "shared": false
+  },
+  "sat_ladder": {
+   "qpu": 161.6733980178833,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 205.98235395969823
+  },
+  "chirp_flux": {
+   "qpu": 25.281018495559692,
+   "shared": false
+  },
+  "sat_flux": {
+   "qpu": 27.460525035858154,
+   "shared": false
+  }
+ },
+ "qolab/Q5": {
+  "T1_us": 42.040766303291825,
+  "chirp_ladder_node": {
+   "qpu": 7.602407362536052,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 19.52980136871338,
+   "jobs": 1,
+   "shared": false
+  },
+  "sat_ladder": {
+   "qpu": 161.73610711097717,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 209.34683379298076
+  },
+  "chirp_flux": {
+   "qpu": 13.723735180733257,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 17.382909774780273,
+   "shared": false
+  }
+ },
+ "gilboa/qD2": {
+  "T1_us": 1.3428767364473684,
+  "chirp_ladder_node": {
+   "qpu": 0.6613545294265233,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 1.5404225444633661,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 216.57470512390137,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 282.5441925430205
+  },
+  "chirp_flux": {
+   "qpu": 1.4026431057029556,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 2.5527026081724884,
+   "shared": true
+  }
+ },
+ "gilboa/qC3": {
+  "T1_us": 1.8034861546101497,
+  "chirp_ladder_node": {
+   "qpu": 0.7494410255026797,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 1.7455891452286223,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 217.8807680606842,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 272.9983038750943
+  },
+  "chirp_flux": {
+   "qpu": 1.5507651703868974,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 2.6759148109039965,
+   "shared": true
+  }
+ },
+ "gilboa/qD5": {
+  "T1_us": 43.315774401770405,
+  "chirp_ladder_node": {
+   "qpu": 8.51671494502502,
+   "shared": true
+  },
+  "chirp_ladder_wide": {
+   "qpu": 19.837710148305447,
+   "jobs": 1,
+   "shared": true
+  },
+  "sat_ladder": {
+   "qpu": 217.01188802719116,
+   "jobs": 9,
+   "drives": 9,
+   "shared": false,
+   "wall": 266.2979795411229
+  },
+  "chirp_flux": {
+   "qpu": 14.415140832415396,
+   "shared": true
+  },
+  "sat_flux": {
+   "qpu": 18.060349951910453,
+   "shared": true
+  }
+ }
+}

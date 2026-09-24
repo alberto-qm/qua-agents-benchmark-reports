@@ -317,6 +317,22 @@ def build() -> str:
                          num(v["sat_03a_one_drive_240"], "{:.0f} s"), num(v["sat_03a_seven_drives_240"], "{:.0f} s"),
                          num(v["chirp_03b"], "{:.1f} s"), num(v["sat_03b_same_area"], "{:.0f} s")])
 
+    # --- what the maps in section 2 cost -----------------------------------------------------------
+    fc = json.loads((DATA / "replay/figure_costs.json").read_text())
+
+    def cost(c, star=True):
+        s = num(c["qpu"], "{:.1f} s" if c["qpu"] < 20 else "{:.0f} s")
+        return s + ("*" if star and c.get("shared") else "")
+
+    fc_rows = []
+    for k, v in fc.items():
+        be, q = k.split("/")
+        sl = v["sat_ladder"]
+        fc_rows.append([be, f"<b>{q}</b>", num(v["T1_us"], "{:.1f}"),
+                        f'<b>{cost(v["chirp_ladder_wide"])}</b>', cost(v["chirp_ladder_node"]),
+                        f'<b>{num(sl["qpu"], "{:.0f} s")}</b> ({sl["drives"]} drives, {sl["jobs"]} jobs)',
+                        f'<b>{cost(v["chirp_flux"])}</b>', f'<b>{cost(v["sat_flux"])}</b>'])
+
     # --- time to a frequency and a sweet spot ------------------------------------------------------
     tta = json.loads((DATA / "replay/time_to_answer.json").read_text())
 
@@ -434,6 +450,14 @@ spectroscopy after the flux map removes it.</p>
 ladder, then the saturation node's, each as a map and as line cuts), then the flux maps (chirp, then saturation). All are redrawn
 from the saved datasets with the committed analysis; grey marks what a node does not propose. The figures as the nodes draw
 them, the end-of-session runs, the wide flux maps and the fine scans are in the appendix.</p>
+<p>What each map below cost on the chip:</p>
+{table(["backend", "qubit", "T1 [µs]", "frequency vs drive, chirp (the map shown: 11 drives, ±200 MHz, 5 MHz steps, 100 shots)",
+        "chirp at the node's defaults (7 drives, ±120 MHz)", "frequency vs drive, saturation (the map shown: ±130 MHz, 0.15 MHz steps, 300 shots)",
+        "frequency vs flux, chirp (21 columns × 29 band centres, 100 shots)", "frequency vs flux, saturation (15 columns × 71 rows, 50 shots)"], fc_rows)}
+<p class="small muted">QPU time. * a share of a job that measured several qubits, split by each qubit's time per shot; the saturation
+drive maps were one job per drive and qubit. Every job adds compile and queue time, 5–90 s today: the saturation maps took 6–9 jobs
+per qubit, the chirp maps one. The saturation flux map covers a smaller area than the chirp's (−25…+10 against −40…+30 MHz); over the
+same area it would cost 3–5× the chirp map (§7).</p>
 {backend_figures("arbel")}
 {backend_figures("qolab")}
 {backend_figures("gilboa")}
