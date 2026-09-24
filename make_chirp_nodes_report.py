@@ -29,7 +29,7 @@ COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c"}
 
 def sync():
     DATA.mkdir(exist_ok=True)
-    for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay"):
+    for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out"):
@@ -39,10 +39,85 @@ def sync():
             shutil.copy(f, DATA / f.name)
 
 
-def img(path, caption, alt):
+def img(path, caption, alt, max_width=None):
     b64 = base64.b64encode((DATA / path).read_bytes()).decode()
+    cap = f"max-width:{max_width}px;" if max_width else ""
     return (f'<figure><figcaption class="small">{caption}</figcaption>'
-            f'<img src="data:image/png;base64,{b64}" alt="{esc(alt)}" style="width:100%;height:auto;border-radius:6px"></figure>')
+            f'<img src="data:image/png;base64,{b64}" alt="{esc(alt)}" style="width:100%;{cap}height:auto;border-radius:6px"></figure>')
+
+
+def qpu_of(be, tag):
+    f = DATA / be / f"{tag}.json"
+    return json.loads(f.read_text())["qpu_s"] if f.exists() else float("nan")
+
+
+def figrow(items):
+    """Small single-qubit figures side by side: [(path, caption, alt), ...]."""
+    cells = []
+    for path, caption, alt in items:
+        b64 = base64.b64encode((DATA / path).read_bytes()).decode()
+        cells.append(f'<figure><figcaption class="small">{caption}</figcaption>'
+                     f'<img src="data:image/png;base64,{b64}" alt="{esc(alt)}" style="width:100%;height:auto;border-radius:6px"></figure>')
+    return f'<div class="figrow">{"".join(cells)}</div>'
+
+
+def backend_figures(be):
+    """Start-of-session 03a ladder, 03b chirped map(s) and saturation map(s) for one backend."""
+    qs = QUBITS[be]
+    tag3a = f"r0-03a-{'-'.join(qs)}"
+    out = [f'<h3>{be} · {", ".join(qs)}</h3>']
+    out.append(img(f"figures/{be}_{tag3a}_ladder.png",
+                   f"{be}, 03a chirp at its defaults, {qpu_of(be, tag3a):.0f} s of QPU for the three qubits. Rows: drive levels, weakest at "
+                   "the bottom. Red solid: the 0→1 line proposed; red dashed: its 0→2 partner; grey dashed: a line not proposed.",
+                   f"03a chirp ladders for {be}"))
+    maps = sorted(p.name for p in (DATA / "figures").glob(f"{be}_r0-03b-*_flux_map.png"))
+    for name in maps:
+        tag = name[len(be) + 1:-len("_flux_map.png")]
+        who = tag[len("r0-03b-"):].replace("-", ", ")
+        single = "," not in who
+        out.append(img(f"figures/{name}", f"{be} {who}, 03b chirp at its defaults, {qpu_of(be, tag):.0f} s of QPU. Circles: each column's "
+                       "box centre; red curve and star: the fitted parabola and sweet spot (grey: not proposed).", f"03b chirped maps {be} {who}",
+                       max_width=480 if single else None))
+    sats = sorted(p.name for p in (DATA / "figures").glob(f"{be}_sat-*_flux_map.png"))
+    items = []
+    for name in sats:
+        tag = name[len(be) + 1:-len("_flux_map.png")]
+        who = tag[len("sat-"):].replace("-", ", ")
+        items.append((f"figures/{name}", f"{be} {who}, 03b in saturation mode (reference), {qpu_of(be, tag):.0f} s", f"saturation map {be} {who}"))
+    if len(items) == 1:
+        out.append(img(*items[0], max_width=None if "," in items[0][1] else 480))
+    elif items:
+        out.append(figrow(items))
+    return "\n".join(out)
+
+
+def appendix():
+    parts = []
+
+    def group(title, pattern, caption):
+        names = sorted(p.name for p in (DATA / "figures").glob(pattern))
+        if not names:
+            return ""
+        body = []
+        for name in names:
+            be, tag = name.split("_", 1)
+            tag = tag.rsplit("_", 1)[0].replace("_flux", "")
+            single = tag.count("-") <= 2 and "flux_map" in name
+            body.append(img(f"figures/{name}", f"{be} · {tag} · {caption}", f"{be} {tag}", max_width=480 if single else None))
+        return f"<details><summary>{title} ({len(names)} figures)</summary>{''.join(body)}</details>"
+
+    parts.append(group("End of session: 03a and 03b chirp at their defaults again", "*_end-*.png", "end of session"))
+    parts.append(group("Wide 03a ladders used for the replays (11 levels, ±200 MHz)", "*_wide3a-*_ladder.png", "wide ladder"))
+    parts.append(group("Wide 03b maps used for the replays (35 columns, ±2.5× the 20 MHz offset)", "*_wide3b-*_flux_map.png", "wide map"))
+    fines = []
+    for be, qs in QUBITS.items():
+        for q in qs:
+            f = DATA / be / f"fine-{q}_amplitude.png"
+            if f.exists():
+                fines.append(img(f"{be}/fine-{q}_amplitude.png", f"{be} {q} · fine saturation scan (saturation node 03a, ±5 MHz, 0.3 MHz Rabi)", f"fine scan {be} {q}"))
+    parts.append(f"<details><summary>Fine saturation scans ({len(fines)} figures)</summary>{''.join(fines)}</details>")
+    parts.append(group("Smoke run, qolab Q1", "*_smoke-*.png", "smoke run"))
+    return "\n".join(p for p in parts if p)
 
 
 def table(head, rows, cls="grid small"):
@@ -200,6 +275,10 @@ ol.recs li, ul.tight li { margin:6px 0; max-width:82ch; }
 .corr li { margin:5px 0; }
 h2 .eyebrow { display:block; margin-bottom:4px; }
 td .muted, .muted { color:var(--muted); }
+.figrow { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
+details { margin:10px 0; border:1px solid var(--line); border-radius:8px; padding:8px 12px; background:var(--surface); }
+details summary { cursor:pointer; font-weight:600; }
+h3 { margin-top:28px; }
 """
     body = f"""
 <div class="page">
@@ -229,7 +308,7 @@ generated config at run time only, so nothing new reaches the saved state.</p>
      "21 flux offsets over ±1.5× the offset that lowers f₀₁ by 20 MHz (from the stored curvature) × band centres f₀₁ −40…+30 MHz in 2.5 MHz steps; the flux step starts 5 µs before the drive and outlasts it"],
     ["analysis", "an erf-edged box fit per line and level; the 0→1 line is the one that appears at the lowest drive, a later line 40–250 MHz below it is its 0→2 partner (→ anharmonicity); the growth with drive gives the Rabi rate (<span class='mono'>drive_scale</span> against the x180)",
      "a box fit per column, a weighted parabola through the columns → sweet spot (relative to idle), f₀₁ there, curvature"],
-    ["writes", "f₀₁ and RF frequency, only for a line identified as 0→1; optionally x180/x90 amplitude guesses", "idle offset (joint or independent) and f₀₁, only when the turning point lies inside the sweep"],
+    ["writes", "f₀₁ and RF frequency, only for a line identified as 0→1. The drive is reported, not written: <span class='mono'>selected_drive_amplitude</span> (for 03b), <span class='mono'>drive_scale</span> and an x180/x90 amplitude guess, which it writes only with <span class='mono'>update_pulses_amplitude=True</span> (default off)", "idle offset (joint or independent) and f₀₁, only when the turning point lies inside the sweep"],
     ["refuses", "no line; a lone line that grows faster than drive² or needs &gt;5× the predicted drive (a possible 0→2 line of a qubit above the window); sweep × band below 20 MHz·µs", "fewer than 7 columns with a line; turning point outside the sweep; sweep × band below 20 MHz·µs"],
     ["fallback", "the saturation node 03a", "<span class='mono'>pulse='saturation'</span>: a 1 MHz-Rabi drive for 3 T1 (20–100 µs) inside the same flux step, a Lorentzian per column"],
     ["60 s cap", "pre-flight estimate before submission; qubits run one after another", "same; qubits never pulse flux together"]])}
@@ -249,8 +328,11 @@ Rabi rate over the one the stored x180 predicts. 03a's f₀₁ differs from the 
 (rms {rms:.2f}, worst {worst:.2f}), consistent with a 5 MHz step and a slightly tilted box top (T1 decay during the up-sweep); fine
 spectroscopy after the flux map removes it.</p>
 
-{img("arbel/r0-03a-qB4-qA5-qD1_ladder.png", "arbel, 03a chirp at its defaults (13 s of QPU for the three qubits). Each row is a drive level, weakest at the bottom. The 0→1 box (solid red) appears from the second level; the 0→2 line α/2 below (dashed) only from the sixth, which is how the node tells them apart — qB4 is the qubit where saturation spectroscopy repeatedly locked onto its 0→2 line.", "03a chirp ladder maps for arbel qB4, qA5, qD1")}
-{img("qolab/r0-03b-Q1-Q5_flux_map.png", "qolab Q1 and Q5, 03b chirp at its defaults (29 s of QPU for both). Red circles: each column's box centre; red curve and star: the fitted parabola and sweet spot.", "03b chirped flux maps for qolab Q1 and Q5")}
+<p>Every qubit's figures follow, redrawn from the saved datasets with the committed analysis (grey marks what the node does
+not propose). End-of-session runs, the wide maps and the fine scans are in the appendix.</p>
+{backend_figures("arbel")}
+{backend_figures("qolab")}
+{backend_figures("gilboa")}
 
 <h2>3 · How far off can the stored values be?</h2>
 <p>Instead of re-running the nodes with scrambled states, each qubit was measured once over a wider range (03a: 11 drive levels
@@ -264,6 +346,22 @@ right line within 1 MHz, or the sweet spot within 3σ and 0.5 mV — 1 mV on qol
 <p class="small muted">03b replays: the idle point off by up to ±1.3× the 20 MHz offset (±57 mV on arbel and gilboa, ±115–130 mV on qolab)
 and the stored f₀₁ off by up to ±10 MHz. On the five qubits with an arc every replay passed; arbel qD1 has no arc in any map (§5),
 gilboa qD2/qC3 are refused. "Lone 0→2 line": windows 130–160 MHz below f₀₁ that hold only the two-photon line.</p>
+<h3>Why so many refusals, and would saturation do better?</h3>
+<p>Three causes, one per grey region of the grid:</p>
+<ul class="tight">
+<li><b>Drive ≤ 1/8 of the x180 prediction (bottom rows).</b> The 0→1 line appears only at the top levels and its 0→2 partner never
+does, so it looks exactly like the 0→2 line of a qubit above the window seen at a correct drive — the case that fooled 03a on qB4
+(§5). The lone-line check refuses both. Before that check these replays passed; three more drive levels recover 40 of 66 on arbel and
+gilboa and 12–20 of 66 on qolab; a confirmation scan α/2 above a refused lone line would settle every case with one extra job.</li>
+<li><b>Drive ≥ 4× the prediction with the window shifted up (top-right patches).</b> The line is already full-height at the lowest
+level, so its growth exponent cannot be measured, and the 0→2 partner has left the bottom of the window. Extending the window
+down to −200 MHz (+33 % QPU) removed every such refusal where the wide maps allow the test (qolab Q2 14 → 0, Q5 6 → 0).</li>
+<li><b>T1 below ~5 µs (gilboa qD2, qC3).</b> The short-sweep guard (§5).</li>
+</ul>
+<p><b>Saturation would answer in the first two cases</b> — at a weak drive it sees only the 0→1 line, so its answer would be right. But
+it gives the same kind of answer when its window holds only a 0→2 line, and nothing in a single saturation trace says which case
+it is in: that is how the night-4 arbel runs committed qB4's 0→2 line. The chirp refuses exactly where the data cannot tell the two
+apart. In the third case saturation is simply better: its map found qC3's sweet spot, the chirp's did not.</p>
 
 <h2>4 · Chirped against saturation maps</h2>
 {img("sweetspots.png", "Sweet spot and apex frequency of the chirped map (start and end of the session) minus the saturation map taken between them, per qubit. arbel qB4/qA5 and gilboa qD5 agree to 0.25 mV or better; the apex frequencies within ±0.3 MHz.", "Chirp minus saturation sweet spots and apex frequencies")}
@@ -289,7 +387,9 @@ instead of boxes; 03a found no 0→1 line on qD2, and 03b tracked a spurious lin
 ~30 MHz above the line found there on 23 Sep. A passage has to be adiabatic (Rabi above ~√rate/π) and start far from the line (Rabi well below half the band), which needs
 sweep × band ≳ 20 MHz·µs; with the T1/5 sweep and a 20 MHz band that is T1 ≳ 5 µs. Both nodes now refuse below it and point to
 saturation — the ~5 µs fallback threshold proposed before the test, not the ~1 µs read from the 23 Sep qD2 test. The saturation map worked on
-qC3 (+0.35 ± 0.20 mV); qD2 showed no line in any map today.</li>
+qC3 (+0.35 ± 0.20 mV). On qD2 the chirped map still shows the real arc ~5 MHz below the stored f₀₁ (where 23 Sep found the line),
+but as a narrow ridge, not a box; the fit took a spurious arc ~30 MHz above it, where the drive switches on 20–30 MHz from the
+line at ~16 MHz Rabi and excites it directly. The saturation map found no line on qD2.</li>
 <li><b>A lone two-photon line fooled 03a once.</b> In the replay windows that hold only the 0→2 line, 03a refused on the six other qubits with a usable
 chirp but took arbel qB4's 0→2 line as 0→1: its growth exponent came out 2.4 from two points in the rise. The growth rate separates them
 cleanly: real 0→1 lines read 0.93–1.19 of the x180-predicted Rabi rate, lone 0→2 lines 0.001–0.05. A lone line needing more than 5×
@@ -343,12 +443,15 @@ for short sweeps (sweep × band ≥ 20 MHz·µs) might extend the chirp to T1 ~2
 working tree and would pick up new nodes when resumed.</li>
 </ol>
 
+<h2>Appendix · all other figures</h2>
+{appendix()}
+
 <h2>Provenance</h2>
 <p class="small">Scripts, data (netcdf datasets, fit results, figures, driver logs) and replay outputs are in
 <span class="mono">2026-09-24-chirp-nodes/</span>: <span class="mono">run_backend.py</span> (the node runs),
 <span class="mono">run_fixes.py</span> and <span class="mono">chain_fixes.sh</span> (the fix tests), <span class="mono">replay.py</span> and
 <span class="mono">reanalyse.py</span> (offline, committed analysis), <span class="mono">plot_summary.py</span>,
-<span class="mono">plot_fixes.py</span>. States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">plot_fixes.py</span>, <span class="mono">plot_all.py</span> (every node figure, redrawn). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>
