@@ -1,0 +1,63 @@
+{
+ "tag": "fine-Q2",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "Q2"
+ ],
+ "params": {
+  "frequency_center_in_mhz": 0.07,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.07226461657760364,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 4.529764583101496,
+ "qpu_s": 1.2108349800109863,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q2": {
+   "frequency": 5105878687.2664385,
+   "relative_freq": -30000.0,
+   "fwhm": 1005590.4060457635,
+   "iw_angle": 2.0168319662062544,
+   "saturation_amp": 0.054170549096579444,
+   "x180_amp": 0.0854036281888953,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5105878687.2664385,
+   "RF_frequency": 5105878687.2664385,
+   "saturation_amplitude": 0.054170549096579444,
+   "x180_amplitude": 0.0854036281888953,
+   "x90_amplitude": 0.04270181409444765,
+   "warnings": [],
+   "swept_min_freq_hz": 5100978687.2664385,
+   "swept_max_freq_hz": 5110978687.2664385,
+   "snr": 14.998845511462521,
+   "noise_sigma": 1.2671745702013572e-05,
+   "min_detectable_amplitude": 6.335872851006786e-05,
+   "r_squared": 0.9425278584267489,
+   "fitted_fwhm": 1185743.1107265353,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/Q2/xy/RF_frequency": {
+   "old": 5105908687.2664385,
+   "new": 5105878687.2664385
+  },
+  "/qubits/Q2/f_01": {
+   "old": 5105908687.2664385,
+   "new": 5105878687.2664385
+  }
+ },
+ "measurement_id": "m-CBN7A8",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

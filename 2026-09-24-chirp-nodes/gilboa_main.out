@@ -1,0 +1,381 @@
+2026-09-24 12:01:26,764 - qm - INFO     - Starting session: 492929f3-bed0-4029-8828-f699d6d002f8
+12:01:31 [gilboa] r0-03a-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'] {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 268 ns over 20 MHz (74627 Hz/ns), drive levels 0.03409, 0.06818, 0.1364, 0.2727, 0.5454, 0.99, 0.99 (x180 prior)
+qC3: sweep 360 ns over 20 MHz (55556 Hz/ns), drive levels 0.02707, 0.05413, 0.1083, 0.2165, 0.4331, 0.8661, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176 (x180 prior)
+estimated QPU time 13 s: 343 sweep points x 100 shots x 251 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:01:33,317 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:01:34] QUA program submitted to gilboa (id =                computers.py:416
+           cb73348f-cf4b-4f55-aea3-cdc30d7cc427)                                
+           Execution started                                    computers.py:455
+[12:01:45] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+None
+2026-09-24 12:01:45,680 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:270: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: f_01 5.653851 GHz +- 1025 kHz (shift -97.16 MHz), identity ambiguous, drive for 03b 0.9900, drive scale vs x180 0.23
+	Warnings: the line grows as drive^6.9 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher
+Results for qubit qC3: f_01 5.651485 GHz +- 648 kHz (shift +2.80 MHz), identity 0-1, drive for 03b 0.2165, drive scale vs x180 1.23, 0->2 line found -> anharmonicity ~209 MHz
+Results for qubit qD5: f_01 5.816380 GHz +- 593 kHz (shift -0.59 MHz), identity 0-1, drive for 03b 0.0397, drive scale vs x180 0.99, 0->2 line found -> anharmonicity ~209 MHz
+update_state: qD2: the line found may be a two-photon line; nothing proposed.
+12:01:47 [gilboa] r0-03a-qD2-qC3-qD5: done -- QPU 9.9 s, wall 15 s
+12:01:47 [gilboa]    qD2: {'f_01': 5653851097.218688, 'frequency_shift': -97155809.65247189, 'f_01_error': 1025206.3588979668, 'line_identity': 'ambiguous', 'drive_scale': 0.22944465123546207, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.99} warnings=['the line grows as drive^6.9 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher']
+12:01:47 [gilboa]    qC3: {'f_01': 5651484948.974927, 'frequency_shift': 2800800.318141534, 'f_01_error': 647522.3446896515, 'line_identity': '0-1', 'drive_scale': 1.2286335282139966, 'anharmonicity_estimate': 208881972.8733388, 'selected_drive_amplitude': 0.21653112063972288} warnings=[]
+12:01:47 [gilboa]    qD5: {'f_01': 5816380369.821495, 'frequency_shift': -591996.2133598557, 'f_01_error': 593318.4368218995, 'line_identity': '0-1', 'drive_scale': 0.9916312818729642, 'anharmonicity_estimate': 209212186.14396143, 'selected_drive_amplitude': 0.039701683183093917} warnings=[]
+12:01:47 [gilboa] r0-03b-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'] {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 268 ns at amplitude 0.5454; flux step 5404 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: chirp 360 ns at amplitude 0.4331; flux step 5540 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 23 s: 609 sweep points x 100 shots x 257 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:01:49,259 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:01:50] QUA program submitted to gilboa (id =                computers.py:416
+           23b341d0-77d1-49ea-9db5-2984646368cb)                                
+           Execution started                                    computers.py:455
+[12:02:09] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+None
+2026-09-24 12:02:09,166 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:343: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: sweet spot +3.589 +- 0.568 mV from idle, f_01 5.775707 GHz +- 487 kHz, curvature -4.476 kHz/mV^2, 8/21 columns, chi2_red 0.1
+Results for qubit qC3: no arc. a line was located in 0 of 21 flux columns (need 7)
+Results for qubit qD5: sweet spot +3.063 +- 0.064 mV from idle, f_01 5.816960 GHz +- 62 kHz, curvature -11.122 kHz/mV^2, 16/21 columns, chi2_red 3.0
+12:02:09 [gilboa] r0-03b-qD2-qC3-qD5: done -- QPU 17.4 s, wall 22 s
+12:02:09 [gilboa]    qD2: {'f_01': 5775707319.509861, 'frequency_shift': 24700412.63870109, 'f_01_error': 487074.8186538495, 'idle_offset_shift': 0.0035891541811240036, 'idle_offset_shift_error': 0.0005675342234207413, 'curvature': -4476311868.934576, 'column_precision': 531795.7718699294, 'tracked_columns': 8, 'chi2_red': 0.10775523157086335} warnings=[]
+12:02:09 [gilboa]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'curvature': nan, 'column_precision': nan, 'tracked_columns': 0, 'chi2_red': nan} warnings=['a line was located in 0 of 21 flux columns (need 7)']
+12:02:09 [gilboa]    qD5: {'f_01': 5816959810.927182, 'frequency_shift': -12555.107672818325, 'f_01_error': 62371.196156896905, 'idle_offset_shift': 0.0030627716903450478, 'idle_offset_shift_error': 6.369438705673253e-05, 'curvature': -11122242860.32684, 'column_precision': 99540.70775832636, 'tracked_columns': 16, 'chi2_red': 3.0133682201934673} warnings=[]
+12:02:10 [gilboa] wide3a-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'] {'num_drive_levels': 11, 'frequency_span_in_mhz': 400.0}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 268 ns over 20 MHz (74627 Hz/ns), drive levels 0.008522, 0.01704, 0.03409, 0.06818, 0.1364, 0.2727, 0.5454, 0.99, 0.99, 0.99, 0.99 (x180 prior)
+qC3: sweep 360 ns over 20 MHz (55556 Hz/ns), drive levels 0.006767, 0.01353, 0.02707, 0.05413, 0.1083, 0.2165, 0.4331, 0.8661, 0.99, 0.99, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001241, 0.002481, 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176, 0.6352, 0.99 (x180 prior)
+estimated QPU time 33 s: 891 sweep points x 100 shots x 251 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:02:11,995 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:02:12] QUA program submitted to gilboa (id =                computers.py:416
+           eb35073a-407f-404b-b83e-1ea09a2c2f4b)                                
+           Execution started                                    computers.py:455
+[12:02:38] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+None
+2026-09-24 12:02:38,494 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:270: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: f_01 5.656896 GHz +- 383 kHz (shift -94.11 MHz), identity ambiguous, drive for 03b 0.9900, drive scale vs x180 0.21
+	Warnings: the line grows as drive^4.5 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher
+Results for qubit qC3: f_01 5.547777 GHz +- 653 kHz (shift -100.91 MHz), identity ambiguous, drive for 03b 0.9900, drive scale vs x180 0.08
+	Warnings: the line grows as drive^3.4 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher
+Results for qubit qD5: f_01 5.816511 GHz +- 218 kHz (shift -0.46 MHz), identity 0-1, drive for 03b 0.0397, drive scale vs x180 1.03, 0->2 line found -> anharmonicity ~208 MHz
+update_state: qD2: the line found may be a two-photon line; nothing proposed.
+update_state: qC3: the line found may be a two-photon line; nothing proposed.
+12:02:39 [gilboa] wide3a-qD2-qC3-qD5: done -- QPU 23.1 s, wall 29 s
+12:02:39 [gilboa]    qD2: {'f_01': 5656895718.876413, 'frequency_shift': -94111187.99474646, 'f_01_error': 383283.9120451343, 'line_identity': 'ambiguous', 'drive_scale': 0.21280701931149934, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.99} warnings=['the line grows as drive^4.5 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher']
+12:02:39 [gilboa]    qC3: {'f_01': 5547777180.48725, 'frequency_shift': -100906968.16953456, 'f_01_error': 653448.5991635497, 'line_identity': 'ambiguous', 'drive_scale': 0.08222957878749229, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.99} warnings=['the line grows as drive^3.4 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher']
+12:02:39 [gilboa]    qD5: {'f_01': 5816511312.691155, 'frequency_shift': -461053.3436990509, 'f_01_error': 217538.4709650828, 'line_identity': '0-1', 'drive_scale': 1.027208593590931, 'anharmonicity_estimate': 207871105.88193822, 'selected_drive_amplitude': 0.039701683183093917} warnings=[]
+12:02:40 [gilboa] wide3b-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD5'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'flux_span_factor': 2.5, 'num_flux_points': 35}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -108.7..+108.7 mV around +0.0200 V
+estimated QPU time 46 s: 1295 sweep points x 100 shots x 239 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:02:41,804 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:02:42] QUA program submitted to gilboa (id =                computers.py:416
+           934026fd-1007-4d11-9c69-6259fcca93e0)                                
+           Execution started                                    computers.py:455
+[12:03:16] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+None
+2026-09-24 12:03:16,191 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:343: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD5: sweet spot +3.022 +- 0.052 mV from idle, f_01 5.816988 GHz +- 57 kHz, curvature -11.164 kHz/mV^2, 19/35 columns, chi2_red 3.4
+12:03:16 [gilboa] wide3b-qD5: done -- QPU 30.4 s, wall 36 s
+12:03:16 [gilboa]    qD5: {'f_01': 5816987909.403074, 'frequency_shift': 15543.36821931765, 'f_01_error': 56633.97091100572, 'idle_offset_shift': 0.003022481989711081, 'idle_offset_shift_error': 5.150966301259876e-05, 'curvature': -11163950830.461155, 'column_precision': 105655.50508336978, 'tracked_columns': 19, 'chi2_red': 3.412369346357421} warnings=[]
+12:03:17 [gilboa] wide3b-qD2-qC3: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'flux_span_factor': 2.5, 'num_flux_points': 35}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 268 ns at amplitude 0.5454; flux step 5404 ns (lead 5000 ns); offsets -120.3..+120.3 mV around +0.0156 V
+qC3: chirp 360 ns at amplitude 0.4331; flux step 5540 ns (lead 5000 ns); offsets -110.1..+110.1 mV around +0.0033 V
+estimated QPU time 7 s: 1295 sweep points x 100 shots x 35 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:03:19,017 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:03:19] QUA program submitted to gilboa (id =                computers.py:416
+           fdd10325-deba-4a4e-a680-4050110d827f)                                
+           Execution started                                    computers.py:455
+[12:03:27] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.01s
+None
+2026-09-24 12:03:27,946 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:343: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: sweet spot -2.464 +- 8.253 mV from idle, f_01 5.771986 GHz +- 5878 kHz, curvature -3.901 kHz/mV^2, 14/35 columns, chi2_red 356.5
+	Warnings: columns scatter 18.9x their errors about the parabola
+Results for qubit qC3: no arc. a line was located in 2 of 35 flux columns (need 7)
+12:03:28 [gilboa] wide3b-qD2-qC3: done -- QPU 5.0 s, wall 11 s
+12:03:28 [gilboa]    qD2: {'f_01': 5771985809.66112, 'frequency_shift': 20978902.78996116, 'f_01_error': 5877693.795100694, 'idle_offset_shift': -0.002464107864989893, 'idle_offset_shift_error': 0.008253320373607483, 'curvature': -3901249582.551245, 'column_precision': 548939.6078046024, 'tracked_columns': 14, 'chi2_red': 356.52437329863466} warnings=['columns scatter 18.9x their errors about the parabola']
+12:03:28 [gilboa]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'curvature': nan, 'column_precision': 489463.2059731191, 'tracked_columns': 2, 'chi2_red': nan} warnings=['a line was located in 2 of 35 flux columns (need 7)']
+12:03:29 [gilboa] sat-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'] {'pulse': 'saturation', 'num_flux_points': 15, 'frequency_min_in_mhz': -25.0, 'frequency_max_in_mhz': 10.0, 'num_shots': 50}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: saturation 20000 ns at amplitude 0.03506; flux step 30000 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: saturation 20000 ns at amplitude 0.03227; flux step 30000 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: saturation 100000 ns at amplitude 0.01972; flux step 110000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 28 s: 1065 sweep points x 50 shots x 357 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:03:30,920 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:03:31] QUA program submitted to gilboa (id =                computers.py:416
+           6f1ce7ed-5894-4075-be39-a1dac30459f9)                                
+           Execution started                                    computers.py:455
+[12:03:57] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+None
+2026-09-24 12:03:57,481 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:343: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: no arc. a line was located in 0 of 15 flux columns (need 7)
+Results for qubit qC3: sweet spot +0.352 +- 0.197 mV from idle, f_01 5.648626 GHz +- 87 kHz, curvature -10.510 kHz/mV^2, 9/15 columns, chi2_red 11.3
+	Warnings: columns scatter 3.4x their errors about the parabola
+Results for qubit qD5: sweet spot +3.051 +- 0.043 mV from idle, f_01 5.817164 GHz +- 44 kHz, curvature -11.058 kHz/mV^2, 10/15 columns, chi2_red 3.0
+12:03:58 [gilboa] sat-qD2-qC3-qD5: done -- QPU 23.3 s, wall 29 s
+12:03:58 [gilboa]    qD2: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'curvature': nan, 'column_precision': nan, 'tracked_columns': 0, 'chi2_red': nan} warnings=['a line was located in 0 of 15 flux columns (need 7)']
+12:03:58 [gilboa]    qC3: {'f_01': 5648625805.314348, 'frequency_shift': -58343.342437044375, 'f_01_error': 86878.24532710388, 'idle_offset_shift': 0.0003515949909567554, 'idle_offset_shift_error': 0.00019737262559959027, 'curvature': -10509950600.089087, 'column_precision': 82476.88988297712, 'tracked_columns': 9, 'chi2_red': 11.277013726036072} warnings=['columns scatter 3.4x their errors about the parabola']
+12:03:58 [gilboa]    qD5: {'f_01': 5817164340.117595, 'frequency_shift': 191974.08273991742, 'f_01_error': 44461.95062554129, 'idle_offset_shift': 0.003051317474301092, 'idle_offset_shift_error': 4.3097903155742316e-05, 'curvature': -11058178812.7056, 'column_precision': 51736.72140221798, 'tracked_columns': 10, 'chi2_red': 3.0324727551105433} warnings=[]
+12:03:59 [gilboa] fine-qD2: 03a_qubit_spectroscopy on ['qD2'] {'frequency_center_in_mhz': -97.16, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.29060297336532154, 'operation_len_in_ns': 20000}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 2 s: 100 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:04:01,128 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:04:01] QUA program submitted to gilboa (id =                computers.py:416
+           d5d0c4b8-854b-4845-b1a2-f957def1f526)                                
+[12:04:02] Execution started                                    computers.py:455
+[12:04:05] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.01s
+None
+2026-09-24 12:04:05,393 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2:  PROPOSED (with warnings):
+	NO LINE DETECTED: snr=20.0 (threshold 5.0), r_squared=0.35 (threshold 0.60), fitted_fwhm=0.025 MHz -- the reported frequency is not accepted. Continue the frequency search.; fwhm=0.172 MHz is outside the plausible range (>0.300 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate; width estimates disagree: peak-finder fwhm=0.172 MHz vs Lorentzian fitted_fwhm=0.025 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable; saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=20.0 r_squared=0.35 noise_sigma=27.5 uV -> NO LINE DETECTED (window consistent with noise)
+	Qubit frequency: 5.655 GHz | FWHM: 172.2 kHz | The integration weight angle: 3.774 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 630.8 mV | To get the desired x180 gate, the x180 amplitude is updated to: 3999.1 mV
+ 
+12:04:06 [gilboa] fine-qD2: done -- QPU 2.0 s, wall 7 s
+12:04:06 [gilboa]    qD2: {'f_01': 5654746906.87116} warnings=['NO LINE DETECTED: snr=20.0 (threshold 5.0), r_squared=0.35 (threshold 0.60), fitted_fwhm=0.025 MHz -- the reported frequency is not accepted. Continue the frequency search.', 'fwhm=0.172 MHz is outside the plausible range (>0.300 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate', 'width estimates disagree: peak-finder fwhm=0.172 MHz vs Lorentzian fitted_fwhm=0.025 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable', 'saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled']
+12:04:07 [gilboa] fine-qC3: 03a_qubit_spectroscopy on ['qC3'] {'frequency_center_in_mhz': 2.8, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.1936025033173719, 'operation_len_in_ns': 20000}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 2 s: 100 sweep points x 300 shots x 38 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:04:08,369 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:04:09] QUA program submitted to gilboa (id =                computers.py:416
+           b6f7c386-d85e-48ca-9a14-24c52932493f)                                
+           Execution started                                    computers.py:455
+[12:04:13] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 12:04:13,741 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qC3:  PROPOSED (with warnings):
+	saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled
+	Amplitude estimates exceed instrument limits; saturation_amp/x180_amp not written.
+	Detection: snr=36.1 r_squared=0.90 noise_sigma=23.4 uV -> LINE DETECTED
+	Qubit frequency: 5.649 GHz | FWHM: 479.0 kHz | The integration weight angle: 0.776 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 313.2 mV | To get the desired x180 gate, the x180 amplitude is updated to: 1322.7 mV
+ 
+12:04:14 [gilboa] fine-qC3: done -- QPU 2.1 s, wall 7 s
+12:04:14 [gilboa]    qC3: {'f_01': 5648584148.656785} warnings=['saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled']
+12:04:15 [gilboa] fine-qD5: 03a_qubit_spectroscopy on ['qD5'] {'frequency_center_in_mhz': -0.59, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.08766751037331479, 'operation_len_in_ns': 20000}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 2 s: 100 sweep points x 300 shots x 36 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:04:16,546 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:04:17] QUA program submitted to gilboa (id =                computers.py:416
+           61c7f108-3fac-44ed-852e-0e77f83015d0)                                
+           Execution started                                    computers.py:455
+[12:04:20] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=300/300) --> elapsed time: 0.00s
+None
+2026-09-24 12:04:20,769 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy.py:325: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD5:  PROPOSED (clean)
+	Detection: snr=17.6 r_squared=0.93 noise_sigma=58.0 uV -> LINE DETECTED
+	Qubit frequency: 5.817 GHz | FWHM: 719.4 kHz | The integration weight angle: 6.047 rad
+ To get the desired FWHM, the saturation amplitude is updated to: 281.4 mV | To get the desired x180 gate, the x180 amplitude is updated to: 538.2 mV
+ 
+12:04:21 [gilboa] fine-qD5: done -- QPU 2.1 s, wall 6 s
+12:04:21 [gilboa]    qD5: {'f_01': 5817082366.034855} warnings=[]
+12:04:22 [gilboa] end-03a-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'] {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 268 ns over 20 MHz (74627 Hz/ns), drive levels 0.03409, 0.06818, 0.1364, 0.2727, 0.5454, 0.99, 0.99 (x180 prior)
+qC3: sweep 360 ns over 20 MHz (55556 Hz/ns), drive levels 0.02707, 0.05413, 0.1083, 0.2165, 0.4331, 0.8661, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176 (x180 prior)
+estimated QPU time 13 s: 343 sweep points x 100 shots x 251 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:04:23,815 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:04:25] QUA program submitted to gilboa (id =                computers.py:416
+           0113ac21-0e35-4091-a47e-7fac723bee4f)                                
+           Execution started                                    computers.py:455
+[12:04:37] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+None
+2026-09-24 12:04:37,577 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:270: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: no 0->1 line found. no line in the window at any drive level
+Results for qubit qC3: f_01 5.648837 GHz +- 1040 kHz (shift +0.15 MHz), identity 0-1, drive for 03b 0.2165, drive scale vs x180 1.85, 0->2 line found -> anharmonicity ~207 MHz
+Results for qubit qD5: f_01 5.816437 GHz +- 128 kHz (shift -0.54 MHz), identity 0-1, drive for 03b 0.0397, drive scale vs x180 1.05, 0->2 line found -> anharmonicity ~208 MHz
+12:04:40 [gilboa] end-03a-qD2-qC3-qD5: done -- QPU 9.9 s, wall 17 s
+12:04:40 [gilboa]    qD2: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'line_identity': 'none', 'drive_scale': nan, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': nan} warnings=['no line in the window at any drive level']
+12:04:40 [gilboa]    qC3: {'f_01': 5648836512.889539, 'frequency_shift': 152364.23275397826, 'f_01_error': 1040154.4003130955, 'line_identity': '0-1', 'drive_scale': 1.851977500774785, 'anharmonicity_estimate': 206650992.48962775, 'selected_drive_amplitude': 0.21653112063972288} warnings=[]
+12:04:40 [gilboa]    qD5: {'f_01': 5816436556.482555, 'frequency_shift': -535809.5522995909, 'f_01_error': 127705.50489642704, 'line_identity': '0-1', 'drive_scale': 1.0464113531779902, 'anharmonicity_estimate': 207540309.17471212, 'selected_drive_amplitude': 0.039701683183093917} warnings=[]
+12:04:40 [gilboa] end-03b-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'] {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 268 ns at amplitude 0.5454; flux step 5404 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: chirp 360 ns at amplitude 0.4331; flux step 5540 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 23 s: 609 sweep points x 100 shots x 257 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:04:42,265 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:04:43] QUA program submitted to gilboa (id =                computers.py:416
+           a7268bf1-c41a-47c0-9f57-7a9e11888b94)                                
+           Execution started                                    computers.py:455
+[12:05:02] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=100/100) --> elapsed time: 0.01s
+None
+2026-09-24 12:05:02,234 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:343: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+Results for qubit qD2: sweet spot +3.808 +- 0.546 mV from idle, f_01 5.776286 GHz +- 393 kHz, curvature -4.664 kHz/mV^2, 9/21 columns, chi2_red 0.1
+Results for qubit qC3: no arc. a line was located in 3 of 21 flux columns (need 7)
+Results for qubit qD5: sweet spot +3.122 +- 0.038 mV from idle, f_01 5.816939 GHz +- 41 kHz, curvature -11.134 kHz/mV^2, 16/21 columns, chi2_red 1.3
+12:05:03 [gilboa] end-03b-qD2-qC3-qD5: done -- QPU 17.4 s, wall 22 s
+12:05:03 [gilboa]    qD2: {'f_01': 5776285968.431001, 'frequency_shift': 25279061.55984122, 'f_01_error': 393048.4689210611, 'idle_offset_shift': 0.003808308319847163, 'idle_offset_shift_error': 0.000546069117450711, 'curvature': -4663531005.174976, 'column_precision': 533002.4551367788, 'tracked_columns': 9, 'chi2_red': 0.13422782296534475} warnings=[]
+12:05:03 [gilboa]    qC3: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'curvature': nan, 'column_precision': 511367.65645399905, 'tracked_columns': 3, 'chi2_red': nan} warnings=['a line was located in 3 of 21 flux columns (need 7)']
+12:05:03 [gilboa]    qD5: {'f_01': 5816938832.231041, 'frequency_shift': -33533.80381362057, 'f_01_error': 41477.991531733016, 'idle_offset_shift': 0.00312235506603389, 'idle_offset_shift_error': 3.768697295200529e-05, 'curvature': -11134047319.132246, 'column_precision': 97765.78875069377, 'tracked_columns': 16, 'chi2_red': 1.306205133423331} warnings=[]
+12:05:03 [gilboa] all steps done: r0,wide3a,wide3b,sat,fine,end

@@ -1,0 +1,102 @@
+{
+ "tag": "smoke-03a-Q1",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "Q1"
+ ],
+ "params": {},
+ "error": null,
+ "wall_s": 14.560570208122954,
+ "qpu_s": 8.613098859786987,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "f_01": 5271651840.229191,
+   "RF_frequency": 5271651840.229191,
+   "frequency_shift": -512484.65143557976,
+   "f_01_error": 472452.90441176534,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.0005641213124983224,
+   "box_snr": 36.78215471007969,
+   "box_width": 19352355.950460583,
+   "onset_amplitude": 0.004528508636110343,
+   "selected_drive_amplitude": 0.009057017272220686,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 216502741.9157655,
+   "drive_scale": 0.9740213441764802,
+   "onset_exponent": 1.9734987949239435,
+   "num_lines": 1,
+   "x180_amplitude": 0.0962266489051623,
+   "x90_amplitude": 0.04811332445258115,
+   "lines": [
+    {
+     "offset": -226795.59097342874,
+     "onset_level": 1,
+     "onset_amplitude": 0.0022642543180551714,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.0005516614783926646
+    }
+   ],
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5271651840.229191
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5271651840.229191
+  }
+ },
+ "measurement_id": "m-BE5E8G",
+ "namespace": {
+  "sweep_lengths": {
+   "Q1": 4000
+  },
+  "rates": {
+   "Q1": 5000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "Q1": 222277204.91979071
+  },
+  "ladders": {
+   "Q1": {
+    "played": [
+     0.0011321271590275857,
+     0.0022642543180551714,
+     0.004528508636110343,
+     0.009057017272220686,
+     0.01811403454444137,
+     0.03622806908888274,
+     0.07245613817776549
+    ],
+    "requested": [
+     0.0011321271590275857,
+     0.0022642543180551714,
+     0.004528508636110343,
+     0.009057017272220686,
+     0.01811403454444137,
+     0.03622806908888274,
+     0.07245613817776549
+    ],
+    "prior": "x180",
+    "centre_amplitude": 0.009057017272220686
+   }
+  }
+ }
+}

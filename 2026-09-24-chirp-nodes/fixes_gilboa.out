@@ -1,0 +1,180 @@
+2026-09-24 12:05:15,866 - qm - INFO     - Starting session: 4ace7700-53e8-45d5-9f2d-9d4c6848b2bf
+12:05:20 [gilboa/fix] ab20-qD5-fix: 03b_qubit_spectroscopy_vs_flux on ['qD5'] {'operation_len_in_ns': 20000}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 43 s: 2200 sweep points x 50 shots x 259 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:05:22,068 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:05:22] QUA program submitted to gilboa (id =                computers.py:416
+           a04b9ff0-0ce2-4481-bf34-d65297bcb521)                                
+           Execution started                                    computers.py:455
+[12:05:52] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+None
+2026-09-24 12:05:52,907 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux.py:367: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+save failed for node 03b_qubit_spectroscopy_vs_flux (measurement m-4DE0B2)
+Traceback (most recent call last):
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 182, in save
+    self.storage_manager.save(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/recorder.py", line 90, in save
+    self._store.record_results(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.measurement_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        parameters=node_parameters(node),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/store.py", line 232, in record_results
+    media_type, size = write_dataset(value, path)
+                       ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/serialise.py", line 86, in write_dataset
+    payload.to_netcdf(path, engine="h5netcdf")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/core/dataset.py", line 2372, in to_netcdf
+    return to_netcdf(  # type: ignore[return-value]  # mypy cannot resolve the overloads:(
+        self,
+    ...<10 lines>...
+        auto_complex=auto_complex,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1873, in to_netcdf
+    dump_to_store(
+    ~~~~~~~~~~~~~^
+        dataset, store, writer, encoding=encoding, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1920, in dump_to_store
+    store.store(variables, attrs, check_encoding, writer, unlimited_dims=unlimited_dims)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 451, in store
+    self.set_variables(
+    ~~~~~~~~~~~~~~~~~~^
+        variables, check_encoding_set, writer, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 489, in set_variables
+    target, source = self.prepare_variable(
+                     ~~~~~~~~~~~~~~~~~~~~~^
+        name, v, check, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/h5netcdf_.py", line 301, in prepare_variable
+    dtype = _get_datatype(variable, raise_on_invalid_encoding=check_encoding)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 151, in _get_datatype
+    return _nc4_dtype(var)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 172, in _nc4_dtype
+    raise ValueError(f"unsupported dtype for netCDF4 variable: {var.dtype}")
+ValueError: unsupported dtype for netCDF4 variable: object
+Results for qubit qD5:  PROPOSED (clean)
+	idle offset shift: 3 mV | Qubit frequency: 5.817 GHz | (shift of 0 MHz)
+r²: 0.998
+
+12:05:54 [gilboa/fix] ab20-qD5-fix: done -- QPU 28.2 s
+12:05:54 [gilboa/fix]    qD5: {'qubit_frequency': 5816972366.034855, 'frequency_shift': 0.0, 'idle_offset_shift': 0.003127483711399671, 'phi0_voltage': 0.18, 'phi0_current': 9.0, 'm_pH': 0.00022977777777777778, 'r_squared': 0.9977017788310042, 'f_01': 5816972366.034855, 'RF_frequency': 5816972366.034855, 'joint_offset': 0.023136593139429923, 'independent_offset': 0.003127483711399671, 'measured_apex_offset': 0.0049999999999999975, 'measured_apex_frequency': 5816972366.034855, 'apex_in_sweep': True, 'apex_side': '', 'fit_agrees': True, 'tracked_columns': 10, 'flux_columns': 11}
+12:05:54 [gilboa/fix] ab80-qD5-fix: 03b_qubit_spectroscopy_vs_flux on ['qD5'] {'operation_len_in_ns': 80000}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 53 s: 2200 sweep points x 50 shots x 319 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:05:56,179 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:05:57] QUA program submitted to gilboa (id =                computers.py:416
+           bee41101-4077-4ef6-a210-fe7166bfc44d)                                
+           Execution started                                    computers.py:455
+[12:06:33] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+None
+2026-09-24 12:06:33,982 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux.py:367: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#/qubits/qA3" from component FluxTunableTransmonPair: #/qubit_pairs/qD4-qA3. Error: Could not resolve reference '#/qubits/qA3'
+  warnings.warn(msg)
+save failed for node 03b_qubit_spectroscopy_vs_flux (measurement m-CW7SQD)
+Traceback (most recent call last):
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 182, in save
+    self.storage_manager.save(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/recorder.py", line 90, in save
+    self._store.record_results(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.measurement_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        parameters=node_parameters(node),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/store.py", line 232, in record_results
+    media_type, size = write_dataset(value, path)
+                       ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/serialise.py", line 86, in write_dataset
+    payload.to_netcdf(path, engine="h5netcdf")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/core/dataset.py", line 2372, in to_netcdf
+    return to_netcdf(  # type: ignore[return-value]  # mypy cannot resolve the overloads:(
+        self,
+    ...<10 lines>...
+        auto_complex=auto_complex,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1873, in to_netcdf
+    dump_to_store(
+    ~~~~~~~~~~~~~^
+        dataset, store, writer, encoding=encoding, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1920, in dump_to_store
+    store.store(variables, attrs, check_encoding, writer, unlimited_dims=unlimited_dims)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 451, in store
+    self.set_variables(
+    ~~~~~~~~~~~~~~~~~~^
+        variables, check_encoding_set, writer, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 489, in set_variables
+    target, source = self.prepare_variable(
+                     ~~~~~~~~~~~~~~~~~~~~~^
+        name, v, check, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/h5netcdf_.py", line 301, in prepare_variable
+    dtype = _get_datatype(variable, raise_on_invalid_encoding=check_encoding)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 151, in _get_datatype
+    return _nc4_dtype(var)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 172, in _nc4_dtype
+    raise ValueError(f"unsupported dtype for netCDF4 variable: {var.dtype}")
+ValueError: unsupported dtype for netCDF4 variable: object
+Results for qubit qD5:  PROPOSED (clean)
+	idle offset shift: 3 mV | Qubit frequency: 5.817 GHz | (shift of 0 MHz)
+r²: 0.999
+
+12:06:34 [gilboa/fix] ab80-qD5-fix: done -- QPU 34.9 s
+12:06:34 [gilboa/fix]    qD5: {'qubit_frequency': 5816972366.034855, 'frequency_shift': 0.0, 'idle_offset_shift': 0.0033053260508382467, 'phi0_voltage': 0.2, 'phi0_current': 10.0, 'm_pH': 0.00020679999999999996, 'r_squared': 0.9987173641259492, 'f_01': 5816972366.034855, 'RF_frequency': 5816972366.034855, 'joint_offset': 0.0233144354788685, 'independent_offset': 0.0033053260508382467, 'measured_apex_offset': -0.005000000000000001, 'measured_apex_frequency': 5816472366.034855, 'apex_in_sweep': True, 'apex_side': '', 'fit_agrees': True, 'tracked_columns': 10, 'flux_columns': 11}
+12:06:34 [gilboa/fix] all steps done: ab20,ab80

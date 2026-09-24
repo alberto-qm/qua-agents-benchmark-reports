@@ -1,0 +1,63 @@
+{
+ "tag": "fine-qD5",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "qD5"
+ ],
+ "params": {
+  "frequency_center_in_mhz": -0.59,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.08766751037331479,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 6.16220112494193,
+ "qpu_s": 2.0587706565856934,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD5": {
+   "frequency": 5817082366.034855,
+   "relative_freq": 110000.0,
+   "fwhm": 719439.3226811847,
+   "iw_angle": 6.046706758311856,
+   "saturation_amp": 0.2814093097455057,
+   "x180_amp": 0.5382258036917988,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5817082366.034855,
+   "RF_frequency": 5817082366.034855,
+   "saturation_amplitude": 0.2814093097455057,
+   "x180_amplitude": 0.5382258036917988,
+   "x90_amplitude": 0.2691129018458994,
+   "warnings": [],
+   "swept_min_freq_hz": 5811382366.034855,
+   "swept_max_freq_hz": 5821382366.034855,
+   "snr": 17.60289435196735,
+   "noise_sigma": 5.8049044412598415e-05,
+   "min_detectable_amplitude": 0.0002902452220629921,
+   "r_squared": 0.930804326761195,
+   "fitted_fwhm": 680582.1872305253,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/xy/RF_frequency": {
+   "old": 5816972366.034855,
+   "new": 5817082366.034855
+  },
+  "/qubits/qD5/f_01": {
+   "old": 5816972366.034855,
+   "new": 5817082366.034855
+  }
+ },
+ "measurement_id": "m-6ST0AM",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

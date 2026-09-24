@@ -1,0 +1,112 @@
+2026-09-24 12:14:11,749 - qm - INFO     - Starting session: 41687249-8c8b-49aa-86be-28037d3c38fc
+12:14:16 [qolab/fix] map03b-Q1-fix: 03b_qubit_spectroscopy_vs_flux on ['Q1'] {'min_flux_offset_in_v': -0.094, 'max_flux_offset_in_v': 0.094, 'num_flux_points': 15, 'frequency_span_in_mhz': 60.0, 'frequency_step_in_mhz': 0.5, 'num_shots': 50}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+estimated QPU time 46 s: 1800 sweep points x 50 shots x 342 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:14:17,154 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:14:17] QUA program submitted to qolab (id =                 computers.py:416
+           95780a39-0957-4d2e-a6ca-101dbc72d14f)                                
+           Execution started                                    computers.py:455
+[12:14:50] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+None
+2026-09-24 12:14:50,104 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux.py:367: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+save failed for node 03b_qubit_spectroscopy_vs_flux (measurement m-Z90SP2)
+Traceback (most recent call last):
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 182, in save
+    self.storage_manager.save(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/recorder.py", line 90, in save
+    self._store.record_results(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.measurement_id,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        parameters=node_parameters(node),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/store.py", line 232, in record_results
+    media_type, size = write_dataset(value, path)
+                       ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/store/serialise.py", line 86, in write_dataset
+    payload.to_netcdf(path, engine="h5netcdf")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/core/dataset.py", line 2372, in to_netcdf
+    return to_netcdf(  # type: ignore[return-value]  # mypy cannot resolve the overloads:(
+        self,
+    ...<10 lines>...
+        auto_complex=auto_complex,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1873, in to_netcdf
+    dump_to_store(
+    ~~~~~~~~~~~~~^
+        dataset, store, writer, encoding=encoding, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/api.py", line 1920, in dump_to_store
+    store.store(variables, attrs, check_encoding, writer, unlimited_dims=unlimited_dims)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 451, in store
+    self.set_variables(
+    ~~~~~~~~~~~~~~~~~~^
+        variables, check_encoding_set, writer, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/common.py", line 489, in set_variables
+    target, source = self.prepare_variable(
+                     ~~~~~~~~~~~~~~~~~~~~~^
+        name, v, check, unlimited_dims=unlimited_dims
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/h5netcdf_.py", line 301, in prepare_variable
+    dtype = _get_datatype(variable, raise_on_invalid_encoding=check_encoding)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 151, in _get_datatype
+    return _nc4_dtype(var)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/xarray/backends/netCDF4_.py", line 172, in _nc4_dtype
+    raise ValueError(f"unsupported dtype for netCDF4 variable: {var.dtype}")
+ValueError: unsupported dtype for netCDF4 variable: object
+Results for qubit Q1:  PROPOSED (clean)
+	idle offset shift: -0 mV | Qubit frequency: 5.272 GHz | (shift of -0 MHz)
+r²: 0.999
+
+12:14:51 [qolab/fix] map03b-Q1-fix: done -- QPU 30.0 s
+12:14:51 [qolab/fix]    Q1: {'qubit_frequency': 5271664324.880627, 'frequency_shift': -500000.0, 'idle_offset_shift': -3.86553720980596e-06, 'phi0_voltage': 0.752, 'phi0_current': 37.6, 'm_pH': 5.4999999999999995e-05, 'r_squared': 0.9989050097531103, 'f_01': 5271664324.880627, 'RF_frequency': 5271664324.880627, 'joint_offset': 0.6904001203919454, 'independent_offset': -3.86553720980596e-06, 'measured_apex_offset': 0.0, 'measured_apex_frequency': 5271664324.880627, 'apex_in_sweep': True, 'apex_side': '', 'fit_agrees': True, 'tracked_columns': 13, 'flux_columns': 15}
+12:14:52 [qolab/fix] r09a-Q1-fix: 09a_ramsey_vs_flux_calibration on ['Q1'] {'min_wait_time_in_ns': 16, 'max_wait_time_in_ns': 1000, 'wait_time_step_in_ns': 8, 'flux_num': 11, 'num_shots': 50}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+flux_span auto-sized to 93.9 mV from a measured curvature: puts the fastest fringe at 33% of the 62.50 MHz Nyquist ceiling, then reduced by _FLUX_SPAN_SAFETY_FACTOR=0.5 for margin against sweeping past the qubit's own flux period.
+estimated QPU time 26 s: 1353 sweep points x 50 shots x 253 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-24 12:14:54,020 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:14:54] QUA program submitted to qolab (id =                 computers.py:416
+           9865532d-8b62-4385-9312-e246401b9c16)                                
+           Execution started                                    computers.py:455
+[12:14:57] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+None
+2026-09-24 12:14:57,028 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/09a_ramsey_vs_flux_calibration.py:336: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: flux_offset=0.0002 V, freq_offset=0.00 MHz, curvature_snr=5.4, nyquist_margin=0.11, fold_violation=0.00, warnings=none
+12:14:57 [qolab/fix] r09a-Q1-fix: done -- QPU 0.7 s
+12:14:57 [qolab/fix]    Q1: {'quad_term': -2485062.8607597523, 'flux_offset': 0.00018472250256560424, 'freq_offset': 1092.6200936062617, 't2_star': nan, 'nyquist_mhz': 62.5, 'resolution_floor_mhz': 1.0245901639344261, 'max_fringe_mhz': 6.713239326286405, 'nyquist_margin': 0.10741182922058247, 'curvature_snr': 5.3587615833524875, 'alias_fraction': 0.0, 'fold_violation': 0.0, 'n_flux_points_fit': 11, 'n_flux_points_dropped': 0, 'fit_r_squared_median': 0.7288679453356466, 'fit_degenerate': False, 'f_01': 5272071704.787021, 'RF_frequency': 5272071704.787021, 'joint_offset': 0.6905887084317208, 'independent_offset': 0.00018472250256560424, 'freq_vs_flux_01_quad_term': -2485062860.7597523, 'frequency_is_usable': True}
+12:14:57 [qolab/fix] all steps done: map03b,r09a

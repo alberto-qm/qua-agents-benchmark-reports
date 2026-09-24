@@ -1,0 +1,187 @@
+{
+ "tag": "sat-qB4-qA5-qD1",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "params": {
+  "pulse": "saturation",
+  "num_flux_points": 15,
+  "frequency_min_in_mhz": -25.0,
+  "frequency_max_in_mhz": 10.0,
+  "num_shots": 50
+ },
+ "error": null,
+ "wall_s": 39.0418217908591,
+ "qpu_s": 29.935370683670044,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "idle_offset_shift": 0.0001272114660225107,
+   "idle_offset_shift_error": 5.415588334327606e-05,
+   "joint_offset": 0.03775231766264647,
+   "independent_offset": NaN,
+   "f_01": 6605772944.927916,
+   "RF_frequency": 6605772944.927916,
+   "f_01_error": 46444.77250072812,
+   "frequency_shift": -107269.9298003348,
+   "curvature": -10195327711.894714,
+   "curvature_error": 59080787.005446754,
+   "stored_curvature": -10261937435.444456,
+   "column_precision": 58910.188974664765,
+   "chi2_red": 1.974003549994204,
+   "tracked_columns": 9,
+   "flux_columns": 15,
+   "pulse": "saturation",
+   "drive_amplitude": 0.022024553021729062,
+   "sweep_length_ns": 0.0,
+   "warnings": []
+  },
+  "qA5": {
+   "idle_offset_shift": 0.00039247194976653417,
+   "idle_offset_shift_error": 6.05011977642068e-05,
+   "joint_offset": 0.012733803524319343,
+   "independent_offset": NaN,
+   "f_01": 5705408579.354057,
+   "RF_frequency": 5705408579.354057,
+   "f_01_error": 53447.16262895349,
+   "frequency_shift": -163523.36078664538,
+   "curvature": -9699053422.922491,
+   "curvature_error": 45320406.83550136,
+   "stored_curvature": -10046884649.130732,
+   "column_precision": 57026.29574185093,
+   "chi2_red": 4.1783447798868485,
+   "tracked_columns": 11,
+   "flux_columns": 15,
+   "pulse": "saturation",
+   "drive_amplitude": 0.02352024641986214,
+   "sweep_length_ns": 0.0,
+   "warnings": [
+    "columns scatter 2.0x their errors about the parabola"
+   ]
+  },
+  "qD1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -8151512864.12269,
+   "column_precision": 78405.04915208241,
+   "chi2_red": NaN,
+   "tracked_columns": 1,
+   "flux_columns": 15,
+   "pulse": "saturation",
+   "drive_amplitude": 0.017523632989714294,
+   "sweep_length_ns": 0.0,
+   "warnings": [
+    "a line was located in 1 of 15 flux columns (need 7)"
+   ]
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/xy/RF_frequency": {
+   "old": 5705572102.714844,
+   "new": 5705408579.354057
+  },
+  "/qubits/qA5/f_01": {
+   "old": 5705572102.714844,
+   "new": 5705408579.354057
+  },
+  "/qubits/qA5/z/joint_offset": {
+   "old": 0.012341331574552809,
+   "new": 0.012733803524319343
+  },
+  "/qubits/qB4/xy/RF_frequency": {
+   "old": 6605880214.857716,
+   "new": 6605772944.927916
+  },
+  "/qubits/qB4/f_01": {
+   "old": 6605880214.857716,
+   "new": 6605772944.927916
+  },
+  "/qubits/qB4/z/joint_offset": {
+   "old": 0.037625106196623966,
+   "new": 0.03775231766264647
+  }
+ },
+ "measurement_id": "m-N1XPC1",
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 0,
+   "qA5": 0,
+   "qD1": 0
+  },
+  "rates": {
+   "qB4": 0,
+   "qA5": 0,
+   "qD1": 0
+  },
+  "drive_amplitudes": {
+   "qB4": 0.022024553021729062,
+   "qA5": 0.02352024641986214,
+   "qD1": 0.017523632989714294
+  },
+  "flux_offsets": {
+   "qB4": [
+    -0.06622036582461047,
+    -0.05676031356395183,
+    -0.04730026130329319,
+    -0.03784020904263455,
+    -0.02838015678197591,
+    -0.018920104521317274,
+    -0.00946005226065863,
+    0.0,
+    0.009460052260658644,
+    0.018920104521317288,
+    0.028380156781975918,
+    0.03784020904263456,
+    0.047300261303293206,
+    0.056760313563951836,
+    0.06622036582461047
+   ],
+   "qA5": [
+    -0.06692533424606849,
+    -0.05736457221091584,
+    -0.047803810175763205,
+    -0.03824304814061057,
+    -0.02868228610545792,
+    -0.019121524070305276,
+    -0.009560762035152638,
+    0.0,
+    0.009560762035152645,
+    0.01912152407030529,
+    0.028682286105457935,
+    0.03824304814061057,
+    0.04780381017576321,
+    0.05736457221091586,
+    0.06692533424606849
+   ],
+   "qD1": [
+    -0.07429971497754377,
+    -0.06368546998075181,
+    -0.05307122498395984,
+    -0.04245697998716787,
+    -0.031842734990375904,
+    -0.02122848999358394,
+    -0.010614244996791963,
+    0.0,
+    0.010614244996791963,
+    0.021228489993583927,
+    0.03184273499037589,
+    0.04245697998716787,
+    0.053071224983959844,
+    0.0636854699807518,
+    0.07429971497754377
+   ]
+  },
+  "kappa_priors": null
+ }
+}

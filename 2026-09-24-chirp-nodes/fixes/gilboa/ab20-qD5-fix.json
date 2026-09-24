@@ -1,0 +1,43 @@
+{
+ "tag": "ab20-qD5-fix",
+ "node": "03b_qubit_spectroscopy_vs_flux",
+ "qubits": [
+  "qD5"
+ ],
+ "params": {
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "qpu_s": 28.242609977722168,
+ "wall_s": 33.81523016700521,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD5": {
+   "qubit_frequency": 5816972366.034855,
+   "frequency_shift": 0.0,
+   "idle_offset_shift": 0.003127483711399671,
+   "phi0_voltage": 0.18,
+   "phi0_current": 9.0,
+   "m_pH": 0.00022977777777777778,
+   "r_squared": 0.9977017788310042,
+   "f_01": 5816972366.034855,
+   "RF_frequency": 5816972366.034855,
+   "joint_offset": 0.023136593139429923,
+   "independent_offset": 0.003127483711399671,
+   "measured_apex_offset": 0.0049999999999999975,
+   "measured_apex_frequency": 5816972366.034855,
+   "apex_in_sweep": true,
+   "apex_side": "",
+   "fit_agrees": true,
+   "tracked_columns": 10,
+   "flux_columns": 11,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/z/joint_offset": {
+   "old": 0.02000910942803025,
+   "new": 0.023136593139429923
+  }
+ }
+}

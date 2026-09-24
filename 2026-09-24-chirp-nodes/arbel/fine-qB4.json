@@ -1,0 +1,65 @@
+{
+ "tag": "fine-qB4",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "qB4"
+ ],
+ "params": {
+  "frequency_center_in_mhz": -0.04,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.006607365906518719,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 8.755387083161622,
+ "qpu_s": 2.1227481365203857,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "frequency": 6605940214.857716,
+   "relative_freq": 60000.0,
+   "fwhm": 952224.739629159,
+   "iw_angle": 3.9323582896917557,
+   "saturation_amp": 3.150516758437027,
+   "x180_amp": 0.4541481326050296,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 6605940214.857716,
+   "RF_frequency": 6605940214.857716,
+   "saturation_amplitude": 3.150516758437027,
+   "x180_amplitude": 0.4541481326050296,
+   "x90_amplitude": 0.2270740663025148,
+   "warnings": [
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 6600840214.857716,
+   "swept_max_freq_hz": 6610840214.857716,
+   "snr": 26.772218382464096,
+   "noise_sigma": 4.699579478565463e-05,
+   "min_detectable_amplitude": 0.00023497897392827315,
+   "r_squared": 0.949019867151066,
+   "fitted_fwhm": 874541.71311684,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/qB4/xy/RF_frequency": {
+   "old": 6605880214.857716,
+   "new": 6605940214.857716
+  },
+  "/qubits/qB4/f_01": {
+   "old": 6605880214.857716,
+   "new": 6605940214.857716
+  }
+ },
+ "measurement_id": "m-78A7XN",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

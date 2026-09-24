@@ -1,0 +1,62 @@
+{
+ "tag": "r09a-Q1-main",
+ "node": "09a_ramsey_vs_flux_calibration",
+ "qubits": [
+  "Q1"
+ ],
+ "params": {
+  "min_wait_time_in_ns": 16,
+  "max_wait_time_in_ns": 1000,
+  "wait_time_step_in_ns": 8,
+  "flux_num": 11,
+  "num_shots": 50
+ },
+ "error": null,
+ "qpu_s": 0.6641957759857178,
+ "wall_s": 4.593785916920751,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "quad_term": -2564158.0302568255,
+   "flux_offset": 0.0003012931120643489,
+   "freq_offset": 1046.4554569364523,
+   "t2_star": 4.377807336944815,
+   "nyquist_mhz": 62.5,
+   "resolution_floor_mhz": 1.0245901639344261,
+   "max_fringe_mhz": 6.8412994551816295,
+   "nyquist_margin": 0.10946079128290608,
+   "curvature_snr": 5.531086550697665,
+   "alias_fraction": 0.0,
+   "fold_violation": 0.0,
+   "n_flux_points_fit": 11,
+   "n_flux_points_dropped": 0,
+   "fit_r_squared_median": 0.7471253363318324,
+   "fit_degenerate": false,
+   "f_01": 5272117869.42369,
+   "RF_frequency": 5272117869.42369,
+   "joint_offset": 0.6907052790412196,
+   "independent_offset": 0.0003012931120643489,
+   "freq_vs_flux_01_quad_term": -2564158030.2568254,
+   "frequency_is_usable": true,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5272117869.42369
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5272117869.42369
+  },
+  "/qubits/Q1/z/joint_offset": {
+   "old": 0.6904039859291552,
+   "new": 0.6907052790412196
+  },
+  "/qubits/Q1/freq_vs_flux_01_quad_term": {
+   "old": -2247197700.5083647,
+   "new": -2564158030.2568254
+  }
+ }
+}

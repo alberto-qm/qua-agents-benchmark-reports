@@ -1,0 +1,68 @@
+{
+ "tag": "fine-qD2",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "qD2"
+ ],
+ "params": {
+  "frequency_center_in_mhz": -97.16,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.29060297336532154,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 6.858398000011221,
+ "qpu_s": 2.0463368892669678,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "frequency": 5654746906.87116,
+   "relative_freq": -96260000.0,
+   "fwhm": 172157.54999838566,
+   "iw_angle": 3.774055380293852,
+   "saturation_amp": 0.6307796758539023,
+   "x180_amp": 3.999126351437967,
+   "amplitude_estimate_valid": false,
+   "power_broadened": false,
+   "f_01": 5654746906.87116,
+   "RF_frequency": 5654746906.87116,
+   "saturation_amplitude": 0.6307796758539023,
+   "x180_amplitude": 3.999126351437967,
+   "x90_amplitude": 1.9995631757189836,
+   "warnings": [
+    "NO LINE DETECTED: snr=20.0 (threshold 5.0), r_squared=0.35 (threshold 0.60), fitted_fwhm=0.025 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "fwhm=0.172 MHz is outside the plausible range (>0.300 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate",
+    "width estimates disagree: peak-finder fwhm=0.172 MHz vs Lorentzian fitted_fwhm=0.025 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable",
+    "saturation_amp/x180_amp back-extrapolation exceeds instrument amplitude limits -- not written to QuAM even if update_pulses_amplitude is enabled"
+   ],
+   "swept_min_freq_hz": 5648846906.87116,
+   "swept_max_freq_hz": 5658846906.87116,
+   "snr": 20.02966529921452,
+   "noise_sigma": 2.754568990291028e-05,
+   "min_detectable_amplitude": 0.0001377284495145514,
+   "r_squared": 0.3460536788808122,
+   "fitted_fwhm": 25000.0000000014,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/qD2/xy/RF_frequency": {
+   "old": 5751006906.87116,
+   "new": 5654746906.87116
+  },
+  "/qubits/qD2/f_01": {
+   "old": 5751006906.87116,
+   "new": 5654746906.87116
+  }
+ },
+ "measurement_id": "m-1MT6S1",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

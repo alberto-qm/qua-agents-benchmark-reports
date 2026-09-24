@@ -1,0 +1,87 @@
+{
+ "tag": "sat-Q5",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "Q5"
+ ],
+ "params": {
+  "pulse": "saturation",
+  "num_flux_points": 15,
+  "frequency_min_in_mhz": -25.0,
+  "frequency_max_in_mhz": 10.0,
+  "num_shots": 50
+ },
+ "error": null,
+ "wall_s": 20.84692058386281,
+ "qpu_s": 17.382909774780273,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q5": {
+   "idle_offset_shift": -7.87946994228341e-05,
+   "idle_offset_shift_error": 0.00017755723999609614,
+   "joint_offset": 0.018592614585346615,
+   "independent_offset": NaN,
+   "f_01": 5096621912.73153,
+   "RF_frequency": 5096621912.73153,
+   "f_01_error": 52666.50767091084,
+   "frequency_shift": 83145.3628831279,
+   "curvature": -2038570210.8550634,
+   "curvature_error": 13995530.101255262,
+   "stored_curvature": -1966294862.429851,
+   "column_precision": 101100.01212949978,
+   "chi2_red": 1.2253000926119937,
+   "tracked_columns": 9,
+   "flux_columns": 15,
+   "pulse": "saturation",
+   "drive_amplitude": 0.0038282958736403083,
+   "sweep_length_ns": 0.0,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q5/xy/RF_frequency": {
+   "old": 5096538767.368647,
+   "new": 5096621912.73153
+  },
+  "/qubits/Q5/f_01": {
+   "old": 5096538767.368647,
+   "new": 5096621912.73153
+  },
+  "/qubits/Q5/z/joint_offset": {
+   "old": 0.01867140928476945,
+   "new": 0.018592614585346615
+  }
+ },
+ "measurement_id": "m-RD8QY1",
+ "namespace": {
+  "sweep_lengths": {
+   "Q5": 0
+  },
+  "rates": {
+   "Q5": 0
+  },
+  "drive_amplitudes": {
+   "Q5": 0.0038282958736403083
+  },
+  "flux_offsets": {
+   "Q5": [
+    -0.15128014588565478,
+    -0.1296686964734184,
+    -0.10805724706118199,
+    -0.08644579764894558,
+    -0.0648343482367092,
+    -0.043222898824472805,
+    -0.02161144941223639,
+    0.0,
+    0.02161144941223639,
+    0.04322289882447278,
+    0.06483434823670917,
+    0.08644579764894558,
+    0.108057247061182,
+    0.12966869647341836,
+    0.15128014588565478
+   ]
+  },
+  "kappa_priors": null
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "tag": "fine-Q1",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "Q1"
+ ],
+ "params": {
+  "frequency_center_in_mhz": -0.04,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.06254839662515313,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 5.805560709210113,
+ "qpu_s": 1.1745128631591797,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "frequency": 5272224324.880627,
+   "relative_freq": 60000.0,
+   "fwhm": 211049.75133451304,
+   "iw_angle": 1.3450197977292149,
+   "saturation_amp": 0.3067231503860434,
+   "x180_amp": 0.4185526714948135,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5272224324.880627,
+   "RF_frequency": 5272224324.880627,
+   "saturation_amplitude": 0.3067231503860434,
+   "x180_amplitude": 0.4185526714948135,
+   "x90_amplitude": 0.20927633574740676,
+   "warnings": [
+    "NO LINE DETECTED: snr=56.8 (threshold 5.0), r_squared=0.46 (threshold 0.60), fitted_fwhm=0.025 MHz -- the reported frequency is not accepted. Continue the frequency search.",
+    "fwhm=0.211 MHz is outside the plausible range (>0.300 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate",
+    "width estimates disagree: peak-finder fwhm=0.211 MHz vs Lorentzian fitted_fwhm=0.025 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable"
+   ],
+   "swept_min_freq_hz": 5267124324.880627,
+   "swept_max_freq_hz": 5277124324.880627,
+   "snr": 56.82402735372686,
+   "noise_sigma": 1.7406319326048706e-05,
+   "min_detectable_amplitude": 8.703159663024353e-05,
+   "r_squared": 0.458773617825767,
+   "fitted_fwhm": 25000.000000036995,
+   "signal_detected": false,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5272224324.880627
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5272224324.880627
+  }
+ },
+ "measurement_id": "m-Q3FXCD",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

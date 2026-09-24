@@ -1,0 +1,79 @@
+{
+ "tag": "wide3b-Q2-lo",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "Q2"
+ ],
+ "params": {
+  "frequency_min_in_mhz": -50.0,
+  "frequency_max_in_mhz": 40.0,
+  "min_flux_offset_in_v": -0.21944311618509263,
+  "max_flux_offset_in_v": 0.0,
+  "num_flux_points": 18
+ },
+ "error": null,
+ "wall_s": 66.35374258295633,
+ "qpu_s": 27.637452840805054,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q2": {
+   "idle_offset_shift": 0.0006760457241931452,
+   "idle_offset_shift_error": 0.0008069940914957152,
+   "joint_offset": -0.9614317419597115,
+   "independent_offset": NaN,
+   "f_01": 5105902639.753062,
+   "RF_frequency": 5105902639.753062,
+   "f_01_error": 103746.44579943319,
+   "frequency_shift": -6047.513376591131,
+   "curvature": -2665870636.3472977,
+   "curvature_error": 36073522.74117506,
+   "stored_curvature": -2595769285.913982,
+   "column_precision": 120917.56352662898,
+   "chi2_red": 1.1665564851568138,
+   "tracked_columns": 10,
+   "flux_columns": 18,
+   "pulse": "chirp",
+   "drive_amplitude": 0.01761074266321237,
+   "sweep_length_ns": 4000.0,
+   "warnings": [
+    "the turning point lies outside the located columns: extend the flux range"
+   ]
+  }
+ },
+ "proposed": {},
+ "measurement_id": "m-9J2PEX",
+ "namespace": {
+  "sweep_lengths": {
+   "Q2": 4000
+  },
+  "rates": {
+   "Q2": 5000
+  },
+  "drive_amplitudes": {
+   "Q2": 0.01761074266321237
+  },
+  "flux_offsets": {
+   "Q2": [
+    -0.21944311618509263,
+    -0.20653469758596954,
+    -0.19362627898684642,
+    -0.18071786038772333,
+    -0.16780944178860024,
+    -0.15490102318947715,
+    -0.14199260459035407,
+    -0.12908418599123095,
+    -0.11617576739210786,
+    -0.10326734879298477,
+    -0.09035893019386168,
+    -0.07745051159473856,
+    -0.06454209299561547,
+    -0.051633674396492385,
+    -0.03872525579736927,
+    -0.02581683719824618,
+    -0.01290841859912309,
+    0.0
+   ]
+  },
+  "kappa_priors": null
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "tag": "sat-Q1",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "Q1"
+ ],
+ "params": {
+  "pulse": "saturation",
+  "num_flux_points": 15,
+  "frequency_min_in_mhz": -25.0,
+  "frequency_max_in_mhz": 10.0,
+  "num_shots": 50
+ },
+ "error": null,
+ "wall_s": 23.18596020899713,
+ "qpu_s": 18.86453104019165,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "idle_offset_shift": 0.0005631368866883134,
+   "idle_offset_shift_error": 0.0001655212094020083,
+   "joint_offset": 0.6909671228158435,
+   "independent_offset": NaN,
+   "f_01": 5271860984.150586,
+   "RF_frequency": 5271860984.150586,
+   "f_01_error": 56826.7768655694,
+   "frequency_shift": -303340.7300401647,
+   "curvature": -2593557126.8489738,
+   "curvature_error": 16621396.252086014,
+   "stored_curvature": -2247197700.5083647,
+   "column_precision": 114179.59184832213,
+   "chi2_red": 1.3402913029839425,
+   "tracked_columns": 9,
+   "flux_columns": 15,
+   "pulse": "saturation",
+   "drive_amplitude": 0.0044988868757858125,
+   "sweep_length_ns": 0.0,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5271860984.150586
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5271860984.150586
+  },
+  "/qubits/Q1/z/joint_offset": {
+   "old": 0.6904039859291552,
+   "new": 0.6909671228158435
+  }
+ },
+ "measurement_id": "m-W6YSYT",
+ "namespace": {
+  "sweep_lengths": {
+   "Q1": 0
+  },
+  "rates": {
+   "Q1": 0
+  },
+  "drive_amplitudes": {
+   "Q1": 0.0044988868757858125
+  },
+  "flux_offsets": {
+   "Q1": [
+    -0.14150950636347664,
+    -0.1212938625972657,
+    -0.10107821883105475,
+    -0.08086257506484379,
+    -0.06064693129863284,
+    -0.040431287532421895,
+    -0.020215643766210933,
+    0.0,
+    0.02021564376621096,
+    0.04043128753242192,
+    0.060646931298632856,
+    0.08086257506484382,
+    0.10107821883105478,
+    0.12129386259726571,
+    0.14150950636347664
+   ]
+  },
+  "kappa_priors": null
+ }
+}

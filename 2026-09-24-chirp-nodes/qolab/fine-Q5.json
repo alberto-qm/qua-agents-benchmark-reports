@@ -1,0 +1,63 @@
+{
+ "tag": "fine-Q5",
+ "node": "03a_qubit_spectroscopy",
+ "qubits": [
+  "Q5"
+ ],
+ "params": {
+  "frequency_center_in_mhz": -0.35,
+  "frequency_span_in_mhz": 10.0,
+  "frequency_step_in_mhz": 0.1,
+  "operation_amplitude_factor": 0.05322511441478869,
+  "operation_len_in_ns": 20000
+ },
+ "error": null,
+ "wall_s": 4.256465375190601,
+ "qpu_s": 1.2096033096313477,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q5": {
+   "frequency": 5096688767.368647,
+   "relative_freq": 150000.0,
+   "fwhm": 1003961.4110313067,
+   "iw_angle": 0.5116281883945106,
+   "saturation_amp": 0.06447841909682155,
+   "x180_amp": 0.07487181566596507,
+   "amplitude_estimate_valid": true,
+   "power_broadened": false,
+   "f_01": 5096688767.368647,
+   "RF_frequency": 5096688767.368647,
+   "saturation_amplitude": 0.06447841909682155,
+   "x180_amplitude": 0.07487181566596507,
+   "x90_amplitude": 0.037435907832982535,
+   "warnings": [],
+   "swept_min_freq_hz": 5091188767.368647,
+   "swept_max_freq_hz": 5101188767.368647,
+   "snr": 14.332530440333246,
+   "noise_sigma": 9.965803146043293e-06,
+   "min_detectable_amplitude": 4.9829015730216466e-05,
+   "r_squared": 0.9209771909989152,
+   "fitted_fwhm": 927694.6922214814,
+   "signal_detected": true,
+   "undersampled_peak": false
+  }
+ },
+ "proposed": {
+  "/qubits/Q5/xy/RF_frequency": {
+   "old": 5096538767.368647,
+   "new": 5096688767.368647
+  },
+  "/qubits/Q5/f_01": {
+   "old": 5096538767.368647,
+   "new": 5096688767.368647
+  }
+ },
+ "measurement_id": "m-4PRS5W",
+ "namespace": {
+  "sweep_lengths": null,
+  "rates": null,
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": null
+ }
+}

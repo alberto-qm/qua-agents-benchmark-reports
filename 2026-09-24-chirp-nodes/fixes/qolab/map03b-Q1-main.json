@@ -1,0 +1,56 @@
+{
+ "tag": "map03b-Q1-main",
+ "node": "03b_qubit_spectroscopy_vs_flux",
+ "qubits": [
+  "Q1"
+ ],
+ "params": {
+  "min_flux_offset_in_v": -0.094,
+  "max_flux_offset_in_v": 0.094,
+  "num_flux_points": 15,
+  "frequency_span_in_mhz": 60.0,
+  "frequency_step_in_mhz": 0.5,
+  "num_shots": 50
+ },
+ "error": null,
+ "qpu_s": 29.10451912879944,
+ "wall_s": 34.94088204111904,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "qubit_frequency": 5270664324.880627,
+   "frequency_shift": -1500000.0,
+   "idle_offset_shift": 0.0004410614421171973,
+   "phi0_voltage": 0.752,
+   "phi0_current": 37.6,
+   "m_pH": 5.4999999999999995e-05,
+   "r_squared": 0.9952425199566028,
+   "f_01": 5270664324.880627,
+   "RF_frequency": 5270664324.880627,
+   "joint_offset": 0.6908450473712724,
+   "independent_offset": 0.0004410614421171973,
+   "measured_apex_offset": 0.0,
+   "measured_apex_frequency": 5270664324.880627,
+   "apex_in_sweep": true,
+   "apex_side": "",
+   "fit_agrees": true,
+   "tracked_columns": 15,
+   "flux_columns": 15,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5270664324.880627
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5270664324.880627
+  },
+  "/qubits/Q1/z/joint_offset": {
+   "old": 0.6904039859291552,
+   "new": 0.6908450473712724
+  }
+ }
+}

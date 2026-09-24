@@ -1,0 +1,7 @@
+12:05:20 [gilboa/fix] ab20-qD5-fix: 03b_qubit_spectroscopy_vs_flux on ['qD5'] {'operation_len_in_ns': 20000}
+12:05:54 [gilboa/fix] ab20-qD5-fix: done -- QPU 28.2 s
+12:05:54 [gilboa/fix]    qD5: {'qubit_frequency': 5816972366.034855, 'frequency_shift': 0.0, 'idle_offset_shift': 0.003127483711399671, 'phi0_voltage': 0.18, 'phi0_current': 9.0, 'm_pH': 0.00022977777777777778, 'r_squared': 0.9977017788310042, 'f_01': 5816972366.034855, 'RF_frequency': 5816972366.034855, 'joint_offset': 0.023136593139429923, 'independent_offset': 0.003127483711399671, 'measured_apex_offset': 0.0049999999999999975, 'measured_apex_frequency': 5816972366.034855, 'apex_in_sweep': True, 'apex_side': '', 'fit_agrees': True, 'tracked_columns': 10, 'flux_columns': 11}
+12:05:54 [gilboa/fix] ab80-qD5-fix: 03b_qubit_spectroscopy_vs_flux on ['qD5'] {'operation_len_in_ns': 80000}
+12:06:34 [gilboa/fix] ab80-qD5-fix: done -- QPU 34.9 s
+12:06:34 [gilboa/fix]    qD5: {'qubit_frequency': 5816972366.034855, 'frequency_shift': 0.0, 'idle_offset_shift': 0.0033053260508382467, 'phi0_voltage': 0.2, 'phi0_current': 10.0, 'm_pH': 0.00020679999999999996, 'r_squared': 0.9987173641259492, 'f_01': 5816972366.034855, 'RF_frequency': 5816972366.034855, 'joint_offset': 0.0233144354788685, 'independent_offset': 0.0033053260508382467, 'measured_apex_offset': -0.005000000000000001, 'measured_apex_frequency': 5816472366.034855, 'apex_in_sweep': True, 'apex_side': '', 'fit_agrees': True, 'tracked_columns': 10, 'flux_columns': 11}
+12:06:34 [gilboa/fix] all steps done: ab20,ab80

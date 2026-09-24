@@ -1,0 +1,71 @@
+11:57:51 [qolab] smoke-03a-Q1: 03a_qubit_spectroscopy_chirp on ['Q1'] {}
+11:58:06 [qolab] smoke-03a-Q1: done -- QPU 8.6 s, wall 15 s
+11:58:06 [qolab]    Q1: {'f_01': 5271651840.229191, 'frequency_shift': -512484.65143557976, 'f_01_error': 472452.90441176534, 'line_identity': '0-1', 'drive_scale': 0.9740213441764802, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.009057017272220686} warnings=[]
+11:58:07 [qolab] smoke-03b-Q1: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1'] {}
+11:58:26 [qolab] smoke-03b-Q1: done -- QPU 15.5 s, wall 19 s
+11:58:26 [qolab]    Q1: {'f_01': 5272223625.715038, 'frequency_shift': 59300.8344114707, 'f_01_error': 71376.06062255181, 'idle_offset_shift': 0.00014059267030541278, 'idle_offset_shift_error': 0.00021498311941592536, 'curvature': -2641210999.453023, 'column_precision': 522044.2438911018, 'tracked_columns': 16, 'chi2_red': 0.7841807523447452} warnings=[]
+11:58:26 [qolab] all steps done: smoke
+11:59:56 [qolab] r0-03a-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'] {}
+12:00:32 [qolab] r0-03a-Q1-Q2-Q5: done -- QPU 30.1 s, wall 36 s
+12:00:32 [qolab]    Q1: {'f_01': 5272122113.905084, 'frequency_shift': -42210.97554290908, 'f_01_error': 162693.44749650743, 'line_identity': '0-1', 'drive_scale': 1.0568010222367934, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.009057017272220686} warnings=[]
+12:00:32 [qolab]    Q2: {'f_01': 5105976831.623912, 'frequency_shift': 68144.35747377595, 'f_01_error': 119951.75765773612, 'line_identity': '0-1', 'drive_scale': 0.9815704228911386, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.008805371331606185} warnings=[]
+12:00:32 [qolab]    Q5: {'f_01': 5096192945.379253, 'frequency_shift': -345821.9893933387, 'f_01_error': 178388.06887431952, 'line_identity': '0-1', 'drive_scale': 0.9330667310674415, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.015414009201854047} warnings=[]
+12:00:33 [qolab] r0-03b-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'] {}
+12:01:02 [qolab] r0-03b-Q2: done -- QPU 25.3 s, wall 29 s
+12:01:02 [qolab]    Q2: {'f_01': 5105808957.373309, 'frequency_shift': -99729.8931295412, 'f_01_error': 45201.67374054955, 'idle_offset_shift': -7.115829183326851e-05, 'idle_offset_shift_error': 9.794553435610099e-05, 'curvature': -2711026930.7878094, 'column_precision': 124722.79798180502, 'tracked_columns': 17, 'chi2_red': 0.7669559131067978} warnings=[]
+12:01:02 [qolab] r0-03b-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'] {}
+12:01:38 [qolab] r0-03b-Q1-Q5: done -- QPU 29.1 s, wall 35 s
+12:01:38 [qolab]    Q1: {'f_01': 5272140166.220577, 'frequency_shift': -24158.660049572205, 'f_01_error': 49826.52269078358, 'idle_offset_shift': -2.6375052156988835e-05, 'idle_offset_shift_error': 0.00010460036445194725, 'curvature': -2636117045.271257, 'column_precision': 129488.6517417156, 'tracked_columns': 15, 'chi2_red': 0.3180662427675303} warnings=[]
+12:01:38 [qolab]    Q5: {'f_01': 5096309620.567877, 'frequency_shift': -229146.8007700379, 'f_01_error': 62183.84482089194, 'idle_offset_shift': 9.511712892385475e-05, 'idle_offset_shift_error': 0.00015813273117541441, 'curvature': -2003863223.5261815, 'column_precision': 167501.48011964906, 'tracked_columns': 17, 'chi2_red': 1.0129744810222008} warnings=[]
+12:01:38 [qolab] wide3a-Q1: 03a_qubit_spectroscopy_chirp on ['Q1'] {'num_drive_levels': 11, 'frequency_span_in_mhz': 400.0}
+12:03:55 [qolab] wide3a-Q1: done -- QPU 22.0 s, wall 137 s
+12:03:55 [qolab]    Q1: {'f_01': 5272352631.79666, 'frequency_shift': 188306.91603370215, 'f_01_error': 143761.20314830533, 'line_identity': '0-1', 'drive_scale': 0.9407550261634685, 'anharmonicity_estimate': 296888958.91176647, 'selected_drive_amplitude': 0.009057017272220686} warnings=[]
+12:03:56 [qolab] wide3a-Q2: 03a_qubit_spectroscopy_chirp on ['Q2'] {'num_drive_levels': 11, 'frequency_span_in_mhz': 400.0}
+12:04:37 [qolab] wide3a-Q2: done -- QPU 36.4 s, wall 41 s
+12:04:37 [qolab]    Q2: {'f_01': 5105934579.949993, 'frequency_shift': 25892.68355445029, 'f_01_error': 179586.78797382963, 'line_identity': '0-1', 'drive_scale': 1.024436869141609, 'anharmonicity_estimate': 300449541.58962274, 'selected_drive_amplitude': 0.008805371331606185} warnings=[]
+12:04:38 [qolab] wide3a-Q5: 03a_qubit_spectroscopy_chirp on ['Q5'] {'num_drive_levels': 11, 'frequency_span_in_mhz': 400.0}
+12:05:02 [qolab] wide3a-Q5: done -- QPU 19.5 s, wall 23 s
+12:05:02 [qolab]    Q5: {'f_01': 5096085401.512669, 'frequency_shift': -453365.8559775434, 'f_01_error': 263237.77821404237, 'line_identity': '0-1', 'drive_scale': 1.0152753655919855, 'anharmonicity_estimate': 296733710.1130284, 'selected_drive_amplitude': 0.007707004600927023} warnings=[]
+12:05:02 [qolab] wide3b-Q1: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'flux_span_factor': 2.5, 'num_flux_points': 35}
+12:05:39 [qolab] wide3b-Q1: done -- QPU 32.7 s, wall 36 s
+12:05:39 [qolab]    Q1: {'f_01': 5272012168.523154, 'frequency_shift': -152156.35747263304, 'f_01_error': 43623.09236330825, 'idle_offset_shift': 0.000339358605238296, 'idle_offset_shift_error': 7.449446702102353e-05, 'curvature': -2611171867.2276907, 'column_precision': 111970.4541358288, 'tracked_columns': 18, 'chi2_red': 1.1280235548862343} warnings=[]
+12:05:39 [qolab] wide3b-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q5'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'flux_span_factor': 2.5, 'num_flux_points': 35}
+12:08:12 [qolab] wide3b-Q5: done -- QPU 29.1 s, wall 153 s
+12:08:12 [qolab]    Q5: {'f_01': 5096421795.264589, 'frequency_shift': -116972.10405756083, 'f_01_error': 60624.86434324677, 'idle_offset_shift': -0.0001174535697560411, 'idle_offset_shift_error': 0.00011834871236255856, 'curvature': -2009494337.021561, 'column_precision': 166657.96152922054, 'tracked_columns': 19, 'chi2_red': 0.7259560431170765} warnings=[]
+12:08:13 [qolab] wide3b-Q2-lo: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'min_flux_offset_in_v': -0.21944311618509263, 'max_flux_offset_in_v': 0.0, 'num_flux_points': 18}
+12:09:19 [qolab] wide3b-Q2-lo: done -- QPU 27.6 s, wall 66 s
+12:09:19 [qolab]    Q2: {'f_01': 5105902639.753062, 'frequency_shift': -6047.513376591131, 'f_01_error': 103746.44579943319, 'idle_offset_shift': 0.0006760457241931452, 'idle_offset_shift_error': 0.0008069940914957152, 'curvature': -2665870636.3472977, 'column_precision': 120917.56352662898, 'tracked_columns': 10, 'chi2_red': 1.1665564851568138} warnings=['the turning point lies outside the located columns: extend the flux range']
+12:09:20 [qolab] wide3b-Q2-hi: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'] {'frequency_min_in_mhz': -50.0, 'frequency_max_in_mhz': 40.0, 'min_flux_offset_in_v': 0.01290841859912309, 'max_flux_offset_in_v': 0.21944311618509263, 'num_flux_points': 17}
+12:10:07 [qolab] wide3b-Q2-hi: done -- QPU 26.1 s, wall 47 s
+12:10:07 [qolab]    Q2: {'f_01': 5105672584.466136, 'frequency_shift': -236102.80030218416, 'f_01_error': 256704.900939586, 'idle_offset_shift': 0.0015928197852517368, 'idle_offset_shift_error': 0.0015940003665101993, 'curvature': -2764017848.566178, 'column_precision': 114536.9961027803, 'tracked_columns': 9, 'chi2_red': 2.635925324871926} warnings=['the turning point lies outside the located columns: extend the flux range']
+12:10:07 [qolab] sat-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'] {'pulse': 'saturation', 'num_flux_points': 15, 'frequency_min_in_mhz': -25.0, 'frequency_max_in_mhz': 10.0, 'num_shots': 50}
+12:10:38 [qolab] sat-Q2: done -- QPU 27.5 s, wall 31 s
+12:10:38 [qolab]    Q2: {'f_01': 5105770591.849937, 'frequency_shift': -138095.41650071723, 'f_01_error': 105237.97095125128, 'idle_offset_shift': -1.3479109034973207e-05, 'idle_offset_shift_error': 0.0002512913731412068, 'curvature': -2693587447.1626163, 'column_precision': 88589.06994159268, 'tracked_columns': 9, 'chi2_red': 5.565756354682851} warnings=['columns scatter 2.4x their errors about the parabola']
+12:10:39 [qolab] sat-Q1: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1'] {'pulse': 'saturation', 'num_flux_points': 15, 'frequency_min_in_mhz': -25.0, 'frequency_max_in_mhz': 10.0, 'num_shots': 50}
+12:11:02 [qolab] sat-Q1: done -- QPU 18.9 s, wall 23 s
+12:11:02 [qolab]    Q1: {'f_01': 5271860984.150586, 'frequency_shift': -303340.7300401647, 'f_01_error': 56826.7768655694, 'idle_offset_shift': 0.0005631368866883134, 'idle_offset_shift_error': 0.0001655212094020083, 'curvature': -2593557126.8489738, 'column_precision': 114179.59184832213, 'tracked_columns': 9, 'chi2_red': 1.3402913029839425} warnings=[]
+12:11:02 [qolab] sat-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q5'] {'pulse': 'saturation', 'num_flux_points': 15, 'frequency_min_in_mhz': -25.0, 'frequency_max_in_mhz': 10.0, 'num_shots': 50}
+12:11:23 [qolab] sat-Q5: done -- QPU 17.4 s, wall 21 s
+12:11:23 [qolab]    Q5: {'f_01': 5096621912.73153, 'frequency_shift': 83145.3628831279, 'f_01_error': 52666.50767091084, 'idle_offset_shift': -7.87946994228341e-05, 'idle_offset_shift_error': 0.00017755723999609614, 'curvature': -2038570210.8550634, 'column_precision': 101100.01212949978, 'tracked_columns': 9, 'chi2_red': 1.2253000926119937} warnings=[]
+12:11:24 [qolab] fine-Q1: 03a_qubit_spectroscopy on ['Q1'] {'frequency_center_in_mhz': -0.04, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.06254839662515313, 'operation_len_in_ns': 20000}
+12:11:30 [qolab] fine-Q1: done -- QPU 1.2 s, wall 6 s
+12:11:30 [qolab]    Q1: {'f_01': 5272224324.880627} warnings=['NO LINE DETECTED: snr=56.8 (threshold 5.0), r_squared=0.46 (threshold 0.60), fitted_fwhm=0.025 MHz -- the reported frequency is not accepted. Continue the frequency search.', 'fwhm=0.211 MHz is outside the plausible range (>0.300 MHz, <15.000 MHz) -- may be noise or an unreliable width estimate', 'width estimates disagree: peak-finder fwhm=0.211 MHz vs Lorentzian fitted_fwhm=0.025 MHz -- treat the linewidth (and any amplitude back-extrapolated from it) as unreliable']
+12:11:30 [qolab] fine-Q2: 03a_qubit_spectroscopy on ['Q2'] {'frequency_center_in_mhz': 0.07, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.07226461657760364, 'operation_len_in_ns': 20000}
+12:11:35 [qolab] fine-Q2: done -- QPU 1.2 s, wall 5 s
+12:11:35 [qolab]    Q2: {'f_01': 5105878687.2664385} warnings=[]
+12:11:35 [qolab] fine-Q5: 03a_qubit_spectroscopy on ['Q5'] {'frequency_center_in_mhz': -0.35, 'frequency_span_in_mhz': 10.0, 'frequency_step_in_mhz': 0.1, 'operation_amplitude_factor': 0.05322511441478869, 'operation_len_in_ns': 20000}
+12:11:40 [qolab] fine-Q5: done -- QPU 1.2 s, wall 4 s
+12:11:40 [qolab]    Q5: {'f_01': 5096688767.368647} warnings=[]
+12:11:41 [qolab] end-03a-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'] {}
+12:12:15 [qolab] end-03a-Q1-Q2-Q5: done -- QPU 30.1 s, wall 35 s
+12:12:15 [qolab]    Q1: {'f_01': 5272166075.3622, 'frequency_shift': 1750.4815728056951, 'f_01_error': 150283.26138095494, 'line_identity': '0-1', 'drive_scale': 0.9502011916338974, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.009057017272220686} warnings=[]
+12:12:15 [qolab]    Q2: {'f_01': 5105675951.253538, 'frequency_shift': -232736.01290009983, 'f_01_error': 457071.7890733388, 'line_identity': '0-1', 'drive_scale': 0.9316745491658517, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.008805371331606185} warnings=[]
+12:12:15 [qolab]    Q5: {'f_01': 5096520490.634627, 'frequency_shift': -18276.734019137777, 'f_01_error': 268876.75544759084, 'line_identity': '0-1', 'drive_scale': 0.9319854793617057, 'anharmonicity_estimate': nan, 'selected_drive_amplitude': 0.015414009201854047} warnings=[]
+12:12:16 [qolab] end-03b-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'] {}
+12:12:45 [qolab] end-03b-Q2: done -- QPU 25.3 s, wall 29 s
+12:12:45 [qolab]    Q2: {'f_01': 5105685906.987719, 'frequency_shift': -222780.27871985408, 'f_01_error': 50145.27089616536, 'idle_offset_shift': 9.309775484570232e-05, 'idle_offset_shift_error': 0.0001064150566923626, 'curvature': -2673747774.800032, 'column_precision': 129113.8528883962, 'tracked_columns': 17, 'chi2_red': 0.616425647355628} warnings=[]
+12:12:46 [qolab] end-03b-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'] {}
+12:13:19 [qolab] end-03b-Q1-Q5: done -- QPU 29.1 s, wall 33 s
+12:13:19 [qolab]    Q1: {'f_01': 5272128953.994539, 'frequency_shift': -35370.88608708412, 'f_01_error': 56259.39608110348, 'idle_offset_shift': 8.671931428602548e-05, 'idle_offset_shift_error': 0.0001255151013658262, 'curvature': -2624028839.603442, 'column_precision': 139200.36263648377, 'tracked_columns': 15, 'chi2_red': 1.0181918060104755} warnings=[]
+12:13:19 [qolab]    Q5: {'f_01': 5096457893.52794, 'frequency_shift': -80873.84070686555, 'f_01_error': 98232.44071899496, 'idle_offset_shift': 8.1218412459811e-05, 'idle_offset_shift_error': 0.00022566742042488377, 'curvature': -2046211959.4053278, 'column_precision': 178610.6048350076, 'tracked_columns': 17, 'chi2_red': 2.125387872321553} warnings=[]
+12:13:19 [qolab] all steps done: r0,wide3a,wide3b,sat,fine,end

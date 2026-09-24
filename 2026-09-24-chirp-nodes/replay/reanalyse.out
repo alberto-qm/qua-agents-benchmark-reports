@@ -1,0 +1,56 @@
+arbel/qB4/end-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': -255475.57346664288, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qA5/end-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': 102641.80963477837, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qD1/end-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': -1003961.187469368, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qB4/end-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.00022201180736099442, 'tracked': 17, 'proposed': True}
+arbel/qA5/end-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.000549233912899192, 'tracked': 17, 'proposed': True}
+arbel/qD1/end-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 2, 'proposed': False}
+arbel/qA5/fine-qA5 5705632102.714844
+arbel/qB4/fine-qB4 6605940214.857716
+arbel/qD1/fine-qD1 4996685878.44061
+arbel/qB4/r0-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': -35785.52101284562, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qA5/r0-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': -335756.21250330575, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qD1/r0-03a-qB4-qA5-qD1 {'identity': '0-1', 'f01_offset': -708871.5439732407, 'x0': None, 'tracked': None, 'proposed': True}
+arbel/qB4/r0-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.00024131385739827846, 'tracked': 17, 'proposed': True}
+arbel/qA5/r0-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.0006121137872270511, 'tracked': 17, 'proposed': True}
+arbel/qD1/r0-03b-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 2, 'proposed': False}
+arbel/qB4/sat-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.0001272114660225107, 'tracked': 9, 'proposed': True}
+arbel/qA5/sat-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': 0.00039247194976653417, 'tracked': 11, 'proposed': True}
+arbel/qD1/sat-qB4-qA5-qD1 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 1, 'proposed': False}
+qolab/Q1/end-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': 1750.4815728056951, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q2/end-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': -232736.01290009983, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q5/end-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': -18276.734019137777, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q1/end-03b-Q1-Q5 {'identity': None, 'f01_offset': None, 'x0': 8.671931428602548e-05, 'tracked': 15, 'proposed': True}
+qolab/Q5/end-03b-Q1-Q5 {'identity': None, 'f01_offset': None, 'x0': 8.1218412459811e-05, 'tracked': 17, 'proposed': True}
+qolab/Q2/end-03b-Q2 {'identity': None, 'f01_offset': None, 'x0': 9.309775484570232e-05, 'tracked': 17, 'proposed': True}
+qolab/Q1/fine-Q1 5272224324.880627
+qolab/Q2/fine-Q2 5105878687.2664385
+qolab/Q5/fine-Q5 5096688767.368647
+qolab/Q1/r0-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': -42210.97554290908, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q2/r0-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': 68144.35747377595, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q5/r0-03a-Q1-Q2-Q5 {'identity': '0-1', 'f01_offset': -345821.9893933387, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q1/r0-03b-Q1-Q5 {'identity': None, 'f01_offset': None, 'x0': -2.6375052156988835e-05, 'tracked': 15, 'proposed': True}
+qolab/Q5/r0-03b-Q1-Q5 {'identity': None, 'f01_offset': None, 'x0': 9.511712892385475e-05, 'tracked': 17, 'proposed': True}
+qolab/Q2/r0-03b-Q2 {'identity': None, 'f01_offset': None, 'x0': -7.115829183326851e-05, 'tracked': 17, 'proposed': True}
+qolab/Q1/sat-Q1 {'identity': None, 'f01_offset': None, 'x0': 0.0005631368866883134, 'tracked': 9, 'proposed': True}
+qolab/Q2/sat-Q2 {'identity': None, 'f01_offset': None, 'x0': -1.3479109034973207e-05, 'tracked': 9, 'proposed': True}
+qolab/Q5/sat-Q5 {'identity': None, 'f01_offset': None, 'x0': -7.87946994228341e-05, 'tracked': 9, 'proposed': True}
+qolab/Q1/smoke-03a-Q1 {'identity': '0-1', 'f01_offset': -329179.6388275084, 'x0': None, 'tracked': None, 'proposed': True}
+qolab/Q1/smoke-03b-Q1 {'identity': None, 'f01_offset': None, 'x0': 0.00040409876993836917, 'tracked': 16, 'proposed': True}
+gilboa/qD2/end-03a-qD2-qC3-qD5 {'identity': 'short-sweep', 'f01_offset': None, 'x0': None, 'tracked': None, 'proposed': False}
+gilboa/qC3/end-03a-qD2-qC3-qD5 {'identity': 'short-sweep', 'f01_offset': 152364.23275397826, 'x0': None, 'tracked': None, 'proposed': False}
+gilboa/qD5/end-03a-qD2-qC3-qD5 {'identity': '0-1', 'f01_offset': -535809.5522995909, 'x0': None, 'tracked': None, 'proposed': True}
+gilboa/qD2/end-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.003808308319847163, 'tracked': 9, 'proposed': False}
+gilboa/qC3/end-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 3, 'proposed': False}
+gilboa/qD5/end-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.00312235506603389, 'tracked': 16, 'proposed': True}
+gilboa/qC3/fine-qC3 5648584148.656785
+gilboa/qD2/fine-qD2 5654746906.87116
+gilboa/qD5/fine-qD5 5817082366.034855
+gilboa/qD2/r0-03a-qD2-qC3-qD5 {'identity': 'short-sweep', 'f01_offset': -97155809.65247189, 'x0': None, 'tracked': None, 'proposed': False}
+gilboa/qC3/r0-03a-qD2-qC3-qD5 {'identity': 'short-sweep', 'f01_offset': 2800800.318141534, 'x0': None, 'tracked': None, 'proposed': False}
+gilboa/qD5/r0-03a-qD2-qC3-qD5 {'identity': '0-1', 'f01_offset': -591996.2133598557, 'x0': None, 'tracked': None, 'proposed': True}
+gilboa/qD2/r0-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.0035891541811240036, 'tracked': 8, 'proposed': False}
+gilboa/qC3/r0-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 0, 'proposed': False}
+gilboa/qD5/r0-03b-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.0030627716903450478, 'tracked': 16, 'proposed': True}
+gilboa/qD2/sat-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': None, 'tracked': 0, 'proposed': False}
+gilboa/qC3/sat-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.0003515949909567554, 'tracked': 9, 'proposed': True}
+gilboa/qD5/sat-qD2-qC3-qD5 {'identity': None, 'f01_offset': None, 'x0': 0.003051317474301092, 'tracked': 10, 'proposed': True}
