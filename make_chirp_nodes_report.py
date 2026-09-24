@@ -66,33 +66,20 @@ def figrow(items):
 
 
 def backend_figures(be):
-    """Start-of-session 03a ladder, 03b chirped map(s) and saturation map(s) for one backend."""
+    """Chirp against saturation, qubits as columns: the 1D spectroscopy (maps and line cuts) and the flux maps."""
     qs = QUBITS[be]
-    tag3a = f"r0-03a-{'-'.join(qs)}"
-    out = [f'<h3>{be} · {", ".join(qs)}</h3>']
-    out.append(img(f"figures/{be}_{tag3a}_ladder.png",
-                   f"{be}, 03a chirp at its defaults, {qpu_of(be, tag3a):.0f} s of QPU for the three qubits. Rows: drive levels, weakest at "
-                   "the bottom. Red solid: the 0→1 line proposed; red dashed: its 0→2 partner; grey dashed: a line not proposed.",
-                   f"03a chirp ladders for {be}"))
-    maps = sorted(p.name for p in (DATA / "figures").glob(f"{be}_r0-03b-*_flux_map.png"))
-    for name in maps:
-        tag = name[len(be) + 1:-len("_flux_map.png")]
-        who = tag[len("r0-03b-"):].replace("-", ", ")
-        single = "," not in who
-        out.append(img(f"figures/{name}", f"{be} {who}, 03b chirp at its defaults, {qpu_of(be, tag):.0f} s of QPU. Circles: each column's "
-                       "box centre; red curve and star: the fitted parabola and sweet spot (grey: not proposed).", f"03b chirped maps {be} {who}",
-                       max_width=480 if single else None))
-    sats = sorted(p.name for p in (DATA / "figures").glob(f"{be}_sat-*_flux_map.png"))
-    items = []
-    for name in sats:
-        tag = name[len(be) + 1:-len("_flux_map.png")]
-        who = tag[len("sat-"):].replace("-", ", ")
-        items.append((f"figures/{name}", f"{be} {who}, 03b in saturation mode (reference), {qpu_of(be, tag):.0f} s", f"saturation map {be} {who}"))
-    if len(items) == 1:
-        out.append(img(*items[0], max_width=None if "," in items[0][1] else 480))
-    elif items:
-        out.append(figrow(items))
-    return "\n".join(out)
+    return "\n".join([
+        f'<h3>{be} · {", ".join(qs)}</h3>',
+        img(f"figures/cols_1d_{be}.png",
+            f"{be}, qubit spectroscopy. Rows 1–2: the chirp's wide ladder (11 drives, ×1/32…×32 of the x180 prediction, 4 µs or "
+            "T1/5 sweeps over 20 MHz), map and line cuts. Rows 3–4: the saturation node at its defaults (9 drives, ×1/16…×16 of its "
+            "default, 20 µs, 0.15 MHz steps), map and line cuts. Line cuts are labelled with the Rabi frequency; red dotted: f₀₁ from "
+            "the fine saturation scan, orange dotted: the 0→2 line.", f"chirp and saturation spectroscopy for {be}"),
+        img(f"figures/cols_flux_{be}.png",
+            f"{be}, flux maps at the start of the session: 03b chirp at its defaults (row 1) and 03b in saturation mode (row 2). "
+            "Circles: each column's centre; curve and star: the fitted parabola and sweet spot (grey: not proposed). QPU is the "
+            "job's, shared when it held several qubits.", f"chirp and saturation flux maps for {be}"),
+    ])
 
 
 def appendix():
@@ -110,6 +97,10 @@ def appendix():
             body.append(img(f"figures/{name}", f"{be} · {tag} · {caption}", f"{be} {tag}", max_width=480 if single else None))
         return f"<details><summary>{title} ({len(names)} figures)</summary>{''.join(body)}</details>"
 
+    parts.append(group("Start of session, as the nodes draw them: 03a chirp ladders", "*_r0-03a-*_ladder.png", "start of session"))
+    parts.append(group("Start of session, as the nodes draw them: 03b chirp and saturation-mode maps", "*_r0-03b-*_flux_map.png",
+                       "start of session"))
+    parts.append(group("Start of session, as the nodes draw them: 03b saturation-mode maps", "*_sat-*_flux_map.png", "saturation mode"))
     parts.append(group("End of session: 03a and 03b chirp at their defaults again", "*_end-*.png", "end of session"))
     parts.append(group("Wide 03a ladders used for the replays (11 levels, ±200 MHz)", "*_wide3a-*_ladder.png", "wide ladder"))
     parts.append(group("Wide 03b maps used for the replays (35 columns, ±2.5× the 20 MHz offset)", "*_wide3b-*_flux_map.png", "wide map"))
@@ -413,8 +404,10 @@ Rabi rate over the one the stored x180 predicts. 03a's f₀₁ differs from the 
 (rms {rms:.2f}, worst {worst:.2f}), consistent with a 5 MHz step and a slightly tilted box top (T1 decay during the up-sweep); fine
 spectroscopy after the flux map removes it.</p>
 
-<p>Every qubit's figures follow, redrawn from the saved datasets with the committed analysis (grey marks what the node does
-not propose). End-of-session runs, the wide maps and the fine scans are in the appendix.</p>
+<p>Every qubit follows, chirp against saturation with the qubits as columns: first the 1D spectroscopy (the chirp's drive
+ladder, then the saturation node's, each as a map and as line cuts), then the flux maps (chirp, then saturation). All are redrawn
+from the saved datasets with the committed analysis; grey marks what a node does not propose. The figures as the nodes draw
+them, the end-of-session runs, the wide flux maps and the fine scans are in the appendix.</p>
 {backend_figures("arbel")}
 {backend_figures("qolab")}
 {backend_figures("gilboa")}
@@ -467,9 +460,7 @@ f₀₁ ≥55 MHz low, where the ±50 MHz window holds the narrow 0→2 line but
 line in its window. qD2's 35 wrong answers come at ×8–×16 and are graded against the 23 Sep frequency.</li>
 </ul>
 {"".join(img(f"compare_capture_{be}.png", f"{be}: replay outcomes, chirp (left) and saturation (right). The drive axes differ: the chirp's is relative to the x180 prediction, saturation's to its own default, whose Rabi frequency is noted per qubit.", f"capture comparison {be}") for be in QUBITS)}
-<details><summary>The raw responses behind the grids (3 figures)</summary>
-{"".join(img(f"compare_ladder_{be}.png", f"{be}: the chirp's wide ladder (left) and the saturation ladder (right), signal against frequency, one row per drive. Red dotted: f₀₁; orange dotted: the 0→2 line.", f"ladder comparison {be}") for be in QUBITS)}
-</details>
+<p class="small muted">The raw responses behind the grids are the 1D figures of §2 (rows 1–2: chirp, rows 3–4: saturation).</p>
 <p class="small muted">A first saturation ladder at 150 shots and 0.25 MHz steps ({old_jobs} jobs, {old_qpu:.0f} s of QPU) was replaced by this
 one: at a 0.25 MHz step the node rejects lines narrower than 0.75 MHz as undersampled, and at half its shots many lines fell just
 under its SNR threshold. Its fit results and logs are kept in <span class="mono">satladder/</span>.</p>
@@ -638,7 +629,8 @@ working tree and would pick up new nodes when resumed.</li>
 <span class="mono">2026-09-24-chirp-nodes/</span>: <span class="mono">run_backend.py</span> (the node runs),
 <span class="mono">run_fixes.py</span> and <span class="mono">chain_fixes.sh</span> (the fix tests), <span class="mono">replay.py</span> and
 <span class="mono">reanalyse.py</span> (offline, committed analysis), <span class="mono">plot_summary.py</span>,
-<span class="mono">plot_fixes.py</span>, <span class="mono">plot_all.py</span> (every node figure, redrawn). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">plot_fixes.py</span>, <span class="mono">plot_all.py</span> (every node figure, redrawn),
+<span class="mono">plot_columns.py</span> (chirp against saturation, qubits as columns). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>
