@@ -922,6 +922,12 @@ every shot partly excited: far from any line, where no chirp touches them, the s
 excitation, the same at every drive level including the weakest, and at 0 with the 5 T1 wait. Something excites them between shots
 and needs longer than 50 µs to relax — the readout is the likely suspect; Q5 is unaffected. This morning Q2's baseline was at 0.04
 and Q1's at 0.37, so it varies. The nodes refused rather than answered.</li>
+<li><b>Why the wait is 50 µs, and what would fix it.</b> Before each shot the nodes let the qubit relax for the state's
+<span class="mono">thermalization_time_factor</span> × T1 (5 T1); with T1 missing, QuAM falls back to 5 × 10 µs = 50 µs whatever the
+qubit. The nodes have no setting of their own for it — only T1 and that factor in the state, which every node reads, or active reset,
+which needs a readout threshold. A node parameter for the wait (not added yet) would keep 5 T1 when T1 is known and use a conservative
+~300 µs when it is missing (5 T1 up to T1 = 60 µs), at the cost of long waits on short-T1 qubits and of splitting three-qubit jobs near
+the 60 s cap; measuring T1 early with the chirp would remove the need for a fallback.</li>
 </ul>
 {img("figures/dirchk_arbel.png", "arbel: up- and down-chirps averaged, T1 missing (rows 1, 3) and known (rows 2, 4); sweep/T1 from the lean in the labels. qD1 and qA6 are not at a sweet spot.", "arbel, lean check")}
 {img("figures/dirchk_qolab.png", "qolab, as above: Q1 and Q2 without T1 lose their line to a raised baseline.", "qolab, lean check")}
