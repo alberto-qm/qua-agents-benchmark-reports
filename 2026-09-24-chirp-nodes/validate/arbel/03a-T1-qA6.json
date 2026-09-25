@@ -1,0 +1,106 @@
+{
+ "tag": "03a-T1-qA6",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qA6": 21948
+ },
+ "T1": {
+  "qA6": 4.390113674833465e-06
+ },
+ "params": {
+  "frequency_center_in_mhz": 40.0,
+  "frequency_span_in_mhz": 160.0
+ },
+ "error": null,
+ "wall_s": 69.46909854095429,
+ "qpu_s": 2.3610150814056396,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "f_01": 6181740350.263536,
+   "RF_frequency": 6181740350.263536,
+   "frequency_shift": -2707577.641656598,
+   "f_01_error": 1658739.6017437398,
+   "line_identity": "imprecise",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.002837919766256957,
+   "box_snr": 26.414198243374226,
+   "box_width": 19463058.19665594,
+   "onset_amplitude": 0.025231736105574176,
+   "selected_drive_amplitude": 0.05046347221114835,
+   "sweep_length_ns": 1000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 97515033.46245481,
+   "drive_scale": 1.222189603099079,
+   "onset_exponent": 2.6931014313633734,
+   "num_lines": 1,
+   "x180_amplitude": 0.2136422723102953,
+   "x90_amplitude": 0.10682113615514766,
+   "sweep_over_t1": 0.18925805197909235,
+   "sweep_over_t1_error": 0.15470577253079631,
+   "t1_estimate": NaN,
+   "t1_missing": false,
+   "excitation_before_shot": 0.06567741166295553,
+   "reset_wait_ns": 13172.0,
+   "lines": [
+    {
+     "offset": -2680122.596847833,
+     "onset_level": 1,
+     "onset_amplitude": 0.012615868052787088,
+     "levels": [
+      1,
+      2,
+      3,
+      5,
+      6
+     ],
+     "max_height": 0.0032348157327029663
+    }
+   ],
+   "warnings": [
+    "f_01 is only known to 1.7 MHz (limit 1 MHz); nothing is proposed"
+   ]
+  }
+ },
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 1000
+  },
+  "rates": {
+   "qA6": 20000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qA6": 13172
+  },
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qA6": 79787156.76781091
+  },
+  "shot_rounds": 25,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qA6": {
+    "played": [
+     0.006307934026393544,
+     0.012615868052787088,
+     0.025231736105574176,
+     0.05046347221114835,
+     0.1009269444222967,
+     0.2018538888445934,
+     0.4037077776891868
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

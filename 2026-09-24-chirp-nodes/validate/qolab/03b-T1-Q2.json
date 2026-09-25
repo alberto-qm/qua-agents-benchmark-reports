@@ -1,0 +1,113 @@
+{
+ "tag": "03b-T1-Q2",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "Q2"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "Q2": 356728
+ },
+ "T1": {
+  "Q2": 7.134622894428685e-05
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 31.756430957932025,
+ "qpu_s": 14.19080638885498,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q2": {
+   "idle_offset_shift": 0.00041426591654115924,
+   "idle_offset_shift_error": 0.00010769775036000267,
+   "joint_offset": -0.9619769553132809,
+   "independent_offset": NaN,
+   "f_01": 5105902898.034407,
+   "RF_frequency": 5105902898.034407,
+   "f_01_error": 57037.1220559056,
+   "frequency_shift": 985.9660616667921,
+   "curvature": -2685401435.5840573,
+   "curvature_error": 9783576.772358093,
+   "stored_curvature": -2536358013.337738,
+   "column_precision": 137003.2444600665,
+   "chi2_red": 1.2867915379381298,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.017640670798616358,
+   "sweep_length_ns": 4000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "excitation_refused": false,
+   "excitation_before_shot": 0.01740280054449747,
+   "reset_wait_ns": 214040.0,
+   "sweep_over_t1": 0.06477074624560249,
+   "sweep_over_t1_error": 0.021206558020324798,
+   "t1_estimate": 6.175627473601287e-05,
+   "t1_missing": false,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q2/xy/RF_frequency": {
+   "old": 5105901912.068345,
+   "new": 5105902898.034407
+  },
+  "/qubits/Q2/f_01": {
+   "old": 5105901912.068345,
+   "new": 5105902898.034407
+  },
+  "/qubits/Q2/z/joint_offset": {
+   "old": -0.962391221229822,
+   "new": -0.9619769553132809
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "Q2": 4000
+  },
+  "rates": {
+   "Q2": 5000
+  },
+  "drive_amplitudes": {
+   "Q2": 0.017640670798616358
+  },
+  "reset_waits_ns": {
+   "Q2": 214040
+  },
+  "flux_offsets": {
+   "Q2": [
+    -0.133199004565288,
+    -0.1198791041087592,
+    -0.1065592036522304,
+    -0.09323930319570159,
+    -0.07991940273917279,
+    -0.066599502282644,
+    -0.053279601826115186,
+    -0.03995970136958639,
+    -0.026639800913057593,
+    -0.013319900456528797,
+    0.0,
+    0.01331990045652881,
+    0.02663980091305762,
+    0.0399597013695864,
+    0.053279601826115214,
+    0.066599502282644,
+    0.0799194027391728,
+    0.09323930319570162,
+    0.1065592036522304,
+    0.11987910410875918,
+    0.133199004565288
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 25,
+  "num_shots": 100,
+  "flux_step_lengths": {
+   "Q2": 10000
+  },
+  "drive_lengths": {
+   "Q2": 4000
+  }
+ }
+}

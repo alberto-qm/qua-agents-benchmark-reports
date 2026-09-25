@@ -1,0 +1,8 @@
+{"tag": "03a-noT1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "noT1", "error": null, "wall_s": 58.187914500012994, "qpu_s": 35.55087947845459}
+{"tag": "03a-T1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "T1", "error": null, "wall_s": 48.19952316698618, "qpu_s": 13.55137300491333}
+{"tag": "03a-noT1-qA6", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qA6"], "variant": "noT1", "error": null, "wall_s": 45.218857457861304, "qpu_s": 8.879098892211914}
+{"tag": "03a-T1-qA6", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qA6"], "variant": "T1", "error": null, "wall_s": 69.46909854095429, "qpu_s": 2.3610150814056396}
+{"tag": "03b-noT1-qB4-qA5-qD1", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "noT1", "error": null, "wall_s": 68.27504095807672, "qpu_s": 33.94388294219971}
+{"tag": "03b-T1-qB4-qA5-qD1", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "T1", "error": null, "wall_s": 54.889869375154376, "qpu_s": 21.892690896987915}
+{"tag": "03b-noT1-qA6", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qA6"], "variant": "noT1", "error": null, "wall_s": 35.27455704193562, "qpu_s": 11.759990930557251}
+{"tag": "03b-T1-qA6", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qA6"], "variant": "T1", "error": null, "wall_s": 43.1752583340276, "qpu_s": 3.1576602458953857}

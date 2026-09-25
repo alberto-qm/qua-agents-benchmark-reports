@@ -1,0 +1,650 @@
+2026-09-25 16:18:52,065 - qm - INFO     - Starting session: 24b87f4b-a3b9-4061-adb9-3bf9fd689093
+16:18:57 [gilboa/validate] 03a-noT1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': None, 'qC3': None, 'qD5': None}, waits {'qD2': 50000, 'qC3': 50000, 'qD5': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD2: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.01248, 0.02496, 0.04991, 0.09983, 0.1997, 0.3993, 0.7986 (x180 prior)
+qC3: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qC3: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.01148, 0.02297, 0.04593, 0.09187, 0.1837, 0.3675, 0.7349 (x180 prior)
+qD5: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD5: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.007018, 0.01404, 0.02807, 0.05615, 0.1123, 0.2246, 0.4492 (x180 prior)
+estimated QPU time 47 s: 1372 sweep points x 25 shots x 916 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:19:04,584 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:19:10] QUA program submitted to gilboa (id =                computers.py:416
+           0642acb1-735d-492f-85c4-30c53c0cb063)                                
+[16:19:11] Execution started                                    computers.py:455
+[16:19:12] Execution finished                                   computers.py:486
+QUA program has error:
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in
+_handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, 
+in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276,
+in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331,
+in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in 
+result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314,
+in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in
+with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in 
+_end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+        status = StatusCode.ABORTED
+        details = "Gateway health is not good enough to answer. Sorry :("
+        debug_error_string = "UNKNOWN:Error received from peer  
+{grpc_message:"Gateway health is not good enough to answer. Sorry :(", 
+grpc_status:10}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmpyd4npo_z.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py",
+line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207,
+in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = 
+self._run(
+                                                                           ^^^^^
+^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 
+27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, 
+in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python
+3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in
+_handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details:
+Gateway health is not good enough to answer. Sorry :(, status:  
+StatusCode.ABORTED
+
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.ABORTED
+	details = "Gateway health is not good enough to answer. Sorry :("
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"Gateway health is not good enough to answer. Sorry :(", grpc_status:10}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmpyd4npo_z.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py", line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207, in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(
+                                                                           ^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in _handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+
+
+2026-09-25 16:19:12,643 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_validate.py", line 116, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py", line 210, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 212, in timed
+    stderr = _guard_job(job)
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 129, in _guard_job
+    raise CloudExecutionError(summary, stderr=stderr, qpu_execution_s=qpu_s)
+tinycal.qualibrate.CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+16:19:12 [gilboa/validate] 03a-noT1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 15 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:13 [gilboa/validate] 03a-T1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': 1.3428767364473683e-06, 'qC3': 1.8034861546101497e-06, 'qD5': 4.3315774401770405e-05}, waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: sweep 1000 ns over 20 MHz (20000 Hz/ns), wait 4 us, drive levels 0.01765, 0.03529, 0.07059, 0.1412, 0.2824, 0.5647, 0.99 (x180 prior)
+qC3: sweep 1000 ns over 20 MHz (20000 Hz/ns), wait 5 us, drive levels 0.01624, 0.03248, 0.06496, 0.1299, 0.2598, 0.5197, 0.99 (x180 prior)
+qD5: sweep 4000 ns over 20 MHz (5000 Hz/ns), wait 130 us, drive levels 0.004963, 0.009925, 0.01985, 0.0397, 0.0794, 0.1588, 0.3176 (x180 prior)
+estimated QPU time 8 s: 1372 sweep points x 25 shots x 158 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:19:17,326 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:19:25] QUA program submitted to gilboa (id =                computers.py:416
+           83b6e5e6-1bd9-4b14-8eff-1665f9d9bbec)                                
+           Execution started                                    computers.py:455
+           Execution finished                                   computers.py:486
+QUA program has error:
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in
+_handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, 
+in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276,
+in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331,
+in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in 
+result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314,
+in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in
+with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in 
+_end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+        status = StatusCode.ABORTED
+        details = "Gateway health is not good enough to answer. Sorry :("
+        debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:10,
+grpc_message:"Gateway health is not good enough to answer. Sorry :("}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmpbfde52qt.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py",
+line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207,
+in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = 
+self._run(
+                                                                           ^^^^^
+^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 
+27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, 
+in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python
+3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in
+_handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details:
+Gateway health is not good enough to answer. Sorry :(, status:  
+StatusCode.ABORTED
+
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.ABORTED
+	details = "Gateway health is not good enough to answer. Sorry :("
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:10, grpc_message:"Gateway health is not good enough to answer. Sorry :("}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmpbfde52qt.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py", line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207, in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(
+                                                                           ^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in _handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+
+
+2026-09-25 16:19:25,996 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_validate.py", line 116, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py", line 210, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 212, in timed
+    stderr = _guard_job(job)
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 129, in _guard_job
+    raise CloudExecutionError(summary, stderr=stderr, qpu_execution_s=qpu_s)
+tinycal.qualibrate.CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+16:19:26 [gilboa/validate] 03a-T1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 13 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:26 [gilboa/validate] 03b-noT1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': None, 'qC3': None, 'qD5': None}, waits {'qD2': 50000, 'qC3': 50000, 'qD5': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD2: chirp 2000 ns at amplitude 0.1997; flux step 8000 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qC3: chirp 2000 ns at amplitude 0.1837; flux step 8000 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD5: chirp 2000 ns at amplitude 0.1123; flux step 8000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 44 s: 2436 sweep points x 13 shots x 922 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:19:32,759 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:19:40] QUA program submitted to gilboa (id =                computers.py:416
+           7b54cdab-c21e-43df-bbac-8a5b569d0b8d)                                
+           Execution started                                    computers.py:455
+[16:19:42] Execution finished                                   computers.py:486
+QUA program has error:
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in
+_handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, 
+in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276,
+in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331,
+in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in 
+result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314,
+in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in
+with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in 
+_end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+        status = StatusCode.ABORTED
+        details = "Gateway health is not good enough to answer. Sorry :("
+        debug_error_string = "UNKNOWN:Error received from peer  
+{grpc_message:"Gateway health is not good enough to answer. Sorry :(", 
+grpc_status:10}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmp2z_ai5vm.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py",
+line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207,
+in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = 
+self._run(
+                                                                           ^^^^^
+^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 
+27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, 
+in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python
+3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in
+_handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details:
+Gateway health is not good enough to answer. Sorry :(, status:  
+StatusCode.ABORTED
+
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.ABORTED
+	details = "Gateway health is not good enough to answer. Sorry :("
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"Gateway health is not good enough to answer. Sorry :(", grpc_status:10}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmp2z_ai5vm.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py", line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207, in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(
+                                                                           ^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in _handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+
+
+2026-09-25 16:19:42,945 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_validate.py", line 116, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py", line 288, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 212, in timed
+    stderr = _guard_job(job)
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 129, in _guard_job
+    raise CloudExecutionError(summary, stderr=stderr, qpu_execution_s=qpu_s)
+tinycal.qualibrate.CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+16:19:42 [gilboa/validate] 03b-noT1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 16 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:43 [gilboa/validate] 03b-T1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': 1.3428767364473683e-06, 'qC3': 1.8034861546101497e-06, 'qD5': 4.3315774401770405e-05}, waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qD2: chirp 1000 ns at amplitude 0.2824; flux step 6136 ns (lead 5000 ns); offsets -72.2..+72.2 mV around +0.0156 V
+qC3: chirp 1000 ns at amplitude 0.2598; flux step 6180 ns (lead 5000 ns); offsets -66.1..+66.1 mV around +0.0033 V
+qD5: chirp 4000 ns at amplitude 0.0794; flux step 10000 ns (lead 5000 ns); offsets -65.2..+65.2 mV around +0.0200 V
+estimated QPU time 15 s: 2436 sweep points x 25 shots x 164 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:19:46,824 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:19:50] QUA program submitted to gilboa (id =                computers.py:416
+           c429df1a-6bdd-4134-9411-c6a7225b2c43)                                
+           Execution started                                    computers.py:455
+[16:19:52] Execution finished                                   computers.py:486
+QUA program has error:
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in
+_handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, 
+in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276,
+in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331,
+in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in 
+result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314,
+in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in
+with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in 
+_end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+        status = StatusCode.ABORTED
+        details = "Gateway health is not good enough to answer. Sorry :("
+        debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:10,
+grpc_message:"Gateway health is not good enough to answer. Sorry :("}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmp_ja7wfph.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py",
+line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207,
+in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = 
+self._run(
+                                                                           ^^^^^
+^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 
+27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, 
+in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python
+3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in
+_handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details:
+Gateway health is not good enough to answer. Sorry :(, status:  
+StatusCode.ABORTED
+
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 130, in _run
+    return grpc_method(request, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 438, in result
+    raise self
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 1173, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/grpc/_channel.py", line 990, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.ABORTED
+	details = "Gateway health is not good enough to answer. Sorry :("
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:10, grpc_message:"Gateway health is not good enough to answer. Sorry :("}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/tmp/ram/tmp_ja7wfph.py", line 30, in <module>
+    qmm = QuantumMachinesManager(
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py", line 286, in __init__
+    self._api.perform_healthcheck()
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py", line 207, in perform_healthcheck
+    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(
+                                                                           ^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py", line 27, in _run
+    response = super()._run(grpc_method, request, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 129, in _run
+    with _handle_connection_error(timeout):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 66, in _handle_connection_error
+    raise QMConnectionError(
+qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+
+
+2026-09-25 16:19:52,031 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_validate.py", line 116, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py", line 288, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 212, in timed
+    stderr = _guard_job(job)
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 129, in _guard_job
+    raise CloudExecutionError(summary, stderr=stderr, qpu_execution_s=qpu_s)
+tinycal.qualibrate.CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED
+16:19:52 [gilboa/validate] 03b-T1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 9 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:52 [gilboa/validate] all done

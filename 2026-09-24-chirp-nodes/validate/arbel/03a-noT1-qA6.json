@@ -1,0 +1,117 @@
+{
+ "tag": "03a-noT1-qA6",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qA6": 50000
+ },
+ "T1": {
+  "qA6": null
+ },
+ "params": {
+  "frequency_center_in_mhz": 40.0,
+  "frequency_span_in_mhz": 160.0
+ },
+ "error": null,
+ "wall_s": 45.218857457861304,
+ "qpu_s": 8.879098892211914,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "f_01": 6183322137.976324,
+   "RF_frequency": 6183322137.976324,
+   "frequency_shift": -1125789.9288692605,
+   "f_01_error": 551233.0601563713,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.003096298976013094,
+   "box_snr": 32.00280935829401,
+   "box_width": 16134217.276037931,
+   "onset_amplitude": 0.01784153170136095,
+   "selected_drive_amplitude": 0.0356830634027219,
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 78360088.06684029,
+   "drive_scale": 0.9821140549584497,
+   "onset_exponent": 2.836355044171172,
+   "num_lines": 1,
+   "x180_amplitude": 0.26586664011355793,
+   "x90_amplitude": 0.13293332005677896,
+   "sweep_over_t1": 0.3593949469678628,
+   "sweep_over_t1_error": 0.08842089594950432,
+   "t1_estimate": 5.564908513248633e-06,
+   "t1_missing": true,
+   "excitation_before_shot": -0.011587908952011226,
+   "reset_wait_ns": 300000.0,
+   "lines": [
+    {
+     "offset": -1104921.0578504049,
+     "onset_level": 0,
+     "onset_amplitude": 0.004460382925340237,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.003349564509969691
+    }
+   ],
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough"
+   ]
+  }
+ },
+ "proposed": {
+  "/qubits/qA6/xy/RF_frequency": {
+   "old": 6184447927.905193,
+   "new": 6183322137.976324
+  },
+  "/qubits/qA6/f_01": {
+   "old": 6184447927.905193,
+   "new": 6183322137.976324
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 2000
+  },
+  "rates": {
+   "qA6": 10000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qA6": 300000
+  },
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qA6": 79787156.76781091
+  },
+  "shot_rounds": 25,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qA6": {
+    "played": [
+     0.004460382925340237,
+     0.008920765850680475,
+     0.01784153170136095,
+     0.0356830634027219,
+     0.0713661268054438,
+     0.1427322536108876,
+     0.2854645072217752
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

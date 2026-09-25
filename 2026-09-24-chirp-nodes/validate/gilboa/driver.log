@@ -1,0 +1,21 @@
+16:18:57 [gilboa/validate] 03a-noT1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': None, 'qC3': None, 'qD5': None}, waits {'qD2': 50000, 'qC3': 50000, 'qD5': 50000} ns {}
+16:19:12 [gilboa/validate] 03a-noT1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 15 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:13 [gilboa/validate] 03a-T1-qD2-qC3-qD5: 03a_qubit_spectroscopy_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': 1.3428767364473683e-06, 'qC3': 1.8034861546101497e-06, 'qD5': 4.3315774401770405e-05}, waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+16:19:26 [gilboa/validate] 03a-T1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 13 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:26 [gilboa/validate] 03b-noT1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': None, 'qC3': None, 'qD5': None}, waits {'qD2': 50000, 'qC3': 50000, 'qD5': 50000} ns {}
+16:19:42 [gilboa/validate] 03b-noT1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 16 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:43 [gilboa/validate] 03b-T1-qD2-qC3-qD5: 03b_qubit_spectroscopy_vs_flux_chirp on ['qD2', 'qC3', 'qD5'], T1 {'qD2': 1.3428767364473683e-06, 'qC3': 1.8034861546101497e-06, 'qD5': 4.3315774401770405e-05}, waits {'qD2': 6712, 'qC3': 9016, 'qD5': 216576} ns {}
+16:19:52 [gilboa/validate] 03b-T1-qD2-qC3-qD5: FAILED CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED -- QPU 0.0 s, wall 9 s, stderr: Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py", line 45, in _handle_connection_error
+    yield
+  File "/app/.venv/lib/python3.12/site-packages/q
+16:19:52 [gilboa/validate] all done

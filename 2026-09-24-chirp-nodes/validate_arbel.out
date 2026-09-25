@@ -1,0 +1,252 @@
+2026-09-25 16:18:52,065 - qm - INFO     - Starting session: 54905b98-7df1-432b-aab9-24b9311c5cd9
+16:18:58 [arbel/validate] 03a-noT1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': None, 'qA5': None, 'qD1': None}, waits {'qB4': 50000, 'qA5': 50000, 'qD1': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qB4: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qB4: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.007838, 0.01568, 0.03135, 0.06271, 0.1254, 0.2508, 0.5016 (x180 prior)
+qA5: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qA5: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.00837, 0.01674, 0.03348, 0.06696, 0.1339, 0.2679, 0.5357 (x180 prior)
+qD1: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD1: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.006236, 0.01247, 0.02495, 0.04989, 0.09978, 0.1996, 0.3991 (x180 prior)
+estimated QPU time 47 s: 1372 sweep points x 25 shots x 917 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:19:02,665 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:19:10] QUA program submitted to arbel (id =                 computers.py:416
+           e2ef2706-ca6c-48b8-8439-127eefa174a1)                                
+[16:19:11] Execution started                                    computers.py:455
+[16:19:55] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:19:55,148 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:300: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4: f_01 6.605928 GHz +- 110 kHz (shift +0.05 MHz), identity 0-1, drive for 03b 0.0627, drive scale vs x180 1.01, 0->2 line found -> anharmonicity ~198 MHz
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+Results for qubit qA5: f_01 5.705560 GHz +- 78 kHz (shift +0.01 MHz), identity 0-1, drive for 03b 0.0670, drive scale vs x180 1.01, 0->2 line found -> anharmonicity ~206 MHz
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+Results for qubit qD1: f_01 4.997009 GHz +- 96 kHz (shift -0.52 MHz), identity 0-1, drive for 03b 0.0499, drive scale vs x180 1.05, 0->2 line found -> anharmonicity ~213 MHz
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+16:19:56 [arbel/validate] 03a-noT1-qB4-qA5-qD1: done -- QPU 35.6 s, wall 58 s
+16:19:56 [arbel/validate]    qB4: {'frequency_shift': 47076.705205371065, 'f_01_error': 110367.03212493924, 'line_identity': '0-1', 'drive_scale': 1.01427978407774, 'box_height': 0.002329417094122167, 'sweep_over_t1': 0.05626764840882679, 'sweep_over_t1_error': 0.05836450627202909, 't1_estimate': nan, 't1_missing': True, 'excitation_before_shot': -0.07351867907672459, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:19:56 [arbel/validate]    qA5: {'frequency_shift': 5854.060465674265, 'f_01_error': 78366.57323609444, 'line_identity': '0-1', 'drive_scale': 1.0123644735009845, 'box_height': 0.00826726999448585, 'sweep_over_t1': 0.055639199078107236, 'sweep_over_t1_error': 0.04360966325053976, 't1_estimate': nan, 't1_missing': True, 'excitation_before_shot': -0.008776596177590721, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:19:56 [arbel/validate]    qD1: {'frequency_shift': -518328.75698089675, 'f_01_error': 95907.60930632282, 'line_identity': '0-1', 'drive_scale': 1.0469590939094038, 'box_height': 0.0035376626298844523, 'sweep_over_t1': 0.06642667624241784, 'sweep_over_t1_error': 0.041618565737158754, 't1_estimate': nan, 't1_missing': True, 'excitation_before_shot': 0.04755870541202103, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:19:57 [arbel/validate] 03a-T1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': 2.7778578960067727e-05, 'qA5': 3.531762120108594e-05, 'qD1': 1.953711439053558e-05}, waits {'qB4': 138892, 'qA5': 176588, 'qD1': 97684} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qB4: sweep 4000 ns over 20 MHz (5000 Hz/ns), wait 83 us, drive levels 0.005542, 0.01108, 0.02217, 0.04434, 0.08868, 0.1774, 0.3547 (x180 prior)
+qA5: sweep 4000 ns over 20 MHz (5000 Hz/ns), wait 106 us, drive levels 0.005919, 0.01184, 0.02368, 0.04735, 0.0947, 0.1894, 0.3788 (x180 prior)
+qD1: sweep 3908 ns over 20 MHz (5118 Hz/ns), wait 59 us, drive levels 0.004461, 0.008923, 0.01785, 0.03569, 0.07138, 0.1428, 0.2855 (x180 prior)
+estimated QPU time 14 s: 1372 sweep points x 25 shots x 267 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:20:01,425 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:20:20] QUA program submitted to arbel (id =                 computers.py:416
+           1f5ded00-c2c2-4d79-a921-5081cfab526f)                                
+           Execution started                                    computers.py:455
+[16:20:44] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:20:44,415 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:300: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4: f_01 6.605698 GHz +- 172 kHz (shift -0.18 MHz), identity 0-1, drive for 03b 0.0443, drive scale vs x180 1.06, 0->2 line found -> anharmonicity ~198 MHz
+Results for qubit qA5: f_01 5.705999 GHz +- 118 kHz (shift +0.44 MHz), identity 0-1, drive for 03b 0.0474, drive scale vs x180 1.03, 0->2 line found -> anharmonicity ~205 MHz
+Results for qubit qD1: f_01 4.996935 GHz +- 169 kHz (shift -0.59 MHz), identity 0-1, drive for 03b 0.0357, drive scale vs x180 1.09, 0->2 line found -> anharmonicity ~213 MHz
+16:20:45 [arbel/validate] 03a-T1-qB4-qA5-qD1: done -- QPU 13.6 s, wall 48 s
+16:20:45 [arbel/validate]    qB4: {'frequency_shift': -183332.29243203223, 'f_01_error': 172086.4448842521, 'line_identity': '0-1', 'drive_scale': 1.0611936510665356, 'box_height': 0.0025016950112380855, 'sweep_over_t1': 0.08747318608759444, 'sweep_over_t1_error': 0.05944660057257261, 't1_estimate': nan, 't1_missing': False, 'excitation_before_shot': 0.05791525642898836, 'reset_wait_ns': 83336.0, 'sweep_length_ns': 4000.0} warnings=[]
+16:20:45 [arbel/validate]    qA5: {'frequency_shift': 444992.05783746566, 'f_01_error': 117683.81231733627, 'line_identity': '0-1', 'drive_scale': 1.0316934993748694, 'box_height': 0.008613752368524172, 'sweep_over_t1': 0.0703745280731386, 'sweep_over_t1_error': 0.055010977555711986, 't1_estimate': nan, 't1_missing': False, 'excitation_before_shot': 0.04284210067070179, 'reset_wait_ns': 105952.0, 'sweep_length_ns': 4000.0} warnings=[]
+16:20:45 [arbel/validate]    qD1: {'frequency_shift': -592242.1737834637, 'f_01_error': 168984.75661876015, 'line_identity': '0-1', 'drive_scale': 1.0885222493648978, 'box_height': 0.003832438831898773, 'sweep_over_t1': 0.19259371140665368, 'sweep_over_t1_error': 0.04806860710022696, 't1_estimate': 2.0291420584073068e-05, 't1_missing': False, 'excitation_before_shot': 0.0460144277142773, 'reset_wait_ns': 58612.0, 'sweep_length_ns': 3908.0} warnings=[]
+16:20:46 [arbel/validate] 03a-noT1-qA6: 03a_qubit_spectroscopy_chirp on ['qA6'], T1 {'qA6': None}, waits {'qA6': 50000} ns {'frequency_center_in_mhz': 40.0, 'frequency_span_in_mhz': 160.0}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qA6: sweep 2000 ns over 20 MHz (10000 Hz/ns), wait 300 us, drive levels 0.00446, 0.008921, 0.01784, 0.03568, 0.07137, 0.1427, 0.2855 (x180 prior)
+estimated QPU time 11 s: 924 sweep points x 25 shots x 315 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:20:50,631 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:21:17] QUA program submitted to arbel (id =                 computers.py:416
+           c61ec782-5a51-49d4-beec-09dc05670e70)                                
+           Execution started                                    computers.py:455
+[16:21:30] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:21:30,680 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:300: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qA6: f_01 6.183322 GHz +- 551 kHz (shift -1.13 MHz), identity 0-1, drive for 03b 0.0357, drive scale vs x180 0.98
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+16:21:31 [arbel/validate] 03a-noT1-qA6: done -- QPU 8.9 s, wall 45 s
+16:21:31 [arbel/validate]    qA6: {'frequency_shift': -1125789.9288692605, 'f_01_error': 551233.0601563713, 'line_identity': '0-1', 'drive_scale': 0.9821140549584497, 'box_height': 0.003096298976013094, 'sweep_over_t1': 0.3593949469678628, 'sweep_over_t1_error': 0.08842089594950432, 't1_estimate': 5.564908513248633e-06, 't1_missing': True, 'excitation_before_shot': -0.011587908952011226, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:21:31 [arbel/validate] 03a-T1-qA6: 03a_qubit_spectroscopy_chirp on ['qA6'], T1 {'qA6': 4.390113674833465e-06}, waits {'qA6': 21948} ns {'frequency_center_in_mhz': 40.0, 'frequency_span_in_mhz': 160.0}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: sweep 1000 ns over 20 MHz (20000 Hz/ns), wait 13 us, drive levels 0.006308, 0.01262, 0.02523, 0.05046, 0.1009, 0.2019, 0.4037 (x180 prior)
+estimated QPU time 1 s: 924 sweep points x 25 shots x 27 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:21:36,044 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:21:48] QUA program submitted to arbel (id =                 computers.py:416
+           5e953528-fe80-4f81-87cb-cfccfb13af6d)                                
+[16:22:36] Execution started                                    computers.py:455
+[16:22:40] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:22:40,894 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:300: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit qA6: f_01 6.181740 GHz +- 1659 kHz (shift -2.71 MHz), identity imprecise, drive for 03b 0.0505, drive scale vs x180 1.22
+	Warnings: f_01 is only known to 1.7 MHz (limit 1 MHz); nothing is proposed
+update_state: qA6: line identity imprecise; nothing proposed.
+16:22:41 [arbel/validate] 03a-T1-qA6: done -- QPU 2.4 s, wall 69 s
+16:22:41 [arbel/validate]    qA6: {'frequency_shift': -2707577.641656598, 'f_01_error': 1658739.6017437398, 'line_identity': 'imprecise', 'drive_scale': 1.222189603099079, 'box_height': 0.002837919766256957, 'sweep_over_t1': 0.18925805197909235, 'sweep_over_t1_error': 0.15470577253079631, 't1_estimate': nan, 't1_missing': False, 'excitation_before_shot': 0.06567741166295553, 'reset_wait_ns': 13172.0, 'sweep_length_ns': 1000.0} warnings=['f_01 is only known to 1.7 MHz (limit 1 MHz); nothing is proposed']
+16:22:42 [arbel/validate] 03b-noT1-qB4-qA5-qD1: 03b_qubit_spectroscopy_vs_flux_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': None, 'qA5': None, 'qD1': None}, waits {'qB4': 50000, 'qA5': 50000, 'qD1': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qB4: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qB4: chirp 2000 ns at amplitude 0.1254; flux step 8000 ns (lead 5000 ns); offsets -66.3..+66.3 mV around +0.0376 V
+qA5: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qA5: chirp 2000 ns at amplitude 0.1339; flux step 8000 ns (lead 5000 ns); offsets -67.2..+67.2 mV around +0.0130 V
+qD1: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qD1: chirp 2000 ns at amplitude 0.09978; flux step 8000 ns (lead 5000 ns); offsets -74.3..+74.3 mV around +0.2273 V
+estimated QPU time 44 s: 2436 sweep points x 13 shots x 923 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:22:46,126 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:23:01] QUA program submitted to arbel (id =                 computers.py:416
+           e659b1a5-d851-4171-9814-bffa360d400a)                                
+[16:23:02] Execution started                                    computers.py:455
+[16:23:49] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.01s
+None
+2026-09-25 16:23:49,764 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:379: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4: sweet spot -0.004 +- 0.064 mV from idle, f_01 6.605863 GHz +- 67 kHz, curvature -10.248 kHz/mV^2, 17/21 columns, chi2_red 1.4
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+Results for qubit qA5: sweet spot -0.084 +- 0.098 mV from idle, f_01 5.705520 GHz +- 89 kHz, curvature -9.701 kHz/mV^2, 17/21 columns, chi2_red 3.5
+	Warnings: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+Results for qubit qD1: no arc. no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough; a line was located in 2 of 21 flux columns (need 7)
+16:23:50 [arbel/validate] 03b-noT1-qB4-qA5-qD1: done -- QPU 33.9 s, wall 68 s
+16:23:50 [arbel/validate]    qB4: {'frequency_shift': -18126.867373761685, 'f_01_error': 66789.40685514359, 'idle_offset_shift': -4.208851852807137e-06, 'idle_offset_shift_error': 6.36751050610551e-05, 'column_precision': 155590.3032095584, 'tracked_columns': 17, 'sweep_over_t1': 0.03735998786166844, 'sweep_over_t1_error': 0.022879399951455354, 't1_estimate': nan, 'decay_refused': False, 't1_missing': True, 'short_sweep': False, 'excitation_before_shot': 0.019272294062041426, 'excitation_refused': False, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:23:50 [arbel/validate]    qA5: {'frequency_shift': -34650.07938574672, 'f_01_error': 88755.75617323902, 'idle_offset_shift': -8.365832955191145e-05, 'idle_offset_shift_error': 9.820864479782728e-05, 'column_precision': 128396.19840064726, 'tracked_columns': 17, 'sweep_over_t1': 0.04666649983035087, 'sweep_over_t1_error': 0.03031826834119815, 't1_estimate': nan, 'decay_refused': False, 't1_missing': True, 'short_sweep': False, 'excitation_before_shot': -0.0736172351928876, 'excitation_refused': False, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough']
+16:23:50 [arbel/validate]    qD1: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 119369.64700617404, 'tracked_columns': 2, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': True, 'short_sweep': False, 'excitation_before_shot': nan, 'excitation_refused': False, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough', 'a line was located in 2 of 21 flux columns (need 7)']
+16:23:51 [arbel/validate] 03b-T1-qB4-qA5-qD1: 03b_qubit_spectroscopy_vs_flux_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': 2.7778578960067727e-05, 'qA5': 3.531762120108594e-05, 'qD1': 1.953711439053558e-05}, waits {'qB4': 138892, 'qA5': 176588, 'qD1': 97684} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qB4: chirp 4000 ns at amplitude 0.08868; flux step 10000 ns (lead 5000 ns); offsets -66.3..+66.3 mV around +0.0376 V
+qA5: chirp 4000 ns at amplitude 0.0947; flux step 10000 ns (lead 5000 ns); offsets -67.2..+67.2 mV around +0.0130 V
+qD1: chirp 3908 ns at amplitude 0.07138; flux step 9908 ns (lead 5000 ns); offsets -74.3..+74.3 mV around +0.2273 V
+estimated QPU time 25 s: 2436 sweep points x 25 shots x 273 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:23:57,229 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:24:12] QUA program submitted to arbel (id =                 computers.py:416
+           ca67745b-9f6f-42e1-99a1-2e5d41b73a76)                                
+           Execution started                                    computers.py:455
+[16:24:45] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:24:45,419 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:379: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/core/quam_classes.py:669: UserWarning: Could not get reference "#./inferred_total_length" from component SquarePulse: #/qubit_pairs/qC5-qC4/macros/cz_bipolar/flux_pulse_qubit. Error: Could not resolve reference '#./inferred_total_length'
+  warnings.warn(msg)
+Results for qubit qB4: sweet spot -0.119 +- 0.063 mV from idle, f_01 6.605839 GHz +- 60 kHz, curvature -10.206 kHz/mV^2, 17/21 columns, chi2_red 2.6
+Results for qubit qA5: sweet spot -0.177 +- 0.066 mV from idle, f_01 5.705630 GHz +- 58 kHz, curvature -9.751 kHz/mV^2, 17/21 columns, chi2_red 3.3
+Results for qubit qD1: no arc. a line was located in 2 of 21 flux columns (need 7)
+16:24:46 [arbel/validate] 03b-T1-qB4-qA5-qD1: done -- QPU 21.9 s, wall 55 s
+16:24:46 [arbel/validate]    qB4: {'frequency_shift': -42480.487269544465, 'f_01_error': 60227.37524006906, 'idle_offset_shift': -0.00011930486177945825, 'idle_offset_shift_error': 6.28368170743454e-05, 'column_precision': 101521.51608976256, 'tracked_columns': 17, 'sweep_over_t1': 0.12048807355572216, 'sweep_over_t1_error': 0.018903748169802878, 't1_estimate': 3.31983065373696e-05, 'decay_refused': False, 't1_missing': False, 'short_sweep': False, 'excitation_before_shot': -0.03613643401359683, 'excitation_refused': False, 'reset_wait_ns': 83336.0, 'sweep_length_ns': 4000.0} warnings=[]
+16:24:46 [arbel/validate]    qA5: {'frequency_shift': 75083.96227094282, 'f_01_error': 57991.2557480747, 'idle_offset_shift': -0.00017690806424239036, 'idle_offset_shift_error': 6.629882038107595e-05, 'column_precision': 86734.00416046286, 'tracked_columns': 17, 'sweep_over_t1': 0.11676362844977795, 'sweep_over_t1_error': 0.022156911626471626, 't1_estimate': 3.425724305681773e-05, 'decay_refused': False, 't1_missing': False, 'short_sweep': False, 'excitation_before_shot': -0.1032184319939888, 'excitation_refused': False, 'reset_wait_ns': 105952.0, 'sweep_length_ns': 4000.0} warnings=[]
+16:24:46 [arbel/validate]    qD1: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 85495.7805230098, 'tracked_columns': 2, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': False, 'short_sweep': False, 'excitation_before_shot': nan, 'excitation_refused': False, 'reset_wait_ns': 58612.0, 'sweep_length_ns': 3908.0} warnings=['a line was located in 2 of 21 flux columns (need 7)']
+16:24:46 [arbel/validate] 03b-noT1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': None}, waits {'qA6': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough
+qA6: chirp 2000 ns at amplitude 0.07137; flux step 8000 ns (lead 5000 ns); offsets -65.3..+65.3 mV around +0.1816 V
+estimated QPU time 15 s: 2436 sweep points x 13 shots x 321 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:24:50,813 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:25:03] QUA program submitted to arbel (id =                 computers.py:416
+           93d72109-cab5-4522-a6ff-e764ae899d13)                                
+[16:25:05] Execution started                                    computers.py:455
+[16:25:21] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=13/13) --> elapsed time: 0.01s
+None
+2026-09-25 16:25:21,929 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:379: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit qA6: no arc. no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough; a line was located in 3 of 21 flux columns (need 7)
+16:25:22 [arbel/validate] 03b-noT1-qA6: done -- QPU 11.8 s, wall 35 s
+16:25:22 [arbel/validate]    qA6: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 250244.84989402647, 'tracked_columns': 3, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': True, 'short_sweep': False, 'excitation_before_shot': nan, 'excitation_refused': False, 'reset_wait_ns': 300000.0, 'sweep_length_ns': 2000.0} warnings=['no T1 in the state: 2000 ns sweep and a 300 us wait between shots. The up/down-chirp lean checks that the sweep is short against the real T1, and the ground reference that the wait is long enough', 'a line was located in 3 of 21 flux columns (need 7)']
+16:25:22 [arbel/validate] 03b-T1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': 4.390113674833465e-06}, waits {'qA6': 21948} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: chirp 1000 ns at amplitude 0.1009; flux step 6440 ns (lead 5000 ns); offsets -65.3..+65.3 mV around +0.1816 V
+estimated QPU time 3 s: 2436 sweep points x 25 shots x 32 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 16:25:26,197 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[16:25:52] QUA program submitted to arbel (id =                 computers.py:416
+           35f5c0cc-4d17-474d-9e1d-978016e3bd07)                                
+           Execution started                                    computers.py:455
+[16:26:05] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 16:26:05,766 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:379: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit qA6: no arc. a line was located in 2 of 21 flux columns (need 7)
+16:26:06 [arbel/validate] 03b-T1-qA6: done -- QPU 3.2 s, wall 43 s
+16:26:06 [arbel/validate]    qA6: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 370963.1030114149, 'tracked_columns': 2, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': False, 'short_sweep': False, 'excitation_before_shot': nan, 'excitation_refused': False, 'reset_wait_ns': 13172.0, 'sweep_length_ns': 1000.0} warnings=['a line was located in 2 of 21 flux columns (need 7)']
+16:26:06 [arbel/validate] all done

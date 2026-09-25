@@ -1,0 +1,135 @@
+{
+ "tag": "03b-noT1-qD2-qC3-qD5",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qD2": 50000,
+  "qC3": 50000,
+  "qD5": 50000
+ },
+ "T1": {
+  "qD2": null,
+  "qC3": null,
+  "qD5": null
+ },
+ "params": {},
+ "error": "CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED",
+ "wall_s": 16.301748665980995,
+ "qpu_s": 0,
+ "executor_stderr": [
+  "Traceback (most recent call last):\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 45, in _handle_connection_error\n    yield\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 130, in _run\n    return grpc_method(request, timeout=timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 276, in __call__\n    response, ignored_call = self._with_call(\n                             ^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 331, in _with_call\n    return call.result(), call\n           ^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 438, in result\n    raise self\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 314, in continuation\n    response, call = self._thunk(new_method).with_call(\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 1173, in with_call\n    return _end_unary_response_blocking(state, call, True, None)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 990, in _end_unary_response_blocking\n    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ngrpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:\n\tstatus = StatusCode.ABORTED\n\tdetails = \"Gateway health is not good enough to answer. Sorry :(\"\n\tdebug_error_string = \"UNKNOWN:Error received from peer  {grpc_message:\"Gateway health is not good enough to answer. Sorry :(\", grpc_status:10}\"\n>\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/tmp/ram/tmp2z_ai5vm.py\", line 30, in <module>\n    qmm = QuantumMachinesManager(\n          ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py\", line 286, in __init__\n    self._api.perform_healthcheck()\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py\", line 207, in perform_healthcheck\n    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(\n                                                                           ^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py\", line 27, in _run\n    response = super()._run(grpc_method, request, timeout)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 129, in _run\n    with _handle_connection_error(timeout):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 158, in __exit__\n    self.gen.throw(value)\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 66, in _handle_connection_error\n    raise QMConnectionError(\nqm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED\n"
+ ],
+ "fit_results": null,
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 2000,
+   "qC3": 2000,
+   "qD5": 2000
+  },
+  "rates": {
+   "qD2": 10000,
+   "qC3": 10000,
+   "qD5": 10000
+  },
+  "drive_amplitudes": {
+   "qD2": 0.1996578663608432,
+   "qC3": 0.18373201356414012,
+   "qD5": 0.1122933176131425
+  },
+  "reset_waits_ns": {
+   "qD2": 300000,
+   "qC3": 300000,
+   "qD5": 300000
+  },
+  "flux_offsets": {
+   "qD2": [
+    -0.07220707723635246,
+    -0.06498636951271722,
+    -0.05776566178908197,
+    -0.05054495406544672,
+    -0.04332424634181148,
+    -0.03610353861817623,
+    -0.02888283089454098,
+    -0.02166212317090574,
+    -0.01444141544727049,
+    -0.007220707723635242,
+    0.0,
+    0.007220707723635242,
+    0.014441415447270498,
+    0.02166212317090574,
+    0.02888283089454098,
+    0.03610353861817624,
+    0.04332424634181148,
+    0.05054495406544672,
+    0.057765661789081976,
+    0.0649863695127172,
+    0.07220707723635246
+   ],
+   "qC3": [
+    -0.06607905011297313,
+    -0.05947114510167582,
+    -0.0528632400903785,
+    -0.046255335079081195,
+    -0.03964743006778388,
+    -0.033039525056486566,
+    -0.026431620045189258,
+    -0.019823715033891944,
+    -0.013215810022594629,
+    -0.0066079050112973145,
+    0.0,
+    0.0066079050112973076,
+    0.013215810022594615,
+    0.019823715033891937,
+    0.026431620045189244,
+    0.033039525056486566,
+    0.03964743006778387,
+    0.04625533507908118,
+    0.0528632400903785,
+    0.05947114510167581,
+    0.06607905011297313
+   ],
+   "qD5": [
+    -0.06520229019841034,
+    -0.058682061178569306,
+    -0.05216183215872827,
+    -0.04564160313888724,
+    -0.039121374119046204,
+    -0.03260114509920517,
+    -0.026080916079364136,
+    -0.019560687059523102,
+    -0.013040458039682068,
+    -0.006520229019841034,
+    0.0,
+    0.006520229019841034,
+    0.013040458039682068,
+    0.019560687059523102,
+    0.026080916079364136,
+    0.03260114509920517,
+    0.039121374119046204,
+    0.04564160313888724,
+    0.05216183215872827,
+    0.058682061178569306,
+    0.06520229019841034
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 13,
+  "num_shots": 50,
+  "flux_step_lengths": {
+   "qD2": 8000,
+   "qC3": 8000,
+   "qD5": 8000
+  },
+  "drive_lengths": {
+   "qD2": 2000,
+   "qC3": 2000,
+   "qD5": 2000
+  }
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "tag": "03a-noT1-qD2-qC3-qD5",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qD2": 50000,
+  "qC3": 50000,
+  "qD5": 50000
+ },
+ "T1": {
+  "qD2": null,
+  "qC3": null,
+  "qD5": null
+ },
+ "params": {},
+ "error": "CloudExecutionError: qm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED",
+ "wall_s": 14.744064207887277,
+ "qpu_s": 0,
+ "executor_stderr": [
+  "Traceback (most recent call last):\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 45, in _handle_connection_error\n    yield\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 130, in _run\n    return grpc_method(request, timeout=timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 276, in __call__\n    response, ignored_call = self._with_call(\n                             ^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 331, in _with_call\n    return call.result(), call\n           ^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 438, in result\n    raise self\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_interceptor.py\", line 314, in continuation\n    response, call = self._thunk(new_method).with_call(\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 1173, in with_call\n    return _end_unary_response_blocking(state, call, True, None)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/grpc/_channel.py\", line 990, in _end_unary_response_blocking\n    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ngrpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:\n\tstatus = StatusCode.ABORTED\n\tdetails = \"Gateway health is not good enough to answer. Sorry :(\"\n\tdebug_error_string = \"UNKNOWN:Error received from peer  {grpc_message:\"Gateway health is not good enough to answer. Sorry :(\", grpc_status:10}\"\n>\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/tmp/ram/tmpyd4npo_z.py\", line 30, in <module>\n    qmm = QuantumMachinesManager(\n          ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/quantum_machines_manager.py\", line 286, in __init__\n    self._api.perform_healthcheck()\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/v2/qmm_api.py\", line 207, in perform_healthcheck\n    response: qmm_api_pb2.HealthCheckResponse.HealthCheckResponseSuccess = self._run(\n                                                                           ^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/v2/base_api_v2.py\", line 27, in _run\n    response = super()._run(grpc_method, request, timeout)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 129, in _run\n    with _handle_connection_error(timeout):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/worker/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 158, in __exit__\n    self.gen.throw(value)\n  File \"/app/.venv/lib/python3.12/site-packages/qm/api/base_api.py\", line 66, in _handle_connection_error\n    raise QMConnectionError(\nqm.exceptions.QMConnectionError: Encountered connection error from QOP: details: Gateway health is not good enough to answer. Sorry :(, status:  StatusCode.ABORTED\n"
+ ],
+ "fit_results": null,
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 2000,
+   "qC3": 2000,
+   "qD5": 2000
+  },
+  "rates": {
+   "qD2": 10000,
+   "qC3": 10000,
+   "qD5": 10000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qD2": 300000,
+   "qC3": 300000,
+   "qD5": 300000
+  },
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qD2": 28519288.776964214,
+   "qC3": 30991334.808126014,
+   "qD5": 50707383.737240255
+  },
+  "shot_rounds": 25,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qD2": {
+    "played": [
+     0.0124786166475527,
+     0.0249572332951054,
+     0.0499144665902108,
+     0.0998289331804216,
+     0.1996578663608432,
+     0.3993157327216864,
+     0.7986314654433728
+    ],
+    "prior": "x180"
+   },
+   "qC3": {
+    "played": [
+     0.011483250847758758,
+     0.022966501695517515,
+     0.04593300339103503,
+     0.09186600678207006,
+     0.18373201356414012,
+     0.36746402712828025,
+     0.7349280542565605
+    ],
+    "prior": "x180"
+   },
+   "qD5": {
+    "played": [
+     0.007018332350821406,
+     0.014036664701642812,
+     0.028073329403285625,
+     0.05614665880657125,
+     0.1122933176131425,
+     0.224586635226285,
+     0.44917327045257
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

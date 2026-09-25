@@ -1,0 +1,102 @@
+{
+ "tag": "03b-T1-qA6",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qA6": 21948
+ },
+ "T1": {
+  "qA6": 4.390113674833465e-06
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 43.1752583340276,
+ "qpu_s": 3.1576602458953857,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -10564898538.617474,
+   "column_precision": 370963.1030114149,
+   "chi2_red": NaN,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.1009269444222967,
+   "sweep_length_ns": 1000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "excitation_refused": false,
+   "excitation_before_shot": NaN,
+   "reset_wait_ns": 13172.0,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": false,
+   "warnings": [
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ]
+  }
+ },
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 1000
+  },
+  "rates": {
+   "qA6": 20000
+  },
+  "drive_amplitudes": {
+   "qA6": 0.1009269444222967
+  },
+  "reset_waits_ns": {
+   "qA6": 13172
+  },
+  "flux_offsets": {
+   "qA6": [
+    -0.06526398551525991,
+    -0.05873758696373392,
+    -0.05221118841220793,
+    -0.04568478986068194,
+    -0.03915839130915595,
+    -0.03263199275762996,
+    -0.026105594206103963,
+    -0.019579195654577976,
+    -0.013052797103051982,
+    -0.006526398551525987,
+    0.0,
+    0.006526398551525994,
+    0.013052797103051988,
+    0.019579195654577983,
+    0.026105594206103963,
+    0.03263199275762996,
+    0.03915839130915595,
+    0.045684789860681946,
+    0.05221118841220794,
+    0.05873758696373392,
+    0.06526398551525991
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 25,
+  "num_shots": 100,
+  "flux_step_lengths": {
+   "qA6": 6440
+  },
+  "drive_lengths": {
+   "qA6": 1000
+  }
+ }
+}
