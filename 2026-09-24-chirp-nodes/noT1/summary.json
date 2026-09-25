@@ -1,0 +1,1071 @@
+{
+ "arbel/qB4/03a": {
+  "noT1": {
+   "f_01": 6605919382.197972,
+   "frequency_shift": 39167.34025641327,
+   "f_01_error": 591579.8430882678,
+   "line_identity": "0-1",
+   "drive_scale": 1.291607672801052,
+   "box_height": 0.002207253298181598,
+   "box_snr": 25.762966399234653,
+   "anharmonicity_estimate": 199886754.7009208,
+   "warnings": [],
+   "qpu_s": 8.627407789230347,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": 188448.0219739149,
+   "identity_up": "0-1",
+   "height_up": 0.0023593020321797786,
+   "shift_down": -44410.410692177866,
+   "identity_down": "0-1",
+   "height_down": 0.0019654783641876537
+  },
+  "T1": {
+   "f_01": 6605770433.821666,
+   "frequency_shift": -109781.0360495721,
+   "f_01_error": 101380.3987013257,
+   "line_identity": "0-1",
+   "drive_scale": 1.0484003796498063,
+   "box_height": 0.0027030222390212293,
+   "box_snr": 30.64130485791035,
+   "anharmonicity_estimate": 195686483.34314498,
+   "warnings": [],
+   "qpu_s": 13.854541063308716,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 154548,
+   "sweep_ns": 4000,
+   "shift_up": -129885.38792939074,
+   "identity_up": "0-1",
+   "height_up": 0.002524496868915069,
+   "shift_down": -73413.91089038143,
+   "identity_down": "0-1",
+   "height_down": 0.0027551659543270323
+  }
+ },
+ "arbel/qA5/03a": {
+  "noT1": {
+   "f_01": 5705420438.958953,
+   "frequency_shift": -151663.75589131247,
+   "f_01_error": 147208.40836186538,
+   "line_identity": "0-1",
+   "drive_scale": 1.248852771433572,
+   "box_height": 0.006780276429868636,
+   "box_snr": 26.006792301140408,
+   "anharmonicity_estimate": 205443429.8094109,
+   "warnings": [],
+   "qpu_s": 8.627407789230347,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -569644.7843828911,
+   "identity_up": "0-1",
+   "height_up": 0.006370801993780538,
+   "shift_down": -175372.88324784895,
+   "identity_down": "0-1",
+   "height_down": 0.0069154767621195145
+  },
+  "T1": {
+   "f_01": 5705515997.361848,
+   "frequency_shift": -56105.35299598889,
+   "f_01_error": 589900.41528837,
+   "line_identity": "0-1",
+   "drive_scale": 1.117960042013593,
+   "box_height": 0.007879581002795236,
+   "box_snr": 55.08745490337267,
+   "anharmonicity_estimate": 205797177.88248283,
+   "warnings": [],
+   "qpu_s": 13.854541063308716,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 54732,
+   "sweep_ns": 2188,
+   "shift_up": -413175.817740493,
+   "identity_up": "0-1",
+   "height_up": 0.007748595950930968,
+   "shift_down": -116453.9458392939,
+   "identity_down": "0-1",
+   "height_down": 0.00802521016807083
+  }
+ },
+ "arbel/qD1/03a": {
+  "noT1": {
+   "f_01": 4996154669.048719,
+   "frequency_shift": -1541209.3918902043,
+   "f_01_error": 189448.5262198985,
+   "line_identity": "0-1",
+   "drive_scale": 1.0424724306064392,
+   "box_height": 0.003653552842012525,
+   "box_snr": 31.578163186807675,
+   "anharmonicity_estimate": 214330011.24219367,
+   "warnings": [],
+   "qpu_s": 8.627407789230347,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -1352699.2698891575,
+   "identity_up": "0-1",
+   "height_up": 0.0031706797074239836,
+   "shift_down": -1043295.4225692044,
+   "identity_down": "0-1",
+   "height_down": 0.003635093629152615
+  },
+  "T1": {
+   "f_01": 4995882695.441946,
+   "frequency_shift": -1813182.9986638054,
+   "f_01_error": 166087.54654376677,
+   "line_identity": "0-1",
+   "drive_scale": 1.0252523430430363,
+   "box_height": 0.0035534369035264183,
+   "box_snr": 41.75288426914755,
+   "anharmonicity_estimate": 213859545.04773593,
+   "warnings": [],
+   "qpu_s": 13.854541063308716,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 92448,
+   "sweep_ns": 3696,
+   "shift_up": -1837430.2865074766,
+   "identity_up": "0-1",
+   "height_up": 0.0034145538987500816,
+   "shift_down": -1637933.035258552,
+   "identity_down": "0-1",
+   "height_down": 0.003962008976250976
+  }
+ },
+ "arbel/qA6/03a": {
+  "noT1": {
+   "f_01": 6182343518.649466,
+   "frequency_shift": -3984291.962215408,
+   "f_01_error": 590595.6933770009,
+   "line_identity": "0-1",
+   "drive_scale": 1.0946151214705941,
+   "box_height": 0.0024023666599774615,
+   "box_snr": 30.35201504269481,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 2.7649786472320557,
+   "job_qubits": [
+    "qA6"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -3665676.0250446885,
+   "identity_up": "0-1",
+   "height_up": 0.0023768323301238833,
+   "shift_down": -4358627.656587299,
+   "identity_down": "0-1",
+   "height_down": 0.0024334483287384834
+  },
+  "T1": {
+   "f_01": 6183575826.300256,
+   "frequency_shift": -2751984.31142501,
+   "f_01_error": 281790.9543840771,
+   "line_identity": "ambiguous",
+   "drive_scale": 1.252876778027516,
+   "box_height": 0.0028215866271990237,
+   "box_snr": 26.551694319799946,
+   "anharmonicity_estimate": NaN,
+   "warnings": [
+    "the line grows as drive^3.2 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher"
+   ],
+   "qpu_s": 2.253366708755493,
+   "job_qubits": [
+    "qA6"
+   ],
+   "wait_ns": 26224,
+   "sweep_ns": 1048,
+   "shift_up": -3192920.2859837315,
+   "identity_up": "ambiguous",
+   "height_up": 0.0033639127176370784,
+   "shift_down": -1799457.3207596156,
+   "identity_down": "0-1",
+   "height_down": 0.002893832924288129
+  }
+ },
+ "qolab/Q1/03a": {
+  "noT1": {
+   "f_01": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "line_identity": "none",
+   "drive_scale": NaN,
+   "box_height": NaN,
+   "box_snr": NaN,
+   "anharmonicity_estimate": NaN,
+   "warnings": [
+    "no line in the window at any drive level"
+   ],
+   "qpu_s": 6.371833562850952,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": NaN,
+   "identity_up": "none",
+   "height_up": null,
+   "shift_down": -2118567.031634946,
+   "identity_down": "0-1",
+   "height_down": 0.00016030284707476965
+  },
+  "T1": {
+   "f_01": 5272089931.197812,
+   "frequency_shift": -74393.68281491945,
+   "f_01_error": 185522.5462030448,
+   "line_identity": "0-1",
+   "drive_scale": 0.9507526000173804,
+   "box_height": 0.00045812846378537873,
+   "box_snr": 18.920914007621406,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 30.324204921722412,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 238568,
+   "sweep_ns": 4000,
+   "shift_up": -382689.73705387843,
+   "identity_up": "0-1",
+   "height_up": 0.0004355177582198355,
+   "shift_down": 301284.0161253294,
+   "identity_down": "0-1",
+   "height_down": 0.0005124918123169848
+  }
+ },
+ "qolab/Q2/03a": {
+  "noT1": {
+   "f_01": 5105365537.826788,
+   "frequency_shift": -543149.4396505938,
+   "f_01_error": 259307.44696373458,
+   "line_identity": "0-1",
+   "drive_scale": 1.1855882162404743,
+   "box_height": 0.0002937816380619328,
+   "box_snr": 19.692917050847786,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 6.371833562850952,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -33136.3319498342,
+   "identity_up": "0-1",
+   "height_up": 0.0003448062841777953,
+   "shift_down": -926888.7798189517,
+   "identity_down": "0-1",
+   "height_down": 0.00036344045823256136
+  },
+  "T1": {
+   "f_01": 5105642589.99565,
+   "frequency_shift": -266097.2707881698,
+   "f_01_error": 127949.9907896561,
+   "line_identity": "0-1",
+   "drive_scale": 1.0085589165562996,
+   "box_height": 0.00041002797842918954,
+   "box_snr": 35.607453458756915,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 30.324204921722412,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 399324,
+   "sweep_ns": 4000,
+   "shift_up": -507933.5633016788,
+   "identity_up": "0-1",
+   "height_up": 0.0004467862302153749,
+   "shift_down": -263740.8552507217,
+   "identity_down": "0-1",
+   "height_down": 0.0004764200698279716
+  }
+ },
+ "qolab/Q5/03a": {
+  "noT1": {
+   "f_01": 5096412202.068338,
+   "frequency_shift": -126565.30030823231,
+   "f_01_error": 418146.89997516834,
+   "line_identity": "0-1",
+   "drive_scale": 1.2071050331105675,
+   "box_height": 0.0002178533958263188,
+   "box_snr": 19.70926336177045,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 6.371833562850952,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": 344122.9131826931,
+   "identity_up": "0-1",
+   "height_up": 0.00024390690403480844,
+   "shift_down": -1179029.3973088036,
+   "identity_down": "0-1",
+   "height_down": 0.00024179575701732334
+  },
+  "T1": {
+   "f_01": 5096285942.053012,
+   "frequency_shift": -252825.31563491555,
+   "f_01_error": 198513.62216320232,
+   "line_identity": "0-1",
+   "drive_scale": 1.0514691568329013,
+   "box_height": 0.0003006707467937096,
+   "box_snr": 19.0231245183418,
+   "anharmonicity_estimate": NaN,
+   "warnings": [],
+   "qpu_s": 30.324204921722412,
+   "job_qubits": [
+    "Q1",
+    "Q2",
+    "Q5"
+   ],
+   "wait_ns": 210200,
+   "sweep_ns": 4000,
+   "shift_up": -337259.0393938057,
+   "identity_up": "0-1",
+   "height_up": 0.0003235003235515845,
+   "shift_down": -59487.76297997335,
+   "identity_down": "0-1",
+   "height_down": 0.0002825245693686486
+  }
+ },
+ "gilboa/qD2/03a": {
+  "noT1": {
+   "f_01": 5741071779.660243,
+   "frequency_shift": -9935127.210916875,
+   "f_01_error": 1022049.6643698714,
+   "line_identity": "0-1",
+   "drive_scale": 0.640043065210529,
+   "box_height": 0.0011882245640697981,
+   "box_snr": 12.431269489235149,
+   "anharmonicity_estimate": 171856216.85234576,
+   "warnings": [],
+   "qpu_s": 7.879255294799805,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -9971096.98288485,
+   "identity_up": "0-1",
+   "height_up": 0.0014291203949360037,
+   "shift_down": -9947963.900756396,
+   "identity_down": "0-1",
+   "height_down": 0.001365419522318983
+  },
+  "T1": {
+   "f_01": 5746474529.420088,
+   "frequency_shift": -4532377.451072011,
+   "f_01_error": 184592.63849621214,
+   "line_identity": "short-sweep",
+   "drive_scale": 1.461309352309854,
+   "box_height": 0.0029822082176720424,
+   "box_snr": 8.410519993039362,
+   "anharmonicity_estimate": 183023216.62337476,
+   "warnings": [
+    "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+   ],
+   "qpu_s": 10.387345314025879,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 6712,
+   "sweep_ns": 268,
+   "shift_up": -4745165.289407859,
+   "identity_up": "0-1",
+   "height_up": 0.0015943114775640904,
+   "shift_down": -4815947.72642679,
+   "identity_down": "0-1",
+   "height_down": 0.002935419141301182
+  }
+ },
+ "gilboa/qC3/03a": {
+  "noT1": {
+   "f_01": 5648596162.663908,
+   "frequency_shift": -87985.99287663386,
+   "f_01_error": 208851.55073902966,
+   "line_identity": "0-1",
+   "drive_scale": 1.093867761992591,
+   "box_height": 0.0015015124235416878,
+   "box_snr": 32.50869539689009,
+   "anharmonicity_estimate": 210379103.45717436,
+   "warnings": [],
+   "qpu_s": 7.879255294799805,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": -413347.7905840001,
+   "identity_up": "0-1",
+   "height_up": 0.0013320481508663458,
+   "shift_down": -41937.24089566823,
+   "identity_down": "0-1",
+   "height_down": 0.0015700907432264514
+  },
+  "T1": {
+   "f_01": 5649863568.6908245,
+   "frequency_shift": 1179420.0340395942,
+   "f_01_error": 387253.55755125347,
+   "line_identity": "short-sweep",
+   "drive_scale": 1.293985934713386,
+   "box_height": 0.000931417258402687,
+   "box_snr": 8.845218413378293,
+   "anharmonicity_estimate": NaN,
+   "warnings": [
+    "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+   ],
+   "qpu_s": 10.387345314025879,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 9016,
+   "sweep_ns": 360,
+   "shift_up": -102253827.96760678,
+   "identity_up": "ambiguous",
+   "height_up": 0.000669999537775695,
+   "shift_down": -2743857.8204918085,
+   "identity_down": "0-1",
+   "height_down": 0.0008705493200345299
+  }
+ },
+ "gilboa/qD5/03a": {
+  "noT1": {
+   "f_01": 5816944376.768714,
+   "frequency_shift": -27989.266141196484,
+   "f_01_error": 555021.6966770771,
+   "line_identity": "0-1",
+   "drive_scale": 0.989289609795416,
+   "box_height": 0.0017306899733495842,
+   "box_snr": 23.923264569322697,
+   "anharmonicity_estimate": 209271432.28558898,
+   "warnings": [],
+   "qpu_s": 7.879255294799805,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "shift_up": 96061.99509838033,
+   "identity_up": "0-1",
+   "height_up": 0.0019151228963237388,
+   "shift_down": -536369.2090467003,
+   "identity_down": "0-1",
+   "height_down": 0.0021200772167990867
+  },
+  "T1": {
+   "f_01": 5816768217.932905,
+   "frequency_shift": -204148.1019493613,
+   "f_01_error": 98219.91321601791,
+   "line_identity": "0-1",
+   "drive_scale": 1.0267431337743234,
+   "box_height": 0.002794344572607016,
+   "box_snr": 48.637920951144764,
+   "anharmonicity_estimate": 209644408.39340678,
+   "warnings": [],
+   "qpu_s": 10.387345314025879,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 216576,
+   "sweep_ns": 4000,
+   "shift_up": -52009.538027241,
+   "identity_up": "0-1",
+   "height_up": 0.0028309261868788046,
+   "shift_down": -358938.32581509236,
+   "identity_down": "0-1",
+   "height_down": 0.0027556213142628477
+  }
+ },
+ "arbel/qB4/03b": {
+  "noT1": {
+   "idle_offset_shift": 2.6550477259499023e-05,
+   "idle_offset_shift_error": 6.502976745135537e-05,
+   "frequency_shift": -92999.56182267299,
+   "f_01_error": 63374.10671141637,
+   "column_precision": 112666.02645489223,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 2.4597515906014094,
+   "curvature": -10259033373.255713,
+   "warnings": [],
+   "qpu_s": 14.292512893676758,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": -3.279801581449458e-05,
+   "f0_up": 43490.52065260883,
+   "prec_up": 182375.54434170268,
+   "x0_down": 6.132417888853758e-05,
+   "f0_down": -235451.7681530323,
+   "prec_down": 149193.13359347402
+  },
+  "T1": {
+   "idle_offset_shift": -2.8418543719420874e-06,
+   "idle_offset_shift_error": 3.5878879416725786e-05,
+   "frequency_shift": -3015.7667794549125,
+   "f_01_error": 37028.43332063967,
+   "column_precision": 94670.36056622214,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 1.1156453140722176,
+   "curvature": -10285073112.344896,
+   "warnings": [],
+   "qpu_s": 23.3882577419281,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 154548,
+   "sweep_ns": 4000,
+   "x0_up": -5.782454155782041e-06,
+   "f0_up": -71555.53457824013,
+   "prec_up": 125790.34093295348,
+   "x0_down": 6.075305728530036e-05,
+   "f0_down": 37381.5759686904,
+   "prec_down": 149865.38463739183
+  }
+ },
+ "arbel/qA5/03b": {
+  "noT1": {
+   "idle_offset_shift": 0.0004664078905211018,
+   "idle_offset_shift_error": 4.589544412476338e-05,
+   "frequency_shift": -168977.43653539222,
+   "f_01_error": 41312.135635649756,
+   "column_precision": 114220.54916907367,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 0.784078320052159,
+   "curvature": -9650157749.275488,
+   "warnings": [],
+   "qpu_s": 14.292512893676758,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": 0.00037569270731649965,
+   "f0_up": -70137.08111592928,
+   "prec_up": 188549.3721512154,
+   "x0_down": 0.0005402046722093923,
+   "f0_down": -202595.07956206775,
+   "prec_down": 162249.93318434161
+  },
+  "T1": {
+   "idle_offset_shift": 0.0005522826579868151,
+   "idle_offset_shift_error": 7.766195130927571e-05,
+   "frequency_shift": -101987.98875641602,
+   "f_01_error": 71347.03368617283,
+   "column_precision": 121861.18878962424,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 2.609488619978509,
+   "curvature": -9673762938.018139,
+   "warnings": [],
+   "qpu_s": 23.3882577419281,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 54732,
+   "sweep_ns": 2188,
+   "x0_up": 0.000631974637798936,
+   "f0_up": -32598.80162867261,
+   "prec_up": 177696.55052569768,
+   "x0_down": 0.0005437086843088488,
+   "f0_down": -158902.32369002383,
+   "prec_down": 168151.38179730164
+  }
+ },
+ "arbel/qD1/03b": {
+  "noT1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "column_precision": 108858.23076744398,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "chi2_red": NaN,
+   "curvature": NaN,
+   "warnings": [
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ],
+   "qpu_s": 14.292512893676758,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": NaN,
+   "f0_up": NaN,
+   "prec_up": 278688917.4169986,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 153923.7969308159
+  },
+  "T1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "column_precision": 86750.59438278027,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "chi2_red": NaN,
+   "curvature": NaN,
+   "warnings": [
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ],
+   "qpu_s": 23.3882577419281,
+   "job_qubits": [
+    "qB4",
+    "qA5",
+    "qD1"
+   ],
+   "wait_ns": 92448,
+   "sweep_ns": 3696,
+   "x0_up": NaN,
+   "f0_up": NaN,
+   "prec_up": 102678.03929141848,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 137343.63026033604
+  }
+ },
+ "arbel/qA6/03b": {
+  "noT1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "column_precision": 264642.02690814075,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "chi2_red": NaN,
+   "curvature": NaN,
+   "warnings": [
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ],
+   "qpu_s": 5.264418840408325,
+   "job_qubits": [
+    "qA6"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": NaN,
+   "f0_up": NaN,
+   "prec_up": 295521.147564962,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 398938.5759332074
+  },
+  "T1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "column_precision": 341146.61447586986,
+   "tracked_columns": 4,
+   "flux_columns": 21,
+   "chi2_red": NaN,
+   "curvature": NaN,
+   "warnings": [
+    "a line was located in 4 of 21 flux columns (need 7)"
+   ],
+   "qpu_s": 3.5430569648742676,
+   "job_qubits": [
+    "qA6"
+   ],
+   "wait_ns": 26224,
+   "sweep_ns": 1048,
+   "x0_up": NaN,
+   "f0_up": NaN,
+   "prec_up": 470424.82453326264,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 381878.21504993294
+  }
+ },
+ "qolab/Q1/03b": {
+  "noT1": {
+   "idle_offset_shift": 0.00040146530496561775,
+   "idle_offset_shift_error": 0.00045155208099618424,
+   "frequency_shift": 78654.6018612545,
+   "f_01_error": 196880.11813473035,
+   "column_precision": 529563.7311711396,
+   "tracked_columns": 14,
+   "flux_columns": 21,
+   "chi2_red": 0.2880885772392785,
+   "curvature": -2651246472.06006,
+   "warnings": [],
+   "qpu_s": 7.973323106765747,
+   "job_qubits": [
+    "Q1",
+    "Q5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": 0.0006166890092998411,
+   "f0_up": 5443.318182188469,
+   "prec_up": 561534.2662048114,
+   "x0_down": -2.8180587372906304e-06,
+   "f0_down": 279899.21363268764,
+   "prec_down": 729627.1993489609
+  },
+  "T1": {
+   "idle_offset_shift": -7.826243638918755e-05,
+   "idle_offset_shift_error": 0.0001818071557107584,
+   "frequency_shift": -100331.83813531477,
+   "f_01_error": 67667.8557448777,
+   "column_precision": 174743.46348272127,
+   "tracked_columns": 15,
+   "flux_columns": 21,
+   "chi2_red": 0.6979727506952972,
+   "curvature": -2649319697.4705043,
+   "warnings": [],
+   "qpu_s": 29.22228169441223,
+   "job_qubits": [
+    "Q1",
+    "Q5"
+   ],
+   "wait_ns": 238568,
+   "sweep_ns": 4000,
+   "x0_up": -1.774750131284038e-05,
+   "f0_up": -135555.1600027856,
+   "prec_up": 216954.5423804418,
+   "x0_down": -0.00012058311446162068,
+   "f0_down": -195658.6043777636,
+   "prec_down": 232052.2962753692
+  }
+ },
+ "qolab/Q2/03b": {
+  "noT1": {
+   "idle_offset_shift": 3.2202812957358988e-06,
+   "idle_offset_shift_error": 0.00021321973621025387,
+   "frequency_shift": -126737.92411885243,
+   "f_01_error": 137078.97349540924,
+   "column_precision": 273204.8631932529,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "chi2_red": 1.5438784702073156,
+   "curvature": -2687593070.9319572,
+   "warnings": [],
+   "qpu_s": 4.072015047073364,
+   "job_qubits": [
+    "Q2"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": 0.00020129272416831412,
+   "f0_up": 179947.3900993722,
+   "prec_up": 334901.80253424303,
+   "x0_down": -0.00010759342485669445,
+   "f0_down": -194418.90604763455,
+   "prec_down": 515131.20080936677
+  },
+  "T1": {
+   "idle_offset_shift": -3.97902043156024e-05,
+   "idle_offset_shift_error": 9.796945309700864e-05,
+   "frequency_shift": -46957.33050698537,
+   "f_01_error": 50309.443130663494,
+   "column_precision": 132620.81413540954,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 0.9336137732972575,
+   "curvature": -2705328550.2399073,
+   "warnings": [],
+   "qpu_s": 25.348732233047485,
+   "job_qubits": [
+    "Q2"
+   ],
+   "wait_ns": 399324,
+   "sweep_ns": 4000,
+   "x0_up": -7.006437056789873e-05,
+   "f0_up": 26735.314517135736,
+   "prec_up": 182850.95950572353,
+   "x0_down": -2.633986603619626e-05,
+   "f0_down": -98827.88195639702,
+   "prec_down": 168550.87439739672
+  }
+ },
+ "qolab/Q5/03b": {
+  "noT1": {
+   "idle_offset_shift": -0.0005659103028871482,
+   "idle_offset_shift_error": 0.0005174169368340092,
+   "frequency_shift": -357266.7671540008,
+   "f_01_error": 168217.08932772456,
+   "column_precision": 289141.8677518027,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 3.6017083571181074,
+   "curvature": -1973389563.080729,
+   "warnings": [],
+   "qpu_s": 7.973323106765747,
+   "job_qubits": [
+    "Q1",
+    "Q5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": -0.0003737342376711982,
+   "f0_up": -2703.068515353565,
+   "prec_up": 519142.7733356686,
+   "x0_down": 0.000486555581600578,
+   "f0_down": -609205.6024450798,
+   "prec_down": 519179.1020820176
+  },
+  "T1": {
+   "idle_offset_shift": -8.955065041009344e-05,
+   "idle_offset_shift_error": 0.00021696973035201917,
+   "frequency_shift": -186213.96428973103,
+   "f_01_error": 88612.16512540245,
+   "column_precision": 180715.3107519264,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 1.8348598072258528,
+   "curvature": -2014603492.1757884,
+   "warnings": [],
+   "qpu_s": 29.22228169441223,
+   "job_qubits": [
+    "Q1",
+    "Q5"
+   ],
+   "wait_ns": 210200,
+   "sweep_ns": 4000,
+   "x0_up": -0.00016166325914727193,
+   "f0_up": -321702.72365514754,
+   "prec_up": 293836.1927216851,
+   "x0_down": 8.128524513938704e-05,
+   "f0_down": -146089.02094745208,
+   "prec_down": 256826.9492496657
+  }
+ },
+ "gilboa/qD2/03b": {
+  "noT1": {
+   "idle_offset_shift": 0.002414262349289781,
+   "idle_offset_shift_error": 0.0007276104173658945,
+   "frequency_shift": -8685116.051710552,
+   "f_01_error": 718892.9452692033,
+   "column_precision": 523940.0775225703,
+   "tracked_columns": 10,
+   "flux_columns": 21,
+   "chi2_red": 6.311071733923472,
+   "curvature": -7548944573.344368,
+   "warnings": [
+    "columns scatter 2.5x their errors about the parabola"
+   ],
+   "qpu_s": 13.449818849563599,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": 0.0018010078294964733,
+   "f0_up": -8447639.724878531,
+   "prec_up": 535414.7927542895,
+   "x0_down": 0.002537143188153212,
+   "f0_down": -8699288.22962434,
+   "prec_down": 534998.80494113
+  },
+  "T1": {
+   "idle_offset_shift": 0.0027442569115195986,
+   "idle_offset_shift_error": 0.0006885958851162799,
+   "frequency_shift": 25012890.703865517,
+   "f_01_error": 442020.289878608,
+   "column_precision": 531078.344781827,
+   "tracked_columns": 8,
+   "flux_columns": 21,
+   "chi2_red": 0.3394125127756972,
+   "curvature": -4590877277.308711,
+   "warnings": [
+    "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+   ],
+   "qpu_s": 17.98969864845276,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 6712,
+   "sweep_ns": 268,
+   "x0_up": NaN,
+   "f0_up": NaN,
+   "prec_up": 529322.353863318,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 608618.6185676176
+  }
+ },
+ "gilboa/qC3/03b": {
+  "noT1": {
+   "idle_offset_shift": -0.00045665123862391075,
+   "idle_offset_shift_error": 7.200412116758619e-05,
+   "frequency_shift": -117521.29501874174,
+   "f_01_error": 72817.63624519693,
+   "column_precision": 87954.76783915512,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "chi2_red": 4.205473654939848,
+   "curvature": -10394305227.615808,
+   "warnings": [
+    "columns scatter 2.1x their errors about the parabola"
+   ],
+   "qpu_s": 13.449818849563599,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": -0.0003498785463221315,
+   "f0_up": -50235.48245220141,
+   "prec_up": 135103.0715963228,
+   "x0_down": -0.000608843405283314,
+   "f0_down": -335111.0445763173,
+   "prec_down": 133670.44502744172
+  },
+  "T1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "frequency_shift": NaN,
+   "f_01_error": NaN,
+   "column_precision": 513984.4147030697,
+   "tracked_columns": 4,
+   "flux_columns": 21,
+   "chi2_red": NaN,
+   "curvature": NaN,
+   "warnings": [
+    "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "a line was located in 4 of 21 flux columns (need 7)"
+   ],
+   "qpu_s": 17.98969864845276,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 9016,
+   "sweep_ns": 360,
+   "x0_up": -0.0018740791900721315,
+   "f0_up": 2497738.669065806,
+   "prec_up": 653248.1623065281,
+   "x0_down": NaN,
+   "f0_down": NaN,
+   "prec_down": 763499.9517542723
+  }
+ },
+ "gilboa/qD5/03b": {
+  "noT1": {
+   "idle_offset_shift": 0.0026221661602507528,
+   "idle_offset_shift_error": 7.239151550470661e-05,
+   "frequency_shift": -45269.40210217115,
+   "f_01_error": 76786.0560311842,
+   "column_precision": 188951.51315672268,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "chi2_red": 0.7458697298987297,
+   "curvature": -11098081485.347803,
+   "warnings": [],
+   "qpu_s": 13.449818849563599,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 50000,
+   "sweep_ns": 4000,
+   "x0_up": 0.002821690847491911,
+   "f0_up": -32964.24857785557,
+   "prec_up": 370155.90173823957,
+   "x0_down": 0.0026313110357581992,
+   "f0_down": -218209.41867092787,
+   "prec_down": 244409.97868020853
+  },
+  "T1": {
+   "idle_offset_shift": 0.0025907692912456723,
+   "idle_offset_shift_error": 5.862360295062245e-05,
+   "frequency_shift": -25527.053292191515,
+   "f_01_error": 55946.34052599288,
+   "column_precision": 104166.59214457087,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "chi2_red": 2.482961201359454,
+   "curvature": -11128946156.501465,
+   "warnings": [],
+   "qpu_s": 17.98969864845276,
+   "job_qubits": [
+    "qD2",
+    "qC3",
+    "qD5"
+   ],
+   "wait_ns": 216576,
+   "sweep_ns": 4000,
+   "x0_up": 0.0026184546316329466,
+   "f0_up": -96171.37077360868,
+   "prec_up": 125708.85790090633,
+   "x0_down": 0.0026602734113225757,
+   "f0_down": -45491.811838723006,
+   "prec_down": 149432.07960276504
+  }
+ }
+}

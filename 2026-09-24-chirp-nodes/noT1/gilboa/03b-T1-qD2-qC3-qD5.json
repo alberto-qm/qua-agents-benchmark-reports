@@ -1,0 +1,212 @@
+{
+ "tag": "03b-T1-qD2-qC3-qD5",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qD2": 6712,
+  "qC3": 9016,
+  "qD5": 216576
+ },
+ "T1": {
+  "qD2": 1.3428767364473683e-06,
+  "qC3": 1.8034861546101497e-06,
+  "qD5": 4.3315774401770405e-05
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 23.528148374985904,
+ "qpu_s": 17.98969864845276,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "idle_offset_shift": 0.0027442569115195986,
+   "idle_offset_shift_error": 0.0006885958851162799,
+   "joint_offset": 0.0182986155693186,
+   "independent_offset": NaN,
+   "f_01": 5776019797.575025,
+   "RF_frequency": 5776019797.575025,
+   "f_01_error": 442020.289878608,
+   "frequency_shift": 25012890.703865517,
+   "curvature": -4590877277.308711,
+   "curvature_error": 348530923.6218916,
+   "stored_curvature": -8630838325.595207,
+   "column_precision": 531078.344781827,
+   "chi2_red": 0.3394125127756972,
+   "tracked_columns": 8,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.5454242177112795,
+   "sweep_length_ns": 268.0,
+   "short_sweep": true,
+   "warnings": [
+    "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+   ]
+  },
+  "qC3": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -10305876434.22233,
+   "column_precision": 513984.4147030697,
+   "chi2_red": NaN,
+   "tracked_columns": 4,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.43306224127944576,
+   "sweep_length_ns": 360.0,
+   "short_sweep": true,
+   "warnings": [
+    "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "a line was located in 4 of 21 flux columns (need 7)"
+   ]
+  },
+  "qD5": {
+   "idle_offset_shift": 0.0025907692912456723,
+   "idle_offset_shift_error": 5.862360295062245e-05,
+   "joint_offset": 0.022599878719275924,
+   "independent_offset": NaN,
+   "f_01": 5816946838.981563,
+   "RF_frequency": 5816946838.981563,
+   "f_01_error": 55946.34052599288,
+   "frequency_shift": -25527.053292191515,
+   "curvature": -11128946156.501465,
+   "curvature_error": 51220382.3822067,
+   "stored_curvature": -10584901306.441132,
+   "column_precision": 104166.59214457087,
+   "chi2_red": 2.482961201359454,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.07940336636618783,
+   "sweep_length_ns": 4000.0,
+   "short_sweep": false,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/xy/RF_frequency": {
+   "old": 5816972366.034855,
+   "new": 5816946838.981563
+  },
+  "/qubits/qD5/f_01": {
+   "old": 5816972366.034855,
+   "new": 5816946838.981563
+  },
+  "/qubits/qD5/z/joint_offset": {
+   "old": 0.02000910942803025,
+   "new": 0.022599878719275924
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 268,
+   "qC3": 360,
+   "qD5": 4000
+  },
+  "rates": {
+   "qD2": 74627,
+   "qC3": 55556,
+   "qD5": 5000
+  },
+  "drive_amplitudes": {
+   "qD2": 0.5454242177112795,
+   "qC3": 0.43306224127944576,
+   "qD5": 0.07940336636618783
+  },
+  "flux_offsets": {
+   "qD2": [
+    -0.07220707723635246,
+    -0.06498636951271722,
+    -0.05776566178908197,
+    -0.05054495406544672,
+    -0.04332424634181148,
+    -0.03610353861817623,
+    -0.02888283089454098,
+    -0.02166212317090574,
+    -0.01444141544727049,
+    -0.007220707723635242,
+    0.0,
+    0.007220707723635242,
+    0.014441415447270498,
+    0.02166212317090574,
+    0.02888283089454098,
+    0.03610353861817624,
+    0.04332424634181148,
+    0.05054495406544672,
+    0.057765661789081976,
+    0.0649863695127172,
+    0.07220707723635246
+   ],
+   "qC3": [
+    -0.06607905011297313,
+    -0.05947114510167582,
+    -0.0528632400903785,
+    -0.046255335079081195,
+    -0.03964743006778388,
+    -0.033039525056486566,
+    -0.026431620045189258,
+    -0.019823715033891944,
+    -0.013215810022594629,
+    -0.0066079050112973145,
+    0.0,
+    0.0066079050112973076,
+    0.013215810022594615,
+    0.019823715033891937,
+    0.026431620045189244,
+    0.033039525056486566,
+    0.03964743006778387,
+    0.04625533507908118,
+    0.0528632400903785,
+    0.05947114510167581,
+    0.06607905011297313
+   ],
+   "qD5": [
+    -0.06520229019841034,
+    -0.058682061178569306,
+    -0.05216183215872827,
+    -0.04564160313888724,
+    -0.039121374119046204,
+    -0.03260114509920517,
+    -0.026080916079364136,
+    -0.019560687059523102,
+    -0.013040458039682068,
+    -0.006520229019841034,
+    0.0,
+    0.006520229019841034,
+    0.013040458039682068,
+    0.019560687059523102,
+    0.026080916079364136,
+    0.03260114509920517,
+    0.039121374119046204,
+    0.04564160313888724,
+    0.05216183215872827,
+    0.058682061178569306,
+    0.06520229019841034
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 50,
+  "flux_step_lengths": {
+   "qD2": 5404,
+   "qC3": 5540,
+   "qD5": 10000
+  },
+  "drive_lengths": {
+   "qD2": 268,
+   "qC3": 360,
+   "qD5": 4000
+  }
+ }
+}

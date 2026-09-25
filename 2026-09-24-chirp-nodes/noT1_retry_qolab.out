@@ -1,0 +1,58 @@
+2026-09-25 09:10:50,015 - qm - INFO     - Starting session: 3f67eda1-ff2d-429b-909a-9924bbc09d20
+09:10:54 [qolab/noT1] 03a-T1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], T1 {'Q1': 4.771370427191526e-05, 'Q2': 7.986532931177701e-05, 'Q5': 4.204076630329183e-05}, waits {'Q1': 238568, 'Q2': 399324, 'Q5': 210200} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001132, 0.002264, 0.004529, 0.009057, 0.01811, 0.03623, 0.07246 (x180 prior)
+Q2: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001101, 0.002201, 0.004403, 0.008805, 0.01761, 0.03522, 0.07044 (x180 prior)
+Q5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.0009634, 0.001927, 0.003854, 0.007707, 0.01541, 0.03083, 0.06166 (x180 prior)
+estimated QPU time 45 s: 686 sweep points x 50 shots x 870 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:10:56,283 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:10:57] QUA program submitted to qolab (id =                 computers.py:416
+           72a394e2-4997-4c8f-869f-10bdbf6e3c91)                                
+           Execution started                                    computers.py:455
+[09:11:29] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:11:29,855 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:278: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: f_01 5.272090 GHz +- 186 kHz (shift -0.07 MHz), identity 0-1, drive for 03b 0.0091, drive scale vs x180 0.95
+Results for qubit Q2: f_01 5.105643 GHz +- 128 kHz (shift -0.27 MHz), identity 0-1, drive for 03b 0.0088, drive scale vs x180 1.01
+Results for qubit Q5: f_01 5.096286 GHz +- 199 kHz (shift -0.25 MHz), identity 0-1, drive for 03b 0.0077, drive scale vs x180 1.05
+09:11:31 [qolab/noT1] 03a-T1-Q1-Q2-Q5: done -- QPU 30.3 s, wall 36 s
+09:11:31 [qolab/noT1]    Q1: {'f_01': 5272089931.197812, 'frequency_shift': -74393.68281491945, 'f_01_error': 185522.5462030448, 'line_identity': '0-1', 'drive_scale': 0.9507526000173804, 'box_height': 0.00045812846378537873, 'box_snr': 18.920914007621406} warnings=[]
+09:11:31 [qolab/noT1]    Q2: {'f_01': 5105642589.99565, 'frequency_shift': -266097.2707881698, 'f_01_error': 127949.9907896561, 'line_identity': '0-1', 'drive_scale': 1.0085589165562996, 'box_height': 0.00041002797842918954, 'box_snr': 35.607453458756915} warnings=[]
+09:11:31 [qolab/noT1]    Q5: {'f_01': 5096285942.053012, 'frequency_shift': -252825.31563491555, 'f_01_error': 198513.62216320232, 'line_identity': '0-1', 'drive_scale': 1.0514691568329013, 'box_height': 0.0003006707467937096, 'box_snr': 19.0231245183418} warnings=[]
+09:11:31 [qolab/noT1] 03b-noT1-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'], T1 {'Q2': None}, waits {'Q2': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q2: chirp 4000 ns at amplitude 0.01761; flux step 10000 ns (lead 5000 ns); offsets -131.7..+131.7 mV around -0.9621 V
+estimated QPU time 7 s: 1218 sweep points x 50 shots x 74 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:11:32,448 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:11:33] QUA program submitted to qolab (id =                 computers.py:416
+           35931282-0c82-4f93-9b89-40cfcc3b2fca)                                
+           Execution started                                    computers.py:455
+[09:11:39] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:11:39,150 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2: sweet spot +0.003 +- 0.213 mV from idle, f_01 5.105782 GHz +- 137 kHz, curvature -2.688 kHz/mV^2, 16/21 columns, chi2_red 1.5
+09:11:39 [qolab/noT1] 03b-noT1-Q2: done -- QPU 4.1 s, wall 8 s
+09:11:39 [qolab/noT1]    Q2: {'f_01': 5105781949.3423195, 'frequency_shift': -126737.92411885243, 'f_01_error': 137078.97349540924, 'idle_offset_shift': 3.2202812957358988e-06, 'idle_offset_shift_error': 0.00021321973621025387, 'column_precision': 273204.8631932529, 'tracked_columns': 16, 'chi2_red': 1.5438784702073156} warnings=[]
+09:11:39 [qolab/noT1] retries done

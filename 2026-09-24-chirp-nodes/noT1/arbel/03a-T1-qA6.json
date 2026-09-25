@@ -1,0 +1,95 @@
+{
+ "tag": "03a-T1-qA6",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qA6": 26224
+ },
+ "T1": {
+  "qA6": 5.245344299185784e-06
+ },
+ "params": {
+  "frequency_center_in_mhz": 40.0,
+  "frequency_span_in_mhz": 160.0
+ },
+ "error": null,
+ "wall_s": 8.507824375061318,
+ "qpu_s": 2.253366708755493,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "f_01": 6183575826.300256,
+   "RF_frequency": 6183575826.300256,
+   "frequency_shift": -2751984.31142501,
+   "f_01_error": 281790.9543840771,
+   "line_identity": "ambiguous",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.0028215866271990237,
+   "box_snr": 26.551694319799946,
+   "box_width": 17190596.434452508,
+   "onset_amplitude": 0.02464715747678126,
+   "selected_drive_amplitude": 0.04929431495356252,
+   "sweep_length_ns": 1048.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 99963475.89923126,
+   "drive_scale": 1.252876778027516,
+   "onset_exponent": 3.236038700878196,
+   "num_lines": 1,
+   "x180_amplitude": 0.20840945301196298,
+   "x90_amplitude": 0.10420472650598149,
+   "lines": [
+    {
+     "offset": -2796439.5689934418,
+     "onset_level": 1,
+     "onset_amplitude": 0.01232357873839063,
+     "levels": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "max_height": 0.0032357663168124094
+    }
+   ],
+   "warnings": [
+    "the line grows as drive^3.2 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher"
+   ]
+  }
+ },
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 1048
+  },
+  "rates": {
+   "qA6": 19084
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qA6": 79787156.76781091
+  },
+  "shot_rounds": 50,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qA6": {
+    "played": [
+     0.006161789369195315,
+     0.01232357873839063,
+     0.02464715747678126,
+     0.04929431495356252,
+     0.09858862990712504,
+     0.19717725981425008,
+     0.39435451962850016
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

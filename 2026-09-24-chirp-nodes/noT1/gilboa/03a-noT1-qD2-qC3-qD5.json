@@ -1,0 +1,259 @@
+{
+ "tag": "03a-noT1-qD2-qC3-qD5",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qD2": 50000,
+  "qC3": 50000,
+  "qD5": 50000
+ },
+ "T1": {
+  "qD2": null,
+  "qC3": null,
+  "qD5": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 14.170351791894063,
+ "qpu_s": 7.879255294799805,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "f_01": 5741071779.660243,
+   "RF_frequency": 5741071779.660243,
+   "frequency_shift": -9935127.210916875,
+   "f_01_error": 1022049.6643698714,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 5655111168.63568,
+   "anharmonicity_estimate": 171856216.85234576,
+   "box_height": 0.0011882245640697981,
+   "box_snr": 12.431269489235149,
+   "box_width": 10000000.000000002,
+   "onset_amplitude": 0.07058971561049485,
+   "selected_drive_amplitude": 0.07058971561049485,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 18253573.006432414,
+   "drive_scale": 0.640043065210529,
+   "onset_exponent": 1.0642620077403138,
+   "num_lines": 2,
+   "x180_amplitude": 1.1413290606716742,
+   "x90_amplitude": 0.5706645303358371,
+   "lines": [
+    {
+     "offset": -95895738.23547924,
+     "onset_level": 4,
+     "onset_amplitude": 0.1411794312209897,
+     "levels": [
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.003701936116705128
+    },
+    {
+     "offset": -9967629.809306346,
+     "onset_level": 3,
+     "onset_amplitude": 0.07058971561049485,
+     "levels": [
+      3,
+      4
+     ],
+     "max_height": 0.0014943304900294982
+    }
+   ],
+   "warnings": []
+  },
+  "qC3": {
+   "f_01": 5648596162.663908,
+   "RF_frequency": 5648596162.663908,
+   "frequency_shift": -87985.99287663386,
+   "f_01_error": 208851.55073902966,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 5543414667.521863,
+   "anharmonicity_estimate": 210379103.45717436,
+   "box_height": 0.0015015124235416878,
+   "box_snr": 32.50869539689009,
+   "box_width": 19123746.103483785,
+   "onset_amplitude": 0.03247953817806555,
+   "selected_drive_amplitude": 0.0649590763561311,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 33900422.04772788,
+   "drive_scale": 1.093867761992591,
+   "onset_exponent": 2.118147043336456,
+   "num_lines": 2,
+   "x180_amplitude": 0.6145449547501917,
+   "x90_amplitude": 0.30727247737509583,
+   "lines": [
+    {
+     "offset": -105269481.13492197,
+     "onset_level": 5,
+     "onset_amplitude": 0.2598363054245244,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.001445938654727065
+    },
+    {
+     "offset": -79929.40633478132,
+     "onset_level": 1,
+     "onset_amplitude": 0.016239769089032775,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.0015719049231369528
+    }
+   ],
+   "warnings": []
+  },
+  "qD5": {
+   "f_01": 5816944376.768714,
+   "RF_frequency": 5816944376.768714,
+   "frequency_shift": -27989.266141196484,
+   "f_01_error": 555021.6966770771,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 5712010123.085252,
+   "anharmonicity_estimate": 209271432.28558898,
+   "box_height": 0.0017306899733495842,
+   "box_snr": 23.923264569322697,
+   "box_width": 19056477.649961125,
+   "onset_amplitude": 0.019850841591546958,
+   "selected_drive_amplitude": 0.039701683183093917,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 50164287.871160835,
+   "drive_scale": 0.989289609795416,
+   "onset_exponent": 2.166891799120476,
+   "num_lines": 2,
+   "x180_amplitude": 0.41530208475879304,
+   "x90_amplitude": 0.20765104237939652,
+   "lines": [
+    {
+     "offset": -104962242.94960307,
+     "onset_level": 6,
+     "onset_amplitude": 0.31761346546475133,
+     "levels": [
+      6
+     ],
+     "max_height": 0.002277784038121407
+    },
+    {
+     "offset": -326526.806808575,
+     "onset_level": 1,
+     "onset_amplitude": 0.009925420795773479,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.0020403431131063195
+    }
+   ],
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qC3/xy/RF_frequency": {
+   "old": 5648684148.656785,
+   "new": 5648596162.663908
+  },
+  "/qubits/qC3/f_01": {
+   "old": 5648684148.656785,
+   "new": 5648596162.663908
+  },
+  "/qubits/qD2/xy/RF_frequency": {
+   "old": 5751006906.87116,
+   "new": 5741071779.660243
+  },
+  "/qubits/qD2/f_01": {
+   "old": 5751006906.87116,
+   "new": 5741071779.660243
+  },
+  "/qubits/qD5/xy/RF_frequency": {
+   "old": 5816972366.034855,
+   "new": 5816944376.768714
+  },
+  "/qubits/qD5/f_01": {
+   "old": 5816972366.034855,
+   "new": 5816944376.768714
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 4000,
+   "qC3": 4000,
+   "qD5": 4000
+  },
+  "rates": {
+   "qD2": 5000,
+   "qC3": 5000,
+   "qD5": 5000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qD2": 28519288.776964214,
+   "qC3": 30991334.808126014,
+   "qD5": 50707383.737240255
+  },
+  "shot_rounds": 50,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qD2": {
+    "played": [
+     0.008823714451311856,
+     0.01764742890262371,
+     0.03529485780524742,
+     0.07058971561049485,
+     0.1411794312209897,
+     0.2823588624419794,
+     0.5647177248839588
+    ],
+    "prior": "x180"
+   },
+   "qC3": {
+    "played": [
+     0.008119884544516388,
+     0.016239769089032775,
+     0.03247953817806555,
+     0.0649590763561311,
+     0.1299181527122622,
+     0.2598363054245244,
+     0.5196726108490488
+    ],
+    "prior": "x180"
+   },
+   "qD5": {
+    "played": [
+     0.0049627103978867396,
+     0.009925420795773479,
+     0.019850841591546958,
+     0.039701683183093917,
+     0.07940336636618783,
+     0.15880673273237567,
+     0.31761346546475133
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

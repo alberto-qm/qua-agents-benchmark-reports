@@ -1,0 +1,304 @@
+2026-09-25 09:07:21,122 - qm - INFO     - Starting session: ebe40516-fa38-48cb-b979-b81d37bc37f4
+09:07:26 [qolab/noT1] 03a-noT1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], T1 {'Q1': None, 'Q2': None, 'Q5': None}, waits {'Q1': 50000, 'Q2': 50000, 'Q5': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001132, 0.002264, 0.004529, 0.009057, 0.01811, 0.03623, 0.07246 (x180 prior)
+Q2: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001101, 0.002201, 0.004403, 0.008805, 0.01761, 0.03522, 0.07044 (x180 prior)
+Q5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.0009634, 0.001927, 0.003854, 0.007707, 0.01541, 0.03083, 0.06166 (x180 prior)
+estimated QPU time 9 s: 686 sweep points x 50 shots x 172 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:07:27,974 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:07:28] QUA program submitted to qolab (id =                 computers.py:416
+           91c3784f-1d73-480d-b57b-4941c03fa9b8)                                
+[09:07:29] Execution started                                    computers.py:455
+[09:07:40] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:07:40,057 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:278: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: no 0->1 line found. no line in the window at any drive level
+Results for qubit Q2: f_01 5.105366 GHz +- 259 kHz (shift -0.54 MHz), identity 0-1, drive for 03b 0.0088, drive scale vs x180 1.19
+Results for qubit Q5: f_01 5.096412 GHz +- 418 kHz (shift -0.13 MHz), identity 0-1, drive for 03b 0.0077, drive scale vs x180 1.21
+09:07:41 [qolab/noT1] 03a-noT1-Q1-Q2-Q5: done -- QPU 6.4 s, wall 15 s
+09:07:41 [qolab/noT1]    Q1: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'line_identity': 'none', 'drive_scale': nan, 'box_height': nan, 'box_snr': nan} warnings=['no line in the window at any drive level']
+09:07:41 [qolab/noT1]    Q2: {'f_01': 5105365537.826788, 'frequency_shift': -543149.4396505938, 'f_01_error': 259307.44696373458, 'line_identity': '0-1', 'drive_scale': 1.1855882162404743, 'box_height': 0.0002937816380619328, 'box_snr': 19.692917050847786} warnings=[]
+09:07:41 [qolab/noT1]    Q5: {'f_01': 5096412202.068338, 'frequency_shift': -126565.30030823231, 'f_01_error': 418146.89997516834, 'line_identity': '0-1', 'drive_scale': 1.2071050331105675, 'box_height': 0.0002178533958263188, 'box_snr': 19.70926336177045} warnings=[]
+09:07:41 [qolab/noT1] 03a-T1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], T1 {'Q1': 4.771370427191526e-05, 'Q2': 7.986532931177701e-05, 'Q5': 4.204076630329183e-05}, waits {'Q1': 238568, 'Q2': 399324, 'Q5': 210200} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001132, 0.002264, 0.004529, 0.009057, 0.01811, 0.03623, 0.07246 (x180 prior)
+Q2: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001101, 0.002201, 0.004403, 0.008805, 0.01761, 0.03522, 0.07044 (x180 prior)
+Q5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.0009634, 0.001927, 0.003854, 0.007707, 0.01541, 0.03083, 0.06166 (x180 prior)
+estimated QPU time 45 s: 686 sweep points x 50 shots x 870 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:07:42,892 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:07:44] QUA program submitted to qolab (id =                 computers.py:416
+           43ed9cfe-6d11-4b74-ab95-dfbc0bf9ffa4)                                
+           Execution started                                    computers.py:455
+2026-09-25 09:07:55,350 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_noT1.py", line 112, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py", line 189, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 206, in timed
+    job = original(self, *args, **kwargs)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/qmm_cloud.py", line 64, in execute
+    run_data = self._qc.execute(
+        program,
+    ...<2 lines>...
+        options=options,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 259, in execute
+    return self.__serve_request_spinner(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "QUA program",
+        ^^^^^^^^^^^^^^
+    ...<5 lines>...
+        api_path_post="qua",
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 469, in __serve_request_spinner
+    r = client.get(
+        self.url + f"/task/{self.backend}/{task_id}",
+        timeout=5,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 1053, in get
+    return self.request(
+           ~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<7 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+09:07:55 [qolab/noT1] 03a-T1-Q1-Q2-Q5: FAILED ReadTimeout: The read operation timed out -- QPU 0.0 s, wall 14 s
+09:07:55 [qolab/noT1] 03b-noT1-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'], T1 {'Q2': None}, waits {'Q2': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q2: chirp 4000 ns at amplitude 0.01761; flux step 10000 ns (lead 5000 ns); offsets -131.7..+131.7 mV around -0.9621 V
+estimated QPU time 7 s: 1218 sweep points x 50 shots x 74 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:07:56,726 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+🚨 Error code 503
+Service Unavailable
+2026-09-25 09:08:30,784 - qm - INFO     - Closing QM
+Traceback (most recent call last):
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 347, in __http_error_handler
+    self.console.print(f"[bold red]{r.json()['detail']}")
+                                    ~~~~~~^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/httpx/_models.py", line 832, in json
+    return jsonlib.loads(self.content, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/atosato/qab-runs/chirp-nodes-20260924/run_noT1.py", line 112, in run
+    node.run(mode="propose", interactive=True, external=True, qubits=qubits, **params)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/qua-agents/packages/qualibrate_ai/src/qualibrate_ai/node.py", line 256, in run
+    action.func(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py", line 263, in execute_qua_program
+    node.namespace["job"] = job = qm.execute(node.namespace["qua_program"])
+                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atosato/code/QM/tinycal/src/tinycal/qualibrate.py", line 206, in timed
+    job = original(self, *args, **kwargs)
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/qmm_cloud.py", line 64, in execute
+    run_data = self._qc.execute(
+        program,
+    ...<2 lines>...
+        options=options,
+    )
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 259, in execute
+    return self.__serve_request_spinner(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        "QUA program",
+        ^^^^^^^^^^^^^^
+    ...<5 lines>...
+        api_path_post="qua",
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 396, in __serve_request_spinner
+    self.__http_error_handler(r)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/iqcc_cloud_client/computers.py", line 349, in __http_error_handler
+    raise ConnectionError(
+        f"Error code {r.status_code} {HTTPStatus(r.status_code).phrase}"
+    )
+ConnectionError: Error code 503 Service Unavailable
+09:08:30 [qolab/noT1] 03b-noT1-Q2: FAILED ConnectionError: Error code 503 Service Unavailable -- QPU 0.0 s, wall 35 s
+09:08:31 [qolab/noT1] 03b-T1-Q2: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q2'], T1 {'Q2': 7.986532931177701e-05}, waits {'Q2': 399324} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q2: chirp 4000 ns at amplitude 0.01761; flux step 10000 ns (lead 5000 ns); offsets -131.7..+131.7 mV around -0.9621 V
+estimated QPU time 39 s: 1218 sweep points x 50 shots x 423 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:08:32,131 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:08:32] QUA program submitted to qolab (id =                 computers.py:416
+           4b5b7061-6408-438d-92cc-cae9fe437b6d)                                
+           Execution started                                    computers.py:455
+[09:08:59] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:08:59,782 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q2: sweet spot -0.040 +- 0.098 mV from idle, f_01 5.105862 GHz +- 50 kHz, curvature -2.705 kHz/mV^2, 17/21 columns, chi2_red 0.9
+09:09:00 [qolab/noT1] 03b-T1-Q2: done -- QPU 25.3 s, wall 29 s
+09:09:00 [qolab/noT1]    Q2: {'f_01': 5105861729.935931, 'frequency_shift': -46957.33050698537, 'f_01_error': 50309.443130663494, 'idle_offset_shift': -3.97902043156024e-05, 'idle_offset_shift_error': 9.796945309700864e-05, 'column_precision': 132620.81413540954, 'tracked_columns': 17, 'chi2_red': 0.9336137732972575} warnings=[]
+09:09:00 [qolab/noT1] 03b-noT1-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'], T1 {'Q1': None, 'Q5': None}, waits {'Q1': 50000, 'Q5': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: chirp 4000 ns at amplitude 0.01811; flux step 10000 ns (lead 5000 ns); offsets -141.5..+141.5 mV around +0.6904 V
+Q5: chirp 4000 ns at amplitude 0.01541; flux step 10000 ns (lead 5000 ns); offsets -151.3..+151.3 mV around +0.0187 V
+estimated QPU time 11 s: 1218 sweep points x 50 shots x 126 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:09:01,409 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:09:02] QUA program submitted to qolab (id =                 computers.py:416
+           dc6b77c3-ef71-4950-8bea-b1ef6134b20b)                                
+           Execution started                                    computers.py:455
+[09:09:12] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:09:12,608 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: sweet spot +0.401 +- 0.452 mV from idle, f_01 5.272243 GHz +- 197 kHz, curvature -2.651 kHz/mV^2, 14/21 columns, chi2_red 0.3
+Results for qubit Q5: sweet spot -0.566 +- 0.517 mV from idle, f_01 5.096182 GHz +- 168 kHz, curvature -1.973 kHz/mV^2, 17/21 columns, chi2_red 3.6
+09:09:13 [qolab/noT1] 03b-noT1-Q1-Q5: done -- QPU 8.0 s, wall 13 s
+09:09:13 [qolab/noT1]    Q1: {'f_01': 5272242979.482488, 'frequency_shift': 78654.6018612545, 'f_01_error': 196880.11813473035, 'idle_offset_shift': 0.00040146530496561775, 'idle_offset_shift_error': 0.00045155208099618424, 'column_precision': 529563.7311711396, 'tracked_columns': 14, 'chi2_red': 0.2880885772392785} warnings=[]
+09:09:13 [qolab/noT1]    Q5: {'f_01': 5096181500.601493, 'frequency_shift': -357266.7671540008, 'f_01_error': 168217.08932772456, 'idle_offset_shift': -0.0005659103028871482, 'idle_offset_shift_error': 0.0005174169368340092, 'column_precision': 289141.8677518027, 'tracked_columns': 17, 'chi2_red': 3.6017083571181074} warnings=[]
+09:09:13 [qolab/noT1] 03b-T1-Q1-Q5: 03b_qubit_spectroscopy_vs_flux_chirp on ['Q1', 'Q5'], T1 {'Q1': 4.771370427191526e-05, 'Q5': 4.204076630329183e-05}, waits {'Q1': 238568, 'Q5': 210200} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: chirp 4000 ns at amplitude 0.01811; flux step 10000 ns (lead 5000 ns); offsets -141.5..+141.5 mV around +0.6904 V
+Q5: chirp 4000 ns at amplitude 0.01541; flux step 10000 ns (lead 5000 ns); offsets -151.3..+151.3 mV around +0.0187 V
+estimated QPU time 43 s: 1218 sweep points x 50 shots x 474 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 09:09:14,403 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[09:09:15] QUA program submitted to qolab (id =                 computers.py:416
+           29f620ea-7b99-4bcd-a8b8-97d5c6d7c22e)                                
+           Execution started                                    computers.py:455
+[09:09:46] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=50/50) --> elapsed time: 0.01s
+None
+2026-09-25 09:09:46,611 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:353: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: sweet spot -0.078 +- 0.182 mV from idle, f_01 5.272064 GHz +- 68 kHz, curvature -2.649 kHz/mV^2, 15/21 columns, chi2_red 0.7
+Results for qubit Q5: sweet spot -0.090 +- 0.217 mV from idle, f_01 5.096353 GHz +- 89 kHz, curvature -2.015 kHz/mV^2, 17/21 columns, chi2_red 1.8
+09:09:47 [qolab/noT1] 03b-T1-Q1-Q5: done -- QPU 29.2 s, wall 34 s
+09:09:47 [qolab/noT1]    Q1: {'f_01': 5272063993.042491, 'frequency_shift': -100331.83813531477, 'f_01_error': 67667.8557448777, 'idle_offset_shift': -7.826243638918755e-05, 'idle_offset_shift_error': 0.0001818071557107584, 'column_precision': 174743.46348272127, 'tracked_columns': 15, 'chi2_red': 0.6979727506952972} warnings=[]
+09:09:47 [qolab/noT1]    Q5: {'f_01': 5096352553.404357, 'frequency_shift': -186213.96428973103, 'f_01_error': 88612.16512540245, 'idle_offset_shift': -8.955065041009344e-05, 'idle_offset_shift_error': 0.00021696973035201917, 'column_precision': 180715.3107519264, 'tracked_columns': 17, 'chi2_red': 1.8348598072258528} warnings=[]
+09:09:47 [qolab/noT1] all done

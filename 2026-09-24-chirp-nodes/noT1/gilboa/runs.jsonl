@@ -1,0 +1,6 @@
+{"tag": "03a-noT1-qD2-qC3-qD5", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "noT1", "error": "ReadTimeout: The read operation timed out", "wall_s": 15.204346707789227, "qpu_s": 0}
+{"tag": "03a-T1-qD2-qC3-qD5", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "T1", "error": "ConnectionError: Error code 503 Service Unavailable", "wall_s": 48.08682812494226, "qpu_s": 0}
+{"tag": "03b-noT1-qD2-qC3-qD5", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "noT1", "error": null, "wall_s": 19.648448292165995, "qpu_s": 13.449818849563599}
+{"tag": "03b-T1-qD2-qC3-qD5", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "T1", "error": null, "wall_s": 23.528148374985904, "qpu_s": 17.98969864845276}
+{"tag": "03a-noT1-qD2-qC3-qD5", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "noT1", "error": null, "wall_s": 14.170351791894063, "qpu_s": 7.879255294799805}
+{"tag": "03a-T1-qD2-qC3-qD5", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qD2", "qC3", "qD5"], "variant": "T1", "error": null, "wall_s": 15.646996250143275, "qpu_s": 10.387345314025879}

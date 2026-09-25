@@ -32,7 +32,7 @@ def sync():
     for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures", "shortT1",
                 "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
                 "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test",
-                "waits", "waits/arbel", "waits/qolab", "waits/gilboa"):
+                "waits", "waits/arbel", "waits/qolab", "waits/gilboa", "noT1", "noT1/arbel", "noT1/qolab", "noT1/gilboa"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out", ".txt"):
@@ -464,6 +464,53 @@ def build() -> str:
               if (ws.get(f"{k}/03a") or {}).get("5", {}).get("line_identity") == "0-1"]
     w_fine_mean = sum(w_fine) / len(w_fine)
 
+    # --- T1 missing from the state ---------------------------------------------------------------
+    nt = json.loads((DATA / "noT1/summary.json").read_text())
+    nt_runs = [json.loads(l) for f in sorted((DATA / "noT1").glob("*/runs.jsonl")) for l in f.read_text().splitlines()]
+    nt_ok = [r for r in nt_runs if not r.get("error")]
+    nt_qpu = {v: sum(r["qpu_s"] for r in nt_ok if r["variant"] == v) for v in ("noT1", "T1")}
+    nt_failed = len(nt_runs) - len(nt_ok)
+    T1n = dict(T1, qA6=5.25)
+    NBE = {"arbel": ["qB4", "qA5", "qD1", "qA6"], "qolab": ["Q1", "Q2", "Q5"], "gilboa": ["qD2", "qC3", "qD5"]}
+    hs_ref = {k: (v.get("reference") or {}).get("offset") for k, v in hs.items()}
+    nt3a_rows, nt3b_rows, nt_d, nt_sig = [], [], [], []
+    for be, qs in NBE.items():
+        for q in qs:
+            a = nt.get(f"{be}/{q}/03a") or {}
+            u, k = a.get("noT1") or {}, a.get("T1") or {}
+
+            def ac(r):
+                if not r:
+                    return "–"
+                if r.get("line_identity") != "0-1":
+                    why = "short sweep" if short(r) else ("no line" if r.get("line_identity") == "none" else esc(str(r.get("line_identity"))))
+                    return f'<span class="muted">refused: {why}</span>'
+                return f'{num(r["frequency_shift"] / 1e6, "{:+.2f}")} ± {num(r["f_01_error"] / 1e6, "{:.2f}")}'
+
+            ref = hs_ref.get(f"{be}/{q}")
+            if ref is None and f"{be}/{q}" in fine_abs:
+                any_r = u if fin(u.get("f_01")) else k
+                if fin(any_r.get("f_01")):
+                    ref = fine_abs[f"{be}/{q}"] - (any_r["f_01"] - any_r["frequency_shift"])
+            hr = (u["box_height"] / k["box_height"]) if fin(u.get("box_height")) and fin(k.get("box_height")) else None
+            setting = (f'{num((u.get("sweep_ns") or 0) / 1e3, "{:.1f}")} / {num((u.get("wait_ns") or 0) / 1e3, "{:.0f}")} → '
+                       f'{num((k.get("sweep_ns") or 0) / 1e3, "{:.1f}")} / {num((k.get("wait_ns") or 0) / 1e3, "{:.0f}")}')
+            nt3a_rows.append([be, f"<b>{q}</b>", num(T1n[q], "{:.1f}"), setting, ac(u), ac(k),
+                              num(ref / 1e6 if ref is not None else None, "{:+.2f}"), num(hr, "{:.2f}")])
+            b = nt.get(f"{be}/{q}/03b") or {}
+            bu, bk = b.get("noT1") or {}, b.get("T1") or {}
+            both = all(r and not short(r) and fin(r.get("idle_offset_shift")) for r in (bu, bk))
+            if both:
+                d = (bu["idle_offset_shift"] - bk["idle_offset_shift"]) * 1e3
+                sg = d / (((bu["idle_offset_shift_error"] ** 2 + bk["idle_offset_shift_error"] ** 2) ** 0.5) * 1e3)
+                nt_d.append(d); nt_sig.append(sg)
+                dcell = f'{num(d, "{:+.2f}")} ({num(abs(sg), "{:.1f}")}σ)'
+            else:
+                dcell = "–"
+            nt3b_rows.append([be, f"<b>{q}</b>", bcell(bu), bcell(bk), dcell,
+                              f'{num((bu.get("column_precision") or float("nan")) / 1e6, "{:.2f}")} / {num((bk.get("column_precision") or float("nan")) / 1e6, "{:.2f}")}',
+                              f'{num(bu.get("qpu_s"), "{:.1f}")} / {num(bk.get("qpu_s"), "{:.1f}")} s'])
+
     CSS = base.CSS + """
 figure img { display:block; }
 ol.recs li, ul.tight li { margin:6px 0; max-width:82ch; }
@@ -750,6 +797,43 @@ every node uses; a 2 T1 default for the chirp nodes alone needs a node parameter
 {img("figures/waits_qolab.png", "qolab, as above.", "qolab at 2 T1 and 5 T1")}
 {img("figures/waits_gilboa.png", "gilboa, as above: qD2 and qC3 (T1 1.3 and 1.8 µs) are refused at both waits for their short sweeps.", "gilboa at 2 T1 and 5 T1")}
 
+<h2>5c · With T1 missing from the state</h2>
+<p>Without T1 both nodes still run, on fixed fallbacks: a 4 µs sweep, QuAM's 50 µs wait between shots (5 × 10 µs) and, in 03b, a
+1 µs flux tail. They do not say that T1 is missing. On 25 Sep every qubit measured the day before ran 03a and 03b chirp at their
+defaults (commit <span class="mono">{COMMITS['updown']}</span>) twice, back to back: on a state copy with T1 removed for those qubits,
+and on the unchanged copy. {len(nt_ok)} jobs, {nt_qpu["noT1"] + nt_qpu["T1"]:.0f} s of QPU; {nt_failed} jobs that failed within one
+minute on cloud errors (503 Service Unavailable, read timeouts on all three backends) were rerun three minutes later. arbel qA6's 03a
+scanned −40…+120 MHz in both: its drive IF (−342 MHz) cannot take ±120 MHz.</p>
+{table(["backend", "qubit", "stored T1 [µs]", "sweep / wait [µs], T1 unknown → known", "03a f₀₁ − stored, T1 unknown [MHz]", "T1 known",
+        "fine scan − stored", "box height unknown / known"], nt3a_rows)}
+{table(["backend", "qubit", "03b sweet spot, T1 unknown [mV]", "T1 known", "difference", "column error unknown / known [MHz]",
+        "QPU of the job, unknown / known"], nt3b_rows)}
+<p class="small muted">Fine scan: the saturation node at 0.3 MHz Rabi, ±5 MHz — 24 Sep 19:30 for qA6, qB4, qD2, qC3 and qD5 (the
+hyperbolic-secant test), 24 Sep noon for the others; qolab Q1's had no clean line.</p>
+<ul class="tight">
+<li><b>Long T1: the same answers for {100 * nt_qpu["noT1"] / nt_qpu["T1"]:.0f} % of the QPU.</b> On six of the seven qubits with T1 ≥ 11 µs 03a
+found the same line (within 0.1–0.3 MHz of the run with T1), with boxes 0.6–1.0 as high; qolab Q1 was refused (no line): its map, and
+its 03b map, came out much noisier than Q2's and Q5's in the same jobs, for a reason not found — refused, not wrong. In 03b the six sweet spots agree within
+{max(abs(x) for x in nt_sig):.1f}σ; qolab's maps are 2–2.5× less precise, from ~1 T1 waits and 3–6× less QPU.</li>
+<li><b>Short T1 is where it goes wrong: the node answers, and reads low.</b> gilboa qD2 (T1 1.3 µs): 03a proposed its line at
+−9.94 ± 1.02 MHz against −4.77 from the fine scan, and 03b a sweet spot of +2.41 ± 0.73 mV (the hyperbolic-secant map gave
++3.41 ± 0.09) with f₀₁ 4 MHz low. arbel qA6 (5.2 µs): 03a proposed −3.98 ± 0.59 MHz against −2.47. With T1 in the state both were
+refused (qD2: sweep too short; qA6: ambiguous growth). The chirp always sweeps up, and an excitation survives to the readout only
+when the crossing comes near the end of the sweep — when the line sits near the top of the band, at band centres below it — so the
+box is weighted to its low side and reads low, by up to half the band. The alternation of §5b does not help: it reverses the order of
+the band centres, not the chirp.</li>
+<li><b>gilboa qC3's stored T1 is probably wrong.</b> Without T1, its 4 µs sweeps gave a flat box at the fine scan's frequency
+(−0.09 ± 0.21 against +0.01 MHz) and a clean map (−0.46 ± 0.07 mV, 17 of 21 columns, against −0.54 ± 0.08 from saturation on 24 Sep),
+exactly like a long-T1 qubit; with the stored 1.8 µs the nodes played 360 ns sweeps and refused. The unexplained qC3 readings of §5
+came from sweeps sized for that T1.</li>
+<li><b>What would make a missing T1 safe</b> (not done): alternate the chirp direction as well as the order, so the low reading of
+up-chirps and the high reading expected of down-chirps cancel, and their difference flags a sweep too long for the qubit's T1; or read the
+box a second time after a few µs of delay, which measures T1 directly; and have the nodes warn when T1 is missing.</li>
+</ul>
+{img("figures/noT1_arbel.png", "arbel: 03a without T1 (row 1) and with it (row 2), 03b without (row 3) and with (row 4). qD1 and qA6 are not at a sweet spot (no arc either way).", "arbel with and without T1")}
+{img("figures/noT1_qolab.png", "qolab, as above.", "qolab with and without T1")}
+{img("figures/noT1_gilboa.png", "gilboa, as above. qD2 without T1: a weak box 5 MHz below the line, proposed; with T1: refused. qC3 without T1: a clean box and arc.", "gilboa with and without T1")}
+
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the
 flux step under it ran for 80 µs. The fork fixed that on 19 Sep and reverted it on 20 Sep because two gilboa maps came out in absolute
@@ -818,6 +902,8 @@ unexplained; it needs more short-T1 qubits before it goes into the nodes.</li>
 reference as a second check; extend the window down to −200 MHz.</li>
 <li>The −0.2 MHz frequency offset against the fine scans is not the sweep direction (§5b); a fine scan in the same session as
 the chirp would show whether it is real.</li>
+<li>A missing T1 is safe only for T1 ≳ 10 µs: shorter-lived qubits get a 4 µs sweep and a line read low, answered (§5c). Alternate
+the chirp direction, estimate T1 from the box, and warn. gilboa qC3's stored T1 (1.8 µs) looks wrong.</li>
 <li>A 2 T1 reset wait halves the QPU time of both nodes with the same answers (§5b); making it their default needs a node parameter,
 since the wait is each qubit's thermalization factor, shared by every node.</li>
 <li>arbel qD1's operating point: map it with a finer, wider flux scan.</li>
@@ -837,7 +923,8 @@ working tree and would pick up new nodes when resumed.</li>
 <span class="mono">plot_fixes.py</span>, <span class="mono">plot_all.py</span> (every node figure, redrawn),
 <span class="mono">plot_columns.py</span> (chirp against saturation, qubits as columns), <span class="mono">order_sim.py</span> and
 <span class="mono">order_sim_03b.py</span> (shot-order simulations; outputs in <span class="mono">waits/</span>), <span class="mono">run_waits.py</span>,
-<span class="mono">waits_analyse.py</span> and <span class="mono">plot_waits.py</span> (the 2 T1 test). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">waits_analyse.py</span> and <span class="mono">plot_waits.py</span> (the 2 T1 test), <span class="mono">run_noT1.py</span>,
+<span class="mono">run_noT1_retry.py</span>, <span class="mono">noT1_analyse.py</span> and <span class="mono">plot_noT1.py</span> (T1 missing, 25 Sep). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>

@@ -1,0 +1,10 @@
+{"tag": "03a-noT1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "noT1", "error": "ReadTimeout: The read operation timed out", "wall_s": 38.327276833122596, "qpu_s": 0}
+{"tag": "03a-T1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "T1", "error": "ConnectionError: Error code 503 Service Unavailable", "wall_s": 24.814638750161976, "qpu_s": 0}
+{"tag": "03a-noT1-qA6", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qA6"], "variant": "noT1", "error": null, "wall_s": 22.41709320899099, "qpu_s": 2.7649786472320557}
+{"tag": "03a-T1-qA6", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qA6"], "variant": "T1", "error": null, "wall_s": 8.507824375061318, "qpu_s": 2.253366708755493}
+{"tag": "03b-noT1-qB4-qA5-qD1", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "noT1", "error": null, "wall_s": 22.19571900018491, "qpu_s": 14.292512893676758}
+{"tag": "03b-T1-qB4-qA5-qD1", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "T1", "error": null, "wall_s": 30.550392791163176, "qpu_s": 23.3882577419281}
+{"tag": "03b-noT1-qA6", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qA6"], "variant": "noT1", "error": null, "wall_s": 10.491108084097505, "qpu_s": 5.264418840408325}
+{"tag": "03b-T1-qA6", "node": "03b_qubit_spectroscopy_vs_flux_chirp", "qubits": ["qA6"], "variant": "T1", "error": null, "wall_s": 9.407045332947746, "qpu_s": 3.5430569648742676}
+{"tag": "03a-noT1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "noT1", "error": null, "wall_s": 16.28790829097852, "qpu_s": 8.627407789230347}
+{"tag": "03a-T1-qB4-qA5-qD1", "node": "03a_qubit_spectroscopy_chirp", "qubits": ["qB4", "qA5", "qD1"], "variant": "T1", "error": null, "wall_s": 20.02897850004956, "qpu_s": 13.854541063308716}

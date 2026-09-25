@@ -1,0 +1,38 @@
+09:07:26 [arbel/noT1] 03a-noT1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': None, 'qA5': None, 'qD1': None}, waits {'qB4': 50000, 'qA5': 50000, 'qD1': 50000} ns {}
+09:08:05 [arbel/noT1] 03a-noT1-qB4-qA5-qD1: FAILED ReadTimeout: The read operation timed out -- QPU 0.0 s, wall 38 s
+09:08:05 [arbel/noT1] 03a-T1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': 3.0910146981745074e-05, 'qA5': 1.0946829485520884e-05, 'qD1': 1.8489635133020167e-05}, waits {'qB4': 154548, 'qA5': 54732, 'qD1': 92448} ns {}
+09:08:30 [arbel/noT1] 03a-T1-qB4-qA5-qD1: FAILED ConnectionError: Error code 503 Service Unavailable -- QPU 0.0 s, wall 25 s
+09:08:31 [arbel/noT1] 03a-noT1-qA6: 03a_qubit_spectroscopy_chirp on ['qA6'], T1 {'qA6': None}, waits {'qA6': 50000} ns {'frequency_center_in_mhz': 40.0, 'frequency_span_in_mhz': 160.0}
+09:08:53 [arbel/noT1] 03a-noT1-qA6: done -- QPU 2.8 s, wall 22 s
+09:08:53 [arbel/noT1]    qA6: {'f_01': 6182343518.649466, 'frequency_shift': -3984291.962215408, 'f_01_error': 590595.6933770009, 'line_identity': '0-1', 'drive_scale': 1.0946151214705941, 'box_height': 0.0024023666599774615, 'box_snr': 30.35201504269481} warnings=[]
+09:08:54 [arbel/noT1] 03a-T1-qA6: 03a_qubit_spectroscopy_chirp on ['qA6'], T1 {'qA6': 5.245344299185784e-06}, waits {'qA6': 26224} ns {'frequency_center_in_mhz': 40.0, 'frequency_span_in_mhz': 160.0}
+09:09:03 [arbel/noT1] 03a-T1-qA6: done -- QPU 2.3 s, wall 9 s
+09:09:03 [arbel/noT1]    qA6: {'f_01': 6183575826.300256, 'frequency_shift': -2751984.31142501, 'f_01_error': 281790.9543840771, 'line_identity': 'ambiguous', 'drive_scale': 1.252876778027516, 'box_height': 0.0028215866271990237, 'box_snr': 26.551694319799946} warnings=['the line grows as drive^3.2 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher']
+09:09:03 [arbel/noT1] 03b-noT1-qB4-qA5-qD1: 03b_qubit_spectroscopy_vs_flux_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': None, 'qA5': None, 'qD1': None}, waits {'qB4': 50000, 'qA5': 50000, 'qD1': 50000} ns {}
+09:09:26 [arbel/noT1] 03b-noT1-qB4-qA5-qD1: done -- QPU 14.3 s, wall 22 s
+09:09:26 [arbel/noT1]    qB4: {'f_01': 6605787215.295893, 'frequency_shift': -92999.56182267299, 'f_01_error': 63374.10671141637, 'idle_offset_shift': 2.6550477259499023e-05, 'idle_offset_shift_error': 6.502976745135537e-05, 'column_precision': 112666.02645489223, 'tracked_columns': 17, 'chi2_red': 2.4597515906014094} warnings=[]
+09:09:26 [arbel/noT1]    qA5: {'f_01': 5705403125.278308, 'frequency_shift': -168977.43653539222, 'f_01_error': 41312.135635649756, 'idle_offset_shift': 0.0004664078905211018, 'idle_offset_shift_error': 4.589544412476338e-05, 'column_precision': 114220.54916907367, 'tracked_columns': 17, 'chi2_red': 0.784078320052159} warnings=[]
+09:09:26 [arbel/noT1]    qD1: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 108858.23076744398, 'tracked_columns': 2, 'chi2_red': nan} warnings=['a line was located in 2 of 21 flux columns (need 7)']
+09:09:26 [arbel/noT1] 03b-T1-qB4-qA5-qD1: 03b_qubit_spectroscopy_vs_flux_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': 3.0910146981745074e-05, 'qA5': 1.0946829485520884e-05, 'qD1': 1.8489635133020167e-05}, waits {'qB4': 154548, 'qA5': 54732, 'qD1': 92448} ns {}
+09:09:57 [arbel/noT1] 03b-T1-qB4-qA5-qD1: done -- QPU 23.4 s, wall 31 s
+09:09:57 [arbel/noT1]    qB4: {'f_01': 6605877199.090936, 'frequency_shift': -3015.7667794549125, 'f_01_error': 37028.43332063967, 'idle_offset_shift': -2.8418543719420874e-06, 'idle_offset_shift_error': 3.5878879416725786e-05, 'column_precision': 94670.36056622214, 'tracked_columns': 17, 'chi2_red': 1.1156453140722176} warnings=[]
+09:09:57 [arbel/noT1]    qA5: {'f_01': 5705470114.726088, 'frequency_shift': -101987.98875641602, 'f_01_error': 71347.03368617283, 'idle_offset_shift': 0.0005522826579868151, 'idle_offset_shift_error': 7.766195130927571e-05, 'column_precision': 121861.18878962424, 'tracked_columns': 17, 'chi2_red': 2.609488619978509} warnings=[]
+09:09:57 [arbel/noT1]    qD1: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 86750.59438278027, 'tracked_columns': 2, 'chi2_red': nan} warnings=['a line was located in 2 of 21 flux columns (need 7)']
+09:09:58 [arbel/noT1] 03b-noT1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': None}, waits {'qA6': 50000} ns {}
+09:10:08 [arbel/noT1] 03b-noT1-qA6: done -- QPU 5.3 s, wall 10 s
+09:10:08 [arbel/noT1]    qA6: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 264642.02690814075, 'tracked_columns': 2, 'chi2_red': nan} warnings=['a line was located in 2 of 21 flux columns (need 7)']
+09:10:09 [arbel/noT1] 03b-T1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': 5.245344299185784e-06}, waits {'qA6': 26224} ns {}
+09:10:18 [arbel/noT1] 03b-T1-qA6: done -- QPU 3.5 s, wall 9 s
+09:10:18 [arbel/noT1]    qA6: {'f_01': nan, 'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 341146.61447586986, 'tracked_columns': 4, 'chi2_red': nan} warnings=['a line was located in 4 of 21 flux columns (need 7)']
+09:10:18 [arbel/noT1] all done
+09:10:55 [arbel/noT1] 03a-noT1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': None, 'qA5': None, 'qD1': None}, waits {'qB4': 50000, 'qA5': 50000, 'qD1': 50000} ns {}
+09:11:11 [arbel/noT1] 03a-noT1-qB4-qA5-qD1: done -- QPU 8.6 s, wall 16 s
+09:11:11 [arbel/noT1]    qB4: {'f_01': 6605919382.197972, 'frequency_shift': 39167.34025641327, 'f_01_error': 591579.8430882678, 'line_identity': '0-1', 'drive_scale': 1.291607672801052, 'box_height': 0.002207253298181598, 'box_snr': 25.762966399234653} warnings=[]
+09:11:11 [arbel/noT1]    qA5: {'f_01': 5705420438.958953, 'frequency_shift': -151663.75589131247, 'f_01_error': 147208.40836186538, 'line_identity': '0-1', 'drive_scale': 1.248852771433572, 'box_height': 0.006780276429868636, 'box_snr': 26.006792301140408} warnings=[]
+09:11:11 [arbel/noT1]    qD1: {'f_01': 4996154669.048719, 'frequency_shift': -1541209.3918902043, 'f_01_error': 189448.5262198985, 'line_identity': '0-1', 'drive_scale': 1.0424724306064392, 'box_height': 0.003653552842012525, 'box_snr': 31.578163186807675} warnings=[]
+09:11:12 [arbel/noT1] 03a-T1-qB4-qA5-qD1: 03a_qubit_spectroscopy_chirp on ['qB4', 'qA5', 'qD1'], T1 {'qB4': 3.0910146981745074e-05, 'qA5': 1.0946829485520884e-05, 'qD1': 1.8489635133020167e-05}, waits {'qB4': 154548, 'qA5': 54732, 'qD1': 92448} ns {}
+09:11:32 [arbel/noT1] 03a-T1-qB4-qA5-qD1: done -- QPU 13.9 s, wall 20 s
+09:11:32 [arbel/noT1]    qB4: {'f_01': 6605770433.821666, 'frequency_shift': -109781.0360495721, 'f_01_error': 101380.3987013257, 'line_identity': '0-1', 'drive_scale': 1.0484003796498063, 'box_height': 0.0027030222390212293, 'box_snr': 30.64130485791035} warnings=[]
+09:11:32 [arbel/noT1]    qA5: {'f_01': 5705515997.361848, 'frequency_shift': -56105.35299598889, 'f_01_error': 589900.41528837, 'line_identity': '0-1', 'drive_scale': 1.117960042013593, 'box_height': 0.007879581002795236, 'box_snr': 55.08745490337267} warnings=[]
+09:11:32 [arbel/noT1]    qD1: {'f_01': 4995882695.441946, 'frequency_shift': -1813182.9986638054, 'f_01_error': 166087.54654376677, 'line_identity': '0-1', 'drive_scale': 1.0252523430430363, 'box_height': 0.0035534369035264183, 'box_snr': 41.75288426914755} warnings=[]
+09:11:32 [arbel/noT1] retries done

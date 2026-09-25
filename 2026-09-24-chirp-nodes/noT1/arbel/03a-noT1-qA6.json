@@ -1,0 +1,102 @@
+{
+ "tag": "03a-noT1-qA6",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qA6": 50000
+ },
+ "T1": {
+  "qA6": null
+ },
+ "params": {
+  "frequency_center_in_mhz": 40.0,
+  "frequency_span_in_mhz": 160.0
+ },
+ "error": null,
+ "wall_s": 22.41709320899099,
+ "qpu_s": 2.7649786472320557,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "f_01": 6182343518.649466,
+   "RF_frequency": 6182343518.649466,
+   "frequency_shift": -3984291.962215408,
+   "f_01_error": 590595.6933770009,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.0024023666599774615,
+   "box_snr": 30.35201504269481,
+   "box_width": 17698991.819167603,
+   "onset_amplitude": 0.012615868052787088,
+   "selected_drive_amplitude": 0.025231736105574176,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 87336228.29719068,
+   "drive_scale": 1.0946151214705941,
+   "onset_exponent": 2.3107855421164136,
+   "num_lines": 1,
+   "x180_amplitude": 0.23854171103474903,
+   "x90_amplitude": 0.11927085551737451,
+   "lines": [
+    {
+     "offset": -3944291.990025823,
+     "onset_level": 1,
+     "onset_amplitude": 0.006307934026393544,
+     "levels": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "max_height": 0.0026723442011655956
+    }
+   ],
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qA6/xy/RF_frequency": {
+   "old": 6186327810.611681,
+   "new": 6182343518.649466
+  },
+  "/qubits/qA6/f_01": {
+   "old": 6186327810.611681,
+   "new": 6182343518.649466
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 4000
+  },
+  "rates": {
+   "qA6": 5000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qA6": 79787156.76781091
+  },
+  "shot_rounds": 50,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qA6": {
+    "played": [
+     0.003153967013196772,
+     0.006307934026393544,
+     0.012615868052787088,
+     0.025231736105574176,
+     0.05046347221114835,
+     0.1009269444222967,
+     0.2018538888445934
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

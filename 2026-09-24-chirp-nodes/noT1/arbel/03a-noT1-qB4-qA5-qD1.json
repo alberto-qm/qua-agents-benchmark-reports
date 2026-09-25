@@ -1,0 +1,266 @@
+{
+ "tag": "03a-noT1-qB4-qA5-qD1",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qB4": 50000,
+  "qA5": 50000,
+  "qD1": 50000
+ },
+ "T1": {
+  "qB4": null,
+  "qA5": null,
+  "qD1": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 16.28790829097852,
+ "qpu_s": 8.627407789230347,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "f_01": 6605919382.197972,
+   "RF_frequency": 6605919382.197972,
+   "frequency_shift": 39167.34025641327,
+   "f_01_error": 591579.8430882678,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 6506356148.486714,
+   "anharmonicity_estimate": 199886754.7009208,
+   "box_height": 0.002207253298181598,
+   "box_snr": 25.762966399234653,
+   "box_width": 19199669.43212156,
+   "onset_amplitude": 0.022169568010742456,
+   "selected_drive_amplitude": 0.04433913602148491,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 58643990.256091595,
+   "drive_scale": 1.291607672801052,
+   "onset_exponent": 2.0554185547157586,
+   "num_lines": 2,
+   "x180_amplitude": 0.3552509514164461,
+   "x90_amplitude": 0.17762547570822304,
+   "lines": [
+    {
+     "offset": -99524066.37100144,
+     "onset_level": 5,
+     "onset_amplitude": 0.17735654408593965,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.0023323676747348597
+    },
+    {
+     "offset": 419310.9794589644,
+     "onset_level": 0,
+     "onset_amplitude": 0.005542392002685614,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.002321726165977534
+    }
+   ],
+   "warnings": []
+  },
+  "qA5": {
+   "f_01": 5705420438.958953,
+   "RF_frequency": 5705420438.958953,
+   "frequency_shift": -151663.75589131247,
+   "f_01_error": 147208.40836186538,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 5602710863.406115,
+   "anharmonicity_estimate": 205443429.8094109,
+   "box_height": 0.006780276429868636,
+   "box_snr": 26.006792301140408,
+   "box_width": 16443563.972645143,
+   "onset_amplitude": 0.02367510941630087,
+   "selected_drive_amplitude": 0.04735021883260174,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 53096925.48029401,
+   "drive_scale": 1.248852771433572,
+   "onset_exponent": 2.203949234744338,
+   "num_lines": 2,
+   "x180_amplitude": 0.3923642121437946,
+   "x90_amplitude": 0.1961821060718973,
+   "lines": [
+    {
+     "offset": -102861239.30872943,
+     "onset_level": 5,
+     "onset_amplitude": 0.18940087533040695,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.008019030289319811
+    },
+    {
+     "offset": -139524.40402398168,
+     "onset_level": 0,
+     "onset_amplitude": 0.005918777354075217,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.007484783756570462
+    }
+   ],
+   "warnings": []
+  },
+  "qD1": {
+   "f_01": 4996154669.048719,
+   "RF_frequency": 4996154669.048719,
+   "frequency_shift": -1541209.3918902043,
+   "f_01_error": 189448.5262198985,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 4888542949.969047,
+   "anharmonicity_estimate": 214330011.24219367,
+   "box_height": 0.003653552842012525,
+   "box_snr": 31.578163186807675,
+   "box_width": 19041968.82589125,
+   "onset_amplitude": 0.01763901283161034,
+   "selected_drive_amplitude": 0.03527802566322068,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 59489515.1717872,
+   "drive_scale": 1.0424724306064392,
+   "onset_exponent": 1.9617036602706603,
+   "num_lines": 2,
+   "x180_amplitude": 0.35020176703698375,
+   "x90_amplitude": 0.17510088351849187,
+   "lines": [
+    {
+     "offset": -109152928.4715631,
+     "onset_level": 5,
+     "onset_amplitude": 0.1411121026528827,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.004080580502685268
+    },
+    {
+     "offset": -1987922.8504662607,
+     "onset_level": 0,
+     "onset_amplitude": 0.004409753207902585,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.0037653074478718037
+    }
+   ],
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/xy/RF_frequency": {
+   "old": 5705572102.714844,
+   "new": 5705420438.958953
+  },
+  "/qubits/qA5/f_01": {
+   "old": 5705572102.714844,
+   "new": 5705420438.958953
+  },
+  "/qubits/qB4/xy/RF_frequency": {
+   "old": 6605880214.857716,
+   "new": 6605919382.197972
+  },
+  "/qubits/qB4/f_01": {
+   "old": 6605880214.857716,
+   "new": 6605919382.197972
+  },
+  "/qubits/qD1/xy/RF_frequency": {
+   "old": 4997695878.44061,
+   "new": 4996154669.048719
+  },
+  "/qubits/qD1/f_01": {
+   "old": 4997695878.44061,
+   "new": 4996154669.048719
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 4000,
+   "qA5": 4000,
+   "qD1": 4000
+  },
+  "rates": {
+   "qB4": 5000,
+   "qA5": 5000,
+   "qD1": 5000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qB4": 45403872.624039926,
+   "qA5": 42516561.35522161,
+   "qD1": 57065792.269614525
+  },
+  "shot_rounds": 50,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qB4": {
+    "played": [
+     0.005542392002685614,
+     0.011084784005371228,
+     0.022169568010742456,
+     0.04433913602148491,
+     0.08867827204296982,
+     0.17735654408593965,
+     0.3547130881718793
+    ],
+    "prior": "x180"
+   },
+   "qA5": {
+    "played": [
+     0.005918777354075217,
+     0.011837554708150434,
+     0.02367510941630087,
+     0.04735021883260174,
+     0.09470043766520347,
+     0.18940087533040695,
+     0.3788017506608139
+    ],
+    "prior": "x180"
+   },
+   "qD1": {
+    "played": [
+     0.004409753207902585,
+     0.00881950641580517,
+     0.01763901283161034,
+     0.03527802566322068,
+     0.07055605132644135,
+     0.1411121026528827,
+     0.2822242053057654
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

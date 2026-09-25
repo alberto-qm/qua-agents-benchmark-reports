@@ -1,0 +1,233 @@
+{
+ "tag": "03a-T1-Q1-Q2-Q5",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "Q1",
+  "Q2",
+  "Q5"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "Q1": 238568,
+  "Q2": 399324,
+  "Q5": 210200
+ },
+ "T1": {
+  "Q1": 4.771370427191526e-05,
+  "Q2": 7.986532931177701e-05,
+  "Q5": 4.204076630329183e-05
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 36.03747275006026,
+ "qpu_s": 30.324204921722412,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q1": {
+   "f_01": 5272089931.197812,
+   "RF_frequency": 5272089931.197812,
+   "frequency_shift": -74393.68281491945,
+   "f_01_error": 185522.5462030448,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.00045812846378537873,
+   "box_snr": 18.920914007621406,
+   "box_width": 14797788.943153363,
+   "onset_amplitude": 0.004528508636110343,
+   "selected_drive_amplitude": 0.009057017272220686,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 211330630.5020871,
+   "drive_scale": 0.9507526000173804,
+   "onset_exponent": 2.2574947694673297,
+   "num_lines": 1,
+   "x180_amplitude": 0.09858170244340224,
+   "x90_amplitude": 0.04929085122170112,
+   "lines": [
+    {
+     "offset": -38931.49201775413,
+     "onset_level": 1,
+     "onset_amplitude": 0.0022642543180551714,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.00048261994631715105
+    }
+   ],
+   "warnings": []
+  },
+  "Q2": {
+   "f_01": 5105642589.99565,
+   "RF_frequency": 5105642589.99565,
+   "frequency_shift": -266097.2707881698,
+   "f_01_error": 127949.9907896561,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.00041002797842918954,
+   "box_snr": 35.607453458756915,
+   "box_width": 16646906.997543694,
+   "onset_amplitude": 0.004402685665803092,
+   "selected_drive_amplitude": 0.008805371331606185,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 230586416.94773155,
+   "drive_scale": 1.0085589165562996,
+   "onset_exponent": 2.100595815332155,
+   "num_lines": 1,
+   "x180_amplitude": 0.09034935192238903,
+   "x90_amplitude": 0.04517467596119452,
+   "lines": [
+    {
+     "offset": -245038.8755323529,
+     "onset_level": 1,
+     "onset_amplitude": 0.002201342832901546,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.00046779662840096487
+    }
+   ],
+   "warnings": []
+  },
+  "Q5": {
+   "f_01": 5096285942.053012,
+   "RF_frequency": 5096285942.053012,
+   "frequency_shift": -252825.31563491555,
+   "f_01_error": 198513.62216320232,
+   "line_identity": "0-1",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.0003006707467937096,
+   "box_snr": 19.0231245183418,
+   "box_width": 16868860.21395432,
+   "onset_amplitude": 0.0038535023004635117,
+   "selected_drive_amplitude": 0.007707004600927023,
+   "sweep_length_ns": 4000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 274657234.32527286,
+   "drive_scale": 1.0514691568329013,
+   "onset_exponent": 1.6814148650118397,
+   "num_lines": 1,
+   "x180_amplitude": 0.0758521194044381,
+   "x90_amplitude": 0.03792605970221905,
+   "lines": [
+    {
+     "offset": -251570.35286823474,
+     "onset_level": 1,
+     "onset_amplitude": 0.0019267511502317558,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.00030447700791162236
+    }
+   ],
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/Q1/xy/RF_frequency": {
+   "old": 5272164324.880627,
+   "new": 5272089931.197812
+  },
+  "/qubits/Q1/f_01": {
+   "old": 5272164324.880627,
+   "new": 5272089931.197812
+  },
+  "/qubits/Q2/xy/RF_frequency": {
+   "old": 5105908687.2664385,
+   "new": 5105642589.99565
+  },
+  "/qubits/Q2/f_01": {
+   "old": 5105908687.2664385,
+   "new": 5105642589.99565
+  },
+  "/qubits/Q5/xy/RF_frequency": {
+   "old": 5096538767.368647,
+   "new": 5096285942.053012
+  },
+  "/qubits/Q5/f_01": {
+   "old": 5096538767.368647,
+   "new": 5096285942.053012
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "Q1": 4000,
+   "Q2": 4000,
+   "Q5": 4000
+  },
+  "rates": {
+   "Q1": 5000,
+   "Q2": 5000,
+   "Q5": 5000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "Q1": 222277204.91979071,
+   "Q2": 228629595.31909487,
+   "Q5": 261212830.20089686
+  },
+  "shot_rounds": 50,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "Q1": {
+    "played": [
+     0.0011321271590275857,
+     0.0022642543180551714,
+     0.004528508636110343,
+     0.009057017272220686,
+     0.01811403454444137,
+     0.03622806908888274,
+     0.07245613817776549
+    ],
+    "prior": "x180"
+   },
+   "Q2": {
+    "played": [
+     0.001100671416450773,
+     0.002201342832901546,
+     0.004402685665803092,
+     0.008805371331606185,
+     0.01761074266321237,
+     0.03522148532642474,
+     0.07044297065284948
+    ],
+    "prior": "x180"
+   },
+   "Q5": {
+    "played": [
+     0.0009633755751158779,
+     0.0019267511502317558,
+     0.0038535023004635117,
+     0.007707004600927023,
+     0.015414009201854047,
+     0.030828018403708093,
+     0.06165603680741619
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}
