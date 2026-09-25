@@ -922,7 +922,7 @@ say that T1 is missing. The shots are split four ways, so the QPU time is unchan
 direction alone reads off by up to half the band; the same model predicted this morning's one-way readings (qD2 −4.5 against
 −5.2 measured, qA6 −1.6 against −1.5). On the 24 Sep hyperbolic-secant data, which has linear chirps both ways, the ratio read
 sweep/T1 of 0.08–0.26 where 0.09–0.2 was expected — and about 0 on gilboa qC3.</p>
-<p>Then the same test as §5c: {len(dc_ok)} jobs, {dc_qpu["noT1"] + dc_qpu["T1"]:.0f} s of QPU, every qubit with T1 removed and with it
+<p>Then the same test as §5c, at 12:15 on the 22 Sep state copies (repeated at 13:32 on the latest cloud state, below): {len(dc_ok)} jobs, {dc_qpu["noT1"] + dc_qpu["T1"]:.0f} s of QPU, every qubit with T1 removed and with it
 kept ({dc_failed} jobs rerun after network timeouts). The first pass read the lean on too few levels for gilboa qD2 and let its 03a
 through; <span class="mono">{COMMITS['tilt']}</span> changed only that part of the analysis, and the tables show the committed analysis
 run again on the same data (every frequency and sweet spot is unchanged).</p>
@@ -953,9 +953,9 @@ which needs a readout threshold. A node parameter for the wait (not added yet) w
 ~300 µs when it is missing (5 T1 up to T1 = 60 µs), at the cost of long waits on short-T1 qubits and of splitting three-qubit jobs near
 the 60 s cap; measuring T1 early with the chirp would remove the need for a fallback.</li>
 </ul>
-{img("figures/dirchk_arbel.png", "arbel: up- and down-chirps averaged, T1 missing (rows 1, 3) and known (rows 2, 4); sweep/T1 from the lean in the labels. qD1 and qA6 are not at a sweet spot.", "arbel, lean check")}
-{img("figures/dirchk_qolab.png", "qolab, as above: Q1 and Q2 without T1 lose their line to a raised baseline.", "qolab, lean check")}
-{img("figures/dirchk_gilboa.png", "gilboa, as above: qD2 without T1 is refused in both nodes; qC3 behaves like a long-T1 qubit.", "gilboa, lean check")}
+{img("figures/dirchk_arbel.png", "Run of 25 Sep 12:15 on the 22 Sep state copy (superseded by the repeat on the latest state below). arbel: up- and down-chirps averaged, T1 missing (rows 1, 3) and known (rows 2, 4); sweep/T1 from the lean in the labels. qD1 and qA6 are not at a sweet spot.", "arbel, lean check")}
+{img("figures/dirchk_qolab.png", "Run of 25 Sep 12:15 on the 22 Sep state copy. qolab, as above: Q1 and Q2 without T1 lose their line to a raised baseline.", "qolab, lean check")}
+{img("figures/dirchk_gilboa.png", "Run of 25 Sep 12:15 on the 22 Sep state copy. gilboa, as above: qD2 without T1 is refused in both nodes; qC3 behaves like a long-T1 qubit.", "gilboa, lean check")}
 
 <h3>Repeated on the latest cloud state</h3>
 <p>All the runs above used local copies of the 22 Sep snapshots. At 13:30 on 25 Sep the latest states were pulled from IQCC (all three
@@ -984,9 +984,9 @@ a sweep of up to ~0.5 T1 is safe because the check measures it.</li>
 no false alarms (lean −0.48…+0.21, the −0.48 on Q1's
 weak box, ±0.33).</li>
 </ul>
-{img("figures/dirchk_latest_arbel.png", "arbel on the latest state: T1 missing (rows 1, 3) and known (rows 2, 4).", "arbel, latest state")}
-{img("figures/dirchk_latest_qolab.png", "qolab on the latest state: Q2 clean again without T1; Q1's box weak and split.", "qolab, latest state")}
-{img("figures/dirchk_latest_gilboa.png", "gilboa on the latest state.", "gilboa, latest state")}
+{img("figures/dirchk_latest_arbel.png", "Latest run, 25 Sep 13:32, on the cloud state pulled at 13:30. arbel: T1 missing (rows 1, 3) and known (rows 2, 4).", "arbel, latest state")}
+{img("figures/dirchk_latest_qolab.png", "Latest run, 25 Sep 13:32, on the cloud state pulled at 13:30. qolab: Q2 clean again without T1; Q1's box weak and split.", "qolab, latest state")}
+{img("figures/dirchk_latest_gilboa.png", "Latest run, 25 Sep 13:32, on the cloud state pulled at 13:30. gilboa.", "gilboa, latest state")}
 
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the

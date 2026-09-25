@@ -124,7 +124,7 @@ def main():
             panel_03a(axes[1, c], be, q, "T1")
             panel_03b(axes[2, c], be, q, "noT1")
             panel_03b(axes[3, c], be, q, "T1")
-        fig.suptitle(f"{be}: latest state (25 Sep): up- and down-chirps, T1 missing (rows 1, 3) and known (rows 2, 4)",
+        fig.suptitle(f"{be}: 25 Sep 13:32, latest cloud state (pulled 13:30): up- and down-chirps, T1 missing (rows 1, 3) and known (rows 2, 4)",
                      x=0.01, ha="left", fontsize=10.5, fontweight="bold")
         fig.tight_layout(rect=(0, 0, 1, 0.975))
         fig.savefig(FIG / f"dirchk_latest_{be}.png", dpi=90)
