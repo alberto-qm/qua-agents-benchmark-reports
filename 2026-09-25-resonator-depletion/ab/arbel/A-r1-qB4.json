@@ -1,0 +1,51 @@
+{
+ "tag": "A-r1-qB4",
+ "condition": "A",
+ "round": 1,
+ "qubit": "qB4",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/arbel",
+ "committed_power_dbm": -13.630006593892812,
+ "window_dbm": [
+  -45,
+  -10
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 66.6483761658892,
+ "qpu_s": 40.71110963821411,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "success": false,
+   "resonator_frequency": 7741841000.0,
+   "frequency_shift": -1900000.0,
+   "optimal_power": NaN,
+   "onset_power": null,
+   "onset_mechanism": "no_resonance",
+   "onset_found": false,
+   "edge_limited": true,
+   "bistability_resolvable": false,
+   "max_branches": 0,
+   "dressed_frequency": null,
+   "linewidth": null,
+   "plateau_contrast": null,
+   "contrast_at_optimal": null,
+   "bare_frequency": null,
+   "dispersive_shift": null,
+   "readout_operation": "readout_square",
+   "warnings": [
+    "no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed"
+   ],
+   "f_01": 7742141000.0,
+   "RF_frequency": 7741841000.0,
+   "readout_amplitude": NaN,
+   "full_scale_power_dbm": null,
+   "sweep_amplitude_min_v": 0.00707945784384138,
+   "sweep_amplitude_max_v": 0.1,
+   "current_amplitude_dbm": -13.630006593892812
+  }
+ },
+ "proposed": {}
+}

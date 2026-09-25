@@ -1,0 +1,38 @@
+{
+ "tag": "02a-r1-qB4",
+ "condition": "02a",
+ "round": 1,
+ "qubit": "qB4",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/arbel",
+ "committed_power_dbm": -13.630006593892812,
+ "window_dbm": [
+  -45,
+  -10
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 10.447720667114481,
+ "qpu_s": 2.6945371627807617,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "frequency": 7744041000.0,
+   "fwhm": 1041262.7292775653,
+   "failure_reason": "",
+   "f_01": 7744041000.0,
+   "RF_frequency": 7744041000.0,
+   "warnings": [],
+   "swept_min_freq_hz": 7713741000.0,
+   "swept_max_freq_hz": 7773741000.0,
+   "q_loaded": 7437.16334240914
+  }
+ },
+ "proposed": {
+  "/qubits/qB4/resonator/RF_frequency": {
+   "old": 7743741000.0,
+   "new": 7744041000.0
+  }
+ }
+}

@@ -1,0 +1,49 @@
+18:12:49 [qolab/kappa-r1] Q1: committed -39.1 dBm, 02b window -54..-19 dBm, FS 4->4, readout amp at top 0.0708, scales rd [0.0312, 0.0986, 1.0] ro 0.0986
+18:12:49 [qolab/kappa-r1] Q1: estimated QPU ringdown 6.1 s, sweep 4.8 s, pump 8.8 s
+18:13:00 [qolab/kappa-r1] Q1/ringdown: QPU 6.4 s, wall 9 s
+18:13:08 [qolab/kappa-r1] Q1/sweep: QPU 4.9 s, wall 8 s
+18:13:19 [qolab/kappa-r1] Q1/pump: QPU 9.0 s, wall 11 s
+18:13:19 [qolab/kappa-r1] Q2: committed -40.7 dBm, 02b window -56..-21 dBm, FS 4->4, readout amp at top 0.0562, scales rd [0.0329, 0.104, 1.0] ro 0.1040
+18:13:19 [qolab/kappa-r1] Q2: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:13:29 [qolab/kappa-r1] Q2/ringdown: QPU 6.4 s, wall 9 s
+18:13:37 [qolab/kappa-r1] Q2/sweep: QPU 5.1 s, wall 8 s
+18:13:49 [qolab/kappa-r1] Q2/pump: QPU 9.1 s, wall 12 s
+18:13:50 [qolab/kappa-r1] Q5: committed -42.7 dBm, 02b window -58..-23 dBm, FS 4->4, readout amp at top 0.0447, scales rd [0.0327, 0.1035, 1.0] ro 0.1035
+18:13:50 [qolab/kappa-r1] Q5: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:14:01 [qolab/kappa-r1] Q5/ringdown: QPU 6.4 s, wall 10 s
+18:14:09 [qolab/kappa-r1] Q5/sweep: QPU 5.0 s, wall 8 s
+18:14:21 [qolab/kappa-r1] Q5/pump: QPU 9.0 s, wall 12 s
+18:14:21 [qolab/kappa-r1] all done
+18:26:29 [qolab/kappa-r2] Q1: committed -39.1 dBm, 02b window -54..-19 dBm, FS 4->4, readout amp at top 0.0708, scales rd [0.0312, 0.0986, 1.0] ro 0.0986
+18:26:29 [qolab/kappa-r2] Q1: estimated QPU ringdown 6.1 s, sweep 4.8 s, pump 8.8 s
+18:26:40 [qolab/kappa-r2] Q1/ringdown: QPU 6.4 s, wall 9 s
+18:26:47 [qolab/kappa-r2] Q1/sweep: QPU 4.8 s, wall 8 s
+18:27:00 [qolab/kappa-r2] Q1/pump: QPU 9.0 s, wall 12 s
+18:27:00 [qolab/kappa-r2] Q2: committed -40.7 dBm, 02b window -56..-21 dBm, FS 4->4, readout amp at top 0.0562, scales rd [0.0329, 0.104, 1.0] ro 0.1040
+18:27:00 [qolab/kappa-r2] Q2: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:27:10 [qolab/kappa-r2] Q2/ringdown: QPU 6.4 s, wall 9 s
+18:27:19 [qolab/kappa-r2] Q2/sweep: QPU 5.0 s, wall 9 s
+18:27:39 [qolab/kappa-r2] Q2/pump: FAILED ReadTimeout: The read operation timed out
+18:27:39 [qolab/kappa-r2] Q5: committed -42.7 dBm, 02b window -58..-23 dBm, FS 4->4, readout amp at top 0.0447, scales rd [0.0327, 0.1035, 1.0] ro 0.1035
+18:27:39 [qolab/kappa-r2] Q5: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:28:22 [qolab/kappa-r2] Q5/ringdown: FAILED ConnectionError: Error code 503 Service Unavailable
+18:28:23 [qolab/kappa-r2] Q5/sweep: FAILED ConnectionError: Error code 503 Service Unavailable
+18:28:23 [qolab/kappa-r2] Q5/pump: FAILED ConnectionError: Error code 503 Service Unavailable
+18:28:37 [qolab/kappa-long] Q1: committed -39.1 dBm; long pulse at -49.1 and -39.1 dBm, short at -39.1; estimated QPU 5.2 s
+18:28:46 [qolab/kappa-long] Q1: QPU 5.5 s, wall 9 s
+18:28:47 [qolab/kappa-long] Q2: committed -40.7 dBm; long pulse at -50.7 and -40.7 dBm, short at -40.7; estimated QPU 5.2 s
+18:28:56 [qolab/kappa-long] Q2: QPU 5.6 s, wall 9 s
+18:28:56 [qolab/kappa-long] Q5: committed -42.7 dBm; long pulse at -52.7 and -42.7 dBm, short at -42.7; estimated QPU 5.2 s
+18:29:05 [qolab/kappa-long] Q5: QPU 5.6 s, wall 9 s
+18:29:05 [qolab/kappa-long] all done
+18:30:08 [qolab/kappa-r2] Q2: committed -40.7 dBm, 02b window -56..-21 dBm, FS 4->4, readout amp at top 0.0562, scales rd [0.0329, 0.104, 1.0] ro 0.1040
+18:30:08 [qolab/kappa-r2] Q2: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:30:19 [qolab/kappa-r2] Q2/ringdown: QPU 6.4 s, wall 9 s
+18:30:27 [qolab/kappa-r2] Q2/sweep: QPU 5.0 s, wall 8 s
+18:30:38 [qolab/kappa-r2] Q2/pump: QPU 9.1 s, wall 11 s
+18:30:38 [qolab/kappa-r2] Q5: committed -42.7 dBm, 02b window -58..-23 dBm, FS 4->4, readout amp at top 0.0447, scales rd [0.0327, 0.1035, 1.0] ro 0.1035
+18:30:38 [qolab/kappa-r2] Q5: estimated QPU ringdown 6.1 s, sweep 5.0 s, pump 8.8 s
+18:30:48 [qolab/kappa-r2] Q5/ringdown: QPU 6.4 s, wall 9 s
+18:30:56 [qolab/kappa-r2] Q5/sweep: QPU 5.0 s, wall 8 s
+18:31:08 [qolab/kappa-r2] Q5/pump: QPU 9.0 s, wall 12 s
+18:31:08 [qolab/kappa-r2] all done

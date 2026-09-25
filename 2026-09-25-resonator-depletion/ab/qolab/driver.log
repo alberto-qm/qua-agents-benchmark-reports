@@ -1,0 +1,100 @@
+18:14:27 [qolab/02a-r1] 02a-r1-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:14:34 [qolab/02a-r1] 02a-r1-Q1: done -- QPU 1.8 s, wall 7 s
+18:14:34 [qolab/02a-r1]    Q1: {'success': None, 'frequency': 5916000473.0, 'frequency_shift': None, 'fwhm': 487047.9158197554, 'q_loaded': 12146.649807632824} warnings=[]
+18:14:34 [qolab/02a-r1] 02a-r1-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:14:40 [qolab/02a-r1] 02a-r1-Q2: done -- QPU 1.9 s, wall 6 s
+18:14:40 [qolab/02a-r1]    Q2: {'success': None, 'frequency': 6000330000.0, 'frequency_shift': None, 'fwhm': 611941.6420769255, 'q_loaded': 9805.395788452839} warnings=[]
+18:14:41 [qolab/02a-r1] 02a-r1-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:14:48 [qolab/02a-r1] 02a-r1-Q5: done -- QPU 1.9 s, wall 7 s
+18:14:48 [qolab/02a-r1]    Q5: {'success': None, 'frequency': 6302415000.0, 'frequency_shift': None, 'fwhm': 585699.4905864667, 'q_loaded': 10760.49254147264} warnings=[]
+18:14:48 [qolab/02a-r1] condition done
+18:14:52 [qolab/02b-A-r1] A-r1-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:15:39 [qolab/02b-A-r1] A-r1-Q1: done -- QPU 40.7 s, wall 47 s
+18:15:39 [qolab/02b-A-r1]    Q1: {'success': True, 'optimal_power': -43.686868686868685, 'onset_power': -41.97979797979798, 'onset_mechanism': 'bistability', 'resonator_frequency': 5916450473.0, 'frequency_shift': 450000.0, 'dressed_frequency': 5916500473.0, 'linewidth': 825206.3371653549, 'plateau_contrast': 0.4097845153905284, 'contrast_at_optimal': 0.4180319463681552, 'bare_frequency': 5914750473.0} warnings=[]
+18:15:40 [qolab/02b-A-r1] A-r1-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:16:27 [qolab/02b-A-r1] A-r1-Q2: done -- QPU 42.2 s, wall 47 s
+18:16:27 [qolab/02b-A-r1]    Q2: {'success': True, 'optimal_power': -43.21212121212121, 'onset_power': -37.61616161616162, 'onset_mechanism': 'bistability', 'resonator_frequency': 6000480000.0, 'frequency_shift': 150000.0, 'dressed_frequency': 6000430000.0, 'linewidth': 689945.8325246094, 'plateau_contrast': 0.36496494007725433, 'contrast_at_optimal': 0.3834425290558625, 'bare_frequency': 5999230000.0} warnings=[]
+18:16:28 [qolab/02b-A-r1] A-r1-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:17:15 [qolab/02b-A-r1] A-r1-Q5: done -- QPU 42.2 s, wall 47 s
+18:17:15 [qolab/02b-A-r1]    Q5: {'success': True, 'optimal_power': -40.61616161616162, 'onset_power': -33.25252525252525, 'onset_mechanism': 'fade', 'resonator_frequency': 6302415000.0, 'frequency_shift': -100000.0, 'dressed_frequency': 6302465000.0, 'linewidth': 732839.9080731444, 'plateau_contrast': 0.4935750996585523, 'contrast_at_optimal': 0.4795451086927257, 'bare_frequency': 6301465000.0} warnings=[]
+18:17:15 [qolab/02b-A-r1] condition done
+18:17:21 [qolab/02b-B-r1] B-r1-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:17:43 [qolab/02b-B-r1] B-r1-Q1: done -- QPU 13.7 s, wall 21 s
+18:17:43 [qolab/02b-B-r1]    Q1: {'success': True, 'optimal_power': -50.75757575757576, 'onset_power': -45.16161616161616, 'onset_mechanism': 'bistability', 'resonator_frequency': 5914800473.0, 'frequency_shift': -1200000.0, 'dressed_frequency': 5914800473.0, 'linewidth': 916476.6922777147, 'plateau_contrast': 0.36714215039088066, 'contrast_at_optimal': 0.31945617548057176, 'bare_frequency': 5915750473.0} warnings=[]
+18:17:43 [qolab/02b-B-r1] B-r1-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:18:03 [qolab/02b-B-r1] B-r1-Q2: done -- QPU 15.2 s, wall 20 s
+18:18:03 [qolab/02b-B-r1]    Q2: {'success': True, 'optimal_power': -53.111111111111114, 'onset_power': -47.16161616161616, 'onset_mechanism': 'bistability', 'resonator_frequency': 5999230000.0, 'frequency_shift': -1100000.0, 'dressed_frequency': 5999280000.0, 'linewidth': 713761.7821449857, 'plateau_contrast': 0.3707133891327799, 'contrast_at_optimal': 0.3104499649509713, 'bare_frequency': None} warnings=[]
+18:18:03 [qolab/02b-B-r1] B-r1-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:18:23 [qolab/02b-B-r1] B-r1-Q5: done -- QPU 15.2 s, wall 20 s
+18:18:23 [qolab/02b-B-r1]    Q5: {'success': True, 'optimal_power': -38.141414141414145, 'onset_power': -34.31313131313131, 'onset_mechanism': 'fade', 'resonator_frequency': 6302465000.0, 'frequency_shift': -50000.0, 'dressed_frequency': 6302165000.0, 'linewidth': 1303405.9387071552, 'plateau_contrast': 0.4339049204620128, 'contrast_at_optimal': 0.41628730388687246, 'bare_frequency': None} warnings=[]
+18:18:23 [qolab/02b-B-r1] condition done
+18:18:28 [qolab/02b-C-r1] C-r1-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:18:48 [qolab/02b-C-r1] C-r1-Q1: done -- QPU 14.1 s, wall 19 s
+18:18:48 [qolab/02b-C-r1]    Q1: {'success': True, 'optimal_power': -44.39393939393939, 'onset_power': -42.686868686868685, 'onset_mechanism': 'shift', 'resonator_frequency': 5916400473.0, 'frequency_shift': 400000.0, 'dressed_frequency': 5916600473.0, 'linewidth': 695602.7712353418, 'plateau_contrast': 0.4363762959403159, 'contrast_at_optimal': 0.42942567199223003, 'bare_frequency': 5914750473.0} warnings=[]
+18:18:49 [qolab/02b-C-r1] C-r1-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:19:10 [qolab/02b-C-r1] C-r1-Q2: done -- QPU 15.6 s, wall 21 s
+18:19:10 [qolab/02b-C-r1]    Q2: {'success': True, 'optimal_power': -44.27272727272727, 'onset_power': -38.32323232323232, 'onset_mechanism': 'shift', 'resonator_frequency': 6000430000.0, 'frequency_shift': 100000.0, 'dressed_frequency': 6000530000.0, 'linewidth': 556173.227939152, 'plateau_contrast': 0.4344983887682174, 'contrast_at_optimal': 0.41867017333212264, 'bare_frequency': 5999230000.0} warnings=[]
+18:19:10 [qolab/02b-C-r1] C-r1-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:19:32 [qolab/02b-C-r1] C-r1-Q5: done -- QPU 15.6 s, wall 21 s
+18:19:32 [qolab/02b-C-r1]    Q5: {'success': True, 'optimal_power': -41.67676767676768, 'onset_power': -35.02020202020202, 'onset_mechanism': 'shift', 'resonator_frequency': 6302415000.0, 'frequency_shift': -100000.0, 'dressed_frequency': 6302515000.0, 'linewidth': 570501.1997567127, 'plateau_contrast': 0.52677012289387, 'contrast_at_optimal': 0.5337254441803643, 'bare_frequency': 6301465000.0} warnings=[]
+18:19:32 [qolab/02b-C-r1] condition done
+18:19:37 [qolab/02b-D-r1] D-r1-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:19:51 [qolab/02b-D-r1] D-r1-Q1: done -- QPU 8.1 s, wall 14 s
+18:19:51 [qolab/02b-D-r1]    Q1: {'success': True, 'optimal_power': -45.101010101010104, 'onset_power': -41.97979797979798, 'onset_mechanism': 'shift', 'resonator_frequency': 5916450473.0, 'frequency_shift': 450000.0, 'dressed_frequency': 5916550473.0, 'linewidth': 712363.6589006637, 'plateau_contrast': 0.43760788480009327, 'contrast_at_optimal': 0.41023223859721414, 'bare_frequency': 5914750473.0} warnings=[]
+18:19:52 [qolab/02b-D-r1] D-r1-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:20:06 [qolab/02b-D-r1] D-r1-Q2: done -- QPU 9.6 s, wall 14 s
+18:20:06 [qolab/02b-D-r1]    Q2: {'success': True, 'optimal_power': -44.62626262626263, 'onset_power': -38.67676767676768, 'onset_mechanism': 'shift', 'resonator_frequency': 6000430000.0, 'frequency_shift': 100000.0, 'dressed_frequency': 6000530000.0, 'linewidth': 558476.1122539205, 'plateau_contrast': 0.43208516476489484, 'contrast_at_optimal': 0.4197908082336678, 'bare_frequency': 5999230000.0} warnings=[]
+18:20:07 [qolab/02b-D-r1] D-r1-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:20:21 [qolab/02b-D-r1] D-r1-Q5: done -- QPU 9.6 s, wall 14 s
+18:20:21 [qolab/02b-D-r1]    Q5: {'success': True, 'optimal_power': -40.96969696969697, 'onset_power': -34.66666666666667, 'onset_mechanism': 'shift', 'resonator_frequency': 6302415000.0, 'frequency_shift': -100000.0, 'dressed_frequency': 6302515000.0, 'linewidth': 604176.9522662704, 'plateau_contrast': 0.5213057202017761, 'contrast_at_optimal': 0.4999146582178674, 'bare_frequency': 6301465000.0} warnings=[]
+18:20:21 [qolab/02b-D-r1] condition done
+18:20:28 [qolab/02b-D-r2] D-r2-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:20:42 [qolab/02b-D-r2] D-r2-Q1: done -- QPU 8.1 s, wall 14 s
+18:20:42 [qolab/02b-D-r2]    Q1: {'success': True, 'optimal_power': -44.74747474747475, 'onset_power': -41.97979797979798, 'onset_mechanism': 'shift', 'resonator_frequency': 5916450473.0, 'frequency_shift': 450000.0, 'dressed_frequency': 5916550473.0, 'linewidth': 721271.8477738207, 'plateau_contrast': 0.4313860695567793, 'contrast_at_optimal': 0.40950451708722785, 'bare_frequency': 5914750473.0} warnings=[]
+18:20:42 [qolab/02b-D-r2] D-r2-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:20:58 [qolab/02b-D-r2] D-r2-Q2: done -- QPU 9.6 s, wall 15 s
+18:20:58 [qolab/02b-D-r2]    Q2: {'success': True, 'optimal_power': -45.686868686868685, 'onset_power': -40.09090909090909, 'onset_mechanism': 'shift', 'resonator_frequency': 6000480000.0, 'frequency_shift': 150000.0, 'dressed_frequency': 6000530000.0, 'linewidth': 564475.0691652362, 'plateau_contrast': 0.4233372521149431, 'contrast_at_optimal': 0.39818561560928734, 'bare_frequency': 5999230000.0} warnings=[]
+18:20:58 [qolab/02b-D-r2] D-r2-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:21:12 [qolab/02b-D-r2] D-r2-Q5: done -- QPU 9.6 s, wall 14 s
+18:21:12 [qolab/02b-D-r2]    Q5: {'success': True, 'optimal_power': -39.2020202020202, 'onset_power': -35.37373737373737, 'onset_mechanism': 'shift', 'resonator_frequency': 6302365000.0, 'frequency_shift': -150000.0, 'dressed_frequency': 6302515000.0, 'linewidth': 583750.775102341, 'plateau_contrast': 0.5121340317920133, 'contrast_at_optimal': 0.4972380414908928, 'bare_frequency': 6301465000.0} warnings=[]
+18:21:12 [qolab/02b-D-r2] condition done
+18:21:18 [qolab/02b-C-r2] C-r2-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:21:38 [qolab/02b-C-r2] C-r2-Q1: done -- QPU 14.1 s, wall 19 s
+18:21:38 [qolab/02b-C-r2]    Q1: {'success': True, 'optimal_power': -44.39393939393939, 'onset_power': -42.333333333333336, 'onset_mechanism': 'shift', 'resonator_frequency': 5916500473.0, 'frequency_shift': 500000.0, 'dressed_frequency': 5916600473.0, 'linewidth': 700430.6380721715, 'plateau_contrast': 0.4368840739320068, 'contrast_at_optimal': 0.4361983422555269, 'bare_frequency': 5914750473.0} warnings=[]
+18:21:38 [qolab/02b-C-r2] C-r2-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:22:00 [qolab/02b-C-r2] C-r2-Q2: done -- QPU 15.6 s, wall 22 s
+18:22:00 [qolab/02b-C-r2]    Q2: {'success': True, 'optimal_power': -45.333333333333336, 'onset_power': -39.73737373737374, 'onset_mechanism': 'shift', 'resonator_frequency': 6000480000.0, 'frequency_shift': 150000.0, 'dressed_frequency': 6000530000.0, 'linewidth': 571899.1252004415, 'plateau_contrast': 0.427177609759288, 'contrast_at_optimal': 0.4423070956022617, 'bare_frequency': 5999230000.0} warnings=[]
+18:22:01 [qolab/02b-C-r2] C-r2-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:22:22 [qolab/02b-C-r2] C-r2-Q5: done -- QPU 15.6 s, wall 21 s
+18:22:22 [qolab/02b-C-r2]    Q5: {'success': True, 'optimal_power': -39.55555555555556, 'onset_power': -35.37373737373737, 'onset_mechanism': 'shift', 'resonator_frequency': 6302415000.0, 'frequency_shift': -100000.0, 'dressed_frequency': 6302515000.0, 'linewidth': 589634.720724915, 'plateau_contrast': 0.5257139342428243, 'contrast_at_optimal': 0.521828244556349, 'bare_frequency': 6301465000.0} warnings=[]
+18:22:22 [qolab/02b-C-r2] condition done
+18:22:27 [qolab/02b-B-r2] B-r2-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:22:47 [qolab/02b-B-r2] B-r2-Q1: done -- QPU 13.7 s, wall 19 s
+18:22:47 [qolab/02b-B-r2]    Q1: {'success': True, 'optimal_power': -51.464646464646464, 'onset_power': -45.16161616161616, 'onset_mechanism': 'bistability', 'resonator_frequency': 5914750473.0, 'frequency_shift': -1250000.0, 'dressed_frequency': 5914750473.0, 'linewidth': 966984.8757854808, 'plateau_contrast': 0.36121354692030055, 'contrast_at_optimal': 0.3488714527199115, 'bare_frequency': None} warnings=[]
+18:22:47 [qolab/02b-B-r2] B-r2-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:23:07 [qolab/02b-B-r2] B-r2-Q2: done -- QPU 15.2 s, wall 20 s
+18:23:07 [qolab/02b-B-r2]    Q2: {'success': True, 'optimal_power': -50.98989898989899, 'onset_power': -47.16161616161616, 'onset_mechanism': 'bistability', 'resonator_frequency': 5999280000.0, 'frequency_shift': -1050000.0, 'dressed_frequency': 5999280000.0, 'linewidth': 815385.0855782423, 'plateau_contrast': 0.31076107018624555, 'contrast_at_optimal': 0.3304731609720458, 'bare_frequency': 6000505000.0} warnings=[]
+18:23:08 [qolab/02b-B-r2] B-r2-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:23:30 [qolab/02b-B-r2] B-r2-Q5: done -- QPU 15.2 s, wall 22 s
+18:23:30 [qolab/02b-B-r2]    Q5: {'success': True, 'optimal_power': -56.525252525252526, 'onset_power': -49.16161616161616, 'onset_mechanism': 'shift', 'resonator_frequency': 6301615000.0, 'frequency_shift': -900000.0, 'dressed_frequency': 6301765000.0, 'linewidth': 1287603.6934491175, 'plateau_contrast': 0.43673040895401344, 'contrast_at_optimal': 0.41368920196141357, 'bare_frequency': None} warnings=[]
+18:23:30 [qolab/02b-B-r2] condition done
+18:23:35 [qolab/02b-A-r2] A-r2-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:24:22 [qolab/02b-A-r2] A-r2-Q1: done -- QPU 40.7 s, wall 46 s
+18:24:22 [qolab/02b-A-r2]    Q1: {'success': True, 'optimal_power': -43.686868686868685, 'onset_power': -41.62626262626263, 'onset_mechanism': 'bistability', 'resonator_frequency': 5916400473.0, 'frequency_shift': 400000.0, 'dressed_frequency': 5916500473.0, 'linewidth': 829151.8114249101, 'plateau_contrast': 0.40021658487129974, 'contrast_at_optimal': 0.41098232511042687, 'bare_frequency': 5914750473.0} warnings=[]
+18:24:22 [qolab/02b-A-r2] A-r2-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:25:10 [qolab/02b-A-r2] A-r2-Q2: done -- QPU 42.2 s, wall 48 s
+18:25:10 [qolab/02b-A-r2]    Q2: {'success': True, 'optimal_power': -44.27272727272727, 'onset_power': -36.90909090909091, 'onset_mechanism': 'bistability', 'resonator_frequency': 6000530000.0, 'frequency_shift': 200000.0, 'dressed_frequency': 6000480000.0, 'linewidth': 593058.1352876914, 'plateau_contrast': 0.35690724270335505, 'contrast_at_optimal': 0.35690724270335505, 'bare_frequency': 5999230000.0} warnings=[]
+18:25:10 [qolab/02b-A-r2] A-r2-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:25:58 [qolab/02b-A-r2] A-r2-Q5: done -- QPU 42.2 s, wall 48 s
+18:25:58 [qolab/02b-A-r2]    Q5: {'success': True, 'optimal_power': -38.141414141414145, 'onset_power': -33.60606060606061, 'onset_mechanism': 'fade', 'resonator_frequency': 6302415000.0, 'frequency_shift': -100000.0, 'dressed_frequency': 6302465000.0, 'linewidth': 759698.0087743092, 'plateau_contrast': 0.49146714500617683, 'contrast_at_optimal': 0.5003933807244246, 'bare_frequency': 6301465000.0} warnings=[]
+18:25:58 [qolab/02b-A-r2] condition done
+18:26:05 [qolab/02a-r2] 02a-r2-Q1: window -54..-19 dBm (committed -39.1 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:26:12 [qolab/02a-r2] 02a-r2-Q1: done -- QPU 1.8 s, wall 7 s
+18:26:12 [qolab/02a-r2]    Q1: {'success': None, 'frequency': 5916000473.0, 'frequency_shift': None, 'fwhm': 518602.43752404925, 'q_loaded': 11407.583237064242} warnings=[]
+18:26:13 [qolab/02a-r2] 02a-r2-Q2: window -56..-21 dBm (committed -40.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:26:19 [qolab/02a-r2] 02a-r2-Q2: done -- QPU 1.9 s, wall 6 s
+18:26:19 [qolab/02a-r2]    Q2: {'success': None, 'frequency': 6000330000.0, 'frequency_shift': None, 'fwhm': 616225.631672188, 'q_loaded': 9737.228851902059} warnings=[]
+18:26:19 [qolab/02a-r2] 02a-r2-Q5: window -58..-23 dBm (committed -42.7 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:26:26 [qolab/02a-r2] 02a-r2-Q5: done -- QPU 1.9 s, wall 6 s
+18:26:26 [qolab/02a-r2]    Q5: {'success': None, 'frequency': 6302515000.0, 'frequency_shift': None, 'fwhm': 588059.9906486168, 'q_loaded': 10717.469476283311} warnings=[]
+18:26:26 [qolab/02a-r2] condition done

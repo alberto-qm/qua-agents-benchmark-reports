@@ -1,0 +1,62 @@
+{
+ "tag": "D-r2-qD1",
+ "condition": "D",
+ "round": 2,
+ "qubit": "qD1",
+ "tree": "qua-libs-depletion",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/arbel",
+ "committed_power_dbm": -35.771703139014996,
+ "window_dbm": [
+  -51,
+  -16
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 1000,
+ "error": null,
+ "wall_s": 14.571294625056908,
+ "qpu_s": 6.636682510375977,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD1": {
+   "success": true,
+   "resonator_frequency": 7152965262.0,
+   "frequency_shift": 100000.0,
+   "optimal_power": -29.727272727272727,
+   "onset_power": -26.606060606060606,
+   "onset_mechanism": "shift",
+   "onset_found": true,
+   "edge_limited": false,
+   "bistability_resolvable": true,
+   "max_branches": 1,
+   "dressed_frequency": 7153115262.0,
+   "linewidth": 1166090.3980954657,
+   "plateau_contrast": 0.5567978207589471,
+   "contrast_at_optimal": 0.5064162806932655,
+   "bare_frequency": 7150740262.0,
+   "dispersive_shift": 2375000.0,
+   "readout_operation": "readout_square",
+   "warnings": [],
+   "f_01": 7152965262.0,
+   "RF_frequency": 7152965262.0,
+   "readout_amplitude": 0.04108056080177276,
+   "full_scale_power_dbm": -2,
+   "sweep_amplitude_min_v": 0.0035481338923357532,
+   "sweep_amplitude_max_v": 0.1,
+   "current_amplitude_dbm": -35.771703139014996
+  }
+ },
+ "proposed": {
+  "/qubits/qD1/resonator/f_01": {
+   "old": 7152865262.0,
+   "new": 7152965262.0
+  },
+  "/qubits/qD1/resonator/operations/readout_square/amplitude": {
+   "old": 0.020484003579293066,
+   "new": 0.04108056080177276
+  },
+  "/qubits/qD1/resonator/RF_frequency": {
+   "old": 7152865262.0,
+   "new": 7152965262.0
+  }
+ }
+}

@@ -1,0 +1,108 @@
+18:14:49 [arbel/02a-r1] 02a-r1-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:15:00 [arbel/02a-r1] 02a-r1-qB4: done -- QPU 2.7 s, wall 10 s
+18:15:00 [arbel/02a-r1]    qB4: {'success': None, 'frequency': 7744041000.0, 'frequency_shift': None, 'fwhm': 1041262.7292775653, 'q_loaded': 7437.16334240914} warnings=[]
+18:15:01 [arbel/02a-r1] 02a-r1-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:15:11 [arbel/02a-r1] 02a-r1-qA5: done -- QPU 2.7 s, wall 10 s
+18:15:11 [arbel/02a-r1]    qA5: {'success': None, 'frequency': 7663362000.0, 'frequency_shift': None, 'fwhm': 10026602.21346468, 'q_loaded': 764.3029848844412} warnings=['fitted linewidth (10 MHz, Q_l~764) exceeds max_fwhm_in_mhz (3 MHz)']
+18:15:11 [arbel/02a-r1] 02a-r1-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:15:21 [arbel/02a-r1] 02a-r1-qD1: done -- QPU 2.6 s, wall 10 s
+18:15:21 [arbel/02a-r1]    qD1: {'success': None, 'frequency': 7155165262.0, 'frequency_shift': None, 'fwhm': 10307998.80375456, 'q_loaded': 694.137183969581} warnings=['fitted linewidth (10.3 MHz, Q_l~694) exceeds max_fwhm_in_mhz (3 MHz)']
+18:15:21 [arbel/02a-r1] condition done
+18:15:27 [arbel/02b-A-r1] A-r1-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:16:34 [arbel/02b-A-r1] A-r1-qB4: done -- QPU 40.7 s, wall 67 s
+18:16:34 [arbel/02b-A-r1]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7741841000.0, 'frequency_shift': -1900000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:16:35 [arbel/02b-A-r1] A-r1-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:17:26 [arbel/02b-A-r1] A-r1-qA5: done -- QPU 39.7 s, wall 51 s
+18:17:26 [arbel/02b-A-r1]    qA5: {'success': True, 'optimal_power': -26.848484848484848, 'onset_power': -18.77777777777778, 'onset_mechanism': 'fade', 'resonator_frequency': 7662362000.0, 'frequency_shift': 300000.0, 'dressed_frequency': 7662412000.0, 'linewidth': 928830.3282436444, 'plateau_contrast': 0.3762526947286008, 'contrast_at_optimal': 0.34088198230988853, 'bare_frequency': 7660837000.0} warnings=[]
+18:17:27 [arbel/02b-A-r1] A-r1-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:18:22 [arbel/02b-A-r1] A-r1-qD1: done -- QPU 39.3 s, wall 55 s
+18:18:22 [arbel/02b-A-r1]    qD1: {'success': True, 'optimal_power': -32.90909090909091, 'onset_power': -25.545454545454547, 'onset_mechanism': 'fade', 'resonator_frequency': 7153065262.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7153015262.0, 'linewidth': 1260977.012445457, 'plateau_contrast': 0.5758350312917319, 'contrast_at_optimal': 0.5022789662153986, 'bare_frequency': 7150715262.0} warnings=[]
+18:18:22 [arbel/02b-A-r1] condition done
+18:18:29 [arbel/02b-B-r1] B-r1-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:18:52 [arbel/02b-B-r1] B-r1-qB4: done -- QPU 13.7 s, wall 23 s
+18:18:52 [arbel/02b-B-r1]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7739591000.0, 'frequency_shift': -4150000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:18:53 [arbel/02b-B-r1] B-r1-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:19:13 [arbel/02b-B-r1] B-r1-qA5: done -- QPU 12.7 s, wall 19 s
+18:19:13 [arbel/02b-B-r1]    qA5: {'success': True, 'optimal_power': -22.95959595959596, 'onset_power': -19.838383838383837, 'onset_mechanism': 'bistability', 'resonator_frequency': 7662262000.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7662112000.0, 'linewidth': 848629.1603167289, 'plateau_contrast': 0.3506193379375148, 'contrast_at_optimal': 0.3369955119709303, 'bare_frequency': 7660812000.0} warnings=[]
+18:19:14 [arbel/02b-B-r1] B-r1-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:19:33 [arbel/02b-B-r1] B-r1-qD1: done -- QPU 12.3 s, wall 19 s
+18:19:33 [arbel/02b-B-r1]    qD1: {'success': True, 'optimal_power': -28.666666666666668, 'onset_power': -26.95959595959596, 'onset_mechanism': 'bistability', 'resonator_frequency': 7153065262.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7152965262.0, 'linewidth': 1336670.874299942, 'plateau_contrast': 0.518583861196234, 'contrast_at_optimal': 0.504759273110209, 'bare_frequency': 7150715262.0} warnings=[]
+18:19:33 [arbel/02b-B-r1] condition done
+18:19:38 [arbel/02b-C-r1] C-r1-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:20:00 [arbel/02b-C-r1] C-r1-qB4: done -- QPU 14.1 s, wall 22 s
+18:20:00 [arbel/02b-C-r1]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7741091000.0, 'frequency_shift': -2650000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:20:00 [arbel/02b-C-r1] C-r1-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:20:21 [arbel/02b-C-r1] C-r1-qA5: done -- QPU 13.1 s, wall 20 s
+18:20:21 [arbel/02b-C-r1]    qA5: {'success': True, 'optimal_power': -27.90909090909091, 'onset_power': -20.545454545454547, 'onset_mechanism': 'shift', 'resonator_frequency': 7662412000.0, 'frequency_shift': 350000.0, 'dressed_frequency': 7662412000.0, 'linewidth': 1010138.7728773858, 'plateau_contrast': 0.3843553544548267, 'contrast_at_optimal': 0.36171846089648146, 'bare_frequency': 7660812000.0} warnings=[]
+18:20:22 [arbel/02b-C-r1] C-r1-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:20:43 [arbel/02b-C-r1] C-r1-qD1: done -- QPU 12.7 s, wall 21 s
+18:20:43 [arbel/02b-C-r1]    qD1: {'success': True, 'optimal_power': -29.727272727272727, 'onset_power': -26.252525252525253, 'onset_mechanism': 'shift', 'resonator_frequency': 7153065262.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7153115262.0, 'linewidth': 1274209.952546819, 'plateau_contrast': 0.5622178772462169, 'contrast_at_optimal': 0.5089774459250669, 'bare_frequency': 7150665262.0} warnings=[]
+18:20:43 [arbel/02b-C-r1] condition done
+18:20:48 [arbel/02b-D-r1] D-r1-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:21:46 [arbel/02b-D-r1] D-r1-qB4: done -- QPU 8.1 s, wall 57 s
+18:21:46 [arbel/02b-D-r1]    qB4: {'success': True, 'optimal_power': -34.333333333333336, 'onset_power': -11.060606060606062, 'onset_mechanism': 'fade', 'resonator_frequency': 7740791000.0, 'frequency_shift': -2950000.0, 'dressed_frequency': 7744141000.0, 'linewidth': 457693.4638508845, 'plateau_contrast': 0.6821833131411408, 'contrast_at_optimal': 0.5419426264384072, 'bare_frequency': None} warnings=['the refit moved the committed frequency by -2.95 MHz (6 linewidths): the frequency this node was given was wrong, so check it against resonator_identification rather than treating this as a refinement']
+18:21:47 [arbel/02b-D-r1] D-r1-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:22:01 [arbel/02b-D-r1] D-r1-qA5: done -- QPU 7.2 s, wall 14 s
+18:22:01 [arbel/02b-D-r1]    qA5: {'success': True, 'optimal_power': -31.444444444444443, 'onset_power': -20.8989898989899, 'onset_mechanism': 'fade', 'resonator_frequency': 7662412000.0, 'frequency_shift': 350000.0, 'dressed_frequency': 7662412000.0, 'linewidth': 951269.6521166945, 'plateau_contrast': 0.39152402906352474, 'contrast_at_optimal': 0.34746319006263493, 'bare_frequency': 7660662000.0} warnings=[]
+18:22:01 [arbel/02b-D-r1] D-r1-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:22:16 [arbel/02b-D-r1] D-r1-qD1: done -- QPU 6.7 s, wall 14 s
+18:22:16 [arbel/02b-D-r1]    qD1: {'success': True, 'optimal_power': -31.494949494949495, 'onset_power': -26.252525252525253, 'onset_mechanism': 'shift', 'resonator_frequency': 7153065262.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7153115262.0, 'linewidth': 1195554.0177034892, 'plateau_contrast': 0.5716858100148974, 'contrast_at_optimal': 0.5274987322011495, 'bare_frequency': 7150690262.0} warnings=[]
+18:22:16 [arbel/02b-D-r1] condition done
+18:22:22 [arbel/02b-D-r2] D-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:22:38 [arbel/02b-D-r2] D-r2-qB4: done -- QPU 8.1 s, wall 16 s
+18:22:38 [arbel/02b-D-r2]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7741891000.0, 'frequency_shift': -1850000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:22:38 [arbel/02b-D-r2] D-r2-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:22:52 [arbel/02b-D-r2] D-r2-qA5: done -- QPU 7.1 s, wall 14 s
+18:22:52 [arbel/02b-D-r2]    qA5: {'success': True, 'optimal_power': -31.090909090909093, 'onset_power': -21.252525252525253, 'onset_mechanism': 'shift', 'resonator_frequency': 7662312000.0, 'frequency_shift': 250000.0, 'dressed_frequency': 7662512000.0, 'linewidth': 956017.0772100548, 'plateau_contrast': 0.38762936921713675, 'contrast_at_optimal': 0.34077212233141513, 'bare_frequency': 7660762000.0} warnings=[]
+18:22:53 [arbel/02b-D-r2] D-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 1000 ns, tree qua-libs-depletion
+18:23:08 [arbel/02b-D-r2] D-r2-qD1: done -- QPU 6.6 s, wall 15 s
+18:23:08 [arbel/02b-D-r2]    qD1: {'success': True, 'optimal_power': -29.727272727272727, 'onset_power': -26.606060606060606, 'onset_mechanism': 'shift', 'resonator_frequency': 7152965262.0, 'frequency_shift': 100000.0, 'dressed_frequency': 7153115262.0, 'linewidth': 1166090.3980954657, 'plateau_contrast': 0.5567978207589471, 'contrast_at_optimal': 0.5064162806932655, 'bare_frequency': 7150740262.0} warnings=[]
+18:23:08 [arbel/02b-D-r2] condition done
+18:23:13 [arbel/02b-C-r2] C-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:23:34 [arbel/02b-C-r2] C-r2-qB4: done -- QPU 14.1 s, wall 21 s
+18:23:34 [arbel/02b-C-r2]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7740791000.0, 'frequency_shift': -2950000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:23:35 [arbel/02b-C-r2] C-r2-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:23:56 [arbel/02b-C-r2] C-r2-qA5: done -- QPU 13.1 s, wall 21 s
+18:23:56 [arbel/02b-C-r2]    qA5: {'success': True, 'optimal_power': -26.494949494949495, 'onset_power': -20.19191919191919, 'onset_mechanism': 'shift', 'resonator_frequency': 7662312000.0, 'frequency_shift': 250000.0, 'dressed_frequency': 7662412000.0, 'linewidth': 995230.8900342104, 'plateau_contrast': 0.3783111826608438, 'contrast_at_optimal': 0.34010216280022576, 'bare_frequency': 7660812000.0} warnings=[]
+18:23:57 [arbel/02b-C-r2] C-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 3000 ns, tree qua-libs-depletion
+18:24:16 [arbel/02b-C-r2] C-r2-qD1: done -- QPU 12.7 s, wall 19 s
+18:24:16 [arbel/02b-C-r2]    qD1: {'success': True, 'optimal_power': -29.373737373737374, 'onset_power': -26.606060606060606, 'onset_mechanism': 'shift', 'resonator_frequency': 7153015262.0, 'frequency_shift': 150000.0, 'dressed_frequency': 7153165262.0, 'linewidth': 1203848.3853168983, 'plateau_contrast': 0.5560490863776543, 'contrast_at_optimal': 0.5171602814829634, 'bare_frequency': 7150790262.0} warnings=[]
+18:24:16 [arbel/02b-C-r2] condition done
+18:24:22 [arbel/02b-B-r2] B-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:24:44 [arbel/02b-B-r2] B-r2-qB4: done -- QPU 13.7 s, wall 22 s
+18:24:44 [arbel/02b-B-r2]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7739591000.0, 'frequency_shift': -4150000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:24:45 [arbel/02b-B-r2] B-r2-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:25:06 [arbel/02b-B-r2] B-r2-qA5: done -- QPU 12.8 s, wall 21 s
+18:25:06 [arbel/02b-B-r2]    qA5: {'success': True, 'optimal_power': -23.31313131313131, 'onset_power': -19.484848484848484, 'onset_mechanism': 'bistability', 'resonator_frequency': 7662312000.0, 'frequency_shift': 250000.0, 'dressed_frequency': 7662162000.0, 'linewidth': 737969.4715221106, 'plateau_contrast': 0.35117424796549385, 'contrast_at_optimal': 0.35641143859597074, 'bare_frequency': 7660812000.0} warnings=[]
+18:25:07 [arbel/02b-B-r2] B-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 3000 ns, tree qua-libs
+18:25:27 [arbel/02b-B-r2] B-r2-qD1: done -- QPU 12.3 s, wall 20 s
+18:25:27 [arbel/02b-B-r2]    qD1: {'success': True, 'optimal_power': -29.02020202020202, 'onset_power': -26.606060606060606, 'onset_mechanism': 'bistability', 'resonator_frequency': 7153065262.0, 'frequency_shift': 200000.0, 'dressed_frequency': 7152965262.0, 'linewidth': 1136108.3833649857, 'plateau_contrast': 0.524958686854111, 'contrast_at_optimal': 0.5119322362272613, 'bare_frequency': 7150715262.0} warnings=[]
+18:25:27 [arbel/02b-B-r2] condition done
+18:25:33 [arbel/02b-A-r2] A-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:26:24 [arbel/02b-A-r2] A-r2-qB4: done -- QPU 40.7 s, wall 50 s
+18:26:24 [arbel/02b-A-r2]    qB4: {'success': False, 'optimal_power': nan, 'onset_power': None, 'onset_mechanism': 'no_resonance', 'resonator_frequency': 7737841000.0, 'frequency_shift': -5900000.0, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=['no onset in the swept range: the sweep never reached the power at which the resonator leaves the linear regime, so no readout power is proposed']
+18:26:25 [arbel/02b-A-r2] A-r2-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:27:14 [arbel/02b-A-r2] A-r2-qA5: done -- QPU 39.7 s, wall 49 s
+18:27:14 [arbel/02b-A-r2]    qA5: {'success': True, 'optimal_power': -26.848484848484848, 'onset_power': -18.424242424242426, 'onset_mechanism': 'fade', 'resonator_frequency': 7662312000.0, 'frequency_shift': 250000.0, 'dressed_frequency': 7662362000.0, 'linewidth': 928259.7689257842, 'plateau_contrast': 0.3779631413831107, 'contrast_at_optimal': 0.35314072252990186, 'bare_frequency': 7660837000.0} warnings=[]
+18:27:14 [arbel/02b-A-r2] A-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:27:42 [arbel/02b-A-r2] A-r2-qD1: FAILED ReadTimeout: The read operation timed out -- QPU 0.0 s, wall 28 s
+18:27:42 [arbel/02b-A-r2]    qD1: {'success': None, 'optimal_power': None, 'onset_power': None, 'onset_mechanism': None, 'resonator_frequency': None, 'frequency_shift': None, 'dressed_frequency': None, 'linewidth': None, 'plateau_contrast': None, 'contrast_at_optimal': None, 'bare_frequency': None} warnings=None
+18:27:42 [arbel/02b-A-r2] condition done
+18:27:49 [arbel/02a-r2] 02a-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:28:22 [arbel/02a-r2] 02a-r2-qB4: FAILED ConnectionError: Error code 503 Service Unavailable -- QPU 0.0 s, wall 33 s
+18:28:22 [arbel/02a-r2]    qB4: {'success': None, 'frequency': None, 'frequency_shift': None, 'fwhm': None, 'q_loaded': None} warnings=None
+18:28:23 [arbel/02a-r2] 02a-r2-qA5: window -46..-11 dBm (committed -30.9 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:28:36 [arbel/02a-r2] 02a-r2-qA5: done -- QPU 2.7 s, wall 13 s
+18:28:36 [arbel/02a-r2]    qA5: {'success': None, 'frequency': 7663462000.0, 'frequency_shift': None, 'fwhm': 10041614.222037124, 'q_loaded': 763.1703260599198} warnings=['fitted linewidth (10 MHz, Q_l~763) exceeds max_fwhm_in_mhz (3 MHz)']
+18:28:36 [arbel/02a-r2] 02a-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:28:46 [arbel/02a-r2] 02a-r2-qD1: done -- QPU 2.6 s, wall 9 s
+18:28:46 [arbel/02a-r2]    qD1: {'success': None, 'frequency': 7155965262.0, 'frequency_shift': None, 'fwhm': 9578540.49180321, 'q_loaded': 747.0830517575911} warnings=['fitted linewidth (9.58 MHz, Q_l~747) exceeds max_fwhm_in_mhz (3 MHz)']
+18:28:46 [arbel/02a-r2] condition done
+18:33:26 [arbel/02b-A-r2] A-r2-qD1: window -51..-16 dBm (committed -35.8 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:35:30 [arbel/02b-A-r2] A-r2-qD1: done -- QPU 39.3 s, wall 123 s
+18:35:30 [arbel/02b-A-r2]    qD1: {'success': True, 'optimal_power': -30.08080808080808, 'onset_power': -25.545454545454547, 'onset_mechanism': 'shift', 'resonator_frequency': 7153015262.0, 'frequency_shift': 150000.0, 'dressed_frequency': 7153065262.0, 'linewidth': 1239337.6317488332, 'plateau_contrast': 0.5526877762143233, 'contrast_at_optimal': 0.5182897412534756, 'bare_frequency': 7150715262.0} warnings=[]
+18:35:30 [arbel/02b-A-r2] condition done
+18:35:37 [arbel/02a-r2] 02a-r2-qB4: window -45..-10 dBm (committed -13.6 dBm), effective depletion wait 12000 ns, tree qua-libs
+18:38:16 [arbel/02a-r2] 02a-r2-qB4: done -- QPU 2.7 s, wall 159 s
+18:38:16 [arbel/02a-r2]    qB4: {'success': None, 'frequency': 7744141000.0, 'frequency_shift': None, 'fwhm': 1090727.8619983345, 'q_loaded': 7099.975410742579} warnings=[]
+18:38:16 [arbel/02a-r2] condition done

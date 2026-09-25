@@ -1,0 +1,44 @@
+{
+ "tag": "02a-r2-qA5",
+ "condition": "02a",
+ "round": 2,
+ "qubit": "qA5",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/arbel",
+ "committed_power_dbm": -30.87979542395605,
+ "window_dbm": [
+  -46,
+  -11
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 12.554163291119039,
+ "qpu_s": 2.658853769302368,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA5": {
+   "frequency": 7663462000.0,
+   "fwhm": 10041614.222037124,
+   "failure_reason": "fitted linewidth (10 MHz, Q_l~763) exceeds max_fwhm_in_mhz (3 MHz)",
+   "f_01": 7663462000.0,
+   "RF_frequency": 7663462000.0,
+   "warnings": [
+    "fitted linewidth (10 MHz, Q_l~763) exceeds max_fwhm_in_mhz (3 MHz)"
+   ],
+   "swept_min_freq_hz": 7632062000.0,
+   "swept_max_freq_hz": 7692062000.0,
+   "q_loaded": 763.1703260599198
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/resonator/f_01": {
+   "old": 7662062000.0,
+   "new": 7663462000.0
+  },
+  "/qubits/qA5/resonator/RF_frequency": {
+   "old": 7662062000.0,
+   "new": 7663462000.0
+  }
+ }
+}

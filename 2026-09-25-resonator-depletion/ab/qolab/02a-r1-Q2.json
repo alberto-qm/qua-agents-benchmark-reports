@@ -1,0 +1,33 @@
+{
+ "tag": "02a-r1-Q2",
+ "condition": "02a",
+ "round": 1,
+ "qubit": "Q2",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/qolab",
+ "committed_power_dbm": -40.66022740691785,
+ "window_dbm": [
+  -56,
+  -21
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 5.664374792017043,
+ "qpu_s": 1.871211051940918,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q2": {
+   "frequency": 6000330000.0,
+   "fwhm": 611941.6420769255,
+   "failure_reason": "",
+   "f_01": 6000330000.0,
+   "RF_frequency": 6000330000.0,
+   "warnings": [],
+   "swept_min_freq_hz": 5970330000.0,
+   "swept_max_freq_hz": 6030330000.0,
+   "q_loaded": 9805.395788452839
+  }
+ },
+ "proposed": {}
+}

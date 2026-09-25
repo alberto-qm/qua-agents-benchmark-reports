@@ -1,0 +1,62 @@
+{
+ "tag": "A-r1-Q5",
+ "condition": "A",
+ "round": 1,
+ "qubit": "Q5",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/qolab",
+ "committed_power_dbm": -42.70272438007521,
+ "window_dbm": [
+  -58,
+  -23
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 47.38668558304198,
+ "qpu_s": 42.20762014389038,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q5": {
+   "success": true,
+   "resonator_frequency": 6302415000.0,
+   "frequency_shift": -100000.0,
+   "optimal_power": -40.61616161616162,
+   "onset_power": -33.25252525252525,
+   "onset_mechanism": "fade",
+   "onset_found": true,
+   "edge_limited": false,
+   "bistability_resolvable": true,
+   "max_branches": 1,
+   "dressed_frequency": 6302465000.0,
+   "linewidth": 732839.9080731444,
+   "plateau_contrast": 0.4935750996585523,
+   "contrast_at_optimal": 0.4795451086927257,
+   "bare_frequency": 6301465000.0,
+   "dispersive_shift": 1000000.0,
+   "readout_operation": "readout",
+   "warnings": [],
+   "f_01": 6302415000.0,
+   "RF_frequency": 6302415000.0,
+   "readout_amplitude": 0.005877490274806821,
+   "full_scale_power_dbm": 4,
+   "sweep_amplitude_min_v": 0.0007943282347242813,
+   "sweep_amplitude_max_v": 0.0446683592150963,
+   "current_amplitude_dbm": -42.70272438007521
+  }
+ },
+ "proposed": {
+  "/qubits/Q5/resonator/f_01": {
+   "old": 6302515000.0,
+   "new": 6302415000.0
+  },
+  "/qubits/Q5/resonator/operations/readout/amplitude": {
+   "old": 0.004622360156302947,
+   "new": 0.005877490274806821
+  },
+  "/qubits/Q5/resonator/RF_frequency": {
+   "old": 6302515000.0,
+   "new": 6302415000.0
+  }
+ }
+}

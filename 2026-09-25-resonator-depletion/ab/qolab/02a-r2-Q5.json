@@ -1,0 +1,33 @@
+{
+ "tag": "02a-r2-Q5",
+ "condition": "02a",
+ "round": 2,
+ "qubit": "Q5",
+ "tree": "qua-libs",
+ "state": "/Users/atosato/qab-runs/state-20260925-1803/qolab",
+ "committed_power_dbm": -42.70272438007521,
+ "window_dbm": [
+  -58,
+  -23
+ ],
+ "stored_depletion_ns": 3000,
+ "effective_wait_ns": 12000,
+ "error": null,
+ "wall_s": 6.0973960410337895,
+ "qpu_s": 1.8765161037445068,
+ "executor_stderr": [],
+ "fit_results": {
+  "Q5": {
+   "frequency": 6302515000.0,
+   "fwhm": 588059.9906486168,
+   "failure_reason": "",
+   "f_01": 6302515000.0,
+   "RF_frequency": 6302515000.0,
+   "warnings": [],
+   "swept_min_freq_hz": 6272515000.0,
+   "swept_max_freq_hz": 6332515000.0,
+   "q_loaded": 10717.469476283311
+  }
+ },
+ "proposed": {}
+}

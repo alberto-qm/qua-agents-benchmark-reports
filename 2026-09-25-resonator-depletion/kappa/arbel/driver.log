@@ -1,0 +1,39 @@
+18:12:50 [arbel/kappa-r1] qB4: committed -13.6 dBm, 02b window -45..-10 dBm, FS -2->10, readout amp at top 0.1000, scales rd [0.2082, 0.6584, 1.0] ro 0.6584
+18:12:50 [arbel/kappa-r1] qB4: estimated QPU ringdown 6.1 s, sweep 4.7 s, pump 8.7 s
+18:13:02 [arbel/kappa-r1] qB4/ringdown: QPU 7.5 s, wall 11 s
+18:13:11 [arbel/kappa-r1] qB4/sweep: QPU 5.4 s, wall 9 s
+18:13:26 [arbel/kappa-r1] qB4/pump: QPU 10.0 s, wall 14 s
+18:13:27 [arbel/kappa-r1] qA5: committed -30.9 dBm, 02b window -46..-11 dBm, FS -2->10, readout amp at top 0.0891, scales rd [0.0321, 0.1014, 1.0] ro 0.1014
+18:13:27 [arbel/kappa-r1] qA5: estimated QPU ringdown 6.1 s, sweep 4.6 s, pump 8.7 s
+18:13:40 [arbel/kappa-r1] qA5/ringdown: QPU 7.5 s, wall 12 s
+18:13:50 [arbel/kappa-r1] qA5/sweep: QPU 5.3 s, wall 10 s
+18:14:06 [arbel/kappa-r1] qA5/pump: QPU 10.0 s, wall 16 s
+18:14:07 [arbel/kappa-r1] qD1: committed -35.8 dBm, 02b window -51..-16 dBm, FS -2->4, readout amp at top 0.1000, scales rd [0.0325, 0.1027, 1.0] ro 0.1027
+18:14:07 [arbel/kappa-r1] qD1: estimated QPU ringdown 6.1 s, sweep 4.5 s, pump 8.7 s
+18:14:19 [arbel/kappa-r1] qD1/ringdown: QPU 7.5 s, wall 11 s
+18:14:30 [arbel/kappa-r1] qD1/sweep: QPU 5.2 s, wall 11 s
+18:14:44 [arbel/kappa-r1] qD1/pump: QPU 10.0 s, wall 14 s
+18:14:45 [arbel/kappa-r1] all done
+18:28:50 [arbel/kappa-r2] qB4: committed -13.6 dBm, 02b window -45..-10 dBm, FS -2->10, readout amp at top 0.1000, scales rd [0.2082, 0.6584, 1.0] ro 0.6584
+18:28:50 [arbel/kappa-r2] qB4: estimated QPU ringdown 6.1 s, sweep 4.7 s, pump 8.7 s
+18:29:03 [arbel/kappa-r2] qB4/ringdown: QPU 7.5 s, wall 12 s
+18:29:18 [arbel/kappa-r2] qB4/sweep: QPU 5.4 s, wall 14 s
+18:29:34 [arbel/kappa-r2] qB4/pump: QPU 10.1 s, wall 16 s
+18:29:35 [arbel/kappa-r2] qA5: committed -30.9 dBm, 02b window -46..-11 dBm, FS -2->10, readout amp at top 0.0891, scales rd [0.0321, 0.1014, 1.0] ro 0.1014
+18:29:35 [arbel/kappa-r2] qA5: estimated QPU ringdown 6.1 s, sweep 4.6 s, pump 8.7 s
+18:29:50 [arbel/kappa-r2] qA5/ringdown: QPU 7.5 s, wall 13 s
+18:30:01 [arbel/kappa-r2] qA5/sweep: QPU 5.3 s, wall 11 s
+18:30:15 [arbel/kappa-r2] qA5/pump: QPU 10.0 s, wall 14 s
+18:30:17 [arbel/kappa-r2] qD1: committed -35.8 dBm, 02b window -51..-16 dBm, FS -2->4, readout amp at top 0.1000, scales rd [0.0325, 0.1027, 1.0] ro 0.1027
+18:30:17 [arbel/kappa-r2] qD1: estimated QPU ringdown 6.1 s, sweep 4.5 s, pump 8.7 s
+18:30:30 [arbel/kappa-r2] qD1/ringdown: QPU 7.5 s, wall 12 s
+18:31:10 [arbel/kappa-r2] qD1/sweep: QPU 5.2 s, wall 40 s
+18:31:30 [arbel/kappa-r2] qD1/pump: QPU 10.1 s, wall 19 s
+18:31:30 [arbel/kappa-r2] all done
+18:31:38 [arbel/kappa-long] qB4: committed -13.6 dBm; long pulse at -23.6 and -13.6 dBm, short at -13.6; estimated QPU 5.2 s
+18:32:48 [arbel/kappa-long] qB4: QPU 6.2 s, wall 69 s
+18:32:49 [arbel/kappa-long] qA5: committed -30.9 dBm; long pulse at -40.9 and -30.9 dBm, short at -30.9; estimated QPU 5.1 s
+18:33:02 [arbel/kappa-long] qA5: QPU 6.2 s, wall 13 s
+18:33:03 [arbel/kappa-long] qD1: committed -35.8 dBm; long pulse at -45.8 and -35.8 dBm, short at -35.8; estimated QPU 5.1 s
+18:33:18 [arbel/kappa-long] qD1: QPU 6.2 s, wall 14 s
+18:33:18 [arbel/kappa-long] all done
