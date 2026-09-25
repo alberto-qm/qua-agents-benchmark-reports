@@ -1,0 +1,59 @@
+2026-09-25 15:28:42,330 - qm - INFO     - Starting session: 9ffafc25-541a-47ec-a0a3-1ec6852f7212
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+15:28:47 [arbel/t1_chirp] qB4: chirp centre -0.08 MHz from the stored f01 (03a: 0-1), drive 0.0627, stored T1 2.7778578960067727e-05
+15:28:47 [arbel/t1_chirp] qA5: chirp centre -0.10 MHz from the stored f01 (03a: 0-1), drive 0.0670, stored T1 3.531762120108594e-05
+15:28:47 [arbel/t1_chirp] qD1: chirp centre -0.64 MHz from the stored f01 (03a: 0-1), drive 0.0499, stored T1 1.953711439053558e-05
+15:28:47 [arbel/t1_chirp] qA6: chirp centre -0.14 MHz from the stored f01 (03a: 0-1), drive 0.0357, stored T1 4.390113674833465e-06
+15:28:47 [arbel/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+2026-09-25 15:28:48,152 - qm - INFO     - Opening QM
+/Users/atosato/qab-runs/chirp-nodes-20260924/t1_chirp_test.py:128: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  streams = {k: (declare_stream(), declare_stream()) for k in ("chirp", "x180", "ground")}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[15:28:50] QUA program submitted to arbel (id =                 computers.py:416
+           f697c422-dcf8-464d-90e5-9d2c4b8e6c56)                                
+           Execution started                                    computers.py:455
+[15:29:02] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+15:29:02 [arbel/t1_chirp] qB4: QPU 10.8 s, wall 14 s
+/Users/atosato/qab-runs/chirp-nodes-20260924/t1_chirp_test.py:128: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  streams = {k: (declare_stream(), declare_stream()) for k in ("chirp", "x180", "ground")}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[15:29:04] QUA program submitted to arbel (id =                 computers.py:416
+           fd88e070-960b-4984-8828-e26feb140c55)                                
+           Execution started                                    computers.py:455
+[15:29:16] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+15:29:16 [arbel/t1_chirp] qA5: QPU 10.8 s, wall 14 s
+/Users/atosato/qab-runs/chirp-nodes-20260924/t1_chirp_test.py:128: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  streams = {k: (declare_stream(), declare_stream()) for k in ("chirp", "x180", "ground")}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[15:29:18] QUA program submitted to arbel (id =                 computers.py:416
+           2aa34418-1805-46a3-8ebc-b908e0b6e78c)                                
+           Execution started                                    computers.py:455
+[15:29:31] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+15:29:31 [arbel/t1_chirp] qD1: QPU 10.7 s, wall 14 s
+/Users/atosato/qab-runs/chirp-nodes-20260924/t1_chirp_test.py:128: DeprecationWarning: declare_stream is deprecated since "1.2.4" and will be removed in "2.0.0". Please use declare_output_stream() instead
+  streams = {k: (declare_stream(), declare_stream()) for k in ("chirp", "x180", "ground")}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[15:29:33] QUA program submitted to arbel (id =                 computers.py:416
+           03a05601-bd38-4fe6-9789-598f23f31f3a)                                
+           Execution started                                    computers.py:455
+[15:29:46] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+15:29:46 [arbel/t1_chirp] qA6: QPU 10.8 s, wall 15 s
+2026-09-25 15:29:46,496 - qm - INFO     - Closing QM
+15:29:46 [arbel/t1_chirp] all done

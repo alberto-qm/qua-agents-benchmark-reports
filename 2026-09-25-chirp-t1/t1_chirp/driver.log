@@ -1,0 +1,52 @@
+15:28:19 [arbel/t1_chirp] qB4: chirp centre -0.08 MHz from the stored f01 (03a: 0-1), drive 0.0627, stored T1 2.7778578960067727e-05
+15:28:19 [arbel/t1_chirp] qA5: chirp centre -0.10 MHz from the stored f01 (03a: 0-1), drive 0.0670, stored T1 3.531762120108594e-05
+15:28:19 [arbel/t1_chirp] qD1: chirp centre -0.64 MHz from the stored f01 (03a: 0-1), drive 0.0499, stored T1 1.953711439053558e-05
+15:28:19 [arbel/t1_chirp] qA6: chirp centre -0.14 MHz from the stored f01 (03a: 0-1), drive 0.0357, stored T1 4.390113674833465e-06
+15:28:19 [arbel/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:28:19 [arbel/t1_chirp] qB4: program built
+15:28:19 [arbel/t1_chirp] qA5: program built
+15:28:19 [arbel/t1_chirp] qD1: program built
+15:28:19 [arbel/t1_chirp] qA6: program built
+15:28:19 [arbel/t1_chirp] all done
+15:28:22 [qolab/t1_chirp] Q1: chirp centre -3.35 MHz from the stored f01 (03a: 0-1), drive 0.0256, stored T1 5.606945013449432e-05
+15:28:22 [qolab/t1_chirp] Q2: chirp centre -0.37 MHz from the stored f01 (03a: 0-1), drive 0.0125, stored T1 7.201189738584368e-05
+15:28:22 [qolab/t1_chirp] Q5: chirp centre -0.55 MHz from the stored f01 (03a: 0-1), drive 0.0109, stored T1 3.215371924951647e-05
+15:28:22 [qolab/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:28:22 [qolab/t1_chirp] Q1: program built
+15:28:22 [qolab/t1_chirp] Q2: program built
+15:28:22 [qolab/t1_chirp] Q5: program built
+15:28:22 [qolab/t1_chirp] all done
+15:28:26 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:28:26 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:28:26 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:28:26 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:28:26 [gilboa/t1_chirp] qD2: program built
+15:28:26 [gilboa/t1_chirp] qC3: program built
+15:28:26 [gilboa/t1_chirp] qD5: program built
+15:28:26 [gilboa/t1_chirp] all done
+15:28:45 [qolab/t1_chirp] Q1: chirp centre -3.35 MHz from the stored f01 (03a: 0-1), drive 0.0256, stored T1 5.606945013449432e-05
+15:28:45 [qolab/t1_chirp] Q2: chirp centre -0.37 MHz from the stored f01 (03a: 0-1), drive 0.0125, stored T1 7.201189738584368e-05
+15:28:45 [qolab/t1_chirp] Q5: chirp centre -0.55 MHz from the stored f01 (03a: 0-1), drive 0.0109, stored T1 3.215371924951647e-05
+15:28:45 [qolab/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:28:46 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:28:46 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:28:46 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:28:46 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:28:47 [arbel/t1_chirp] qB4: chirp centre -0.08 MHz from the stored f01 (03a: 0-1), drive 0.0627, stored T1 2.7778578960067727e-05
+15:28:47 [arbel/t1_chirp] qA5: chirp centre -0.10 MHz from the stored f01 (03a: 0-1), drive 0.0670, stored T1 3.531762120108594e-05
+15:28:47 [arbel/t1_chirp] qD1: chirp centre -0.64 MHz from the stored f01 (03a: 0-1), drive 0.0499, stored T1 1.953711439053558e-05
+15:28:47 [arbel/t1_chirp] qA6: chirp centre -0.14 MHz from the stored f01 (03a: 0-1), drive 0.0357, stored T1 4.390113674833465e-06
+15:28:47 [arbel/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:29:00 [qolab/t1_chirp] Q1: QPU 9.8 s, wall 13 s
+15:29:02 [arbel/t1_chirp] qB4: QPU 10.8 s, wall 14 s
+15:29:13 [qolab/t1_chirp] Q2: QPU 10.0 s, wall 12 s
+15:29:16 [arbel/t1_chirp] qA5: QPU 10.8 s, wall 14 s
+15:29:25 [qolab/t1_chirp] Q5: QPU 9.9 s, wall 12 s
+15:29:25 [qolab/t1_chirp] all done
+15:29:31 [arbel/t1_chirp] qD1: QPU 10.7 s, wall 14 s
+15:29:46 [arbel/t1_chirp] qA6: QPU 10.8 s, wall 15 s
+15:29:46 [arbel/t1_chirp] all done
+15:31:19 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:31:19 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:31:19 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:31:19 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
