@@ -1,0 +1,229 @@
+{
+ "tag": "03b-T1-qD2-qC3-qD5",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qD2": 6712,
+  "qC3": 9016,
+  "qD5": 216576
+ },
+ "T1": {
+  "qD2": 1.3428767364473683e-06,
+  "qC3": 1.8034861546101497e-06,
+  "qD5": 4.3315774401770405e-05
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 24.58661024994217,
+ "qpu_s": 19.088945627212524,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "idle_offset_shift": 0.011260809945225778,
+   "idle_offset_shift_error": 0.04776158176812839,
+   "joint_offset": 0.02681516860302478,
+   "independent_offset": NaN,
+   "f_01": 5767173808.751574,
+   "RF_frequency": 5767173808.751574,
+   "f_01_error": 5918676.965153986,
+   "frequency_shift": 16166901.880413856,
+   "curvature": 909304678.0634496,
+   "curvature_error": 4053183117.612287,
+   "stored_curvature": -8630838325.595207,
+   "column_precision": 535196.1111147034,
+   "chi2_red": 165.26505024135068,
+   "tracked_columns": 8,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.5454242177112795,
+   "sweep_length_ns": 268.0,
+   "short_sweep": true,
+   "decay_refused": false,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": false,
+   "warnings": [
+    "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "the arc opens upward: a frequency minimum, not the upper sweet spot",
+    "columns scatter 12.9x their errors about the parabola"
+   ]
+  },
+  "qC3": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -10305876434.22233,
+   "column_precision": 559265.287422949,
+   "chi2_red": NaN,
+   "tracked_columns": 6,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.43306224127944576,
+   "sweep_length_ns": 360.0,
+   "short_sweep": true,
+   "decay_refused": false,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": false,
+   "warnings": [
+    "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+    "a line was located in 6 of 21 flux columns (need 7)"
+   ]
+  },
+  "qD5": {
+   "idle_offset_shift": 0.0027074532892618543,
+   "idle_offset_shift_error": 3.721202956412819e-05,
+   "joint_offset": 0.022716562717292103,
+   "independent_offset": NaN,
+   "f_01": 5817143384.920347,
+   "RF_frequency": 5817143384.920347,
+   "f_01_error": 31266.885707889483,
+   "frequency_shift": 171018.88549251782,
+   "curvature": -11117116417.149157,
+   "curvature_error": 30551746.73412843,
+   "stored_curvature": -10584901306.441132,
+   "column_precision": 79720.35556733563,
+   "chi2_red": 1.2935669593201955,
+   "tracked_columns": 16,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.07940336636618783,
+   "sweep_length_ns": 4000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "sweep_over_t1": 0.20735521573892216,
+   "sweep_over_t1_error": 0.02085808441468742,
+   "t1_estimate": 1.9290568533546515e-05,
+   "t1_missing": false,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/xy/RF_frequency": {
+   "old": 5816972366.034855,
+   "new": 5817143384.920347
+  },
+  "/qubits/qD5/f_01": {
+   "old": 5816972366.034855,
+   "new": 5817143384.920347
+  },
+  "/qubits/qD5/z/joint_offset": {
+   "old": 0.02000910942803025,
+   "new": 0.022716562717292103
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 268,
+   "qC3": 360,
+   "qD5": 4000
+  },
+  "rates": {
+   "qD2": 74627,
+   "qC3": 55556,
+   "qD5": 5000
+  },
+  "drive_amplitudes": {
+   "qD2": 0.5454242177112795,
+   "qC3": 0.43306224127944576,
+   "qD5": 0.07940336636618783
+  },
+  "flux_offsets": {
+   "qD2": [
+    -0.07220707723635246,
+    -0.06498636951271722,
+    -0.05776566178908197,
+    -0.05054495406544672,
+    -0.04332424634181148,
+    -0.03610353861817623,
+    -0.02888283089454098,
+    -0.02166212317090574,
+    -0.01444141544727049,
+    -0.007220707723635242,
+    0.0,
+    0.007220707723635242,
+    0.014441415447270498,
+    0.02166212317090574,
+    0.02888283089454098,
+    0.03610353861817624,
+    0.04332424634181148,
+    0.05054495406544672,
+    0.057765661789081976,
+    0.0649863695127172,
+    0.07220707723635246
+   ],
+   "qC3": [
+    -0.06607905011297313,
+    -0.05947114510167582,
+    -0.0528632400903785,
+    -0.046255335079081195,
+    -0.03964743006778388,
+    -0.033039525056486566,
+    -0.026431620045189258,
+    -0.019823715033891944,
+    -0.013215810022594629,
+    -0.0066079050112973145,
+    0.0,
+    0.0066079050112973076,
+    0.013215810022594615,
+    0.019823715033891937,
+    0.026431620045189244,
+    0.033039525056486566,
+    0.03964743006778387,
+    0.04625533507908118,
+    0.0528632400903785,
+    0.05947114510167581,
+    0.06607905011297313
+   ],
+   "qD5": [
+    -0.06520229019841034,
+    -0.058682061178569306,
+    -0.05216183215872827,
+    -0.04564160313888724,
+    -0.039121374119046204,
+    -0.03260114509920517,
+    -0.026080916079364136,
+    -0.019560687059523102,
+    -0.013040458039682068,
+    -0.006520229019841034,
+    0.0,
+    0.006520229019841034,
+    0.013040458039682068,
+    0.019560687059523102,
+    0.026080916079364136,
+    0.03260114509920517,
+    0.039121374119046204,
+    0.04564160313888724,
+    0.05216183215872827,
+    0.058682061178569306,
+    0.06520229019841034
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 25,
+  "flux_step_lengths": {
+   "qD2": 5404,
+   "qC3": 5540,
+   "qD5": 10000
+  },
+  "drive_lengths": {
+   "qD2": 268,
+   "qC3": 360,
+   "qD5": 4000
+  }
+ }
+}

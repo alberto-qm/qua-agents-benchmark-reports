@@ -1,0 +1,99 @@
+{
+ "tag": "03a-T1-qA6",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "T1",
+ "waits_ns": {
+  "qA6": 21948
+ },
+ "T1": {
+  "qA6": 4.390113674833465e-06
+ },
+ "params": {
+  "frequency_center_in_mhz": 40.0,
+  "frequency_span_in_mhz": 160.0
+ },
+ "error": null,
+ "wall_s": 11.028463042108342,
+ "qpu_s": 2.3328516483306885,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "f_01": 6184302089.400154,
+   "RF_frequency": 6184302089.400154,
+   "frequency_shift": -141209.0154774097,
+   "f_01_error": 478848.3033439877,
+   "line_identity": "short-sweep",
+   "two_photon_partner": false,
+   "two_photon_frequency": NaN,
+   "anharmonicity_estimate": NaN,
+   "box_height": 0.0031537827599106777,
+   "box_snr": 27.189158543522062,
+   "box_width": 18758468.760656595,
+   "onset_amplitude": 0.026958430418947233,
+   "selected_drive_amplitude": 0.053916860837894466,
+   "sweep_length_ns": 876.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 102459523.41096763,
+   "drive_scale": 1.2841606038066466,
+   "onset_exponent": 2.559671225740328,
+   "num_lines": 1,
+   "x180_amplitude": 0.2033323271451335,
+   "x90_amplitude": 0.10166616357256675,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": false,
+   "lines": [
+    {
+     "offset": -137422.96237247094,
+     "onset_level": 1,
+     "onset_amplitude": 0.013479215209473617,
+     "levels": [
+      1,
+      2,
+      3,
+      5
+     ],
+     "max_height": 0.003191383320865207
+    }
+   ],
+   "warnings": [
+    "the sweep (876 ns over 20 MHz, time x band 17.5 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+   ]
+  }
+ },
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 876
+  },
+  "rates": {
+   "qA6": 22831
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qA6": 79787156.76781091
+  },
+  "shot_rounds": 25,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qA6": {
+    "played": [
+     0.006739607604736808,
+     0.013479215209473617,
+     0.026958430418947233,
+     0.053916860837894466,
+     0.10783372167578893,
+     0.21566744335157786,
+     0.43133488670315573
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

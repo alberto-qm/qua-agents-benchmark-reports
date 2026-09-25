@@ -1,0 +1,241 @@
+{
+ "tag": "03b-noT1-qB4-qA5-qD1",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qB4": 50000,
+  "qA5": 50000,
+  "qD1": 50000
+ },
+ "T1": {
+  "qB4": null,
+  "qA5": null,
+  "qD1": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 23.47687704092823,
+ "qpu_s": 15.11450481414795,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "idle_offset_shift": 0.00019717045562100413,
+   "idle_offset_shift_error": 9.366400471595705e-05,
+   "joint_offset": 0.03776764359894513,
+   "independent_offset": NaN,
+   "f_01": 6605842486.453948,
+   "RF_frequency": 6605842486.453948,
+   "f_01_error": 87676.069414076,
+   "frequency_shift": -38468.606441572614,
+   "curvature": -10161097800.779697,
+   "curvature_error": 64362354.10284672,
+   "stored_curvature": -10290459255.277933,
+   "column_precision": 150007.5800412052,
+   "chi2_red": 2.619040128095255,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.1254100150109788,
+   "sweep_length_ns": 2000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "sweep_over_t1": 0.021250521038421722,
+   "sweep_over_t1_error": 0.02427623714607697,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1"
+   ]
+  },
+  "qA5": {
+   "idle_offset_shift": -7.83947669145161e-05,
+   "idle_offset_shift_error": 9.38766671500725e-05,
+   "joint_offset": 0.01292818626626592,
+   "independent_offset": NaN,
+   "f_01": 5705446350.155698,
+   "RF_frequency": 5705446350.155698,
+   "f_01_error": 93189.49565386078,
+   "frequency_shift": -108027.7877296744,
+   "curvature": -9618586224.560421,
+   "curvature_error": 62486086.0447656,
+   "stored_curvature": -9976389096.334991,
+   "column_precision": 143256.2152269602,
+   "chi2_red": 3.226572035597066,
+   "tracked_columns": 17,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.13392664330879864,
+   "sweep_length_ns": 2000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "sweep_over_t1": 0.04972522350242231,
+   "sweep_over_t1_error": 0.02550700139693694,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1"
+   ]
+  },
+  "qD1": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -8151512864.12269,
+   "column_precision": 150027.42054265353,
+   "chi2_red": NaN,
+   "tracked_columns": 2,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.09978132469334557,
+   "sweep_length_ns": 2000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1",
+    "a line was located in 2 of 21 flux columns (need 7)"
+   ]
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/xy/RF_frequency": {
+   "old": 5705554377.943427,
+   "new": 5705446350.155698
+  },
+  "/qubits/qA5/f_01": {
+   "old": 5705554377.943427,
+   "new": 5705446350.155698
+  },
+  "/qubits/qA5/z/joint_offset": {
+   "old": 0.013006581033180436,
+   "new": 0.01292818626626592
+  },
+  "/qubits/qB4/xy/RF_frequency": {
+   "old": 6605880955.0603895,
+   "new": 6605842486.453948
+  },
+  "/qubits/qB4/f_01": {
+   "old": 6605880955.0603895,
+   "new": 6605842486.453948
+  },
+  "/qubits/qB4/z/joint_offset": {
+   "old": 0.03757047314332413,
+   "new": 0.03776764359894513
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 2000,
+   "qA5": 2000,
+   "qD1": 2000
+  },
+  "rates": {
+   "qB4": 10000,
+   "qA5": 10000,
+   "qD1": 10000
+  },
+  "drive_amplitudes": {
+   "qB4": 0.1254100150109788,
+   "qA5": 0.13392664330879864,
+   "qD1": 0.09978132469334557
+  },
+  "flux_offsets": {
+   "qB4": [
+    -0.06612853144448087,
+    -0.059515678300032786,
+    -0.0529028251555847,
+    -0.04628997201113661,
+    -0.039677118866688524,
+    -0.033064265722240437,
+    -0.02645141257779235,
+    -0.019838559433344262,
+    -0.013225706288896175,
+    -0.006612853144448087,
+    0.0,
+    0.00661285314444808,
+    0.013225706288896175,
+    0.01983855943334427,
+    0.02645141257779235,
+    0.03306426572224043,
+    0.039677118866688524,
+    0.04628997201113662,
+    0.0529028251555847,
+    0.05951567830003278,
+    0.06612853144448087
+   ],
+   "qA5": [
+    -0.06716137321694177,
+    -0.06044523589524759,
+    -0.053729098573553416,
+    -0.047012961251859234,
+    -0.04029682393016506,
+    -0.03358068660847088,
+    -0.0268645492867767,
+    -0.020148411965082526,
+    -0.01343227464338835,
+    -0.006716137321694175,
+    0.0,
+    0.006716137321694182,
+    0.013432274643388364,
+    0.020148411965082533,
+    0.026864549286776715,
+    0.03358068660847088,
+    0.040296823930165065,
+    0.04701296125185925,
+    0.053729098573553416,
+    0.060445235895247584,
+    0.06716137321694177
+   ],
+   "qD1": [
+    -0.07429971497754377,
+    -0.0668697434797894,
+    -0.05943977198203502,
+    -0.05200980048428064,
+    -0.044579828986526265,
+    -0.037149857488771885,
+    -0.029719885991017506,
+    -0.022289914493263133,
+    -0.014859942995508753,
+    -0.007429971497754373,
+    0.0,
+    0.007429971497754373,
+    0.01485994299550876,
+    0.022289914493263133,
+    0.029719885991017506,
+    0.03714985748877189,
+    0.044579828986526265,
+    0.05200980048428065,
+    0.059439771982035025,
+    0.0668697434797894,
+    0.07429971497754377
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 25,
+  "flux_step_lengths": {
+   "qB4": 8000,
+   "qA5": 8000,
+   "qD1": 8000
+  },
+  "drive_lengths": {
+   "qB4": 2000,
+   "qA5": 2000,
+   "qD1": 2000
+  }
+ }
+}

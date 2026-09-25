@@ -1,0 +1,96 @@
+{
+ "tag": "03b-noT1-qA6",
+ "node": "03b_qubit_spectroscopy_vs_flux_chirp",
+ "qubits": [
+  "qA6"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qA6": 50000
+ },
+ "T1": {
+  "qA6": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 12.327672000043094,
+ "qpu_s": 5.48394775390625,
+ "executor_stderr": [],
+ "fit_results": {
+  "qA6": {
+   "idle_offset_shift": NaN,
+   "idle_offset_shift_error": NaN,
+   "joint_offset": NaN,
+   "independent_offset": NaN,
+   "f_01": NaN,
+   "RF_frequency": NaN,
+   "f_01_error": NaN,
+   "frequency_shift": NaN,
+   "curvature": NaN,
+   "curvature_error": NaN,
+   "stored_curvature": -10564898538.617474,
+   "column_precision": 228548.8645814927,
+   "chi2_red": NaN,
+   "tracked_columns": 3,
+   "flux_columns": 21,
+   "pulse": "chirp",
+   "drive_amplitude": 0.0713661268054438,
+   "sweep_length_ns": 2000.0,
+   "short_sweep": false,
+   "decay_refused": false,
+   "sweep_over_t1": NaN,
+   "sweep_over_t1_error": NaN,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1",
+    "a line was located in 3 of 21 flux columns (need 7)"
+   ]
+  }
+ },
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qA6": 2000
+  },
+  "rates": {
+   "qA6": 10000
+  },
+  "drive_amplitudes": {
+   "qA6": 0.0713661268054438
+  },
+  "flux_offsets": {
+   "qA6": [
+    -0.06526398551525991,
+    -0.05873758696373392,
+    -0.05221118841220793,
+    -0.04568478986068194,
+    -0.03915839130915595,
+    -0.03263199275762996,
+    -0.026105594206103963,
+    -0.019579195654577976,
+    -0.013052797103051982,
+    -0.006526398551525987,
+    0.0,
+    0.006526398551525994,
+    0.013052797103051988,
+    0.019579195654577983,
+    0.026105594206103963,
+    0.03263199275762996,
+    0.03915839130915595,
+    0.045684789860681946,
+    0.05221118841220794,
+    0.05873758696373392,
+    0.06526398551525991
+   ]
+  },
+  "kappa_priors": null,
+  "shot_rounds": 25,
+  "flux_step_lengths": {
+   "qA6": 8000
+  },
+  "drive_lengths": {
+   "qA6": 2000
+  }
+ }
+}

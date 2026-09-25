@@ -34,7 +34,8 @@ def sync():
                 "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
                 "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test",
                 "waits", "waits/arbel", "waits/qolab", "waits/gilboa", "noT1", "noT1/arbel", "noT1/qolab", "noT1/gilboa",
-                "dirchk", "dirchk/arbel", "dirchk/qolab", "dirchk/gilboa"):
+                "dirchk", "dirchk/arbel", "dirchk/qolab", "dirchk/gilboa",
+                "dirchk_latest", "dirchk_latest/arbel", "dirchk_latest/qolab", "dirchk_latest/gilboa"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out", ".txt"):
@@ -561,6 +562,29 @@ def build() -> str:
             bu, bk = b.get("noT1") or {}, b.get("T1") or {}
             dc3b_rows.append([be, f"<b>{q}</b>", dbc(bu), rho_cell(bu), dbc(bk), rho_cell(bk)])
 
+    # --- the same test on the latest cloud state --------------------------------------------------------
+    dl = json.loads((DATA / "dirchk_latest/summary.json").read_text())
+    dl_runs = [json.loads(l) for f in sorted((DATA / "dirchk_latest").glob("*/runs.jsonl")) for l in f.read_text().splitlines()]
+    dl_qpu = sum(r["qpu_s"] for r in dl_runs if not r.get("error"))
+    T1new = {"qB4": 27.8, "qA5": 35.3, "qD1": 19.5, "qA6": 4.39, "Q1": 70.4, "Q2": 85.5, "Q5": 34.9, "qD2": 1.34, "qC3": 1.80, "qD5": 43.3}
+    dl3a_rows, dl3b_rows = [], []
+    for be, qs in NBE.items():
+        for q in qs:
+            a = dl.get(f"{be}/{q}/03a") or {}
+            u, k = a.get("noT1") or {}, a.get("T1") or {}
+            dl3a_rows.append([be, f"<b>{q}</b>", f'{num(T1n[q], "{:.1f}")} → {num(T1new[q], "{:.1f}")}', dac(u), rho_cell(u), dac(k), rho_cell(k)])
+            b = dl.get(f"{be}/{q}/03b") or {}
+            bu, bk = b.get("noT1") or {}, b.get("T1") or {}
+            dl3b_rows.append([be, f"<b>{q}</b>", dbc(bu), rho_cell(bu), dbc(bk), rho_cell(bk)])
+    bl = json.loads((DATA / "replay/baselines.json").read_text())
+    bl_rows = []
+    for be, q in (("qolab", "Q1"), ("qolab", "Q2"), ("qolab", "Q5"), ("gilboa", "qD5"), ("arbel", "qB4"), ("arbel", "qA5")):
+        cells = []
+        for folder in ("noT1", "dirchk", "dirchk_latest"):
+            v = bl.get(f"{folder}/{be}/{q}")
+            cells.append(f'{num(v["baseline"], "{:+.2f}")} / {num(v["top"], "{:.2f}")}' if v else "–")
+        bl_rows.append([be, f"<b>{q}</b>", num(T1new[q], "{:.0f}")] + cells)
+
     CSS = base.CSS + """
 figure img { display:block; }
 ol.recs li, ul.tight li { margin:6px 0; max-width:82ch; }
@@ -933,6 +957,37 @@ the 60 s cap; measuring T1 early with the chirp would remove the need for a fall
 {img("figures/dirchk_qolab.png", "qolab, as above: Q1 and Q2 without T1 lose their line to a raised baseline.", "qolab, lean check")}
 {img("figures/dirchk_gilboa.png", "gilboa, as above: qD2 without T1 is refused in both nodes; qC3 behaves like a long-T1 qubit.", "gilboa, lean check")}
 
+<h3>Repeated on the latest cloud state</h3>
+<p>All the runs above used local copies of the 22 Sep snapshots. At 13:30 on 25 Sep the latest states were pulled from IQCC (all three
+refreshed that morning; gilboa's again listing only qC2 as active, patched to the ten C/D qubits as before) and the same 18 jobs
+repeated ({dl_qpu:.0f} s of QPU, none failed). Against the 22 Sep copies nothing in the readout changed on any device — amplitude,
+frequency and resonator are the same; the integration-weight angles, thresholds and confusion matrices were refreshed, f₀₁ and the
+flux offsets moved slightly (arbel qA6 by −1.9 MHz) and several T1 values changed; gilboa's three qubits are unchanged.</p>
+{table(["backend", "qubit", "stored T1, 22 Sep → 25 Sep [µs]", "03a f₀₁ − stored, T1 unknown [MHz]", "sweep/T1 from the lean", "T1 known", "sweep/T1 from the lean"], dl3a_rows)}
+{table(["backend", "qubit", "03b sweet spot, T1 unknown [mV]", "sweep/T1 from the lean", "T1 known", "sweep/T1 from the lean"], dl3b_rows)}
+<p>How excited each qubit already was before the chirp at the 50 µs wait without T1: the signal far from any line, and the box top, on
+the ground→excited scale of the same qubit's run with T1 (0 = ground, 1 = the full box with a 5 T1 wait).</p>
+{table(["backend", "qubit", "T1 [µs]", "baseline / box top: 09:07, 4 µs up-chirps, 22 Sep state", "12:15, 2 µs up+down, 22 Sep state", "13:32, 2 µs up+down, latest state"], bl_rows)}
+<ul class="tight">
+<li><b>The state was not the cause.</b> qolab Q2 is back to a clean baseline (0.02) and answers without T1; Q1 still starts shots
+44 % excited at the 50 µs wait on the new state. Q2's 0.80 at 12:15 came and went within the day on the same readout settings.</li>
+<li><b>qolab Q1 was answered imprecisely.</b> With its line reduced to a weak, split box, 03a proposed −3.35 ± 2.23 MHz against −0.15
+± 0.18 with T1 (1.4 of its own errors away) and 03b a sweet spot of +1.28 ± 0.47 against +0.05 ± 0.11 mV. The nodes propose
+whatever precision the fit gives; a floor (say 1 MHz, or a box SNR of 10) would have refused it.</li>
+<li><b>gilboa qD2 is refused again</b> (sweep/T1 1.39 and 0.73), its average again at the line (−4.91 against −4.77 MHz; sweet spot
++3.44 ± 0.33 against +3.41 mV). qC3 answers without T1 and is refused with its stored 1.8 µs, as before.</li>
+<li><b>arbel qA6 now works only without T1.</b> Its stored T1 dropped to 4.4 µs, so with T1 the node plays T1/5 = 876 ns, below
+the 20 MHz·µs limit, and refuses. Without T1 the 2 µs sweep answers (−0.27 ± 0.66 MHz, near −0.58 from yesterday's fine scan shifted
+to the new stored f₀₁) and the lean reads sweep/T1 = 0.52, T1 ≈ 3.8 µs. With the lean check in place the T1/5 rule could be relaxed:
+a sweep of up to ~0.5 T1 is safe because the check measures it.</li>
+<li><b>Long-T1 qubits agree</b> with and without T1 within about 2σ in both nodes, Q1 aside (the largest, arbel qA5's 03a, 2.2σ);
+no false alarms (lean −0.48…+0.21, the −0.48 on Q1's
+weak box, ±0.33).</li>
+</ul>
+{img("figures/dirchk_latest_arbel.png", "arbel on the latest state: T1 missing (rows 1, 3) and known (rows 2, 4).", "arbel, latest state")}
+{img("figures/dirchk_latest_qolab.png", "qolab on the latest state: Q2 clean again without T1; Q1's box weak and split.", "qolab, latest state")}
+{img("figures/dirchk_latest_gilboa.png", "gilboa on the latest state.", "gilboa, latest state")}
+
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the
 flux step under it ran for 80 µs. The fork fixed that on 19 Sep and reverted it on 20 Sep because two gilboa maps came out in absolute
@@ -1002,8 +1057,10 @@ reference as a second check; extend the window down to −200 MHz.</li>
 <li>The −0.2 MHz frequency offset against the fine scans is not the sweep direction (§5b); a fine scan in the same session as
 the chirp would show whether it is real.</li>
 <li>With T1 missing, the up/down-chirp check now refuses qubits whose T1 is short against the sweep and corrects the rest (§5d).
-QuAM's 50 µs fallback wait is too short for qolab Q1 and Q2, which start every shot partly excited at that repetition rate; a longer
-wait when T1 is missing (~300 µs) needs a node parameter. gilboa qC3's stored T1 (1.8 µs) is wrong.</li>
+QuAM's 50 µs fallback wait is too short for qolab Q1 (and at times Q2), which start shots partly excited at that repetition rate,
+also on the latest state; a longer wait when T1 is missing (~300 µs) needs a node parameter, and a precision floor would stop weak
+boxes like Q1's being proposed. With the lean check, the T1/5 sweep rule could be relaxed (arbel qA6, T1 4.4 µs, is refused with
+T1 and answered without it). gilboa qC3's stored T1 (1.8 µs) is wrong.</li>
 <li>A 2 T1 reset wait halves the QPU time of both nodes with the same answers (§5b); making it their default needs a node parameter,
 since the wait is each qubit's thermalization factor, shared by every node.</li>
 <li>arbel qD1's operating point: map it with a finer, wider flux scan.</li>
@@ -1026,7 +1083,9 @@ working tree and would pick up new nodes when resumed.</li>
 <span class="mono">waits_analyse.py</span> and <span class="mono">plot_waits.py</span> (the 2 T1 test), <span class="mono">run_noT1.py</span>,
 <span class="mono">run_noT1_retry.py</span>, <span class="mono">noT1_analyse.py</span> and <span class="mono">plot_noT1.py</span> (T1 missing, 25 Sep), <span class="mono">chirp_split_sim.py</span>, <span class="mono">tilt_check_hs.py</span>,
 <span class="mono">run_dirchk.py</span>, <span class="mono">run_dirchk_retry.py</span>, <span class="mono">reanalyse_dirchk.py</span>,
-<span class="mono">dirchk_analyse.py</span> and <span class="mono">plot_dirchk.py</span> (the up/down-chirp check). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">dirchk_analyse.py</span> and <span class="mono">plot_dirchk.py</span> (the up/down-chirp check),
+<span class="mono">run_dirchk_latest.py</span>, <span class="mono">dirchk_latest_analyse.py</span>, <span class="mono">plot_dirchk_latest.py</span>
+and <span class="mono">baseline_check.py</span> (the repeat on the states pulled 25 Sep 13:30 into <span class="mono">~/qab-runs/state-20260925-1330/</span>). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>
