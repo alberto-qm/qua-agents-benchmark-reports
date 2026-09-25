@@ -1,0 +1,135 @@
+{
+ "Q1": {
+  "f_01": 5272004406.652112,
+  "RF_frequency": 5272004406.652112,
+  "frequency_shift": -159918.22851447325,
+  "f_01_error": 260560.65629704186,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.0005117902834404026,
+  "box_snr": 31.990507511856716,
+  "box_width": 18382542.87468305,
+  "onset_amplitude": 0.004528508636110343,
+  "selected_drive_amplitude": 0.009057017272220686,
+  "sweep_length_ns": 4000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 235889868.78156865,
+  "drive_scale": 1.0612418347922365,
+  "onset_exponent": 1.8175767671601821,
+  "num_lines": 1,
+  "x180_amplitude": 0.08831805045694761,
+  "x90_amplitude": 0.04415902522847381,
+  "sweep_over_t1": 0.05068321258426295,
+  "sweep_over_t1_error": 0.09163910744877768,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": 87416.22301759238,
+    "onset_level": 0,
+    "onset_amplitude": 0.0011321271590275857,
+    "levels": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.0004997269597378538
+   }
+  ],
+  "warnings": []
+ },
+ "Q2": {
+  "f_01": 5105792577.507543,
+  "RF_frequency": 5105792577.507543,
+  "frequency_shift": -116109.75889569618,
+  "f_01_error": 104491.92005476828,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.0004519591489009771,
+  "box_snr": 38.64985159816294,
+  "box_width": 18939911.968635377,
+  "onset_amplitude": 0.004402685665803092,
+  "selected_drive_amplitude": 0.008805371331606185,
+  "sweep_length_ns": 4000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 231243759.25188816,
+  "drive_scale": 1.0114340574725016,
+  "onset_exponent": 1.8408412872913342,
+  "num_lines": 1,
+  "x180_amplitude": 0.09009252141866493,
+  "x90_amplitude": 0.045046260709332465,
+  "sweep_over_t1": 0.11984219948081391,
+  "sweep_over_t1_error": 0.06497749394980207,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -102760.33911466555,
+    "onset_level": 1,
+    "onset_amplitude": 0.002201342832901546,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.00045524268783683747
+   }
+  ],
+  "warnings": []
+ },
+ "Q5": {
+  "f_01": 5096569715.488357,
+  "RF_frequency": 5096569715.488357,
+  "frequency_shift": 30948.11971020956,
+  "f_01_error": 511598.66315898084,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.00032327536649679427,
+  "box_snr": 30.277640782877672,
+  "box_width": 19252246.524221264,
+  "onset_amplitude": 0.007707004600927023,
+  "selected_drive_amplitude": 0.015414009201854047,
+  "sweep_length_ns": 4000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 248912913.80981135,
+  "drive_scale": 0.9529122808338866,
+  "onset_exponent": 1.8056919008040868,
+  "num_lines": 1,
+  "x180_amplitude": 0.08369727795341146,
+  "x90_amplitude": 0.04184863897670573,
+  "sweep_over_t1": -0.1016387199817796,
+  "sweep_over_t1_error": 0.08120306751861285,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": 718085.9462793613,
+    "onset_level": 1,
+    "onset_amplitude": 0.0019267511502317558,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.00031341419510040987
+   }
+  ],
+  "warnings": []
+ }
+}

@@ -1,0 +1,53 @@
+2026-09-25 12:24:59,384 - qm - INFO     - Starting session: d0b87058-f19b-45c9-bc2d-9897f7ccf50d
+12:25:04 [arbel/dirchk] 03b-noT1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': None}, waits {'qA6': 50000} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1
+qA6: chirp 2000 ns at amplitude 0.07137; flux step 8000 ns (lead 5000 ns); offsets -65.3..+65.3 mV around +0.1816 V
+estimated QPU time 6 s: 2436 sweep points x 25 shots x 71 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 12:25:12,800 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:26:18] QUA program submitted to arbel (id =                 computers.py:416
+           d85b8ca7-306d-4596-b10d-8b7138b75ca5)                                
+           Execution started                                    computers.py:455
+[12:26:33] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 12:26:33,065 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:366: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit qA6: no arc. no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1; a line was located in 3 of 21 flux columns (need 7)
+12:26:33 [arbel/dirchk] 03b-noT1-qA6: done -- QPU 5.4 s, wall 89 s
+12:26:33 [arbel/dirchk]    qA6: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 310110.24692768516, 'tracked_columns': 3, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': True, 'short_sweep': False} warnings=["no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1", 'a line was located in 3 of 21 flux columns (need 7)']
+12:26:34 [arbel/dirchk] 03b-T1-qA6: 03b_qubit_spectroscopy_vs_flux_chirp on ['qA6'], T1 {'qA6': 5.245344299185784e-06}, waits {'qA6': 26224} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+qA6: chirp 1048 ns at amplitude 0.09859; flux step 6572 ns (lead 5000 ns); offsets -65.3..+65.3 mV around +0.1816 V
+estimated QPU time 4 s: 2436 sweep points x 25 shots x 46 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 12:26:48,819 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:27:49] QUA program submitted to arbel (id =                 computers.py:416
+           1e41c6ea-e2d6-4d38-9234-3160a9fa7163)                                
+           Execution started                                    computers.py:455
+[12:28:02] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.00s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 12:28:02,395 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03b_qubit_spectroscopy_vs_flux_chirp.py:366: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit qA6: no arc. a line was located in 3 of 21 flux columns (need 7)
+12:28:02 [arbel/dirchk] 03b-T1-qA6: done -- QPU 3.9 s, wall 88 s
+12:28:02 [arbel/dirchk]    qA6: {'frequency_shift': nan, 'f_01_error': nan, 'idle_offset_shift': nan, 'idle_offset_shift_error': nan, 'column_precision': 217949.45191214356, 'tracked_columns': 3, 'sweep_over_t1': nan, 'sweep_over_t1_error': nan, 't1_estimate': nan, 'decay_refused': False, 't1_missing': False, 'short_sweep': False} warnings=['a line was located in 3 of 21 flux columns (need 7)']
+12:28:02 [arbel/dirchk] retries done

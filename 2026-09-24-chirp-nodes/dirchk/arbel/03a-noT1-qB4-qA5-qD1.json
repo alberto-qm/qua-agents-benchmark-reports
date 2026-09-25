@@ -1,0 +1,283 @@
+{
+ "tag": "03a-noT1-qB4-qA5-qD1",
+ "node": "03a_qubit_spectroscopy_chirp",
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qB4": 50000,
+  "qA5": 50000,
+  "qD1": 50000
+ },
+ "T1": {
+  "qB4": null,
+  "qA5": null,
+  "qD1": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 86.90965683292598,
+ "qpu_s": 9.661155700683594,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "f_01": 6605716687.317536,
+   "RF_frequency": 6605716687.317536,
+   "frequency_shift": -163527.54017886647,
+   "f_01_error": 435521.48737608804,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 6507005087.96161,
+   "anharmonicity_estimate": 197846503.15747413,
+   "box_height": 0.002204260148772755,
+   "box_snr": 38.824675823959765,
+   "box_width": 19501293.86241349,
+   "onset_amplitude": 0.0313525037527447,
+   "selected_drive_amplitude": 0.0627050075054894,
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 49991759.163755745,
+   "drive_scale": 1.1010461503516482,
+   "onset_exponent": 1.827322425028879,
+   "num_lines": 2,
+   "x180_amplitude": 0.4167353516224649,
+   "x90_amplitude": 0.20836767581123244,
+   "sweep_over_t1": 0.057886848848994955,
+   "sweep_over_t1_error": 0.06739689944128839,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "lines": [
+    {
+     "offset": -98875126.89610611,
+     "onset_level": 5,
+     "onset_amplitude": 0.2508200300219576,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.002510320662199879
+    },
+    {
+     "offset": 48124.68263095279,
+     "onset_level": 0,
+     "onset_amplitude": 0.007838125938186174,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.002251218899317878
+    }
+   ],
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1"
+   ]
+  },
+  "qA5": {
+   "f_01": 5705578331.605473,
+   "RF_frequency": 5705578331.605473,
+   "frequency_shift": 6228.890629184888,
+   "f_01_error": 590580.8570891357,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 5602766021.832409,
+   "anharmonicity_estimate": 205246403.95750913,
+   "box_height": 0.006507093967174743,
+   "box_snr": 29.932060142348437,
+   "box_width": 19489242.35244685,
+   "onset_amplitude": 0.03348166082719966,
+   "selected_drive_amplitude": 0.06696332165439932,
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 53881705.280424155,
+   "drive_scale": 1.2673109857179632,
+   "onset_exponent": 2.068905758791576,
+   "num_lines": 2,
+   "x180_amplitude": 0.38664948009546984,
+   "x90_amplitude": 0.19332474004773492,
+   "sweep_over_t1": 0.05768993072322034,
+   "sweep_over_t1_error": 0.12408353105290866,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "lines": [
+    {
+     "offset": -102806080.88243467,
+     "onset_level": 5,
+     "onset_amplitude": 0.2678532866175973,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.007666882030956829
+    },
+    {
+     "offset": -182878.90368010697,
+     "onset_level": 0,
+     "onset_amplitude": 0.008370415206799915,
+     "levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.007222564291692668
+    }
+   ],
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1"
+   ]
+  },
+  "qD1": {
+   "f_01": 4996919917.08426,
+   "RF_frequency": 4996919917.08426,
+   "frequency_shift": -775961.3563499451,
+   "f_01_error": 136907.66148763447,
+   "line_identity": "0-1",
+   "two_photon_partner": true,
+   "two_photon_frequency": 4890770931.194421,
+   "anharmonicity_estimate": 212818927.26176915,
+   "box_height": 0.003924247058706642,
+   "box_snr": 36.14817474454885,
+   "box_width": 19539809.81407657,
+   "onset_amplitude": 0.02494533117333639,
+   "selected_drive_amplitude": 0.04989066234667278,
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "rabi_per_amplitude": 65944417.58397357,
+   "drive_scale": 1.1555857714620146,
+   "onset_exponent": 1.8670248309759374,
+   "num_lines": 2,
+   "x180_amplitude": 0.31592262236305574,
+   "x90_amplitude": 0.15796131118152787,
+   "sweep_over_t1": 0.11549322525536658,
+   "sweep_over_t1_error": 0.07385630274445784,
+   "t1_estimate": NaN,
+   "t1_missing": true,
+   "lines": [
+    {
+     "offset": -106924947.24618928,
+     "onset_level": 5,
+     "onset_amplitude": 0.19956264938669113,
+     "levels": [
+      5,
+      6
+     ],
+     "max_height": 0.0040704335456475775
+    },
+    {
+     "offset": -515483.6153047011,
+     "onset_level": 1,
+     "onset_amplitude": 0.012472665586668196,
+     "levels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "max_height": 0.003915684747217817
+    }
+   ],
+   "warnings": [
+    "no T1 in the state: 2000 ns sweep and a 50 us wait between shots (QuAM's default). The up/down-chirp tilt checks that the sweep is short against the real T1"
+   ]
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/xy/RF_frequency": {
+   "old": 5705572102.714844,
+   "new": 5705578331.605473
+  },
+  "/qubits/qA5/f_01": {
+   "old": 5705572102.714844,
+   "new": 5705578331.605473
+  },
+  "/qubits/qB4/xy/RF_frequency": {
+   "old": 6605880214.857716,
+   "new": 6605716687.317536
+  },
+  "/qubits/qB4/f_01": {
+   "old": 6605880214.857716,
+   "new": 6605716687.317536
+  },
+  "/qubits/qD1/xy/RF_frequency": {
+   "old": 4997695878.44061,
+   "new": 4996919917.08426
+  },
+  "/qubits/qD1/f_01": {
+   "old": 4997695878.44061,
+   "new": 4996919917.08426
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 2000,
+   "qA5": 2000,
+   "qD1": 2000
+  },
+  "rates": {
+   "qB4": 10000,
+   "qA5": 10000,
+   "qD1": 10000
+  },
+  "drive_amplitudes": null,
+  "flux_offsets": null,
+  "kappa_priors": {
+   "qB4": 45403872.624039926,
+   "qA5": 42516561.35522161,
+   "qD1": 57065792.269614525
+  },
+  "shot_rounds": 25,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qB4": {
+    "played": [
+     0.007838125938186174,
+     0.01567625187637235,
+     0.0313525037527447,
+     0.0627050075054894,
+     0.1254100150109788,
+     0.2508200300219576,
+     0.5016400600439151
+    ],
+    "prior": "x180"
+   },
+   "qA5": {
+    "played": [
+     0.008370415206799915,
+     0.01674083041359983,
+     0.03348166082719966,
+     0.06696332165439932,
+     0.13392664330879864,
+     0.2678532866175973,
+     0.5357065732351945
+    ],
+    "prior": "x180"
+   },
+   "qD1": {
+    "played": [
+     0.006236332793334098,
+     0.012472665586668196,
+     0.02494533117333639,
+     0.04989066234667278,
+     0.09978132469334557,
+     0.19956264938669113,
+     0.39912529877338226
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

@@ -1,0 +1,33 @@
+2026-09-25 12:24:59,385 - qm - INFO     - Starting session: 4749d1d6-6094-47b1-bb26-b4417a2a2c96
+12:25:04 [qolab/dirchk] 03a-T1-Q1-Q2-Q5: 03a_qubit_spectroscopy_chirp on ['Q1', 'Q2', 'Q5'], T1 {'Q1': 4.771370427191526e-05, 'Q2': 7.986532931177701e-05, 'Q5': 4.204076630329183e-05}, waits {'Q1': 238568, 'Q2': 399324, 'Q5': 210200} ns {}
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/quam/components/channels.py:752: UserWarning: The 'thread' element argument is deprecated from qm.qua >= 1.2.2. Use 'core' instead.
+  warnings.warn(
+Q1: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001132, 0.002264, 0.004529, 0.009057, 0.01811, 0.03623, 0.07246 (x180 prior)
+Q2: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.001101, 0.002201, 0.004403, 0.008805, 0.01761, 0.03522, 0.07044 (x180 prior)
+Q5: sweep 4000 ns over 20 MHz (5000 Hz/ns), drive levels 0.0009634, 0.001927, 0.003854, 0.007707, 0.01541, 0.03083, 0.06166 (x180 prior)
+estimated QPU time 45 s: 1372 sweep points x 25 shots x 870 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead; result-stream limit 60 s
+2026-09-25 12:25:11,831 - qm - INFO     - Opening QM
+/Users/atosato/code/QM/tinycal/.venv/lib/python3.14/site-packages/qm/program/_qua_config_schema.py:261: RemovedInMarshmallow4Warning: The `context` parameter is deprecated and will be removed in marshmallow 4.0. Use `contextvars.ContextVar` to pass context instead.
+  QuaConfigSchema(
+[12:25:33] QUA program submitted to qolab (id =                 computers.py:416
+           cedf24ae-5f3f-4ccc-a005-d56106712aa7)                                
+           Execution started                                    computers.py:455
+[12:26:19] Execution finished                                   computers.py:486
+QUA program successfully executed
+
+
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+Progress: [##################################################] 100.0% (n=25/25) --> elapsed time: 0.01s
+None
+2026-09-25 12:26:19,169 - qm - INFO     - Closing QM
+/Users/atosato/code/QM/qua-libs-chirp/qualibration_graphs/superconducting/calibrations/1Q_calibrations/03a_qubit_spectroscopy_chirp.py:288: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Results for qubit Q1: f_01 5.272004 GHz +- 261 kHz (shift -0.16 MHz), identity 0-1, drive for 03b 0.0091, drive scale vs x180 1.06
+Results for qubit Q2: f_01 5.105793 GHz +- 104 kHz (shift -0.12 MHz), identity 0-1, drive for 03b 0.0088, drive scale vs x180 1.01
+Results for qubit Q5: f_01 5.096570 GHz +- 512 kHz (shift +0.03 MHz), identity 0-1, drive for 03b 0.0154, drive scale vs x180 0.95
+12:26:20 [qolab/dirchk] 03a-T1-Q1-Q2-Q5: done -- QPU 30.6 s, wall 76 s
+12:26:20 [qolab/dirchk]    Q1: {'frequency_shift': -159918.22851447325, 'f_01_error': 260560.65629704186, 'line_identity': '0-1', 'drive_scale': 1.0612418347922365, 'box_height': 0.0005117902834404026, 'sweep_over_t1': 0.0313364128111416, 'sweep_over_t1_error': 0.09389657087697764, 't1_estimate': nan, 't1_missing': False} warnings=[]
+12:26:20 [qolab/dirchk]    Q2: {'frequency_shift': -116109.75889569618, 'f_01_error': 104491.92005476828, 'line_identity': '0-1', 'drive_scale': 1.0114340574725016, 'box_height': 0.0004519591489009771, 'sweep_over_t1': 0.11444845799006649, 'sweep_over_t1_error': 0.06760930698615764, 't1_estimate': nan, 't1_missing': False} warnings=[]
+12:26:20 [qolab/dirchk]    Q5: {'frequency_shift': 30948.11971020956, 'f_01_error': 511598.66315898084, 'line_identity': '0-1', 'drive_scale': 0.9529122808338866, 'box_height': 0.00032327536649679427, 'sweep_over_t1': -0.0802519884972153, 'sweep_over_t1_error': 0.0854804008837644, 't1_estimate': nan, 't1_missing': False} warnings=[]
+12:26:20 [qolab/dirchk] retries done

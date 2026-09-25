@@ -1,0 +1,46 @@
+{
+ "qA6": {
+  "f_01": 6183856344.10725,
+  "RF_frequency": 6183856344.10725,
+  "frequency_shift": -2471466.5044312165,
+  "f_01_error": 775641.0516105922,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.0033297389528273895,
+  "box_snr": 24.09303555486991,
+  "box_width": 17238604.539993845,
+  "onset_amplitude": 0.02464715747678126,
+  "selected_drive_amplitude": 0.04929431495356252,
+  "sweep_length_ns": 1048.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 89686979.52662793,
+  "drive_scale": 1.124077898747872,
+  "onset_exponent": 2.303133499079751,
+  "num_lines": 1,
+  "x180_amplitude": 0.2322893851849247,
+  "x90_amplitude": 0.11614469259246235,
+  "sweep_over_t1": 0.11330769924787731,
+  "sweep_over_t1_error": 0.07234716048112699,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -2470179.602393654,
+    "onset_level": 1,
+    "onset_amplitude": 0.01232357873839063,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.0033972536995722593
+   }
+  ],
+  "warnings": []
+ }
+}

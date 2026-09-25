@@ -1,0 +1,172 @@
+{
+ "qB4": {
+  "f_01": 6605716687.317536,
+  "RF_frequency": 6605716687.317536,
+  "frequency_shift": -163527.54017886647,
+  "f_01_error": 435521.48737608804,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 6507005087.96161,
+  "anharmonicity_estimate": 197846503.15747413,
+  "box_height": 0.002204260148772755,
+  "box_snr": 38.824675823959765,
+  "box_width": 19501293.86241349,
+  "onset_amplitude": 0.0313525037527447,
+  "selected_drive_amplitude": 0.0627050075054894,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 49991759.163755745,
+  "drive_scale": 1.1010461503516482,
+  "onset_exponent": 1.827322425028879,
+  "num_lines": 2,
+  "x180_amplitude": 0.4167353516224649,
+  "x90_amplitude": 0.20836767581123244,
+  "sweep_over_t1": 0.04032666856581684,
+  "sweep_over_t1_error": 0.06953238399224018,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": -98875126.89610611,
+    "onset_level": 5,
+    "onset_amplitude": 0.2508200300219576,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.002510320662199879
+   },
+   {
+    "offset": 48124.68263095279,
+    "onset_level": 0,
+    "onset_amplitude": 0.007838125938186174,
+    "levels": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.002251218899317878
+   }
+  ],
+  "warnings": [
+   "no T1 in the state"
+  ]
+ },
+ "qA5": {
+  "f_01": 5705578331.605473,
+  "RF_frequency": 5705578331.605473,
+  "frequency_shift": 6228.890629184888,
+  "f_01_error": 590580.8570891357,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 5602766021.832409,
+  "anharmonicity_estimate": 205246403.95750913,
+  "box_height": 0.006507093967174743,
+  "box_snr": 29.932060142348437,
+  "box_width": 19489242.35244685,
+  "onset_amplitude": 0.03348166082719966,
+  "selected_drive_amplitude": 0.06696332165439932,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 53881705.280424155,
+  "drive_scale": 1.2673109857179632,
+  "onset_exponent": 2.068905758791576,
+  "num_lines": 2,
+  "x180_amplitude": 0.38664948009546984,
+  "x90_amplitude": 0.19332474004773492,
+  "sweep_over_t1": 0.06903112316619829,
+  "sweep_over_t1_error": 0.11076167803664114,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": -102806080.88243467,
+    "onset_level": 5,
+    "onset_amplitude": 0.2678532866175973,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.007666882030956829
+   },
+   {
+    "offset": -182878.90368010697,
+    "onset_level": 0,
+    "onset_amplitude": 0.008370415206799915,
+    "levels": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.007222564291692668
+   }
+  ],
+  "warnings": [
+   "no T1 in the state"
+  ]
+ },
+ "qD1": {
+  "f_01": 4996919917.08426,
+  "RF_frequency": 4996919917.08426,
+  "frequency_shift": -775961.3563499451,
+  "f_01_error": 136907.66148763447,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 4890770931.194421,
+  "anharmonicity_estimate": 212818927.26176915,
+  "box_height": 0.003924247058706642,
+  "box_snr": 36.14817474454885,
+  "box_width": 19539809.81407657,
+  "onset_amplitude": 0.02494533117333639,
+  "selected_drive_amplitude": 0.04989066234667278,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 65944417.58397357,
+  "drive_scale": 1.1555857714620146,
+  "onset_exponent": 1.8670248309759374,
+  "num_lines": 2,
+  "x180_amplitude": 0.31592262236305574,
+  "x90_amplitude": 0.15796131118152787,
+  "sweep_over_t1": 0.1438935056720901,
+  "sweep_over_t1_error": 0.07478197768020686,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": -106924947.24618928,
+    "onset_level": 5,
+    "onset_amplitude": 0.19956264938669113,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.0040704335456475775
+   },
+   {
+    "offset": -515483.6153047011,
+    "onset_level": 1,
+    "onset_amplitude": 0.012472665586668196,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.003915684747217817
+   }
+  ],
+  "warnings": [
+   "no T1 in the state"
+  ]
+ }
+}

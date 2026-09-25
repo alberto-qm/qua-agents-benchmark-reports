@@ -1,0 +1,48 @@
+{
+ "qA6": {
+  "f_01": 6183702840.411545,
+  "RF_frequency": 6183702840.411545,
+  "frequency_shift": -2624970.2001365195,
+  "f_01_error": 741261.2982523813,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.0031350113810926935,
+  "box_snr": 32.51892045299013,
+  "box_width": 17056525.078546677,
+  "onset_amplitude": 0.0356830634027219,
+  "selected_drive_amplitude": 0.0713661268054438,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 80009719.13578238,
+  "drive_scale": 1.0027894510468538,
+  "onset_exponent": 1.762852233504939,
+  "num_lines": 1,
+  "x180_amplitude": 0.2603850326980605,
+  "x90_amplitude": 0.13019251634903026,
+  "sweep_over_t1": 0.41591956723157714,
+  "sweep_over_t1_error": 0.07458311430574095,
+  "t1_estimate": 4.808622045152382e-06,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": -2629415.2402289645,
+    "onset_level": 1,
+    "onset_amplitude": 0.008920765850680475,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.0030868215950141846
+   }
+  ],
+  "warnings": [
+   "no T1 in the state"
+  ]
+ }
+}

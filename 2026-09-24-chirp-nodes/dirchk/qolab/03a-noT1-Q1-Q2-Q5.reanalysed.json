@@ -1,0 +1,124 @@
+{
+ "Q1": {
+  "f_01": 5272824023.01257,
+  "RF_frequency": 5272824023.01257,
+  "frequency_shift": 659698.1319439999,
+  "f_01_error": 605196.1160405844,
+  "line_identity": "ambiguous",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.00013690709907405855,
+  "box_snr": 6.903919193814296,
+  "box_width": 19402290.056869786,
+  "onset_amplitude": 0.012808556661021868,
+  "selected_drive_amplitude": 0.025617113322043736,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 187463179.24639606,
+  "drive_scale": 0.8433756368046945,
+  "onset_exponent": 3.5270234587200484,
+  "num_lines": 1,
+  "x180_amplitude": 0.11113293510268817,
+  "x90_amplitude": 0.05556646755134408,
+  "sweep_over_t1": 0.6076945774394172,
+  "sweep_over_t1_error": 0.4966050181623274,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": 659698.1319439999,
+    "onset_level": 3,
+    "onset_amplitude": 0.012808556661021868,
+    "levels": [
+     3,
+     4,
+     6
+    ],
+    "max_height": 0.00013065504187963596
+   }
+  ],
+  "warnings": [
+   "no T1 in the state",
+   "the line grows as drive^3.5 with no partner line below it: a two-photon line grows as drive^4, a 0->1 line as drive^2. It may be the 0->2 line of a qubit above the window; scan higher"
+  ]
+ },
+ "Q2": {
+  "f_01": NaN,
+  "RF_frequency": NaN,
+  "frequency_shift": NaN,
+  "f_01_error": NaN,
+  "line_identity": "none",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": NaN,
+  "box_snr": NaN,
+  "box_width": NaN,
+  "onset_amplitude": NaN,
+  "selected_drive_amplitude": NaN,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": NaN,
+  "drive_scale": NaN,
+  "onset_exponent": NaN,
+  "num_lines": 0,
+  "x180_amplitude": NaN,
+  "x90_amplitude": NaN,
+  "sweep_over_t1": NaN,
+  "sweep_over_t1_error": NaN,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [],
+  "warnings": [
+   "no T1 in the state",
+   "no line in the window at any drive level"
+  ]
+ },
+ "Q5": {
+  "f_01": 5096321308.10273,
+  "RF_frequency": 5096321308.10273,
+  "frequency_shift": -217459.26591661604,
+  "f_01_error": 166371.384925021,
+  "line_identity": "0-1",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": 0.0002782422637520034,
+  "box_snr": 23.56833244210188,
+  "box_width": 19455681.846918333,
+  "onset_amplitude": 0.005449675215951419,
+  "selected_drive_amplitude": 0.010899350431902839,
+  "sweep_length_ns": 2000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 279365722.92522895,
+  "drive_scale": 1.0694946443111957,
+  "onset_exponent": 2.830689826542221,
+  "num_lines": 1,
+  "x180_amplitude": 0.07457369184446899,
+  "x90_amplitude": 0.037286845922234496,
+  "sweep_over_t1": 0.12126683653485908,
+  "sweep_over_t1_error": 0.09411216619714131,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "lines": [
+   {
+    "offset": -178663.29377707295,
+    "onset_level": 1,
+    "onset_amplitude": 0.0027248376079757096,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.00027892737177192634
+   }
+  ],
+  "warnings": [
+   "no T1 in the state"
+  ]
+ }
+}

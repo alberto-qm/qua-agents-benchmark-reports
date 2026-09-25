@@ -1,0 +1,29 @@
+{
+ "Q2": {
+  "idle_offset_shift": -0.00018436771239591448,
+  "idle_offset_shift_error": 8.47896774812662e-05,
+  "joint_offset": -0.9622921553963005,
+  "independent_offset": NaN,
+  "f_01": 5105863023.962811,
+  "RF_frequency": 5105863023.962811,
+  "f_01_error": 44294.51177293329,
+  "frequency_shift": -45663.30362740761,
+  "curvature": -2692218673.4986696,
+  "curvature_error": 7781438.052380998,
+  "stored_curvature": -2595769285.913982,
+  "column_precision": 122268.80259935246,
+  "chi2_red": 0.4080880619934604,
+  "tracked_columns": 17,
+  "flux_columns": 21,
+  "pulse": "chirp",
+  "drive_amplitude": 0.01761074266321237,
+  "sweep_length_ns": 4000.0,
+  "short_sweep": false,
+  "decay_refused": false,
+  "sweep_over_t1": 0.06744593198395295,
+  "sweep_over_t1_error": 0.019182528678523384,
+  "t1_estimate": 5.9306764430977087e-05,
+  "t1_missing": false,
+  "warnings": []
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "qA6": {
+  "idle_offset_shift": NaN,
+  "idle_offset_shift_error": NaN,
+  "joint_offset": NaN,
+  "independent_offset": NaN,
+  "f_01": NaN,
+  "RF_frequency": NaN,
+  "f_01_error": NaN,
+  "frequency_shift": NaN,
+  "curvature": NaN,
+  "curvature_error": NaN,
+  "stored_curvature": -10564898538.617474,
+  "column_precision": 310110.24692768516,
+  "chi2_red": NaN,
+  "tracked_columns": 3,
+  "flux_columns": 21,
+  "pulse": "chirp",
+  "drive_amplitude": 0.0713661268054438,
+  "sweep_length_ns": 2000.0,
+  "short_sweep": false,
+  "decay_refused": false,
+  "sweep_over_t1": NaN,
+  "sweep_over_t1_error": NaN,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "warnings": [
+   "no T1 in the state",
+   "a line was located in 3 of 21 flux columns (need 7)"
+  ]
+ }
+}

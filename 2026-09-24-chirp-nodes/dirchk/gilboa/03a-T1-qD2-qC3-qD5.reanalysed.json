@@ -1,0 +1,142 @@
+{
+ "qD2": {
+  "f_01": 5746422363.730258,
+  "RF_frequency": 5746422363.730258,
+  "frequency_shift": -4584543.1409017835,
+  "f_01_error": 284916.93516158883,
+  "line_identity": "short-sweep",
+  "two_photon_partner": true,
+  "two_photon_frequency": 5655427188.169487,
+  "anharmonicity_estimate": 182503777.88720396,
+  "box_height": 0.00218776014710428,
+  "box_snr": 23.62393068647169,
+  "box_width": 19080198.652750723,
+  "onset_amplitude": 0.13635605442781987,
+  "selected_drive_amplitude": 0.27271210885563973,
+  "sweep_length_ns": 268.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 39724992.60018386,
+  "drive_scale": 1.3929166646073863,
+  "onset_exponent": 2.30673755181011,
+  "num_lines": 2,
+  "x180_amplitude": 0.5244389481204562,
+  "x90_amplitude": 0.2622194740602281,
+  "sweep_over_t1": NaN,
+  "sweep_over_t1_error": NaN,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -95579718.70167221,
+    "onset_level": 4,
+    "onset_amplitude": 0.5454242177112795,
+    "levels": [
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.003300303045083616
+   },
+   {
+    "offset": -4327829.758070234,
+    "onset_level": 1,
+    "onset_amplitude": 0.06817802721390993,
+    "levels": [
+     1,
+     2
+    ],
+    "max_height": 0.002421761265257851
+   }
+  ],
+  "warnings": [
+   "the sweep (268 ns over 20 MHz, time x band 5.4 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us"
+  ]
+ },
+ "qC3": {
+  "f_01": NaN,
+  "RF_frequency": NaN,
+  "frequency_shift": NaN,
+  "f_01_error": NaN,
+  "line_identity": "short-sweep",
+  "two_photon_partner": false,
+  "two_photon_frequency": NaN,
+  "anharmonicity_estimate": NaN,
+  "box_height": NaN,
+  "box_snr": NaN,
+  "box_width": NaN,
+  "onset_amplitude": NaN,
+  "selected_drive_amplitude": NaN,
+  "sweep_length_ns": 360.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": NaN,
+  "drive_scale": NaN,
+  "onset_exponent": NaN,
+  "num_lines": 0,
+  "x180_amplitude": NaN,
+  "x90_amplitude": NaN,
+  "sweep_over_t1": NaN,
+  "sweep_over_t1_error": NaN,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [],
+  "warnings": [
+   "the sweep (360 ns over 20 MHz, time x band 7.2 MHz us) is too short for a clean passage (need 20): responses split and spurious lines appear. Nothing is proposed; use saturation spectroscopy for T1 below ~5 us",
+   "no line in the window at any drive level"
+  ]
+ },
+ "qD5": {
+  "f_01": 5817163549.435856,
+  "RF_frequency": 5817163549.435856,
+  "frequency_shift": 191183.4010011305,
+  "f_01_error": 134689.95826973332,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 5713248297.070153,
+  "anharmonicity_estimate": 207580446.04160863,
+  "box_height": 0.002682101728364885,
+  "box_snr": 45.96314453955423,
+  "box_width": 15817601.024249783,
+  "onset_amplitude": 0.019850841591546958,
+  "selected_drive_amplitude": 0.039701683183093917,
+  "sweep_length_ns": 4000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 52870266.00739036,
+  "drive_scale": 1.04265418782712,
+  "onset_exponent": 1.858664440545359,
+  "num_lines": 2,
+  "x180_amplitude": 0.3940463119746965,
+  "x90_amplitude": 0.19702315598734824,
+  "sweep_over_t1": 0.18183474038449232,
+  "sweep_over_t1_error": 0.09820186054801328,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -103724068.96470177,
+    "onset_level": 5,
+    "onset_amplitude": 0.15880673273237567,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.0029928508081804453
+   },
+   {
+    "offset": 66154.05610253692,
+    "onset_level": 0,
+    "onset_amplitude": 0.0049627103978867396,
+    "levels": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.0026278581200219263
+   }
+  ],
+  "warnings": []
+ }
+}

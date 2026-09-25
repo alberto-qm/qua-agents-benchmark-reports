@@ -1,0 +1,31 @@
+{
+ "Q2": {
+  "idle_offset_shift": 1.4791154353856199e-05,
+  "idle_offset_shift_error": 0.0014325122942254313,
+  "joint_offset": -0.9620929965295507,
+  "independent_offset": NaN,
+  "f_01": 5106489506.763251,
+  "RF_frequency": 5106489506.763251,
+  "f_01_error": 412659.82160501997,
+  "frequency_shift": 580819.4968131308,
+  "curvature": -2792262981.637687,
+  "curvature_error": 117527896.96285614,
+  "stored_curvature": -2595769285.913982,
+  "column_precision": 623277.950378472,
+  "chi2_red": 1.6230691892535913,
+  "tracked_columns": 10,
+  "flux_columns": 21,
+  "pulse": "chirp",
+  "drive_amplitude": 0.024905351117777412,
+  "sweep_length_ns": 2000.0,
+  "short_sweep": false,
+  "decay_refused": false,
+  "sweep_over_t1": 0.22410882751881173,
+  "sweep_over_t1_error": 0.17037385312293638,
+  "t1_estimate": NaN,
+  "t1_missing": true,
+  "warnings": [
+   "no T1 in the state"
+  ]
+ }
+}

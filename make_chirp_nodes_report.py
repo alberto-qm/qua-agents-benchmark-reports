@@ -24,7 +24,8 @@ OUT = HERE / "2026-09-24-chirp-spectroscopy-nodes.html"
 TITLE = "Chirp spectroscopy nodes"
 QUBITS = {"arbel": ["qB4", "qA5", "qD1"], "qolab": ["Q1", "Q2", "Q5"], "gilboa": ["qD2", "qC3", "qD5"]}
 BRANCH = "feat/chirp-spectroscopy"
-COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c", "flat": "7dc6187", "grey": "11f0670", "updown": "80c3db3"}
+COMMITS = {"nodes": "be998ef", "fix": "576d230", "fix09a": "e22fa9c", "flat": "7dc6187", "grey": "11f0670", "updown": "80c3db3", "dirchk": "4b40520",
+           "tilt": "ee24095"}
 
 
 def sync():
@@ -32,7 +33,8 @@ def sync():
     for sub in ("arbel", "qolab", "gilboa", "fixes/qolab", "fixes/gilboa", "replay", "figures", "shortT1",
                 "satladder_default/arbel", "satladder_default/qolab", "satladder_default/gilboa",
                 "satladder/arbel", "satladder/qolab", "satladder/gilboa", "hs_test",
-                "waits", "waits/arbel", "waits/qolab", "waits/gilboa", "noT1", "noT1/arbel", "noT1/qolab", "noT1/gilboa"):
+                "waits", "waits/arbel", "waits/qolab", "waits/gilboa", "noT1", "noT1/arbel", "noT1/qolab", "noT1/gilboa",
+                "dirchk", "dirchk/arbel", "dirchk/qolab", "dirchk/gilboa"):
         (DATA / sub).mkdir(parents=True, exist_ok=True)
         for f in (RUNS / sub).glob("*"):
             if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl", ".out", ".txt"):
@@ -511,6 +513,54 @@ def build() -> str:
                               f'{num((bu.get("column_precision") or float("nan")) / 1e6, "{:.2f}")} / {num((bk.get("column_precision") or float("nan")) / 1e6, "{:.2f}")}',
                               f'{num(bu.get("qpu_s"), "{:.1f}")} / {num(bk.get("qpu_s"), "{:.1f}")} s'])
 
+    # --- up- and down-chirps: the lean check, T1 missing against known ------------------------------
+    dc = json.loads((DATA / "dirchk/summary.json").read_text())
+    dc_runs = [json.loads(l) for f in sorted((DATA / "dirchk").glob("*/runs.jsonl")) for l in f.read_text().splitlines()]
+    dc_ok = [r for r in dc_runs if not r.get("error")]
+    dc_qpu = {v: sum(r["qpu_s"] for r in dc_ok if r["variant"] == v) for v in ("noT1", "T1")}
+    dc_failed = len(dc_runs) - len(dc_ok)
+
+    def rho_cell(r):
+        if not r or not fin(r.get("sweep_over_t1")):
+            return "–"
+        return f'{num(r["sweep_over_t1"], "{:+.2f}")} ± {num(r["sweep_over_t1_error"], "{:.2f}")}'
+
+    def dac(r):
+        if not r:
+            return "–"
+        ident = r.get("line_identity")
+        if ident != "0-1":
+            why = {"short-sweep": "short sweep", "none": "no line", "decay-tilt": "leans apart"}.get(ident, esc(str(ident)))
+            val = f' ({num(r["frequency_shift"] / 1e6, "{:+.2f}")})' if fin(r.get("frequency_shift")) and ident == "decay-tilt" else ""
+            return f'<span class="muted">refused: {why}{val}</span>'
+        return f'{num(r["frequency_shift"] / 1e6, "{:+.2f}")} ± {num(r["f_01_error"] / 1e6, "{:.2f}")}'
+
+    def dbc(r):
+        if not r:
+            return "–"
+        if r.get("short_sweep"):
+            return '<span class="muted">refused: short sweep</span>'
+        if not fin(r.get("idle_offset_shift")):
+            return f'<span class="muted">no arc ({r.get("tracked_columns")}/{r.get("flux_columns")} columns)</span>'
+        cell = f'{num(r["idle_offset_shift"] * 1e3, "{:+.2f}")} ± {num(r["idle_offset_shift_error"] * 1e3, "{:.2f}")}'
+        return f'<span class="muted">refused: leans apart ({cell})</span>' if r.get("decay_refused") else cell
+
+    dc3a_rows, dc3b_rows = [], []
+    for be, qs in NBE.items():
+        for q in qs:
+            a = dc.get(f"{be}/{q}/03a") or {}
+            u, k = a.get("noT1") or {}, a.get("T1") or {}
+            ref = hs_ref.get(f"{be}/{q}")
+            if ref is None and f"{be}/{q}" in fine_abs:
+                any_r = u if fin(u.get("f_01")) else k
+                if fin(any_r.get("f_01")):
+                    ref = fine_abs[f"{be}/{q}"] - (any_r["f_01"] - any_r["frequency_shift"])
+            dc3a_rows.append([be, f"<b>{q}</b>", num(T1n[q], "{:.1f}"), dac(u), rho_cell(u), dac(k), rho_cell(k),
+                              num((k.get("sweep_ns") or 0) / (T1n[q] * 1e3), "{:.2f}"), num(ref / 1e6 if ref is not None else None, "{:+.2f}")])
+            b = dc.get(f"{be}/{q}/03b") or {}
+            bu, bk = b.get("noT1") or {}, b.get("T1") or {}
+            dc3b_rows.append([be, f"<b>{q}</b>", dbc(bu), rho_cell(bu), dbc(bk), rho_cell(bk)])
+
     CSS = base.CSS + """
 figure img { display:block; }
 ol.recs li, ul.tight li { margin:6px 0; max-width:82ch; }
@@ -535,7 +585,9 @@ also found where the chirp stops working (T1 below ~5 µs) and one way 03a could
 now refused by the nodes rather than answered. Replayed the same way, the saturation node answered a fifth of the grid on the
 long-T1 qubits and picked the 0→2 line in 4 % of it; it is the better tool only below T1 ≈ 5 µs. The fix to node 03b's pulse timing
 was tested on the same day. A later change sweeps the frequency up and then down in every shot round; with it both nodes gave the
-same answers at a 2 T1 reset wait as at the 5 T1 default, for half the QPU time (§5b).</p>
+same answers at a 2 T1 reset wait as at the 5 T1 default, for half the QPU time (§5b). With T1 missing from the state the nodes
+answered two short-lived qubits wrong (§5c); they now also play every band centre with a down-chirp, and the lean between the
+two directions refuses those qubits or corrects them, without knowing T1 (§5d).</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{n_wrong} / {n_rep:,}</div><div class="k">replays that proposed a wrong line or sweet spot (the rest passed or refused)</div></div>
@@ -552,12 +604,12 @@ generated config at run time only, so nothing new reaches the saved state.</p>
     ["pulse", "linear chirp over a 20 MHz band, raised-cosine edges; length the shorter of 4 µs and T1/5", "same pulse; drive amplitude from 03a or twice the x180 prediction"],
     ["scan", "band centres f₀₁ ± 120 MHz in 5 MHz steps × 7 drive levels a factor 2 apart, centred on the amplitude the stored x180 predicts (or 0.005–0.64 of full scale with <span class='mono'>drive_prior='none'</span>)",
      "21 flux offsets over ±1.5× the offset that lowers f₀₁ by 20 MHz (from the stored curvature) × band centres f₀₁ −40…+30 MHz in 2.5 MHz steps; the flux step starts 5 µs before the drive and outlasts it"],
-    ["order", f"each shot round sweeps the band centre up and then down at every drive level; the fit averages the two (since <span class='mono'>{COMMITS['updown']}</span>, §5b)",
-     "frequency inside flux, swept up and then down at every flux offset (same commit)"],
+    ["order", f"every band centre with an up- and a down-chirp, each with the band centres swept up and then down; the fit averages all four (§5b, §5d)",
+     "frequency inside flux; at every flux offset the same four sweeps"],
     ["analysis", "an erf-edged box fit per line and level; the 0→1 line is the one that appears at the lowest drive, a later line 40–250 MHz below it is its 0→2 partner (→ anharmonicity); the growth with drive gives the Rabi rate (<span class='mono'>drive_scale</span> against the x180)",
      "a box fit per column, a weighted parabola through the columns → sweet spot (relative to idle), f₀₁ there, curvature"],
     ["writes", "f₀₁ and RF frequency, only for a line identified as 0→1. The drive is reported, not written: <span class='mono'>selected_drive_amplitude</span> (for 03b), <span class='mono'>drive_scale</span> and an x180/x90 amplitude guess, which it writes only with <span class='mono'>update_pulses_amplitude=True</span> (default off)", "idle offset (joint or independent) and f₀₁, only when the turning point lies inside the sweep"],
-    ["refuses", "no line; a lone line that grows faster than drive² or needs &gt;5× the predicted drive (a possible 0→2 line of a qubit above the window); sweep × band below 20 MHz·µs", "fewer than 7 columns with a line; turning point outside the sweep; sweep × band below 20 MHz·µs"],
+    ["refuses", "no line; a lone line that grows faster than drive² or needs &gt;5× the predicted drive (a possible 0→2 line of a qubit above the window); sweep × band below 20 MHz·µs; up- and down-chirp boxes leaning apart (sweep &gt; 0.6 T1)", "fewer than 7 columns with a line; turning point outside the sweep; sweep × band below 20 MHz·µs; the same lean"],
     ["fallback", "the saturation node 03a", "<span class='mono'>pulse='saturation'</span>: a 1 MHz-Rabi drive for 3 T1 (20–100 µs) inside the same flux step, a Lorentzian per column"],
     ["60 s cap", "pre-flight estimate before submission; qubits run one after another", "same; qubits never pulse flux together"]])}
 
@@ -826,13 +878,54 @@ the band centres, not the chirp.</li>
 (−0.09 ± 0.21 against +0.01 MHz) and a clean map (−0.46 ± 0.07 mV, 17 of 21 columns, against −0.54 ± 0.08 from saturation on 24 Sep),
 exactly like a long-T1 qubit; with the stored 1.8 µs the nodes played 360 ns sweeps and refused. The unexplained qC3 readings of §5
 came from sweeps sized for that T1.</li>
-<li><b>What would make a missing T1 safe</b> (not done): alternate the chirp direction as well as the order, so the low reading of
-up-chirps and the high reading expected of down-chirps cancel, and their difference flags a sweep too long for the qubit's T1; or read the
-box a second time after a few µs of delay, which measures T1 directly; and have the nodes warn when T1 is missing.</li>
+<li><b>What would make a missing T1 safe:</b> alternate the chirp direction as well as the order, so the low reading of up-chirps
+and the high reading of down-chirps cancel and their difference flags a sweep too long for the qubit's T1, and have the nodes warn
+when T1 is missing — done since, §5d.</li>
 </ul>
 {img("figures/noT1_arbel.png", "arbel: 03a without T1 (row 1) and with it (row 2), 03b without (row 3) and with (row 4). qD1 and qA6 are not at a sweet spot (no arc either way).", "arbel with and without T1")}
 {img("figures/noT1_qolab.png", "qolab, as above.", "qolab with and without T1")}
 {img("figures/noT1_gilboa.png", "gilboa, as above. qD2 without T1: a weak box 5 MHz below the line, proposed; with T1: refused. qC3 without T1: a clean box and arc.", "gilboa with and without T1")}
+
+<h2>5d · Up- and down-chirps: a check that does not need T1</h2>
+<p>Since commits <span class="mono">{COMMITS['dirchk']}</span> and <span class="mono">{COMMITS['tilt']}</span> both nodes play every
+band centre with an up-chirp and a down-chirp, each in both band-centre orders, and fit their average. When the excitation decays
+during the sweep, an up-chirp's box leans toward lower band centres and a down-chirp's toward higher ones (§5c), so the average is
+unbiased. The lean itself measures the sweep against T1: inside the box, ln(up/down) is a straight line whose slope is
+2 × (sweep/T1) / band, whatever the transfer and the rounded edges, which are the same both ways. Above sweep/T1 = 0.6 nothing
+is proposed; a lean that disagrees with the stored T1 is reported. Without T1 the sweep is now 2 µs instead of 4, and the nodes
+say that T1 is missing. The shots are split four ways, so the QPU time is unchanged.</p>
+<p>Checked first without QPU: in a model of the lean the average stays within 0.3 MHz of the line up to sweep = 3 T1, while each
+direction alone reads off by up to half the band; the same model predicted this morning's one-way readings (qD2 −4.5 against
+−5.2 measured, qA6 −1.6 against −1.5). On the 24 Sep hyperbolic-secant data, which has linear chirps both ways, the ratio read
+sweep/T1 of 0.08–0.26 where 0.09–0.2 was expected — and about 0 on gilboa qC3.</p>
+<p>Then the same test as §5c: {len(dc_ok)} jobs, {dc_qpu["noT1"] + dc_qpu["T1"]:.0f} s of QPU, every qubit with T1 removed and with it
+kept ({dc_failed} jobs rerun after network timeouts). The first pass read the lean on too few levels for gilboa qD2 and let its 03a
+through; <span class="mono">{COMMITS['tilt']}</span> changed only that part of the analysis, and the tables show the committed analysis
+run again on the same data (every frequency and sweet spot is unchanged).</p>
+{table(["backend", "qubit", "stored T1 [µs]", "03a f₀₁ − stored, T1 unknown (2 µs sweep) [MHz]", "sweep/T1 from the lean",
+        "T1 known", "sweep/T1 from the lean", "sweep / stored T1", "fine scan − stored"], dc3a_rows)}
+{table(["backend", "qubit", "03b sweet spot, T1 unknown [mV]", "sweep/T1 from the lean", "T1 known", "sweep/T1 from the lean"], dc3b_rows)}
+<ul class="tight">
+<li><b>gilboa qD2 is refused, and the average is right anyway.</b> Without T1 its up-chirps read −7.6 MHz and its down-chirps −1.1;
+their mean, −4.27 MHz, is 0.5 MHz from the fine scan (this morning, up-chirps only: −9.94, proposed). The lean gives sweep/T1 of
+1.06 ± 0.25 in 03a and 0.75 ± 0.09 in 03b, so neither is proposed. 03b's refused map has the arc at the right frequency and a sweet
+spot of +3.19 ± 0.17 mV (the hyperbolic-secant map: +3.41 ± 0.09).</li>
+<li><b>arbel qA6 is answered, and right.</b> Without T1: −2.62 MHz against −2.47 from the fine scan (this morning: −3.98). Its lean
+gives sweep/T1 = 0.42 ± 0.07 over a 2 µs sweep, T1 ≈ 4.8 µs against the stored 5.2 µs. With T1 known it is now answered too
+(−2.47; refused as ambiguous this morning).</li>
+<li><b>No false alarms on the long-T1 qubits.</b> The lean reads −0.10…+0.22, close to sweep over the stored T1 (0.03–0.2), in both
+nodes and both variants; answers with and without T1 agree within 0.25 MHz and the sweet spots within 2σ.</li>
+<li><b>gilboa qC3 again works without T1</b> (−0.01 MHz, sweet spot −0.44 ± 0.07 mV) and its lean, 0.03–0.05 over 2 µs, puts its T1
+at tens of µs: the stored 1.8 µs is wrong.</li>
+<li><b>qolab Q1 and Q2 find no line without T1, for a reason the chirp does not cause.</b> At QuAM's 50 µs wait these two start
+every shot partly excited: far from any line, where no chirp touches them, the signal sits at 0.4–0.5 (Q1) and 0.8 (Q2) of a full
+excitation, the same at every drive level including the weakest, and at 0 with the 5 T1 wait. Something excites them between shots
+and needs longer than 50 µs to relax — the readout is the likely suspect; Q5 is unaffected. This morning Q2's baseline was at 0.04
+and Q1's at 0.37, so it varies. The nodes refused rather than answered.</li>
+</ul>
+{img("figures/dirchk_arbel.png", "arbel: up- and down-chirps averaged, T1 missing (rows 1, 3) and known (rows 2, 4); sweep/T1 from the lean in the labels. qD1 and qA6 are not at a sweet spot.", "arbel, lean check")}
+{img("figures/dirchk_qolab.png", "qolab, as above: Q1 and Q2 without T1 lose their line to a raised baseline.", "qolab, lean check")}
+{img("figures/dirchk_gilboa.png", "gilboa, as above: qD2 without T1 is refused in both nodes; qC3 behaves like a long-T1 qubit.", "gilboa, lean check")}
 
 <h2>6 · Node 03b's pulse timing, and 09a</h2>
 <p>03b passed nanoseconds to <span class="mono">play(duration=…)</span>, which counts 4 ns clock cycles, so its 20 µs saturation pulse and the
@@ -902,8 +995,9 @@ unexplained; it needs more short-T1 qubits before it goes into the nodes.</li>
 reference as a second check; extend the window down to −200 MHz.</li>
 <li>The −0.2 MHz frequency offset against the fine scans is not the sweep direction (§5b); a fine scan in the same session as
 the chirp would show whether it is real.</li>
-<li>A missing T1 is safe only for T1 ≳ 10 µs: shorter-lived qubits get a 4 µs sweep and a line read low, answered (§5c). Alternate
-the chirp direction, estimate T1 from the box, and warn. gilboa qC3's stored T1 (1.8 µs) looks wrong.</li>
+<li>With T1 missing, the up/down-chirp check now refuses qubits whose T1 is short against the sweep and corrects the rest (§5d).
+QuAM's 50 µs fallback wait is too short for qolab Q1 and Q2, which start every shot partly excited at that repetition rate; a longer
+wait when T1 is missing (~300 µs) needs a node parameter. gilboa qC3's stored T1 (1.8 µs) is wrong.</li>
 <li>A 2 T1 reset wait halves the QPU time of both nodes with the same answers (§5b); making it their default needs a node parameter,
 since the wait is each qubit's thermalization factor, shared by every node.</li>
 <li>arbel qD1's operating point: map it with a finer, wider flux scan.</li>
@@ -924,7 +1018,9 @@ working tree and would pick up new nodes when resumed.</li>
 <span class="mono">plot_columns.py</span> (chirp against saturation, qubits as columns), <span class="mono">order_sim.py</span> and
 <span class="mono">order_sim_03b.py</span> (shot-order simulations; outputs in <span class="mono">waits/</span>), <span class="mono">run_waits.py</span>,
 <span class="mono">waits_analyse.py</span> and <span class="mono">plot_waits.py</span> (the 2 T1 test), <span class="mono">run_noT1.py</span>,
-<span class="mono">run_noT1_retry.py</span>, <span class="mono">noT1_analyse.py</span> and <span class="mono">plot_noT1.py</span> (T1 missing, 25 Sep). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
+<span class="mono">run_noT1_retry.py</span>, <span class="mono">noT1_analyse.py</span> and <span class="mono">plot_noT1.py</span> (T1 missing, 25 Sep), <span class="mono">chirp_split_sim.py</span>, <span class="mono">tilt_check_hs.py</span>,
+<span class="mono">run_dirchk.py</span>, <span class="mono">run_dirchk_retry.py</span>, <span class="mono">reanalyse_dirchk.py</span>,
+<span class="mono">dirchk_analyse.py</span> and <span class="mono">plot_dirchk.py</span> (the up/down-chirp check). States: local copies of <span class="mono">~/qab-runs/reference-state-20260922/</span> (gilboa:
 the copy with the ten C/D qubits active). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>. The
 23 Sep investigation behind the nodes: <a href="2026-09-23-spectroscopy-chirp-vs-saturation.html">chirp vs saturation spectroscopy</a>.
 Generated by <span class="mono">make_chirp_nodes_report.py</span>.</p>

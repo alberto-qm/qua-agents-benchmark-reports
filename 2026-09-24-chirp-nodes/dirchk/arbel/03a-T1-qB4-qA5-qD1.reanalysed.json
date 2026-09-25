@@ -1,0 +1,166 @@
+{
+ "qB4": {
+  "f_01": 6605876780.410564,
+  "RF_frequency": 6605876780.410564,
+  "frequency_shift": -3434.447150834847,
+  "f_01_error": 126913.84886183575,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 6506958917.839221,
+  "anharmonicity_estimate": 197760269.7794514,
+  "box_height": 0.002585861112655513,
+  "box_snr": 38.181903322088004,
+  "box_width": 17401234.741161607,
+  "onset_amplitude": 0.022169568010742456,
+  "selected_drive_amplitude": 0.04433913602148491,
+  "sweep_length_ns": 4000.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 46666121.92315419,
+  "drive_scale": 1.0278004766149824,
+  "onset_exponent": 1.8885487415588376,
+  "num_lines": 2,
+  "x180_amplitude": 0.4464337826837185,
+  "x90_amplitude": 0.22321689134185926,
+  "sweep_over_t1": 0.15151209099996205,
+  "sweep_over_t1_error": 0.06175574751185215,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -98921297.01849462,
+    "onset_level": 5,
+    "onset_amplitude": 0.17735654408593965,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.002417994683319412
+   },
+   {
+    "offset": -41162.12876891635,
+    "onset_level": 1,
+    "onset_amplitude": 0.011084784005371228,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.0025886908795037006
+   }
+  ],
+  "warnings": []
+ },
+ "qA5": {
+  "f_01": 5705802519.747248,
+  "RF_frequency": 5705802519.747248,
+  "frequency_shift": 230417.03240356324,
+  "f_01_error": 190771.0931209954,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 5602419355.0661335,
+  "anharmonicity_estimate": 206530950.5389294,
+  "box_height": 0.00750989841203204,
+  "box_snr": 27.615497758659554,
+  "box_width": 19424924.615702443,
+  "onset_amplitude": 0.032011339479917335,
+  "selected_drive_amplitude": 0.06402267895983467,
+  "sweep_length_ns": 2188.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 44995698.741959095,
+  "drive_scale": 1.0583099222447587,
+  "onset_exponent": 2.136030720474774,
+  "num_lines": 2,
+  "x180_amplitude": 0.46300721881902834,
+  "x90_amplitude": 0.23150360940951417,
+  "sweep_over_t1": -0.051116047654991614,
+  "sweep_over_t1_error": 0.08258659574369835,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -103152747.64871056,
+    "onset_level": 5,
+    "onset_amplitude": 0.2560907158393387,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.008243533450756015
+   },
+   {
+    "offset": 112727.62075414453,
+    "onset_level": 1,
+    "onset_amplitude": 0.016005669739958667,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.007475662483982663
+   }
+  ],
+  "warnings": [
+   "the up/down-chirp tilt gives sweep/T1 = -0.05 +- 0.08, against 0.20 from the stored T1 (10.9 us): the stored T1 may be wrong"
+  ]
+ },
+ "qD1": {
+  "f_01": 4996874667.296609,
+  "RF_frequency": 4996874667.296609,
+  "frequency_shift": -821211.1440011711,
+  "f_01_error": 220057.07404609228,
+  "line_identity": "0-1",
+  "two_photon_partner": true,
+  "two_photon_frequency": 4892177783.26575,
+  "anharmonicity_estimate": 209501710.27941972,
+  "box_height": 0.004004321310237147,
+  "box_snr": 48.99723258826413,
+  "box_width": 19110612.059596367,
+  "onset_amplitude": 0.01834966081620294,
+  "selected_drive_amplitude": 0.03669932163240588,
+  "sweep_length_ns": 3696.0,
+  "chirp_band": 20000000.0,
+  "rabi_per_amplitude": 63509977.939213455,
+  "drive_scale": 1.112925544591628,
+  "onset_exponent": 1.8378464377752282,
+  "num_lines": 2,
+  "x180_amplitude": 0.3280324448116372,
+  "x90_amplitude": 0.1640162224058186,
+  "sweep_over_t1": 0.14173068301932518,
+  "sweep_over_t1_error": 0.06822006040346279,
+  "t1_estimate": NaN,
+  "t1_missing": false,
+  "lines": [
+   {
+    "offset": -105518095.17485988,
+    "onset_level": 5,
+    "onset_amplitude": 0.1467972865296235,
+    "levels": [
+     5,
+     6
+    ],
+    "max_height": 0.004316921114779541
+   },
+   {
+    "offset": -767240.0351500242,
+    "onset_level": 1,
+    "onset_amplitude": 0.00917483040810147,
+    "levels": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "max_height": 0.004178634705342687
+   }
+  ],
+  "warnings": []
+ }
+}
