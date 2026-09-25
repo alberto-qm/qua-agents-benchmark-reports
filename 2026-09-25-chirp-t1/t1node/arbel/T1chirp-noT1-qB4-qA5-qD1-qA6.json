@@ -1,0 +1,99 @@
+{
+ "tag": "T1chirp-noT1-qB4-qA5-qD1-qA6",
+ "node": "05b_T1_chirp",
+ "qubits": [
+  "qB4",
+  "qA5",
+  "qD1",
+  "qA6"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qB4": 50000,
+  "qA5": 50000,
+  "qD1": 50000,
+  "qA6": 50000
+ },
+ "T1": {
+  "qB4": null,
+  "qA5": null,
+  "qD1": null,
+  "qA6": null
+ },
+ "params": {},
+ "error": "ValueError: this sweep would not finish inside the executor's result-stream limit: estimated QPU time 61 s: 100 sweep points x 100 shots x 4088 us per shot (reset wait + readout + pulses + loop overhead) x 1.5 overhead, limit 60 s. Reduce the number of sweep points (span, step, flux points) and/or num_shots by at least a factor 1.0; the node's timeout parameter does not raise this limit",
+ "wall_s": 0.017103042220696807,
+ "qpu_s": 0,
+ "executor_stderr": [],
+ "fit_results": null,
+ "proposed": {},
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 2000,
+   "qA5": 2000,
+   "qD1": 2000,
+   "qA6": 2000
+  },
+  "rates": {
+   "qB4": 10000,
+   "qA5": 10000,
+   "qD1": 10000,
+   "qA6": 10000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qB4": 1000000,
+   "qA5": 1000000,
+   "qD1": 1000000,
+   "qA6": 1000000
+  },
+  "flux_offsets": null,
+  "kappa_priors": null,
+  "shot_rounds": null,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qB4": {
+    "played": [
+     0.01567625187637235,
+     0.0313525037527447,
+     0.0627050075054894,
+     0.1254100150109788,
+     0.2508200300219576
+    ],
+    "prior": "x180"
+   },
+   "qA5": {
+    "played": [
+     0.01674083041359983,
+     0.03348166082719966,
+     0.06696332165439932,
+     0.13392664330879864,
+     0.2678532866175973
+    ],
+    "prior": "x180"
+   },
+   "qD1": {
+    "played": [
+     0.012472665586668196,
+     0.02494533117333639,
+     0.04989066234667278,
+     0.09978132469334557,
+     0.19956264938669113
+    ],
+    "prior": "x180"
+   },
+   "qA6": {
+    "played": [
+     0.008920765850680475,
+     0.01784153170136095,
+     0.0356830634027219,
+     0.0713661268054438,
+     0.1427322536108876
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

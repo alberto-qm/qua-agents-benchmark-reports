@@ -1,0 +1,201 @@
+{
+ "tag": "T1chirp-noT1-qD2-qC3-qD5",
+ "node": "05b_T1_chirp",
+ "qubits": [
+  "qD2",
+  "qC3",
+  "qD5"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qD2": 50000,
+  "qC3": 50000,
+  "qD5": 50000
+ },
+ "T1": {
+  "qD2": null,
+  "qC3": null,
+  "qD5": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 55.2357302501332,
+ "qpu_s": 46.43190884590149,
+ "executor_stderr": [],
+ "fit_results": {
+  "qD2": {
+   "T1": 8.36664440036633e-07,
+   "T1_error": 1.7156234214409643e-07,
+   "t1_relative_error": 0.20505513791955188,
+   "amplitude": 1.1284606023909334,
+   "floor": -0.013709007379374083,
+   "contrast_snr": 9.438496594379423,
+   "selected_levels": [
+    4
+   ],
+   "selected_drive_amplitudes": [
+    0.3993157327216864
+   ],
+   "level_contrast": [
+    0.21569745740542415,
+    0.33109447492599253,
+    0.6363676607212588,
+    0.7807816729651994,
+    1.0000000000000002
+   ],
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "wait_between_shots_ns": 1000000.0,
+   "ground_I": -0.003986028671264649,
+   "ground_Q": -0.007003529071807861,
+   "excited_I": -0.002920840819676717,
+   "excited_Q": -0.007510622978210449,
+   "readout_single_shot_snr": 0.9438496594379425,
+   "stored_T1": NaN,
+   "success": false,
+   "warnings": [
+    "the decay is only 9.4x the fit residuals (need 10): the chirp barely flips the qubit (drive or frequency off, or T1 short against the sweep)",
+    "T1 is known to 21% only (limit 20%)"
+   ]
+  },
+  "qC3": {
+   "T1": 2.3069382342299977e-05,
+   "T1_error": 4.904859493837279e-06,
+   "t1_relative_error": 0.21261338604821414,
+   "amplitude": 0.8347198290007364,
+   "floor": 0.04432338732114102,
+   "contrast_snr": 9.009378018323357,
+   "selected_levels": [
+    2,
+    3,
+    4
+   ],
+   "selected_drive_amplitudes": [
+    0.09186600678207006,
+    0.18373201356414012,
+    0.36746402712828025
+   ],
+   "level_contrast": [
+    0.3554546931820681,
+    0.6907492943003112,
+    0.9439361052182699,
+    0.9834984156349323,
+    1.0000000000000002
+   ],
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "wait_between_shots_ns": 1000000.0,
+   "ground_I": 0.0012584403143988715,
+   "ground_Q": -0.004410410902235243,
+   "excited_I": 0.0030560354162145545,
+   "excited_Q": -0.004357692991657021,
+   "readout_single_shot_snr": 0.5201566824110085,
+   "stored_T1": NaN,
+   "success": false,
+   "warnings": [
+    "the decay is only 9.0x the fit residuals (need 10): the chirp barely flips the qubit (drive or frequency off, or T1 short against the sweep)",
+    "T1 is known to 21% only (limit 20%)"
+   ]
+  },
+  "qD5": {
+   "T1": 2.7251081895960334e-05,
+   "T1_error": 1.0188151398456454e-06,
+   "t1_relative_error": 0.037386227223392306,
+   "amplitude": 0.9855562362445335,
+   "floor": -0.021321402950221637,
+   "contrast_snr": 51.65605576608445,
+   "selected_levels": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "selected_drive_amplitudes": [
+    0.028073329403285625,
+    0.05614665880657125,
+    0.1122933176131425,
+    0.224586635226285
+   ],
+   "level_contrast": [
+    0.501349540641481,
+    0.8983094653894534,
+    1.0,
+    0.9900308178400877,
+    0.9982487632214753
+   ],
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "wait_between_shots_ns": 1000000.0,
+   "ground_I": 0.003230531434755068,
+   "ground_Q": -0.010931296271246832,
+   "excited_I": 0.006002975446683866,
+   "excited_Q": -0.011840577477807396,
+   "readout_single_shot_snr": 2.5828027883042224,
+   "stored_T1": NaN,
+   "success": true,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qD5/T1": {
+   "old": null,
+   "new": 2.7251081895960334e-05
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qD2": 2000,
+   "qC3": 2000,
+   "qD5": 2000
+  },
+  "rates": {
+   "qD2": 10000,
+   "qC3": 10000,
+   "qD5": 10000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qD2": 1000000,
+   "qC3": 1000000,
+   "qD5": 1000000
+  },
+  "flux_offsets": null,
+  "kappa_priors": null,
+  "shot_rounds": null,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qD2": {
+    "played": [
+     0.0249572332951054,
+     0.0499144665902108,
+     0.0998289331804216,
+     0.1996578663608432,
+     0.3993157327216864
+    ],
+    "prior": "x180"
+   },
+   "qC3": {
+    "played": [
+     0.022966501695517515,
+     0.04593300339103503,
+     0.09186600678207006,
+     0.18373201356414012,
+     0.36746402712828025
+    ],
+    "prior": "x180"
+   },
+   "qD5": {
+    "played": [
+     0.014036664701642812,
+     0.028073329403285625,
+     0.05614665880657125,
+     0.1122933176131425,
+     0.224586635226285
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

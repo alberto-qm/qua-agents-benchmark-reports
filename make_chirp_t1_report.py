@@ -36,6 +36,14 @@ def sync():
         shutil.copy(RUNS / name, DATA / name)
     for f in RUNS.glob("t1_chirp_*.out"):
         shutil.copy(f, DATA / f.name)
+    for be in QB:
+        (DATA / "t1node" / be).mkdir(parents=True, exist_ok=True)
+        for f in (RUNS / "t1node" / be).glob("*"):
+            if f.is_file() and f.suffix in (".json", ".nc", ".png", ".log", ".jsonl"):
+                shutil.copy(f, DATA / "t1node" / be / f.name)
+        shutil.copy(RUNS / "t1node" / be / "state_base" / "state.json", DATA / "t1node" / be / "stored_state.json")
+    for name in ("run_t1node.py", "run_t1node_split.py"):
+        shutil.copy(RUNS / name, DATA / name)
 
 
 def img(path, caption, alt):
@@ -63,6 +71,7 @@ def num(v, fmt="{:.2f}", dash="–"):
 
 def build() -> str:
     s = json.loads((DATA / "t1_chirp/summary.json").read_text())
+    s_ = s
     metas = {be: json.loads((DATA / "t1_chirp" / f"{be}_meta.json").read_text())
              for be in QB if (DATA / "t1_chirp" / f"{be}_meta.json").exists()}
     rows, sig, amps, qpus, done = [], [], [], [], []
@@ -89,6 +98,40 @@ def build() -> str:
     figs = "\n".join(img(f"figures/t1_chirp_{be}.png", f"{be}: excited population against the delay before readout, chirp (blue) and "
                          "calibrated x180 (orange) in the same job; lines are the exponential fits.", f"T1 decays on {be}")
                      for be in QB if (DATA / "figures" / f"t1_chirp_{be}.png").exists() and any(f"{be}/" in k for k in s))
+    # --- the node (05b_T1_chirp) on all ten qubits -------------------------------------------------------
+    node_fits, node_qpu, node_jobs = {}, 0.0, 0
+    for be in QB:
+        for f in sorted((DATA / "t1node" / be).glob("T1chirp-*.json")):
+            rec = json.loads(f.read_text())
+            if rec.get("error"):
+                continue
+            node_jobs += 1
+            node_qpu += rec["qpu_s"]
+            for q, r in (rec.get("fit_results") or {}).items():
+                node_fits[f"{be}/{q}"] = dict(r, job_qpu=rec["qpu_s"], job_n=len(rec["qubits"]))
+    node_rows, n_prop = [], 0
+    for be, qs in QB.items():
+        for q in qs:
+            r = node_fits.get(f"{be}/{q}")
+            if not r:
+                continue
+            ok = bool(r.get("success"))
+            n_prop += ok
+            t1 = f'{num(r["T1"] * 1e6, "{:.1f}")} ± {num(r["T1_error"] * 1e6, "{:.1f}")}'
+            earlier = s_.get(f"{be}/{q}") or {}
+            ec, ex = (earlier.get("chirp_fit") or {}), (earlier.get("x180_fit") or {})
+            stored_state = DATA / "t1node" / be / "stored_state.json"
+            st1 = json.loads(stored_state.read_text())["qubits"][q].get("T1") if stored_state.exists() else None
+            node_rows.append([be, f"<b>{q}</b>", t1 if ok else f'<span class="muted">{t1} — not proposed</span>',
+                              num(r.get("t1_relative_error", float("nan")) * 100, "{:.0f} %"), num(r.get("contrast_snr"), "{:.0f}"),
+                              ", ".join(str(k) for k in r.get("selected_levels") or []),
+                              num(ec.get("T1_us"), "{:.1f}"), num(ex.get("T1_us"), "{:.1f}"),
+                              num(st1 * 1e6 if st1 is not None and st1 == st1 else None, "{:.1f}"),
+                              num(r["job_qpu"] / r["job_n"], "{:.0f} s")])
+    node_figs = "\n".join(img(f"t1node/{be}/{f.name}", f"{be}, as the node draws it: every drive level (faint), the levels fitted "
+                                "(solid) and the fit (red when proposed, grey dashed when not).", f"node figure {be}")
+                           for be in QB for f in sorted((DATA / "t1node" / be).glob("*_decay.png")))
+
     CSS = base.CSS + """
 figure img { display:block; }
 ul.tight li, ol.recs li { margin:6px 0; max-width:82ch; }
@@ -106,7 +149,8 @@ h3 { margin-top:28px; }
 which on qolab Q1 and Q2 left the qubit partly excited and the line lost. A chirp is a π pulse that needs no calibration, so T1
 can be measured right after 03a: flip the qubit with the chirp 03a's frequency implies, wait, read out. On {n} qubits the chirp
 gave the same T1 as the calibrated x180 played in the same job, within {max(sig):.1f}σ on every one, for about
-{sum(qpus) / len(qpus):.0f} s of QPU per qubit.</p>
+{sum(qpus) / len(qpus):.0f} s of QPU per qubit. It is now a node in the bring-up graph right after qubit spectroscopy; run on all ten
+qubits with T1 unknown it proposed T1 on {n_prop} and refused the two whose decays fell short of its checks (§4).</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{n} / {n}</div><div class="k">qubits where the chirp's T1 agrees with the x180's (largest difference {max(sig):.1f}σ)</div></div>
@@ -162,16 +206,44 @@ bring-up it would sit between the two chirp nodes:</p>
 shortest delay come for free — the IQ blobs and a readout threshold, again without a π pulse — which is what an active reset with a
 chirp as the flip would need.</p>
 
-<h2>4 · Open</h2>
+<h2>4 · The node, in the bring-up graph</h2>
+<p>The measurement is now a node, <span class="mono">05b_T1_chirp</span> (qua-libs fork, <span class="mono">feat/chirp-spectroscopy</span>
+31ef5a2), and a step of the <span class="mono">FluxTunableTransmon_BringUp</span> graph between <span class="mono">qubit_spectroscopy</span>
+and <span class="mono">qubit_spectroscopy_vs_flux</span>, so the flux map, the fine spectroscopy and power Rabi already wait 5 × the
+qubit's own T1. Two things differ from the test above. The drive is not taken as known: the node plays the delay scan at five levels
+a factor 2 apart (centred on the stored x180's prediction, or absolute) and fits the levels that flip the qubit fully. And it writes
+T1 only when the decay passes four checks — at least 10 × the fit residuals, T1 known to 20 %, below a third of the longest delay
+and below a fifth of the wait between shots — so a refusal leaves the no-T1 fallback in place instead of a wrong value.</p>
+<p>Run at its defaults on the ten qubits with T1 removed from the state (states pulled at 17:15; {node_jobs} jobs,
+{node_qpu:.0f} s of QPU; gilboa's gateway answered again):</p>
+{table(["backend", "qubit", "T1, node [µs]", "error", "decay / residuals", "levels fitted", "chirp T1, 15:29 [µs]", "x180 T1, 15:29 [µs]",
+        "T1 in the state pulled 17:15 [µs]", "QPU per qubit"], node_rows)}
+<ul class="tight">
+<li><b>{n_prop} of {len(node_rows)} proposed</b>, at 2.6–7 % precision, and within the day's spread of the standalone test on every qubit
+measured twice (arbel qB4 32.1 against 34.9/34.2, qD1 22.4 against 21.4/22.0, qA6 4.5 against 4.3/4.9 µs); qolab Q5 moved from 44–48
+to 62 µs in two hours — IQCC's own calibration in the 17:15 state has it at 62.4 µs too.</li>
+<li><b>The ladder found the drive by itself</b>: the levels fitted were the upper three or four of five on every qubit but gilboa qD2,
+where only the strongest flipped it.</li>
+<li><b>gilboa qD2 and qC3 were refused</b>, just outside the checks (decays 9–9.4 × the residuals, errors 21 %). qD2's T1 is
+0.8 ± 0.2 µs, too short for a clean chirp. qC3's decay is not one exponential — a drop around 1 µs, then a slower one around 20 µs —
+which explains both its stored 1.8 µs and the long T1 the chirp nodes behave as if it had.</li>
+<li><b>Three qubits per job at the defaults:</b> arbel's four were refused by the pre-flight (61 s estimated against a 60 s limit) and
+ran as two jobs of two.</li>
+</ul>
+{node_figs}
+
+<h2>5 · Open</h2>
 <ol class="recs">
-<li>gilboa's three qubits{" were measured" if gilboa_ok else " (T1 1.3, 1.8 and 43 µs stored) still need the run; its gateway was down"}.</li>
-<li>Make it a node that runs after 03a, takes 03a's frequency and drive, and writes T1 (and the readout levels) to the state.</li>
+<li>gilboa's three qubits were measured by the node (§4) once its gateway was back; the standalone chirp/x180 comparison there is
+still missing.</li>
+<li>Done: the node and its place in the graph (§4). The readout levels it reports are not written yet.</li>
 <li>The chirp nodes' wait parameter for when T1 is missing (~400 µs) is not in the nodes yet.</li>
 </ol>
 
 <h2>Provenance</h2>
 <p class="small">Scripts, data and run logs are in <span class="mono">2026-09-25-chirp-t1/</span>: <span class="mono">t1_chirp_test.py</span>
-(the jobs), <span class="mono">t1_chirp_analyse.py</span> (fits and figures), <span class="mono">retry_t1_gilboa.sh</span> (gilboa
+(the jobs), <span class="mono">t1_chirp_analyse.py</span> (fits and figures), <span class="mono">run_t1node.py</span> and
+<span class="mono">run_t1node_split.py</span> (the node on the ten qubits, <span class="mono">t1node/</span>), <span class="mono">retry_t1_gilboa.sh</span> (gilboa
 retries), the per-qubit data (<span class="mono">t1_chirp/&lt;backend&gt;_&lt;qubit&gt;.npz</span>), fits
 (<span class="mono">t1_chirp/summary.json</span>) and driver logs. The chirp code is the chirp-spectroscopy nodes' (qua-libs fork,
 <span class="mono">feat/chirp-spectroscopy</span> at ee24095). Each launch is logged in <span class="mono">~/qab-runs/recipe-qolab-LOG.md</span>.

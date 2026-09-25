@@ -1,0 +1,153 @@
+{
+ "tag": "T1chirp-noT1-qB4-qA5",
+ "node": "05b_T1_chirp",
+ "qubits": [
+  "qB4",
+  "qA5"
+ ],
+ "variant": "noT1",
+ "waits_ns": {
+  "qB4": 50000,
+  "qA5": 50000
+ },
+ "T1": {
+  "qB4": null,
+  "qA5": null
+ },
+ "params": {},
+ "error": null,
+ "wall_s": 32.39336375007406,
+ "qpu_s": 23.672892570495605,
+ "executor_stderr": [],
+ "fit_results": {
+  "qB4": {
+   "T1": 3.2132536824562914e-05,
+   "T1_error": 8.304512807854789e-07,
+   "t1_relative_error": 0.025844560151586326,
+   "amplitude": 0.9355691935726808,
+   "floor": 0.02457769490220601,
+   "contrast_snr": 75.44549904216049,
+   "selected_levels": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "selected_drive_amplitudes": [
+    0.0313525037527447,
+    0.0627050075054894,
+    0.1254100150109788,
+    0.2508200300219576
+   ],
+   "level_contrast": [
+    0.47670664323250556,
+    0.9080635373181108,
+    0.9999999999999999,
+    0.9548116794371554,
+    0.9896648474862827
+   ],
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "wait_between_shots_ns": 1000000.0,
+   "ground_I": -0.0018879185914993286,
+   "ground_Q": -0.005637226819992065,
+   "excited_I": 0.0008118960658709207,
+   "excited_Q": -0.005621142596006393,
+   "readout_single_shot_snr": 3.7722749521080248,
+   "stored_T1": NaN,
+   "success": true,
+   "warnings": []
+  },
+  "qA5": {
+   "T1": 3.836965280267808e-05,
+   "T1_error": 1.5198103984314073e-06,
+   "t1_relative_error": 0.039609699004764756,
+   "amplitude": 0.9550350306403522,
+   "floor": 0.013337471213609842,
+   "contrast_snr": 49.83852712318575,
+   "selected_levels": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "selected_drive_amplitudes": [
+    0.03348166082719966,
+    0.06696332165439932,
+    0.13392664330879864,
+    0.2678532866175973
+   ],
+   "level_contrast": [
+    0.37055325199248657,
+    0.9093871994507654,
+    0.9986273301491261,
+    0.9715327497924499,
+    1.0
+   ],
+   "sweep_length_ns": 2000.0,
+   "chirp_band": 20000000.0,
+   "wait_between_shots_ns": 1000000.0,
+   "ground_I": -0.003381659984588623,
+   "ground_Q": -0.019211665153503418,
+   "excited_I": 0.005192252371046278,
+   "excited_Q": -0.019035883598857457,
+   "readout_single_shot_snr": 2.4919263561592877,
+   "stored_T1": NaN,
+   "success": true,
+   "warnings": []
+  }
+ },
+ "proposed": {
+  "/qubits/qA5/T1": {
+   "old": null,
+   "new": 3.836965280267808e-05
+  },
+  "/qubits/qB4/T1": {
+   "old": null,
+   "new": 3.2132536824562914e-05
+  }
+ },
+ "namespace": {
+  "sweep_lengths": {
+   "qB4": 2000,
+   "qA5": 2000
+  },
+  "rates": {
+   "qB4": 10000,
+   "qA5": 10000
+  },
+  "drive_amplitudes": null,
+  "reset_waits_ns": {
+   "qB4": 1000000,
+   "qA5": 1000000
+  },
+  "flux_offsets": null,
+  "kappa_priors": null,
+  "shot_rounds": null,
+  "num_shots": null,
+  "flux_step_lengths": null,
+  "drive_lengths": null,
+  "ladders": {
+   "qB4": {
+    "played": [
+     0.01567625187637235,
+     0.0313525037527447,
+     0.0627050075054894,
+     0.1254100150109788,
+     0.2508200300219576
+    ],
+    "prior": "x180"
+   },
+   "qA5": {
+    "played": [
+     0.01674083041359983,
+     0.03348166082719966,
+     0.06696332165439932,
+     0.13392664330879864,
+     0.2678532866175973
+    ],
+    "prior": "x180"
+   }
+  }
+ }
+}

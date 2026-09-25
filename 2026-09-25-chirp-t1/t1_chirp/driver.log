@@ -50,3 +50,27 @@
 15:31:19 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
 15:31:19 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
 15:31:19 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:37:16 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:37:16 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:37:16 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:37:16 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:42:25 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:42:25 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:42:25 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:42:25 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:47:36 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:47:36 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:47:36 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:47:36 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:52:46 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:52:46 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:52:46 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:52:46 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+15:57:55 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+15:57:55 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+15:57:55 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+15:57:55 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
+16:03:05 [gilboa/t1_chirp] qD2: chirp centre -4.91 MHz from the stored f01 (03a: decay-tilt), drive 0.0998, stored T1 1.3428767364473683e-06
+16:03:05 [gilboa/t1_chirp] qC3: chirp centre +0.03 MHz from the stored f01 (03a: 0-1), drive 0.0919, stored T1 1.8034861546101497e-06
+16:03:05 [gilboa/t1_chirp] qD5: chirp centre +0.38 MHz from the stored f01 (03a: 0-1), drive 0.0561, stored T1 4.3315774401770405e-05
+16:03:05 [gilboa/t1_chirp] delays [16, 28, 48, 84, 148, 256, 444, 776, 1348, 2348, 4088, 7116, 12388, 21564, 37536, 65344, 113744, 198004, 344676, 600000] ns; 200 rounds x 41 shots x 1078 us = 8.8 s per qubit
