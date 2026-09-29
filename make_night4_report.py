@@ -14,6 +14,7 @@ and make_night2_report.py.
 """
 from __future__ import annotations
 
+import collections
 import glob
 import re
 import json
@@ -36,9 +37,22 @@ PROVIDERS = {  # cell-dir token -> (label, document model_id for pricing, colour
     "openrouter": ("qwen3.8-27b · OpenRouter", "qwen/qwen3.8-27b", "tinycal"),
     "splash": ("qwen3.8-27b · Splash", "incoai/Qwen3.8-27B-Splash", "splash"),
     "flash": ("qwen3.8-flash · OpenRouter", "qwen/qwen3.8-flash", "flash"),  # added 21 Sep 14:29, fixed flux-map node
+    # 22 Sep 00:44: qua-agents on the same snapshots, same model and host, three qubits per backend, three workers
+    "qa": ("qwen3.8-27b · qua-agents (OpenRouter)", "qwen/qwen3.8-27b", "qa"),
 }
+# qua-agents cells launched or queued (work dir, cell, backend, qubits, state): listed as in flight until their document exists
+QA_QUEUE = [
+    ("night4qa-arbel-20260922", "arbel-qwen3-8-27b-openrouter", "arbel", ["qB4", "qC2", "qC3"], "frozen at 11:25 to free arbel (SIGSTOP, resumable)"),
+    ("night4qa-qolab-20260922", "qolab-qwen3-8-27b-openrouter", "qolab", ["Q1", "Q2", "Q3"], "done 11:52: Q1 99.93, Q2 and Q3 at the recursion limit"),
+    ("night4qa-gilboa-20260922", "gilboa-qwen3-8-27b-openrouter", "gilboa", ["qD3", "qD5", "qC3"], "frozen at 09:56, gilboa left to another user"),
+    ("night4qa-qolab-20260922-r2", "qolab-qwen3-8-27b-openrouter", "qolab", ["Q4", "Q5", "Q6"], "running since 11:52"),
+    ("night4qa-gilboa-20260922-r2", "gilboa-qwen3-8-27b-openrouter", "gilboa", ["qD4", "qC1", "qC2"], "queued after gilboa round 1"),
+    ("night4qa-gilboa-20260922-r3", "gilboa-qwen3-8-27b-openrouter", "gilboa", ["qC4", "qC5", "qD1"], "queued after gilboa round 2"),
+    ("night4qa-gilboa-20260922-r4", "gilboa-qwen3-8-27b-openrouter", "gilboa", ["qD2"], "queued after gilboa round 3"),
+]
 base.FW_COLOR["splash"] = "var(--qua)"  # blue for Splash; OpenRouter keeps tinycal's green
 base.FW_COLOR["flash"] = "var(--warn)"  # amber for the flash model
+base.FW_COLOR["qa"] = "var(--qa)"  # violet for the qua-agents column (Splash already uses the base's blue)
 
 # ----------------------------------------------------------------------------- operator log
 SNAPSHOT_NOTE = {
@@ -104,6 +118,11 @@ TARGET_INCIDENTS = {
     ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-flash-openrouter-flash2", "qC2"):
         "never started: OpenRouter answered 429 'qwen/qwen3.8-flash is temporarily rate-limited' for the whole ten-minute retry ladder at "
         "20:55–21:05; retried as flash3",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC5"):
+        "stopped by the operator at 00:44 with the whole cell: OpenRouter had answered 429 for the full ladder on qC1–qC4 (00:14–00:40) and "
+        "was doing the same here; the four remaining qubits never started",
+    ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qD1"):
+        "stopped with the cell at 00:44 (429 ladder in progress); never got a model turn",
     ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-D", "qC2"):
         "the medium-effort rerun ran the whole graph in 4.6 h (23/25 nodes) and declared itself stuck on a weak dispersive readout; its RB "
         "trace is flat (the '100 %' is not a measurement)",
@@ -154,7 +173,9 @@ OPERATOR_STOPS = {("night4-qolab-20260920-1600", "qolab-tinycal-qwen3-8-27b-spla
                   ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-B", "qB4"),
                   ("night4-arbel-20260920-1634", "arbel-tinycal-qwen3-8-27b-splash-C", "qC2"),
                   ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-D", "qC2"),
-                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-F", "qC3")}
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-27b-splash-F", "qC3"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC5"),
+                  ("night4-gilboa-20260920-1712", "gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qD1")}
 # Completed runs whose RB number is not a measurement (the fit's own warning says so); their fidelity is withheld from every table.
 INVALID_RB = {
     ("gilboa", "openrouter", "qC2"): "a Rabi that never showed an oscillation at any amplitude or length (124 turns, 51 node runs) until the "
@@ -265,6 +286,44 @@ INCIDENTS = [
                      "KV pool; arbel Splash-E (qB4, qC2) follows when the qolab driver ends. In parallel, qwen3.8-flash re-runs its losses on "
                      "OpenRouter — qolab Q2 Q3, arbel qB4 qC2 — and runs all ten gilboa C/D qubits for the first time (PAR 2), which keeps every "
                      "backend at three targets. All on the fixed nodes (qua-libs 65b4755)."),
+    ("22 Sep 12:10", "First qua-agents document: the qolab cell ended at 11:52 when Q2 and Q3 hit the recursion limit (148 turns each) — "
+                     "Q1 99.93 % (58 turns, 18 nodes), Q2 stuck in an 88-run T2echo loop after a good start, Q3 never found the qubit "
+                     "(46 power sweeps, 27 spectroscopies). Three qubits, 10.4 h, $10 of tokens. Its r2 round (Q4 Q5 Q6) started at 11:52. "
+                     "flash9 finished qolab Q3 at 99.95 % once OpenRouter's pool recovered; Q2 ended stuck again. arbel: the qua-agents cell "
+                     "was frozen at 11:25 to free the backend and Splash-E qB4 (medium) started alone at 12:07; the gilboa cell stays frozen "
+                     "for another user."),
+    ("22 Sep 13:50", "Reference calibrations re-pulled (read-only, no QPU): arbel's stored gate fidelities were from 8 Sep 16:05, and the lab "
+                     "recalibrated all 21 qubits at 13:10 today; qolab's six were recalibrated at 14:03 and gilboa's qC2 at 14:01, the rest of "
+                     "gilboa still 15–16 Sep. The scatter plots now compare against those numbers (snapshot kept in "
+                     "~/qab-runs/reference-state-20260922). arbel moved most on qD1 (99.18 → 94.87 %) and qB5 (99.45 → 99.85); qB4, the qubit "
+                     "under test, is unchanged at 99.89. Splash-E finished qB4 at 13:23: 94.53 %, the 0→2 two-photon line for the fourth time "
+                     "on this qubit — 17 of 18 nodes green on a 6507.17 MHz line, see the hard-case note. arbel is free again."),
+    ("22 Sep 08:30", "Overnight, unattended from 02:59 (the operator's watch did not fire again until 08:24). Splash finished its second pass: "
+                     "qolab Q6 · rerun 99.94 % (134 min, one capped turn), gilboa qD1 · rerun 99.77 % (57 min), gilboa qD2 · rerun 96.83 % "
+                     "(49 min; the 0.7 µs-T1 qubit, reference 98.8 %) — all Splash streams ended at 04:04. OpenRouter's Qwen pool recovered "
+                     "around 03:15: the gilboa flash7 cell, left walking its list, then completed qD2 96.33 %, qD3 99.93 %, qD4 99.93 % and "
+                     "qD5 99.92 % (37–56 min each, no capped turn) after qC1–qC5 and qD1 had aborted on 429; qolab Q2/Q3 and arbel qB4/qC2 were "
+                     "never retried because the probe had been stopped at 02:37. qua-agents · qwen3.8-27b: arbel (since 01:06), qolab (since "
+                     "03:34) and gilboa (since 06:22) all still running at 08:24, every backend at three workers; the qolab cell's Q2 has run "
+                     "T2echo 27 times and Q3 qubit_spectroscopy 26 times (Q1 is mid-graph), arbel's qC2 qubit_spectroscopy 9 times — a "
+                     "qua-agents cell writes its document only at the end, so the cells were left to finish rather than killed."),
+    ("22 Sep 02:36", "gilboa Splash-I qC5 · rerun finished at 99.745 % (79 min, 65 turns, no capped turn) — the Splash medium rerun beat the "
+                     "OpenRouter result on this qubit (95.9 % with 1 µs gates): it found a 100 ns / 0.26 V gate. Splash's engine restarted "
+                     "twice more (01:55, 02:30, 'native frame write timed out'), both ridden out on the retry ladder. The flash probe got a "
+                     "200 at 02:02 and again at 02:28 and launched qolab flash6, gilboa flash7 and qolab flash8, but every launched target "
+                     "still hit 429 for its whole ladder and aborted with 0–1 turns; the probe was stopped at 02:37 after the third aborting "
+                     "launch. Flash stays down until OpenRouter's shared Qwen pool recovers."),
+    ("22 Sep 01:24", "gilboa Splash-I qC3 · rerun finished at 99.97 % in 46 minutes (73 turns, no capped turn) — the second target to run on the "
+                     "staggered two-stream layout; Splash-I moved on to qC5. qolab Splash-C Q1 · rerun ended stuck after 89 minutes on a wrong "
+                     "f_01 (5207/5222 vs 5272 MHz) and a readout put back to 0.02 V; Q6 · rerun started. The arbel qua-agents cell was restarted "
+                     "at 01:06 on the rebuilt integration checkout (origin/main fc8de51, 19 commits newer); a flash probe pings OpenRouter every "
+                     "5 minutes and relaunches the flash reruns when the shared pool answers again."),
+    ("22 Sep 00:44", "qwen3.8-flash is rate-limited again: OpenRouter answered 429 for the whole retry ladder on every flash target launched "
+                     "at 00:14 (qolab Q2 Q3, arbel qB4 qC2, gilboa qC1–qC4 in turn); the gilboa cell was stopped at 00:44 rather than let it "
+                     "abort ten targets one by one. The flash reruns wait for the limit to lift. qua-agents · qwen3.8-27b (OpenRouter) "
+                     "started on arbel (qB4 qC2 qC3, three workers) at 00:44 on the night-4 snapshot — the re-scramble is byte-identical to "
+                     "tinycal's — and the working-copy qua-libs 65b4755 (deps.yaml re-pinned for it); the qolab and gilboa cells follow when "
+                     "their Splash streams end. First launch failed on the runner's own qua-libs pin check (a884483); relaunched at 00:44."),
     ("21 Sep 23:26", "All cells done. gilboa Splash-H finished qD4 · rerun at 99.93 % in 35 minutes (64 turns, 27 nodes, no capped turn, 99 % "
                      "prefix-cache hits) — the fastest Splash bring-up of the night, and the only one that ever ran as the sole stream. arbel "
                      "flash4 qC2 aborted at turn 7 on a solid OpenRouter 429 (fourth and last attempt)."),
@@ -341,10 +400,25 @@ HARD_CASE_NOTE = {
                               "a tool call, and a lower effort level for Splash",
     ("qolab", "openrouter", "Q2"): "readout power committed at 0.035 V with no punch-out onset in the sweep, ~50 % IQ contrast, flat RB; the "
                                    "night-2 recipe's 'provisional low power' line was followed, but no second power sweep at the sweet spot",
+    ("arbel", "splash", "qB4 · rerun 2"): (
+        "the 0→2 two-photon line for the fourth time on this qubit, and the first on Splash: qubit_spectroscopy committed f_01 = 6507.17 MHz "
+        "(reference 6605.69, α = 194 MHz, f_01 − α/2 = 6508.5) and the graph then ran to the end on |2⟩ — 17 of 18 nodes, a 600 ns x180, "
+        "a 'T1' of 336 µs and a 'T2echo' of 574 µs (the cascade, not the qubit), RB 10.2 % per Clifford. Nothing stopped it: every node fitted "
+        "something, and the grader caught it only afterwards, on the f_01 ballpark. The low-drive power-scaling check is the fix"),
     ("arbel", "openrouter", "qC2"): "the 0→2 two-photon line committed as f_01: 5798.05 MHz against a reference f_01 of 5901.15 and α = 205 MHz "
                                     "(f_01 − α/2 = 5798.5); χ ≈ 0, flat power Rabi and flat blobs followed, and the model blamed the readout",
     ("arbel", "openrouter", "qB4"): "the same 0→2 two-photon line: qubit_spectroscopy identified 6504 MHz (reference f_01 6605.69, α = 194 MHz, "
                                     "f_01 − α/2 = 6508.5); the budget then ran out at turn 112 after 48 node runs of readout re-optimisation",
+    ("qolab", "qa", "Q2"): "qua-agents: readout, flux and f_01 done by turn ~40, then the worker ran T2echo 88 times in a row (each re-run "
+                           "with a different window or shot count) until the recursion limit ended it at turn 148 — no QPU budget stops a "
+                           "qua-agents worker; 15 of 18 nodes, 11M input tokens",
+    ("qolab", "qa", "Q3"): "qua-agents: 46 readout power sweeps and 27 qubit spectroscopies, no f_01 ever committed; recursion limit at turn 148 "
+                           "with 4 of 18 nodes — the qolab readout-power trap again (the qubit line is invisible above ~0.012 V), which the "
+                           "worker never got out of",
+    ("qolab", "splash", "Q1 · rerun"): "the medium-effort rerun committed f_01 = 5207 then 5222 MHz (reference 5272) and, after trying 0.0025–0.008 V, "
+                                       "put the readout back to 0.02 V — where qolab's qubit line is invisible — then read the overlapping blobs as "
+                                       "'dispersive coupling far too weak' and declared itself stuck at turn 52 (89 min, 22 nodes, 2 capped turns). "
+                                       "The 27b on OpenRouter and flash both found 5272 at 0.0043–0.0051 V readout on the same state",
     ("arbel", "flash", "qB4"): "the 0→2 two-photon line again, calibrated end to end: qubit_spectroscopy's 300 MHz window held a sharp 16σ line at "
                                "6507 MHz that moves with flux (the two-photon line tracks f_01 exactly) and only a broad 4σ hump at the real "
                                "6.58–6.61 GHz, so the node reported identified=True at 6507.2 and the model never doubted it. Everything after is "
@@ -363,6 +437,8 @@ def cell_log_token(cell_name: str) -> str:
 
 
 def provider_of(cell_name: str) -> str:
+    if "tinycal" not in cell_name:  # a qua-agents cell: <backend>-<model key>
+        return "qa"
     if "-flash-" in cell_name:  # qwen3-8-flash-openrouter cells also contain "-openrouter"
         return "flash"
     for token in PROVIDERS:
@@ -378,10 +454,115 @@ def live_status(run_id: str) -> dict:
         return {}
 
 
+def overrides(run_id: str, target: str):
+    """(state writes, overrides) from tinycal's events.jsonl. An override is a written value that is not a node's proposal: no node
+    ever proposed that path, or the value is more than 0.1 % from the latest one proposed for it. None when there is no event log."""
+    path = TINYCAL_RUNS / run_id / target / "events.jsonl"
+    if not run_id or not path.exists():
+        return None
+    proposed, writes, over = {}, 0, 0
+    for line in open(path):
+        e = json.loads(line)
+        if e.get("tool") == "run_node":
+            for p in e.get("proposed_updates") or []:
+                proposed[p["path"]] = p["proposed"]
+        elif e.get("tool") == "write_state":
+            for w in e.get("results") or []:
+                if w.get("status") != "written":
+                    continue
+                writes += 1
+                v, p = w["value"], proposed.get(w["path"])
+                numeric = all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in (v, p))
+                if not (numeric and abs(v - p) <= 1e-3 * max(abs(p), 1e-12)) and v != p:
+                    over += 1
+    return writes, over
+
+
+# The bring-up recipe's order (bringup_recipes/flux_tunable_1q.md): one entry per step; the power sweep appears twice (step 4 repeats
+# it at the sweet spot) and T1/T2echo share a step, in either order.
+RECIPE = [("resonator_identification",), ("resonator_spectroscopy_vs_power",), ("resonator_spectroscopy_vs_flux",),
+          ("resonator_spectroscopy_vs_power",), ("qubit_spectroscopy",), ("qubit_spectroscopy_vs_flux",), ("qubit_spectroscopy_fine",),
+          ("power_rabi",), ("T1_coarse",), ("readout_power_optimization",), ("readout_frequency_optimization",), ("IQ_blobs",),
+          ("ramsey_vs_flux_calibration",), ("power_rabi_error_amplification_x180",), ("ramsey",), ("T1", "T2echo"),
+          ("DRAG_calibration",), ("Randomized_benchmarking",)]
+RECIPE_NODES = list(dict.fromkeys(n for step in RECIPE for n in step))
+
+
+def _same(v, p):
+    numeric = all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in (v, p))
+    return v == p or (numeric and abs(v - p) <= 1e-3 * max(abs(p), 1e-12))
+
+
+def node_decisions(run_id: str, target: str):
+    """Per node, what the model did with it, from tinycal's events.jsonl; None when there is no event log.
+    Sequence (each node run, against the recipe order): in order / retried after a failure / re-run right after a success /
+    stepped back to (an earlier step, after later ones ran) / skipped ahead to (a step past the next one); left after a failure is
+    charged to the node whose last run failed when the model went elsewhere. Proposals (each run that proposed state updates, judged
+    by the writes before the next node run): accepted as proposed / partly written / value changed / declined, and after a decline
+    whether the model re-ran the same node."""
+    path = TINYCAL_RUNS / run_id / target / "events.jsonl"
+    if not run_id or not path.exists():
+        return None
+    per = {}
+    ptr, seen, prev, prev_ok = -1, set(), None, True
+    pending = None  # (node, proposals {path: value}, written {path: value}) of the last run that proposed something
+
+    def settle(next_node):
+        if pending is None:
+            return
+        node, props, written = pending
+        got = [p for p in props if p in written]
+        if len(got) == len(props) and all(_same(written[p], props[p]) for p in props):
+            key = "accepted"
+        elif any(not _same(written[p], props[p]) for p in got):
+            key = "changed"
+        elif got:
+            key = "partial"
+        else:
+            key = "declined_rerun" if next_node == node else "declined_other"
+        per[node][key] += 1
+
+    for line in open(path):
+        e = json.loads(line)
+        if e.get("tool") == "run_node":
+            n = e.get("node")
+            if n not in RECIPE_NODES:
+                continue
+            settle(n)
+            c = per.setdefault(n, collections.Counter())
+            ok = e.get("outcome") == "successful"
+            c["runs"] += 1
+            c["failed"] += not ok
+            if prev is not None and prev != n and not prev_ok:
+                per[prev]["left_failed"] += 1
+            if n == prev:
+                c["retry" if not prev_ok else "repeat"] += 1
+            else:
+                idx = [i for i, step in enumerate(RECIPE) if n in step]
+                g = min((i for i in idx if i >= ptr), default=max(idx))
+                if g <= ptr:
+                    c["in_order" if g == ptr and n not in seen else "back"] += 1
+                elif g == ptr + 1:
+                    c["in_order"] += 1
+                else:
+                    c["ahead"] += 1
+                ptr = max(ptr, g)
+            seen.add(n)
+            prev, prev_ok = n, ok
+            props = {p["path"]: p["proposed"] for p in e.get("proposed_updates") or []}
+            pending = (n, props, {}) if props else None
+        elif e.get("tool") == "write_state" and pending is not None:
+            for w in e.get("results") or []:
+                if w.get("status") == "written" and w["path"] in pending[1]:
+                    pending[2][w["path"]] = w["value"]
+    settle(None)
+    return per
+
+
 def collect():
     prices = load_prices()
     cells = []
-    for work in sorted(RUNS.glob("night4-*")):
+    for work in sorted(list(RUNS.glob("night4-*")) + list(RUNS.glob("night4qa-*"))):
         if not work.is_dir() or work.name in EXCLUDED_DIRS or "." in work.name.split("-")[-1]:
             continue
         backend = work.name.split("-")[1]
@@ -396,8 +577,8 @@ def collect():
             r = json.load(open(doc))
             t = r["totals"]
             live = live_status(r.get("run_id") or "")
-            final = (work / f"cell-{cell_log_token(cell.name)}.log").exists() and \
-                "done →" in (work / f"cell-{cell_log_token(cell.name)}.log").read_text()
+            final = (token == "qa") or ((work / f"cell-{cell_log_token(cell.name)}.log").exists() and
+                                        "done →" in (work / f"cell-{cell_log_token(cell.name)}.log").read_text())
             alive = final or subprocess.run(["pgrep", "-f", r.get("run_id") or "none"], capture_output=True).returncode == 0
             targets = []
             for x in r["targets"]:
@@ -424,7 +605,7 @@ def collect():
                     "gate_fid": (gate_fidelity(rb.get("error_per_clifford")) if x["status"] == "completed"
                                  and (backend, token, x["target"] + rerun_label(cell.name, x["target"])) not in INVALID_RB else None),
                     "ctx": (lambda cs: {"median": median(cs), "end": cs[-1] if cs else None, "max": max(cs) if cs else None, "n": len(cs)})(
-                        context_series(cell, r.get("run_id") or "", x["target"], "tinycal")),
+                        context_series(cell, r.get("run_id") or "", x["target"], "qua-agents" if token == "qa" else "tinycal")),
                     "target": x["target"], "status": status,
                     "nodes": x.get("nodes_completed"), "graph": x.get("graph_node_count"),
                     "terminal": x.get("terminal_node"),
@@ -438,6 +619,8 @@ def collect():
                     "stopped": (work.name, cell.name, x["target"]) in OPERATOR_STOPS,
                     "turns": g(x, "agent", "turns", "total"),
                     "provider": token,
+                    "overrides": None if token == "qa" else overrides(r.get("run_id") or "", x["target"]),
+                    "decisions": None if token == "qa" else node_decisions(r.get("run_id") or "", x["target"]),
                 })
             qubits = [x["target"] for x in r["targets"]]
             c = {
@@ -464,9 +647,187 @@ def collect():
 
 
 # ----------------------------------------------------------------------------- tables specific to this night
+_REF_FID: dict[str, dict[str, float]] = {}
+_REF_DATE: dict[str, dict[str, str]] = {}
+# Pulled on 22 Sep 2026, after the labs recalibrated; the night's own snapshots are the fallback for qubits it misses.
+REFERENCE_SNAPSHOT = RUNS / "reference-state-20260922"
+
+
+def _load_reference(backend: str) -> None:
+    """Read gate_fidelity.averaged (and its stamp) for every qubit; the freshest snapshot read last wins."""
+    _REF_FID[backend], _REF_DATE[backend] = {}, {}
+    sources = [work / "source-state" for work in sorted(RUNS.glob(f"night4-{backend}-2026*"))
+               if work.name not in EXCLUDED_DIRS]
+    sources.append(REFERENCE_SNAPSHOT / backend)
+    for src in sources:
+        f = src / "state.json"
+        if not f.exists():
+            continue
+        try:
+            qubits = json.load(open(f))["qubits"]
+        except Exception:  # noqa: BLE001
+            continue
+        for q, v in qubits.items():
+            gf = v.get("gate_fidelity") or {}
+            if not gf.get("averaged"):  # 0 or absent: never calibrated, not a reference
+                continue
+            _REF_FID[backend][q] = gf["averaged"]
+            _REF_DATE[backend][q] = gf.get("averaged_updated_at") or ""
+
+
+def reference_fidelity(backend: str, qubit: str):
+    """The qubit's gate_fidelity.averaged in the freshest pulled cloud state, or None."""
+    if backend not in _REF_FID:
+        _load_reference(backend)
+    return _REF_FID[backend].get(qubit)
+
+
+def reference_date(backend: str, qubit: str) -> str:
+    """The averaged_updated_at stamp behind that number, as the cloud stores it (Israel time)."""
+    if backend not in _REF_DATE:
+        _load_reference(backend)
+    return _REF_DATE[backend].get(qubit, "")
+
+
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+
+def _reference_dates_phrase(used) -> str:
+    """'arbel 22 Sep 13:10, gilboa 15–22 Sep' — the stamps of the references actually plotted."""
+    def day(s):
+        return f"{int(s[8:10])} {_MONTHS[int(s[5:7]) - 1]}"
+
+    out = []
+    for b in sorted({b for b, _ in used}):
+        stamps = sorted({d for bb, q in used if bb == b and (d := reference_date(b, q))})
+        if not stamps:
+            continue
+        days = sorted({s[:10] for s in stamps})
+        if len(days) == 1:
+            out.append(f"{b} {day(days[0])} {stamps[0][11:16]}")
+        else:  # same month: '15–22 Sep', not '15 Sep–22 Sep'
+            first = day(days[0])[:-4] if days[0][5:7] == days[-1][5:7] else day(days[0])
+            out.append(f"{b} {first}–{day(days[-1])}")
+    return ", ".join(out)
+
+
+THRESHOLD = 0.999
+
+
+def fidelity_strip(done):
+    """One dot per completed qubit-run on a log gate-error axis, the 99.9 % line, and the count above it.
+
+    Filled dots: at or above the qubit's reference fidelity (the human calibration in the pulled state); hollow: below it.
+    """
+    import math
+    pts = [(c, t) for c, t in done if t["gate_fid"] is not None]
+    if not pts:
+        return ""
+    W, H, L, R = 220, 40, 6, 6
+    lo, hi = math.log10(0.02), math.log10(5.0)  # gate error in %, 0.02 % .. 5 %
+    x = lambda err_pct: L + (W - L - R) * (min(max(math.log10(max(err_pct, 0.02)), lo), hi) - lo) / (hi - lo)  # noqa: E731
+    xt = x(100 * (1 - THRESHOLD))
+    parts = [f'<svg class="strip" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="gate error per completed run">']
+    for tick in (0.03, 0.1, 0.3, 1, 3):
+        parts.append(f'<text x="{x(tick):.1f}" y="{H - 2}" class="tick" text-anchor="middle">{tick:g}%</text>')
+    parts.append(f'<line x1="{L}" x2="{W - R}" y1="{H - 14}" y2="{H - 14}" class="axis"/>')
+    parts.append(f'<line x1="{xt:.1f}" x2="{xt:.1f}" y1="2" y2="{H - 12}" class="thr"/>')
+    above = 0; beat = 0; with_ref = 0
+    for i, (c, t) in enumerate(sorted(pts, key=lambda ct: ct[1]["gate_fid"])):
+        f = t["gate_fid"]; err = 100 * (1 - f)
+        ref = reference_fidelity(c["backend"], t["target"])
+        hollow = ref is not None and f < ref
+        if f >= THRESHOLD:
+            above += 1
+        if ref is not None:
+            with_ref += 1
+            beat += 0 if hollow else 1
+        y = H - 22 - (i % 3) * 5  # three lanes so neighbours do not stack exactly
+        style = 'class="dot hollow"' if hollow else 'class="dot"'
+        label = f"{c['backend']} {t['target']}{rerun_label(c['cell'], t['target'])} · {pct(f)}" + (f" (reference {pct(ref)})" if ref is not None else "")
+        parts.append(f'<circle cx="{x(err):.1f}" cy="{y}" r="3.2" {style}><title>{esc(label)}</title></circle>')
+    parts.append("</svg>")
+    note = (f"≥ {100 * THRESHOLD:g} %: <b>{above} / {len(pts)}</b>"
+            + (f"<br><span class='muted'>at or above the reference: {beat} / {with_ref}</span>" if with_ref else ""))
+    return f"<div class='stripwrap'>{''.join(parts)}<div class='small'>{note}</div></div>"
+
+
+def _scatter_svg(points, *, xlabel, ylabel, lo=0.02, hi=6.0, guides=(1.0,), guide_labels=("y = x",), W=300, H=270):
+    """Log-log scatter of gate error in %, one dot per completed run, coloured by host; ``points`` = (x, y, label, host)."""
+    import math
+    L, R, T, B = 46, 12, 12, 40
+    llo, lhi = math.log10(lo), math.log10(hi)
+    sx = lambda v: L + (W - L - R) * (min(max(math.log10(v), llo), lhi) - llo) / (lhi - llo)  # noqa: E731
+    sy = lambda v: H - B - (H - T - B) * (min(max(math.log10(v), llo), lhi) - llo) / (lhi - llo)  # noqa: E731
+    out = [f'<svg class="scatter" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img">']
+    for tick in (0.03, 0.1, 0.3, 1, 3):
+        if lo <= tick <= hi:
+            out.append(f'<line x1="{sx(tick):.1f}" x2="{sx(tick):.1f}" y1="{T}" y2="{H - B}" class="grid"/>'
+                       f'<line y1="{sy(tick):.1f}" y2="{sy(tick):.1f}" x1="{L}" x2="{W - R}" class="grid"/>'
+                       f'<text x="{sx(tick):.1f}" y="{H - B + 14}" class="tick" text-anchor="middle">{tick:g}%</text>'
+                       f'<text x="{L - 6}" y="{sy(tick) + 3:.1f}" class="tick" text-anchor="end">{tick:g}%</text>')
+    for k, lab in zip(guides, guide_labels):
+        x0, x1 = lo, hi / k if k > 1 else hi
+        out.append(f'<line x1="{sx(x0):.1f}" y1="{sy(x0 * k):.1f}" x2="{sx(x1):.1f}" y2="{sy(x1 * k):.1f}" class="guide"/>'
+                   f'<text x="{sx(x1) - 4:.1f}" y="{sy(x1 * k) - 4:.1f}" class="tick" text-anchor="end">{esc(lab)}</text>')
+    out.append(f'<rect x="{L}" y="{T}" width="{W - L - R}" height="{H - T - B}" class="frame"/>')
+    for x, y, label, host in points:
+        out.append(f'<circle cx="{sx(x):.1f}" cy="{sy(y):.1f}" r="4" class="pt" style="fill:{base.FW_COLOR[PROVIDERS[host][2]]}">'
+                   f'<title>{esc(label)}</title></circle>')
+    out.append(f'<text x="{(L + W - R) / 2:.0f}" y="{H - 4}" class="lab" text-anchor="middle">{esc(xlabel)}</text>')
+    out.append(f'<text transform="translate(12,{(T + H - B) / 2:.0f}) rotate(-90)" class="lab" text-anchor="middle">{esc(ylabel)}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def _scatter_row(points, **kw):
+    """One panel per host, side by side like the table's columns; an empty host gets a placeholder."""
+    panels = []
+    for h in ("openrouter", "splash", "flash", "qa"):
+        pts = [p for p in points if p[3] == h]
+        head = (f"<div class='ptitle'><span class='chip'><i style='background:{base.FW_COLOR[PROVIDERS[h][2]]}'></i>{esc(PROVIDERS[h][0])}</span>"
+                f" <span class='small muted'>{len(pts)} runs</span></div>")
+        body = _scatter_svg(pts, **kw) if pts else "<div class='small muted' style='padding:24px 0'>no completed run yet</div>"
+        panels.append(f"<div class='panel'>{head}{body}</div>")
+    return "<div class='scattergrid'>" + "".join(panels) + "</div>"
+
+
+def error_scatters(cells):
+    """Measured gate error against (1) the reference calibration's error and (2) the T1/T2echo coherence floor."""
+    ref_pts, floor_pts, used_refs = [], [], set()
+    for c in cells:
+        for t in c["targets"]:
+            if t["status"] != "completed" or t["gate_fid"] is None:
+                continue
+            err = 100 * (1 - t["gate_fid"])
+            label = f"{c['backend']} {t['target']}{rerun_label(c['cell'], t['target'])} · {PROVIDERS[c['provider']][0]} · {pct(t['gate_fid'])}"
+            ref = reference_fidelity(c["backend"], t["target"])
+            if ref is not None and ref < 1:
+                used_refs.add((c["backend"], t["target"]))
+                ref_pts.append((100 * (1 - ref), err,
+                                label + f" · reference {pct(ref)} ({reference_date(c['backend'], t['target'])[:16]})",
+                                c["provider"]))
+            t1, t2e, L = t.get("t1"), t.get("t2e"), t.get("x180_len")
+            if t1 and t2e and L:
+                floor = 100 * (L * 1e-9 / 3.0) * (1.0 / t1 + 1.0 / t2e)  # per-gate coherence-limited error
+                floor_pts.append((floor, err, label + f" · T1 {1e6 * t1:.0f} µs, T2e {1e6 * t2e:.0f} µs, x180 {L:.0f} ns · floor {floor:.3f}%", c["provider"]))
+    a = _scatter_row(ref_pts, xlabel="reference calibration's gate error, %", ylabel="measured gate error, %")
+    b = _scatter_row(floor_pts, xlabel="coherence floor (T1, T2echo, x180 length), %",
+                     ylabel="measured gate error, %", guides=(1.0, 3.0), guide_labels=("y = x", "y = 3x"))
+    return (f"<h3>Measured gate error against the reference calibration</h3>"
+            f"<p class='small muted'>One dot per completed qubit-run, log axes, error per gate (error per Clifford ÷ 1.875). Below the diagonal the "
+            f"framework beat the stored calibration; hover a dot for the qubit. The reference is gate_fidelity.averaged in the cloud state, re-pulled on "
+            f"22 Sep 13:50 CET: {_reference_dates_phrase(used_refs)} (Israel time, the stamp the cloud stores with each value) — the last calibration on "
+            f"file for that qubit, not necessarily the same RB protocol, and a qubit may have drifted since.</p>{a}"
+            f"<h3>Measured gate error against the coherence floor</h3>"
+            f"<p class='small muted'>The floor is (t<sub>gate</sub>/3)·(1/T1 + 1/T2echo) with the run's own T1, T2echo and x180 length — the error a perfect "
+            f"gate of that length would still have. A dot on the diagonal is decoherence-limited; far above it, the control is the limit. "
+            f"Runs without a T1 or T2echo measurement are not shown.</p>{b}")
+
+
 def pivot_table(cells):
     """Metrics as rows; one column per host, each over all three backends. Only started targets count as attempted."""
-    cols = [(PROVIDERS[t][0], t) for t in ("openrouter", "splash", "flash")]
+    cols = [(PROVIDERS[t][0], t) for t in ("openrouter", "splash", "flash", "qa")]
     stats = []
     for _, token in cols:
         runs = [(c, t) for c in cells if c["provider"] == token for t in c["targets"]
@@ -477,21 +838,72 @@ def pivot_table(cells):
         tot = lambda k: sum((t[k] or 0) for _, t in runs)  # noqa: E731
         tokt = lambda k: sum((t["tokens"].get(k) or 0) for _, t in runs)  # noqa: E731
         per_dev = {}
-        for c, t in runs:  # completed beats running beats failed, per qubit
-            rank = {"completed": 2, "running": 1}.get(t["status"], 0)
-            prev = per_dev.setdefault(c["backend"], {}).get(t["target"], -1)
-            per_dev[c["backend"]][t["target"]] = max(prev, rank)
+        for c, t in runs:  # per qubit: completed beats running beats a model failure beats an infrastructure-only failure
+            if t["status"] == "completed":
+                kind = "ok"
+            elif t["status"] == "running":
+                kind = "running"
+            elif infra(ATTEMPT_SHORT.get((c["cell"], t["target"]), "")):
+                kind = "infra"
+            else:
+                kind = "fail"
+            per_dev.setdefault(c["backend"], {}).setdefault(t["target"], set()).add(kind)
+        if token == "qa":  # qua-agents cells write their document at the end: show the running and queued ones meanwhile
+            have = {(c["work"], c["cell"]) for c in cells}
+            for work, cell, backend, qubits, state in QA_QUEUE:
+                if (work, cell) in have:
+                    continue
+                kind = "running" if (RUNS / work / cell / "run.log").exists() else "queued"
+                for q in qubits:
+                    per_dev.setdefault(backend, {}).setdefault(q, set()).add(kind)
 
         def qubit_list(qs):
-            return ", ".join(f"<span class='qok' title='calibrated'>{q}</span>" if r == 2
-                             else (f"<span class='muted' title='still running'>{q}&nbsp;(running)</span>" if r == 1
-                                   else f"<span class='qfail' title='not calibrated'>{q}</span>") for q, r in sorted(qs.items()))
+            out = []
+            for q, kinds in sorted(qs.items()):
+                if "ok" in kinds:
+                    out.append(f"<span class='qok' title='calibrated'>{q}</span>")
+                elif "running" in kinds:
+                    out.append(f"<span class='muted' title='still running'>{q}&nbsp;(running)</span>")
+                elif "queued" in kinds:
+                    out.append(f"<span class='muted' title='queued'>{q}&nbsp;(queued)</span>")
+                elif "fail" in kinds:
+                    out.append(f"<span class='qfail' title='not calibrated'>{q}</span>")
+                else:
+                    out.append(f"<span class='infra' title='every attempt lost to infrastructure or serving (408/503/429, tailnet, capped loop at high)'>{q}</span>")
+            return ", ".join(out)
         priced = token in ("openrouter", "flash")
+
+        def override_share(pairs):
+            w = sum(t["overrides"][0] for _, t in pairs if t["overrides"])
+            o = sum(t["overrides"][1] for _, t in pairs if t["overrides"])
+            return (o, w) if w else None
+        ov_done = override_share(done)
+        ov_rest = override_share([(c, t) for c, t in runs if t["status"] != "completed"])
+
+        def off_order(pairs):
+            tot = collections.Counter()
+            for _, t in pairs:
+                for c in (t["decisions"] or {}).values():
+                    tot.update(c)
+            return (tot["back"] + tot["ahead"], tot["runs"]) if tot["runs"] else None
+        oo_done = off_order(done)
+        oo_rest = off_order([(c, t) for c, t in runs if t["status"] != "completed"])
         stats.append({
+            "order": ("—" if oo_done is None else
+                      f"{100 * oo_done[0] / oo_done[1]:.0f}% ({oo_done[0] / n:.1f} / calibration)")
+                     + ("" if oo_rest is None else
+                        f"<br><span class='small muted'>not completed: {100 * oo_rest[0] / oo_rest[1]:.0f}% of {oo_rest[1]} node runs</span>")
+                     if token != "qa" else "<span class='small muted'>not measured</span>",
+            "override": ("—" if ov_done is None else
+                         f"{100 * ov_done[0] / ov_done[1]:.0f}% ({ov_done[0] / n:.1f} / calibration)")
+                        + ("" if ov_rest is None else
+                           f"<br><span class='small muted'>not completed: {100 * ov_rest[0] / ov_rest[1]:.0f}% of {ov_rest[1]} writes</span>")
+                        if token != "qa" else "<span class='small muted'>not measured</span>",
             "qubits": ("<div class='devs'>" + "".join(f"<div class='dev'>{b}</div><div>{qubit_list(qs)}</div>" for b, qs in sorted(per_dev.items()))
                        + "</div>") if per_dev else "—",
+            "qa_note": "",
             "done": f"{len(done)}/{len(runs)} ({100 * len(done) / len(runs):.0f}%)" if runs else "—",
-            "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}</span>") if fids else "—",
+            "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}</span>" + fidelity_strip(done)) if fids else "—",
             "agent": minutes(tot("model_s") / n), "qpu": minutes(tot("qpu_s") / n), "queue": minutes(tot("queue_s") / n),
             "cost": f"${sum((t['cost'] or 0) for _, t in runs) / n:.2f}" if priced else "unpriced",
             "spent": f"${sum((t['cost'] or 0) for _, t in runs):.2f}" if priced else "unpriced",
@@ -500,9 +912,13 @@ def pivot_table(cells):
             "ctx_end": (lambda v: ktok(sum(v) / len(v)) if v else "—")([t["ctx"]["end"] for _, t in done if t["ctx"]["end"]]),
             "tin": mtok(tokt("input") / n), "tout": mtok(tokt("output") / n),
             "tcache": f"{mtok(tokt('cache_read') / n)} / {mtok(tokt('cache_creation') / n)}",
-        } if runs else None)
-    rows = [("qubits measured (green: calibrated; red: not calibrated; grey: still running)", "qubits"), ("calibrations completed / attempted", "done"),
-            ("single-qubit gate fidelity, median (min – max)", "fid"), ("agent time / calibration", "agent"),
+        } if runs or per_dev else None)
+    rows = [("qubits measured (green: calibrated; red: not calibrated; grey: only infrastructure failures so far, or still running)", "qubits"), ("calibrations completed / attempted", "done"),
+            ("agent overrides: share of state writes that are not a node's proposal (no node proposed the path, or the value is "
+             "more than 0.1 % from the latest proposal), completed calibrations; below, the runs that did not complete", "override"),
+            ("node runs off the recipe order: stepped back to an earlier step or skipped one (retries and re-runs of the node just run "
+             "are not counted), completed calibrations; below, the runs that did not complete", "order"),
+            ("single-qubit gate fidelity, median (min – max); dots: gate error per completed run on a log axis, line at 99.9 %, filled = at or above the qubit's reference fidelity, hollow = below it", "fid"), ("agent time / calibration", "agent"),
             ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"), ("judge cost / calibration", "cost"),
             ("judge cost, total spent", "spent"),
             ("model turns / calibration", "turns"), ("node runs (re-runs) / calibration", "nodes"),
@@ -516,9 +932,64 @@ def pivot_table(cells):
         tds = "".join(f"<td class='{cls}'>{st[key] if st else '—'}</td>" for st in stats)
         body.append(f"<tr><th class='rowh'>{label}</th>{tds}</tr>")
     head = ('<thead><tr><th></th>' + "".join(
-        f'<th class="grp"><span class="chip"><i style="background:{base.FW_COLOR[PROVIDERS[t][2]]}"></i>{esc("tinycal · " + label)}</span>'
+        f'<th class="grp"><span class="chip"><i style="background:{base.FW_COLOR[PROVIDERS[t][2]]}"></i>{esc(label if t == "qa" else "tinycal · " + label)}</span>'
         f'<br><span class="small muted">all three backends</span></th>' for label, t in cols) + '</tr></thead>')
     return f'<div class="scroll"><table class="grid pivot">{head}<tbody>' + "".join(body) + "</tbody></table></div>"
+
+
+def decision_table(cells):
+    """Per node and host: how the model sequenced the node and what it did with its proposals, over every attempted qubit-run."""
+    short = {"resonator_identification": "resonator identification", "resonator_spectroscopy_vs_power": "resonator vs power",
+             "resonator_spectroscopy_vs_flux": "resonator vs flux", "qubit_spectroscopy": "qubit spectroscopy",
+             "qubit_spectroscopy_vs_flux": "qubit vs flux", "qubit_spectroscopy_fine": "qubit spectroscopy fine",
+             "power_rabi": "power Rabi", "T1_coarse": "T1 coarse", "readout_power_optimization": "readout power opt.",
+             "readout_frequency_optimization": "readout frequency opt.", "IQ_blobs": "IQ blobs",
+             "ramsey_vs_flux_calibration": "Ramsey vs flux", "power_rabi_error_amplification_x180": "x180 error amplification",
+             "ramsey": "Ramsey", "T1": "T1", "T2echo": "T2 echo", "DRAG_calibration": "DRAG", "Randomized_benchmarking": "RB"}
+    cols = [("runs", "runs"), ("failed", "failed"), ("retry", "retried after a failure"), ("repeat", "re-run right after a success"),
+            ("back", "stepped back to"), ("ahead", "skipped ahead to"), ("left_failed", "left after a failure"),
+            ("proposed", "runs with a proposal"), ("accepted", "accepted as proposed"), ("partial", "partly written"),
+            ("changed", "value changed"), ("declined_rerun", "declined, re-ran the node"), ("declined_other", "declined, ran another node")]
+    pct_of = {"failed": "runs", "accepted": "proposed", "partial": "proposed", "changed": "proposed",
+              "declined_rerun": "proposed", "declined_other": "proposed"}
+
+    def cell(c, key):
+        v = c[key]
+        if not v:
+            return "<td class='num muted'>·</td>"
+        base_n = c[pct_of[key]] if key in pct_of else 0
+        share = f" <span class='small muted'>{100 * v / base_n:.0f}%</span>" if base_n else ""
+        return f"<td class='num'>{v}{share}</td>"
+
+    out = []
+    for i, token in enumerate(("openrouter", "splash", "flash")):
+        per, qruns = {}, 0
+        for c in cells:
+            if c["provider"] != token:
+                continue
+            for t in c["targets"]:
+                d = t.get("decisions")
+                if not d:
+                    continue
+                qruns += 1
+                for node, cnt in d.items():
+                    per.setdefault(node, collections.Counter()).update(cnt)
+        if not per:
+            continue
+        for cnt in per.values():
+            cnt["proposed"] = sum(cnt[k] for k in ("accepted", "partial", "changed", "declined_rerun", "declined_other"))
+        total = collections.Counter()
+        for cnt in per.values():
+            total.update(cnt)
+        rows = [f"<tr><td>{esc(short.get(n, n))}</td>{''.join(cell(per[n], k) for k, _ in cols)}</tr>" for n in RECIPE_NODES if n in per]
+        rows.append(f"<tr><th class='rowh'>all nodes</th>{''.join(cell(total, k) for k, _ in cols)}</tr>")
+        head = ("<thead><tr><th></th><th colspan='7' class='grp'>sequence</th><th colspan='6' class='grp'>proposals</th></tr>"
+                "<tr><th>node</th>" + "".join(f"<th>{esc(lab)}</th>" for _, lab in cols) + "</tr></thead>")
+        label = PROVIDERS[token][0]
+        out.append(f"<details{' open' if i == 0 else ''}><summary><span class='chip'><i style='background:{base.FW_COLOR[PROVIDERS[token][2]]}'></i>"
+                   f"tinycal · {esc(label)}</span> <span class='small muted'>{qruns} qubit-runs, {total['runs']} node runs</span></summary>"
+                   f"<div class='scroll'><table class='grid small'>{head}<tbody>{''.join(rows)}</tbody></table></div></details>")
+    return "".join(out)
 
 
 def qubit_table(cells):
@@ -542,12 +1013,13 @@ def qubit_table(cells):
     rows = []
     for (b, q), prov in sorted(by.items(), key=lambda kv: (order.get(kv[0][0], 9), kv[0][1])):
         rows.append(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td>{cell_html(prov.get('splash'))}{cell_html(prov.get('openrouter'))}"
-                    f"{cell_html(prov.get('flash'))}</tr>")
+                    f"{cell_html(prov.get('flash'))}{cell_html(prov.get('qa'))}</tr>")
     sub = "<th>status</th><th>nodes</th><th>gate fid.</th><th>ballpark</th><th>agent · QPU</th><th>turns · cost</th>"
     head = (f'<thead><tr><th></th><th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["splash"]}">27b · Splash</th>'
             f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["tinycal"]}">27b · OpenRouter</th>'
-            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["flash"]}">flash · OpenRouter</th></tr>'
-            f'<tr><th>qubit</th>{sub}{sub}{sub}</tr></thead>')
+            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["flash"]}">flash · OpenRouter</th>'
+            f'<th colspan="6" class="grp" style="border-left:2px solid {base.FW_COLOR["qa"]}">27b · qua-agents</th></tr>'
+            f'<tr><th>qubit</th>{sub}{sub}{sub}{sub}</tr></thead>')
     return f'<div class="scroll"><table class="grid small">{head}<tbody>' + "".join(rows) + "</tbody></table></div>"
 
 
@@ -568,10 +1040,11 @@ def hard_cases(cells):
             label = t["target"] + rerun_label(c["cell"], t["target"])
             note = HARD_CASE_NOTE.get((c["backend"], c["provider"], label), HARD_CASE_NOTE.get((c["backend"], c["provider"], t["target"]), ""))
             rank = 0 if t["status"] != "completed" else (1 if invalid else 2)
-            rows.append((rank, c["backend"], t["target"] + rerun_label(c["cell"], t["target"]), c["provider"], outcome, what, note))
-    rows.sort()
-    body = "".join(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td><td>{esc(PROVIDERS[p][0].split(' · ')[1])}</td><td>{o}</td>"
-                   f"<td class='small'>{esc(w)}</td><td class='small'>{esc(n)}</td></tr>" for _, b, q, p, o, w, n in rows)
+            is_infra = infra(ATTEMPT_SHORT.get((c["cell"], t["target"]), ""))
+            rows.append((rank, c["backend"], t["target"] + rerun_label(c["cell"], t["target"]), c["provider"], outcome, what, note, is_infra))
+    rows.sort(key=lambda r: r[:4])
+    body = "".join(f"<tr{' class=infra' if inf else ''}><td class='mono'>{esc(b)} {esc(q)}</td><td>{esc(PROVIDERS[p][0].split(' · ')[1])}</td><td>{o}</td>"
+                   f"<td class='small'>{esc(w)}</td><td class='small'>{esc(n)}</td></tr>" for _, b, q, p, o, w, n, inf in rows)
     if not rows:
         body = "<tr><td colspan='5' class='muted'>none yet</td></tr>"
     return ('<div class="scroll"><table class="grid small"><thead><tr><th>qubit</th><th>served by</th><th>outcome</th>'
@@ -593,6 +1066,7 @@ ATTEMPT_SHORT = {
     ("arbel-tinycal-qwen3-8-27b-splash-B", "qB4"): "capped loop, high",
     ("arbel-tinycal-qwen3-8-27b-splash-C", "qC2"): "503",
     ("arbel-tinycal-qwen3-8-27b-splash-D", "qC2"): "wrong line",
+    ("arbel-tinycal-qwen3-8-27b-splash-E", "qB4"): "two-photon line",
     ("arbel-tinycal-qwen3-8-flash-openrouter-flash", "qB4"): "two-photon line",
     ("arbel-tinycal-qwen3-8-flash-openrouter-flash2", "qC2"): "429",
     ("arbel-tinycal-qwen3-8-flash-openrouter-flash3", "qC2"): "429",
@@ -606,13 +1080,46 @@ ATTEMPT_SHORT = {
     ("gilboa-tinycal-qwen3-8-27b-splash-D", "qD4"): "408",
     ("gilboa-tinycal-qwen3-8-27b-splash-F", "qC2"): "tailnet drop",
     ("gilboa-tinycal-qwen3-8-27b-splash-F", "qC3"): "capped loop, medium",
+    ("qolab-tinycal-qwen3-8-27b-splash-C", "Q1"): "wrong line, readout 0.02 V",
+    ("qolab-qwen3-8-27b-openrouter", "Q2"): "T2echo loop, recursion limit",
+    ("qolab-qwen3-8-27b-openrouter", "Q3"): "never found the qubit, recursion limit",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash2", "Q2"): "429",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash2", "Q3"): "429",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash5", "qB4"): "429",
+    ("arbel-tinycal-qwen3-8-flash-openrouter-flash5", "qC2"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC1"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC2"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC3"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC4"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qC5"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash", "qD1"): "429",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash6", "Q2"): "429",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash6", "Q3"): "429",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash8", "Q2"): "429",
+    ("qolab-tinycal-qwen3-8-flash-openrouter-flash8", "Q3"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qC1"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qC2"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qC3"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qC4"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qC5"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qD1"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qD2"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qD3"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qD4"): "429",
+    ("gilboa-tinycal-qwen3-8-flash-openrouter-flash7", "qD5"): "429",
 }
 # Attempts that do not count as attempts (a stray process, not a graded run).
 ATTEMPT_EXCLUDE = {("gilboa-tinycal-qwen3-8-27b-splash-D", "qC2")}
 # Notes on completed runs whose number needs a reason, and the earlier failure worth naming next to a rerun's result.
 FINAL_NOTE = {("gilboa", "openrouter", "qC5"): "weak χ, 1 µs gates, ref 96.8", ("gilboa", "openrouter", "qD2"): "T1 0.7 µs, ref 98.8",
+              ("gilboa", "splash", "qD2"): "T1 0.7 µs, ref 98.8", ("gilboa", "flash", "qD2"): "T1 0.7 µs, ref 98.8",
               ("gilboa", "openrouter", "qD1"): "extrapolated"}
 SERVER_CAUSES = {"408", "503", "429", "tailnet drop"}
+# Failures that are the infrastructure's or the serving configuration's, not the model's: greyed out in the tables.
+# 'capped loop, high' = Splash at effort high spending its whole 10k output cap on reasoning (the level was changed to medium).
+INFRA_SHORT = SERVER_CAUSES | {"capped loop, high"}
+def infra(short):
+    return bool(short) and any(short == k or short.startswith(k + " ") or short.startswith(k + ",") for k in INFRA_SHORT)
 FIRST_RUN_NOTE = {("arbel", "openrouter", "qB4"): "two-photon line", ("arbel", "openrouter", "qC2"): "two-photon line"}
 
 
@@ -656,28 +1163,31 @@ def final_table(cells):
             return "—", None
         both = [label(c, t) for c, t in runs]
         labels = [b[0] for b in both]
+        shorts = [b[1] for b in both]
+        grey = lambda txt, sh: f"<span class='infra'>{esc(txt)}</span>" if infra(sh) else esc(txt)  # noqa: E731
         last_c, last_t = runs[-1]
         if last_t["status"] == "completed":
-            text = labels[-1] + rerun_label(last_c["cell"], last_t["target"]).replace(" · rerun", " · r").replace("r ", "r")
+            text = esc(labels[-1] + rerun_label(last_c["cell"], last_t["target"]).replace(" · rerun", " · r").replace("r ", "r"))
             first = FIRST_RUN_NOTE.get((last_c["backend"], last_c["provider"], last_t["target"]))
             if first and len(runs) > 1:
-                text += f" (first run: {first})"
+                text += f" (first run: {grey(first, first)})"
             return text, ("valid" if last_t["gate_fid"] is not None else "invalid")
         # every attempt failed (or the last is still running): the chain, repeats collapsed
         if len(runs) > 1 and all(t["status"] == "failed" for _, t in runs) and len(set(labels)) == 1:
             turns = max((t["turns"] or 0) for _, t in runs)
-            return (f"never ran ({labels[0]} ×{len(runs)})" if turns <= 1 else f"{labels[0]} ×{len(runs)}, never past turn {turns}"), None
+            txt = f"never ran ({labels[0]} ×{len(runs)})" if turns <= 1 else f"{labels[0]} ×{len(runs)}, never past turn {turns}"
+            return grey(txt, shorts[0]), None
         parts = []
-        for i, l in enumerate(labels):
+        for i, (l, sh) in enumerate(zip(labels, shorts)):
             if parts and parts[-1][0] == l:
                 parts[-1][1] += 1
             else:
-                parts.append([l, 1, i])
-        return " → ".join((("r " if i > 0 else "") + l + (f" ×{n}" if n > 1 else "")) for l, n, i in parts), None
+                parts.append([l, 1, i, sh])
+        return " → ".join((("r " if i > 0 else "") + grey(l + (f" ×{n}" if n > 1 else ""), sh)) for l, n, i, sh in parts), None
 
     order = {"qolab": 0, "arbel": 1, "gilboa": 2}
     targets = sorted({(b, q) for b, q, _ in attempts}, key=lambda k: (order.get(k[0], 9), k[1]))
-    provs = ["openrouter", "splash", "flash"]
+    provs = ["openrouter", "splash", "flash", "qa"]
     rows, finished, via_rerun, attempted = [], {p: 0 for p in provs}, {p: 0 for p in provs}, {p: 0 for p in provs}
     for b, q in targets:
         tds = []
@@ -690,7 +1200,7 @@ def final_table(cells):
                 if " · r" in text:
                     via_rerun[pv] += 1
             klass = "" if kind == "valid" else (" class='muted'" if text == "—" else " class='small'")
-            tds.append(f"<td{klass}>{esc(text)}</td>")
+            tds.append(f"<td{klass}>{text}</td>")
         rows.append(f"<tr><td class='mono'>{esc(b)} {esc(q)}</td>{''.join(tds)}</tr>")
     foot = "".join(f"<td><b>{finished[pv]}/{attempted[pv]}</b>" + (f" ({via_rerun[pv]} via rerun)" if via_rerun[pv] else "") + "</td>" for pv in provs)
     head = ("<thead><tr><th>qubit</th>" + "".join(f"<th>{esc(' · '.join(reversed(PROVIDERS[pv][0].split(' · ', 1))))}</th>"
@@ -705,6 +1215,14 @@ def in_flight(cells):
         for t in c["targets"]:
             if t["status"] in ("running", "queued"):
                 items.append(f"{c['backend']} {t['target']}{rerun_label(c['cell'], t['target']).replace(' · ', ' ')} ({PROVIDERS[c['provider']][0].split(' · ')[1]}, {t['status']})")
+    have = {(c["work"], c["cell"]) for c in cells}
+    for work, cell, backend, qubits, state in QA_QUEUE:
+        if (work, cell) in have:
+            continue
+        log = RUNS / work / cell / "run.log"
+        if log.exists() and state.startswith("queued"):  # an explicit state (frozen, stopped) is the operator's, not the log's
+            state = f"running since {datetime.fromtimestamp((RUNS / work / cell).stat().st_mtime).strftime('%H:%M')}"
+        items.append(f"{backend} {' '.join(qubits)} (qua-agents, {state})")
     return items
 
 
@@ -820,7 +1338,19 @@ def build():
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>{CSS}
 table.pivot .devs{{display:grid;grid-template-columns:max-content 1fr;column-gap:14px;row-gap:3px;align-items:baseline}}
-.pivot .qok{{color:var(--good);font-weight:600}}</style></head><body><div class="page">
+.pivot .qok{{color:var(--good);font-weight:600}}
+.stripwrap{{margin-top:6px;text-align:left;max-width:220px}} .stripwrap .small{{white-space:normal;line-height:1.35;font-family:inherit}}
+svg.strip{{display:block;max-width:100%}} svg.strip .axis{{stroke:var(--muted,#8a8f98);stroke-width:.8}}
+svg.strip .tick{{font-size:8px;fill:var(--muted,#8a8f98);font-family:inherit}} svg.strip .thr{{stroke:var(--crit,#b91c1c);stroke-width:1;stroke-dasharray:3 2}}
+svg.strip .dot{{fill:var(--tinycal,#2a7f62);fill-opacity:.75;stroke:none}} svg.strip .dot.hollow{{fill:none;stroke:var(--tinycal,#2a7f62);stroke-width:1.4}}
+:root{{--qa:#7c3aed}} @media (prefers-color-scheme: dark){{:root:not([data-theme="light"]){{--qa:#a78bfa}}}} :root[data-theme="dark"]{{--qa:#a78bfa}}
+.scattergrid{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:6px 0 14px}} @media (max-width:900px){{.scattergrid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+@media (max-width:480px){{.scattergrid{{grid-template-columns:1fr}}}} .scattergrid .panel{{min-width:0}} .scattergrid .ptitle{{margin-bottom:4px}}
+svg.scatter{{display:block;width:100%;height:auto}} svg.scatter .grid{{stroke:var(--surface-2,#eef2f2);stroke-width:1}}
+svg.scatter .frame{{fill:none;stroke:var(--muted,#8a8f98);stroke-width:.8}} svg.scatter .guide{{stroke:var(--muted,#8a8f98);stroke-width:1;stroke-dasharray:4 3}}
+svg.scatter .tick{{font-size:10px;fill:var(--muted,#8a8f98);font-family:inherit}} svg.scatter .lab{{font-size:11px;fill:var(--ink-2,#4b555b);font-family:inherit}}
+svg.scatter .pt{{fill-opacity:.8;stroke:var(--surface,#fff);stroke-width:.8}}
+.infra{{color:var(--muted,#8a8f98);opacity:.75}} tr.infra td{{color:var(--muted,#8a8f98);opacity:.7}} tr.infra .chip{{opacity:.6}}</style></head><body><div class="page">
 <div class="eyebrow">qua-agents benchmark · same model, two hosts, overnight run · generated {esc(now)}</div>
 <h1 style="margin-top:8px">tinycal with qwen3.8-27b served by Splash and by OpenRouter, on gilboa C/D, qolab and three arbel qubits, 20–21 Sep 2026</h1>
 <p class="lede">One framework, one model, two hosts. The same scrambled snapshot per backend was handed to tinycal twice: once with qwen3.8-27b on
@@ -846,8 +1376,10 @@ stream frees; OpenRouter cells run two targets at a time (three on arbel), and n
 two providers. Both providers on a backend share one scramble but hold separate copies of the state, so a bad write by one never reaches the other.</p>
 <h3>Final per-target results</h3>
 <p class="small muted">Best settled run per qubit and host; "· r" = that result came from a rerun (r2, r3: the third, fourth attempt). Where no attempt
-finished, the attempts in order, "→" between them. Updated as reruns land.</p>
+finished, the attempts in order, "→" between them. <span class="infra">Greyed</span>: an infrastructure or serving failure, not the model's — an
+unretried 408, a 503 from a third stream, OpenRouter's 429 pool limit, the tailnet drop, or a capped reasoning loop at effort high. Updated as reruns land.</p>
 {final_table(cells)}
+{error_scatters(cells)}
 
 <h3>Pins: what a new cell must use to be comparable</h3>
 {pins_table(cells)}
@@ -859,9 +1391,20 @@ counted but unpriced (self-hosted). Context = prompt size per model call in toke
 <h3>By host</h3>
 {pivot_table(cells)}
 
+<h3>What the model did with each node</h3>
+<p class="small muted">Every attempted qubit-run of the host, first runs and reruns pooled; tinycal's events.jsonl only (qua-agents does not
+record node proposals). <b>Sequence</b>, against the recipe order (resonator identification → … → RB, the power sweep twice, T1 and T2 echo in
+either order): a failed run retried at once; a successful run re-run at once, e.g. to widen a sweep; a step the model went back to after later
+steps had run; a step it jumped to past the next one; and, charged to the node, leaving it for another node while its last run had failed.
+<b>Proposals</b>, per run that proposed state updates, from the writes made before the next node run: every proposed value written as
+proposed; only some of them written; at least one written with a different value; none written, then the same node re-run or another node
+run. Percentages are of the node's runs (failed) or of its runs with a proposal.</p>
+{decision_table(cells)}
+
 <h3>Hard cases: qubits that were not calibrated, or not calibrated right</h3>
 <p class="small muted">One row per settled qubit-run that did not reach the end of the graph, then the completed ones under 99 %. Running and queued
-targets are not listed. The right-hand column is the operator's reading of the transcript, not something the cell recorded.</p>
+targets are not listed. Greyed rows are infrastructure or serving failures (408/503/429, tailnet, capped reasoning at effort high), not the
+model's. The right-hand column is the operator's reading of the transcript, not something the cell recorded.</p>
 {hard_cases(cells)}
 
 <h3>Per qubit, host side by side</h3>
@@ -908,6 +1451,10 @@ reference fidelities of those qubits.</p>
 <p><b>22 Sep, after the first pass.</b> The eight Splash targets the first pass lost are being re-run as one Splash stream at effort medium on the
 fixed nodes (qolab Q1 Q6, then arbel qB4 qC2, then gilboa qC3 qC5 qD1 qD2 — chain launched 23:51); their rows land in the tables above as they
 finish, labelled "· rerun". The tallies in this section are those of the first pass.</p>
+<p><b>qua-agents, same snapshots, same model.</b> From 00:44 on 22 Sep the qua-agents framework runs qwen3.8-27b via OpenRouter on the
+byte-identical scrambled states and the same qua-libs (65b4755): arbel qB4 qC2 qC3, qolab Q1 Q2 Q3, gilboa qD3 qD5 qC3, three workers per
+backend, one cell per backend as its Splash stream ends. Its column fills in the tables above as cells finish (a qua-agents cell writes its
+document only at the end; the 16–17 Sep cells of this pairing took ~7 h for three qubits).</p>
 <p><b>Cost.</b> {cost_line} Splash's marginal cost was the electricity of one MacBook and the operator's evening.</p>
 
 <h2 id="stuck">Where things got stuck</h2>
