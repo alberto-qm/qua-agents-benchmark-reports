@@ -45,13 +45,236 @@ table.grid td:first-child { white-space:nowrap; font-weight:600; }
 .mono { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
 .small { font-size:12px; } .muted { color:var(--muted); }
 ul.notes { padding-left:18px; max-width:90ch; } ul.notes li { margin-bottom:4px; }
+p.intro { color:var(--muted); margin:0 0 14px; max-width:92ch; }
+.axes { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:12.5px; margin:14px 0 4px; }
+.n { display:inline-block; width:16px; height:16px; line-height:15px; text-align:center; border:1px solid var(--muted);
+  border-radius:50%; font-size:10px; font-weight:700; margin-right:5px; vertical-align:1px; }
+p.punch { max-width:92ch; margin:6px 0 0; }
+svg.arch circle.n { fill:var(--band); stroke:currentColor; stroke-width:1; }
+svg.arch text.nn { font-size:10px; font-weight:700; }
+svg.arch rect.band { fill:var(--band); stroke:var(--line); stroke-width:1; stroke-dasharray:4 3; rx:8; }
+svg.arch text.tag { font-size:10.5px; font-weight:600; }
+svg.arch text.tag.adv { font-weight:400; fill:var(--muted); }
+svg.arch text.src { font-size:11.5px; font-weight:600; }
+svg.arch text.det { font-size:10.5px; fill:var(--muted); }
+svg.arch .stub { stroke:var(--muted); stroke-width:1; fill:none; }
 </style></head><body>
 <main>
 <h1>qua-agents and tinycal, side by side</h1>
-<p class="lead">The two agent frameworks the benchmark runs against the same qua-libs nodes and the same IQCC backends, drawn on
-the same five rows so each row can be compared directly: how a run is launched, what one model turn sees and may call,
-what stands between a tool call and the hardware, how a node reaches the QPU, and what is written down. Read from the
-checkouts of 21 Sep 2026: qua-agents <span class="mono">61209cf</span> (integration), tinycal <span class="mono">1125d0c</span> (main).</p>
+<p class="lead">The two agent frameworks the benchmark runs against the same qua-libs nodes and the same IQCC backends.
+First how one turn works in each — what the model is shown, what it may decide, and what stands between its call and the
+chip. Then the runtime that surrounds that turn. Read from the checkouts of 21 Sep 2026: qua-agents
+<span class="mono">61209cf</span> (integration), tinycal <span class="mono">1125d0c</span> (main).</p>
+
+<h2>How a turn works</h2>
+<p class="intro">Both frameworks run the same ReAct turn against the same nodes, so the comparison that matters is not the
+box count but where each one puts the decisions. Strip the HTTP API, console, read model and persistence and the decision
+machinery is about 9.5k lines in qua-agents against about 1.1k in tinycal — the ratio barely moves, because the complexity
+is in the deciding, not the plumbing. The two drawings below share a skeleton: see the turn, decide, pass the gate, measure,
+record, return.</p>
+
+<div class="diagrams">
+
+<figure>
+<h3><span class="key quaagents"></span>qua-agents — the view is rebuilt, the move is gated</h3>
+<figcaption>The model's view is discarded and re-derived from the audit ledger every turn, and the move it proposes must
+clear two policy layers before any hardware runs. A refused call never reaches the chip and is never persisted.</figcaption>
+<svg class="arch qua" viewBox="0 0 560 640" role="img" aria-label="The qua-agents turn cycle: a JSON view rebuilt each turn from the audit ledger feeds a model turn that proposes a tool call; the call must clear a traversal policy and a pending-state and escalation gate, and a refused call loops back to the model without touching hardware; an authorized call runs the node in propose mode; the result is persisted as ledger rows that the model must accept or reject before running another node, and the view is rebuilt from those rows next turn.">
+<defs><marker id="qat-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+
+<rect class="box" x="60" y="32" width="364" height="88"/>
+<text class="t" x="74" y="52">What the model sees this turn</text>
+<text x="74" y="68">a JSON view rebuilt from the audit ledger</text>
+<text x="74" y="81">static: the full node catalog and graph, cached</text>
+<text x="74" y="94">dynamic: last 12 events, pending proposal, plots of ≤ 2 nodes</text>
+<text class="m" x="74" y="110">the turn's messages are not kept; the view is re-derived</text>
+<circle class="n" cx="383" cy="50" r="8.5"/><text class="nn" x="383" y="54" text-anchor="middle">1</text>
+<circle class="n" cx="404" cy="50" r="8.5"/><text class="nn" x="404" y="54" text-anchor="middle">5</text>
+
+<path class="ar" d="M242,120 V148" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="250" y="139">prompt</text>
+
+<rect class="box acc" x="60" y="148" width="364" height="72"/>
+<text class="t" x="74" y="168">Model turn</text>
+<text x="74" y="184">one multimodal call with the tools bound</text>
+<text class="mono" x="74" y="200">run_calibration_node · apply_state_updates · finish</text>
+<text class="m" x="74" y="214">the model proposes; it does not execute</text>
+
+<path class="ar" d="M242,220 V252" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="250" y="241">proposed call</text>
+
+<rect class="box" x="60" y="252" width="364" height="54"/>
+<text class="t" x="74" y="270">Traversal policy — one_forward_any_back</text>
+<text x="74" y="286">the next node must be a downstream neighbour, a retry,</text>
+<text x="74" y="299">or a jump back to an ancestor; anything else is refused</text>
+<circle class="n" cx="404" cy="268" r="8.5"/><text class="nn" x="404" y="272" text-anchor="middle">2</text>
+
+<path class="ar" d="M424,279 H470 V184 H424" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="474" y="196">refused →</text>
+<text class="lbl" x="474" y="209">model retries,</text>
+<text class="lbl" x="474" y="222">nothing ran</text>
+
+<rect class="box" x="60" y="314" width="364" height="54"/>
+<text class="t" x="74" y="332">Pending-state gate and escalation</text>
+<text x="74" y="348">no new node while a proposed update is unresolved;</text>
+<text x="74" y="361">5 identical rejections or failures end the attempt streak</text>
+<circle class="n" cx="404" cy="330" r="8.5"/><text class="nn" x="404" y="334" text-anchor="middle">4</text>
+
+<path class="ar" d="M242,368 V400" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="250" y="389">authorized</text>
+
+<rect class="box" x="60" y="400" width="364" height="64"/>
+<text class="t" x="74" y="420">The node runs</text>
+<text x="74" y="436">qualibrate_ai in propose mode → QUAlibrate → IQCC</text>
+<text class="m" x="74" y="452">the node measures and proposes; it never commits state</text>
+
+<path class="ar" d="M242,464 V492" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="250" y="483">receipt + proposed_state_updates</text>
+
+<rect class="box" x="60" y="492" width="364" height="96"/>
+<text class="t" x="74" y="512">What happens to the result</text>
+<text x="74" y="528">persisted to the SQLite ledger as ordered rows</text>
+<text x="74" y="541">the model must accept or reject the proposed paths</text>
+<text x="74" y="554">before it may run another node</text>
+<text x="74" y="572">accepted paths → compare-and-swap → state.json</text>
+<circle class="n" cx="404" cy="510" r="8.5"/><text class="nn" x="404" y="514" text-anchor="middle">3</text>
+
+<path class="ar" d="M242,588 V612 H28 V76 H60" marker-end="url(#qat-ar)"/>
+<text class="lbl" x="44" y="604">next turn: rebuilt from these rows</text>
+</svg>
+<p class="after">Four places in the machinery hold the five decisions: the context builder, the traversal policy, the
+escalation gate, and the pending-state resolution in the ledger. The model holds none of them outright.</p>
+</figure>
+
+<figure>
+<h3><span class="key tinycal"></span>tinycal — the transcript carries, the model acts</h3>
+<figcaption>The transcript carries everything forward, so there is nothing to rebuild. The model picks the node and the call
+reaches QUAlibrate unmediated; only <span class="mono">write_state</span> passes a guard.</figcaption>
+<svg class="arch tinycal" viewBox="0 0 560 640" role="img" aria-label="The tinycal turn cycle: the entire transcript feeds a model turn with five tools; the call is dispatched straight to the node with nothing gating run_node, while write_state alone passes a guard of allowlist, dry-run or apply mode, file lock and git commit; the node runs with its update action skipped and the result is appended to the transcript verbatim, so the next turn is the same messages one turn longer.">
+<defs><marker id="tct-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+
+<rect class="box" x="60" y="32" width="364" height="88"/>
+<text class="t" x="74" y="52">What the model sees this turn</text>
+<text x="74" y="68">the entire transcript, verbatim</text>
+<text x="74" y="81">every earlier turn, tool call, result and image</text>
+<text x="74" y="94">only images are capped: the oldest becomes a path</text>
+<text class="m" x="74" y="110">nothing is re-derived; the transcript is the memory</text>
+<circle class="n" cx="404" cy="50" r="8.5"/><text class="nn" x="404" y="54" text-anchor="middle">1</text>
+
+<path class="ar" d="M242,120 V148" marker-end="url(#tct-ar)"/>
+<text class="lbl" x="250" y="139">prompt</text>
+
+<rect class="box acc" x="60" y="148" width="364" height="72"/>
+<text class="t" x="74" y="168">Model turn</text>
+<text x="74" y="184">one multimodal call with the tools bound</text>
+<text class="mono" x="74" y="199">describe_node · run_node · read_state</text>
+<text class="mono" x="74" y="212">write_state · finish</text>
+<circle class="n" cx="362" cy="166" r="8.5"/><text class="nn" x="362" y="170" text-anchor="middle">2</text>
+<circle class="n" cx="383" cy="166" r="8.5"/><text class="nn" x="383" y="170" text-anchor="middle">4</text>
+<circle class="n" cx="404" cy="166" r="8.5"/><text class="nn" x="404" y="170" text-anchor="middle">5</text>
+
+<rect class="band" x="60" y="252" width="364" height="116"/>
+<text class="t" x="74" y="272">Nothing gates run_node</text>
+<text x="74" y="290">parameters are validated</text>
+<text x="74" y="303">by the node's own schema;</text>
+<text x="74" y="316">a tool error comes back</text>
+<text x="74" y="329">as text, never an exception</text>
+
+<rect class="box" x="268" y="262" width="148" height="96"/>
+<text class="t" x="280" y="281">write_state only</text>
+<text x="280" y="297">path allowlist</text>
+<text x="280" y="310">dry_run or apply</text>
+<text x="280" y="323">file lock</text>
+<text x="280" y="336">one git commit</text>
+<circle class="n" cx="398" cy="279" r="8.5"/><text class="nn" x="398" y="283" text-anchor="middle">3</text>
+<path class="ar" d="M342,220 V262" marker-end="url(#tct-ar)"/>
+<text class="lbl" x="350" y="241">write_state</text>
+
+<path class="ar" d="M242,220 V400" marker-end="url(#tct-ar)"/>
+<text class="lbl" x="184" y="241" text-anchor="end">tool call</text>
+
+<rect class="box" x="60" y="400" width="364" height="64"/>
+<text class="t" x="74" y="420">The node runs</text>
+<text x="74" y="436">node copy, storage detached → QUAlibrate → IQCC</text>
+<text class="m" x="74" y="452">its update action is skipped; it never commits state</text>
+
+<path class="ar" d="M242,464 V492" marker-end="url(#tct-ar)"/>
+<text class="lbl" x="250" y="483">plots, fit numerics, proposed updates</text>
+
+<rect class="box" x="60" y="492" width="364" height="96"/>
+<text class="t" x="74" y="512">What happens to the result</text>
+<text x="74" y="528">appended to the transcript as a tool result, verbatim</text>
+<text x="74" y="541">the proposal is information, not a state to resolve</text>
+<text x="74" y="554">the model may write it, adjust it, or ignore it</text>
+<text class="m" x="74" y="572">nothing forces it to be dealt with before moving on</text>
+
+<path class="ar" d="M242,588 V612 H28 V76 H60" marker-end="url(#tct-ar)"/>
+<text class="lbl" x="44" y="604">next turn: same messages, one longer</text>
+</svg>
+<p class="after">Three of the five decisions — which node runs next, when to stop retrying, what a node means — sit inside
+the model itself. The harness holds one: the write guard.</p>
+</figure>
+
+</div>
+
+<div class="axes">
+<span><b class="n">1</b>what the model sees</span>
+<span><b class="n">2</b>who picks the next measurement</span>
+<span><b class="n">3</b>who decides what reaches the device</span>
+<span><b class="n">4</b>what stops a doom loop</span>
+<span><b class="n">5</b>where per-node knowledge lives</span>
+</div>
+<p class="punch">The markers sit where each decision is actually taken. In qua-agents they are spread across four layers of
+machinery; in tinycal three of them collapse into the model box. That is the whole difference: <b>qua-agents spends its
+complexity deciding what the model may know and may do, tinycal spends almost none and lets the model decide.</b> What that
+choice costs or buys is measured in <a href="2026-09-21-frameworks-side-by-side.html">the side-by-side report</a>.</p>
+
+<h2>Where a calibration decision is taken</h2>
+<p class="intro">A different question from the one above, and the one that decides how a run is debugged and tuned: when the
+agent picks a node, a sweep range or a value to write, how many places did that come from? Each row below is somewhere a
+person can change what happens to a qubit. What matters is not only the count but the kind — whether the model can
+override it or not.</p>
+
+<div class="diagrams">
+<figure>
+<h3><span class="key quaagents"></span>qua-agents — nine sources and the model</h3>
+<figcaption>Two of them are Markdown files, two are Python policy, one is a plan overlay encoded from the run brief.
+A write bound set in a recipe&#8217;s frontmatter changes what the agent may do, with no code change and nothing in the
+prompt to show it.</figcaption>
+<svg class="arch qua" viewBox="0 0 560 533" role="img" aria-label="Nine sources feed the qua-agents run: the node script, a recipe markdown beside it, a graph recipe overlay, the graph definition, the prompt pack YAML, the execution policy, the traversal pending-state and escalation policies, the profile YAML, and the run brief plan overlay; the model decides within what those nine leave."><defs><marker id="srcq-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs><text class="band" x="16" y="14">SOURCES THAT SHAPE WHAT HAPPENS TO THE QUBIT</text><path class="ar" d="M330,43 V461.0" marker-end="url(#srcq-ar)"/><rect class="box" x="16" y="26" width="284" height="34"/><text class="src" x="28" y="41">Node script</text><text class="det" x="28" y="54">its description and parameter schema</text><path class="stub" d="M300,43.0 H330"/><text class="tag" x="344" y="47">binds parameters</text><rect class="box" x="16" y="68" width="284" height="34"/><text class="src" x="28" y="83">Recipe .md beside the node</text><text class="det" x="28" y="96">checklist, expected signal, write bounds</text><path class="stub" d="M300,85.0 H330"/><text class="tag" x="344" y="89">binds write bounds</text><rect class="box" x="16" y="110" width="284" height="34"/><text class="src" x="28" y="125">Graph recipe overlay</text><text class="det" x="28" y="138">overrides that recipe per graph node</text><path class="stub" d="M300,127.0 H330"/><text class="tag" x="344" y="131">binds write bounds</text><rect class="box" x="16" y="152" width="284" height="34"/><text class="src" x="28" y="167">Graph definition</text><text class="det" x="28" y="180">node set, presets, recommended edges</text><path class="stub" d="M300,169.0 H330"/><text class="tag" x="344" y="173">binds the DAG</text><rect class="box" x="16" y="194" width="284" height="34"/><text class="src" x="28" y="209">Prompt pack YAML</text><text class="det" x="28" y="222">instructions, gates, history window, plot cap</text><path class="stub" d="M300,211.0 H330"/><text class="tag" x="344" y="215">binds context + gates</text><rect class="box" x="16" y="236" width="284" height="34"/><text class="src" x="28" y="251">Execution policy (Python)</text><text class="det" x="28" y="264">restricted params, bounds, fixed params</text><path class="stub" d="M300,253.0 H330"/><text class="tag" x="344" y="257">binds parameters</text><rect class="box" x="16" y="278" width="284" height="34"/><text class="src" x="28" y="293">Traversal, pending-state, escalation</text><text class="det" x="28" y="306">one_forward_any_back, streaks of 5</text><path class="stub" d="M300,295.0 H330"/><text class="tag" x="344" y="299">binds the moves</text><rect class="box" x="16" y="320" width="284" height="34"/><text class="src" x="28" y="335">Profile YAML</text><text class="det" x="28" y="348">targets, budgets, backend, agent_flow</text><path class="stub" d="M300,337.0 H330"/><text class="tag" x="344" y="341">binds the run</text><rect class="box" x="16" y="362" width="284" height="34"/><text class="src" x="28" y="377">Run brief &#8594; plan overlay</text><text class="det" x="28" y="390">required_nodes prunes the live DAG</text><path class="stub" d="M300,379.0 H330"/><text class="tag" x="344" y="383">binds the DAG</text><rect class="box acc" x="16" y="404" width="284" height="34"/><text class="src" x="28" y="419">The model</text><text class="det" x="28" y="432">decides within what the nine leave</text><path class="stub" d="M300,421.0 H330"/><text class="tag" x="344" y="425">decides</text><rect class="box" x="120" y="461.0" width="424" height="56"/><text class="t" x="134" y="481.0">Which node runs, with which parameters, what is written</text><text class="det" x="134" y="497.0">nine sources settle the envelope before the model sees it;</text><text class="det" x="134" y="510.0">the model chooses inside what they leave</text></svg>
+<p class="after">Spread authority: &#8220;why did it do that?&#8221; is answered by reading the node script, its recipe,
+the graph overlay, the prompt pack, three policy modules and the plan overlay — and the answer can be that the agent was
+never allowed to do otherwise.</p>
+</figure>
+
+<figure>
+<h3><span class="key tinycal"></span>tinycal — four sources and the model</h3>
+<figcaption>Only the write allowlist and the node&#8217;s own schema bind. The recipe, the node&#8217;s description and the
+graph presets are advice the model may override; <span class="mono">describe()</span> deliberately refuses to serve the
+recipe files a node carries, so a node describes itself and nothing else. The graph supplies only the catalog and the
+presets — its edges are ignored, and a node it does not list still runs if the library has it.</figcaption>
+<svg class="arch tinycal" viewBox="0 0 560 323" role="img" aria-label="Four sources feed the tinycal run: the node script, the graph file for its node set and presets, the bring-up recipe markdown, and the profile; the model decides everything those four do not bind."><defs><marker id="srct-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs><text class="band" x="16" y="14">SOURCES THAT SHAPE WHAT HAPPENS TO THE QUBIT</text><path class="ar" d="M330,43 V251.0" marker-end="url(#srct-ar)"/><rect class="box" x="16" y="26" width="284" height="34"/><text class="src" x="28" y="41">Node script</text><text class="det" x="28" y="54">its description and parameter schema</text><path class="stub" d="M300,43.0 H330"/><text class="tag" x="344" y="47">binds parameters</text><rect class="box" x="16" y="68" width="284" height="34"/><text class="src" x="28" y="83">Graph file</text><text class="det" x="28" y="96">catalog and presets; its edges are ignored</text><path class="stub" d="M300,85.0 H330"/><text class="tag adv" x="344" y="89">advice only</text><rect class="box" x="16" y="110" width="284" height="34"/><text class="src" x="28" y="125">Bring-up recipe .md</text><text class="det" x="28" y="138">how a bring-up usually goes, in prose</text><path class="stub" d="M300,127.0 H330"/><text class="tag adv" x="344" y="131">advice only</text><rect class="box" x="16" y="152" width="284" height="34"/><text class="src" x="28" y="167">Profile</text><text class="det" x="28" y="180">objective, must_measure, writable_paths</text><path class="stub" d="M300,169.0 H330"/><text class="tag" x="344" y="173">binds writable paths</text><rect class="box acc" x="16" y="194" width="284" height="34"/><text class="src" x="28" y="209">The model</text><text class="det" x="28" y="222">decides everything the four do not bind</text><path class="stub" d="M300,211.0 H330"/><text class="tag" x="344" y="215">decides</text><rect class="box" x="120" y="251.0" width="424" height="56"/><text class="t" x="134" y="271.0">Which node runs, with which parameters, what is written</text><text class="det" x="134" y="287.0">the model's call from first to last, bounded by the write</text><text class="det" x="134" y="300.0">allowlist and the node&#8217;s own parameter schema</text></svg>
+<p class="after">Concentrated authority: the same question has one answer, the transcript, and one lever, the recipe. The
+cost is that a bad decision has nothing to catch it.</p>
+</figure>
+</div>
+
+<p class="intro" style="margin-top:14px">Each tag names what that source takes <i>out of the model&#8217;s hands</i>. Everything
+else a source contributes — the node&#8217;s prose, a checklist, the graph&#8217;s presets, the objective — is advice the
+model may ignore. A recipe&#8217;s <span class="mono">write_value_bounds</span> is not advice: it reaches the control
+surface, and an out-of-bounds write is rejected outright.</p>
+<p class="punch">The asymmetry is sharper than the count. In tinycal nothing outside the model chooses <i>which node runs
+next, with which parameters, or whether a value is written</i> — the four sources shape the advice and fence the writable
+paths, and that is all. In qua-agents five distinct mechanisms reach inside that decision — the
+graph&#8217;s edges, the plan overlay&#8217;s pruning, the parameter bounds, the pending-state gate and the escalation
+thresholds — authored across six of the nine sources.</p>
+
+<h2>The runtime around the turn</h2>
+<p class="intro">The same two frameworks on five infrastructure rows — launch, agent turn, gate, hardware, record and state.
+This is where the 12× size difference lives, and much of it is accessory to the comparison above: swap the SQLite ledger for
+files, or drop the HTTP API and console, and the agent behaves the same on the chip. Note that each box here is drawn the
+same size regardless of what is behind it — <span class="mono">GuardedExecutionService</span> is twelve modules,
+the <span class="mono">write_state</span> guard is about two hundred lines.</p>
 
 <div class="diagrams">
 
