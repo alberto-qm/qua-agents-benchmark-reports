@@ -10,6 +10,10 @@ lab state (source-state) and, for the qC investigation, tinycal's measurement st
 qC that day with its parameters, fit and figures. The labels on those runs (which state copy, which change) and the operator notes
 (INCIDENTS, NARRATIVE, the per-qubit notes) are marked as such. The page's figures and the qC run table are also written to
 2026-09-30-lucy/. Table builders are shared with make_n10_report.py, make_fwcmp2_report.py and make_night4_report.py.
+
+The page opens with a by-run summary in the night-4 report's host-table style (one column per run and one for all), with a
+straight-through row defined as in the n13 report, then the two gate-error scatters. The output is an Artifact body: a <title>,
+the stylesheet and the content, with no <html>/<head>/<body> tags.
 """
 from __future__ import annotations
 
@@ -343,6 +347,285 @@ def is_calibrated(r) -> bool:
     return floor is None or (1 - r["gate_fid"]) <= FLOOR_FACTOR * floor
 
 
+# ----------------------------------------------------------------------------- the summary by run
+RUN_COLS = [("lucy1", "qA qB qC · from 10:15"), ("lucy2", "qC again, qD qE qF qG · from 10:58"), ("all", "eight qubit-runs")]
+TRANSIENT_ERRORS = ("ConnectionError", "ReadTimeout")  # IQCC 503/500 answers and read timeouts: no result came back
+WRITE_TOL = 1e-4  # relative: a write "as proposed" (the model retypes and rounds, 4300342117.2 -> 4300340000)
+THRESHOLD = 0.999
+
+
+def outcome(r) -> tuple[str, str]:
+    """(ok | warn | bad, reason): calibrated and meaningful / completed but not meaningful / not calibrated (did not complete)."""
+    if r["status"] != "completed":
+        return "bad", ATTEMPT_SHORT.get(_key(r)) or r.get("cause") or r["status"]
+    if is_calibrated(r):
+        return "ok", ""
+    return "warn", FINAL_NOTE.get(_key(r)) or "completed, but not a calibration"
+
+
+def folded_events(run_id: str, target: str) -> list[dict]:
+    """The event log with every node run by its library id renamed to the catalog name it stands for (LIB_TO_GRAPH)."""
+    out = []
+    for e in _events(run_id, target):
+        if e.get("tool") == "run_node" and e.get("node") in LIB_TO_GRAPH:
+            e = dict(e, node=LIB_TO_GRAPH[e["node"]], library_id=e["node"])
+        out.append(e)
+    return out
+
+
+def folded_decisions(run_id: str, target: str):
+    """night4.node_decisions on the folded event log, so a node run by its library id counts under its recipe step."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        p = Path(tmp) / run_id / target
+        p.mkdir(parents=True)
+        (p / "events.jsonl").write_text("".join(json.dumps(e) + "\n" for e in folded_events(run_id, target)))
+        saved, night4.TINYCAL_RUNS = night4.TINYCAL_RUNS, Path(tmp)
+        try:
+            return night4.node_decisions(run_id, target)
+        finally:
+            night4.TINYCAL_RUNS = saved
+
+
+def _same(a, b) -> bool:
+    num = all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in (a, b))
+    return a == b or (num and abs(a - b) <= WRITE_TOL * max(abs(a), abs(b)))
+
+
+def straight_through(run_id: str, target: str, status: str) -> dict:
+    """Did the agent add nothing? Completed; every recipe node run exactly once (a library id counts as the node it stands for),
+    nothing else run, no run failed or refused; every write equal to the latest proposal for its path (numbers within WRITE_TOL);
+    no write to a path no node proposed; every proposal written unless it was a no-op. IQCC transients (503/500 answers, read
+    timeouts) and malformed calls with no node name are not runs. The same definition as the n13 report's."""
+    ev = folded_events(run_id, target)
+    runs, transient, malformed = [], 0, 0
+    for e in ev:
+        if e.get("kind") != "tool_call" or e.get("tool") != "run_node":
+            continue
+        if str(e.get("error") or "").startswith(TRANSIENT_ERRORS):
+            transient += 1
+            continue
+        if e.get("status") == "rejected" and not (e.get("node") or g(e, "arguments", "node")):
+            malformed += 1
+            continue
+        runs.append(e)
+    count = collections.Counter(e.get("node") for e in runs)
+    failed = [e for e in runs if not (e.get("status") == "completed" and e.get("outcome") == "successful")]
+    extra = {n: c - (1 if n in RECIPE_NODES else 0) for n, c in count.items() if c > (1 if n in RECIPE_NODES else 0)}
+    skipped = [n for n in RECIPE_NODES if not count.get(n)]
+    ledger, pending, unproposed, differ, unwritten = {}, {}, [], [], []
+    param_runs = 0
+    for e in ev:
+        if e.get("kind") != "tool_call":
+            continue
+        if e.get("tool") == "run_node" and e.get("status") == "completed":
+            param_runs += bool(g(e, "arguments", "parameters"))
+            for pu in e.get("proposed_updates") or []:
+                path = pu["path"]
+                if path in pending:
+                    v, cur = pending.pop(path)
+                    if not _same(v, cur):
+                        unwritten.append(path)
+                ledger[path] = pu.get("proposed")
+                pending[path] = (pu.get("proposed"), pu.get("current"))
+        elif e.get("tool") == "write_state":
+            for u in g(e, "arguments", "updates") or []:
+                path = u.get("path")
+                if path not in ledger:
+                    unproposed.append(path)
+                elif not _same(u.get("value"), ledger[path]):
+                    differ.append(path)
+                else:
+                    pending.pop(path, None)
+    unwritten += [p for p, (v, cur) in pending.items() if not _same(v, cur)]
+    reasons = [] if status == "completed" else [status]
+    if failed:
+        by = collections.Counter(e.get("node") for e in failed)
+        reasons.append(f"{len(failed)} failed or refused ({', '.join(f'{SHORT.get(n, n)} ×{c}' for n, c in by.most_common())})")
+    if extra:
+        reasons.append("reran " + ", ".join(f"{SHORT.get(n, n)} +{c}" for n, c in extra.items()))
+    if skipped:
+        reasons.append("skipped " + ", ".join(SHORT.get(n, n) for n in skipped))
+    for items, what in ((unproposed, "write(s) no node proposed"), (differ, "write(s) off the proposal"),
+                        (unwritten, "proposal(s) not written")):
+        if items:
+            reasons.append(f"{len(items)} {what}")
+    lib = sum(1 for e in runs if e.get("library_id"))
+    return {"ok": not reasons, "reasons": reasons, "transient": transient, "malformed": malformed, "param_runs": param_runs,
+            "library_runs": lib, "runs": len(runs), "only_power_sweep_failed": status == "completed" and not extra and not skipped
+            and not unproposed and not differ and not unwritten and failed and all(e.get("node") == "resonator_spectroscopy_vs_power" for e in failed)}
+
+
+def _run_name(r, repeated: set) -> str:
+    return r["target"] + (f"<span class='rn'>{r['night'][-1]}</span>" if r["target"] in repeated else "")
+
+
+def qtag(r, repeated=frozenset()) -> str:
+    oc, why = r["outcome"]
+    tip = f"{r['target']} · {r['night']}: " + {"ok": "calibrated", "warn": "completed, not meaningful", "bad": "not calibrated"}[oc]
+    tip += f": {why}" if why else (f" · {pct(r['gate_fid'])}" if r.get("gate_fid") else "")
+    return f"<span class='q q-{oc}' title='{esc(tip)}'>{_run_name(r, repeated)}</span>"
+
+
+def qlist(rs, repeated=frozenset()) -> str:
+    order = {"lucy1": 0, "lucy2": 1}
+    return "<span class='ql'>" + "".join(qtag(r, repeated) for r in sorted(rs, key=lambda r: (r["target"], order[r["night"]]))) + "</span>"
+
+
+def fid_strip(done) -> str:
+    """One dot per completed qubit-run with an RB on a log gate-error axis, the 99.9 % line; filled = at or above IQCC's RB on
+    file for that qubit, hollow = below it (as the night-4 report's host table)."""
+    import math
+    pts = [r for r in done if r["gate_fid"] is not None]
+    if not pts:
+        return ""
+    W, H, L, R = 220, 40, 6, 8
+    lo, hi = math.log10(0.02), math.log10(15.0)
+    x = lambda e: L + (W - L - R) * (min(max(math.log10(max(e, 0.02)), lo), hi) - lo) / (hi - lo)  # noqa: E731
+    parts = [f'<svg class="strip" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="gate error per completed run">']
+    for tick in (0.03, 0.1, 0.3, 1, 3, 10):
+        parts.append(f'<text x="{x(tick):.1f}" y="{H - 2}" class="tick" text-anchor="middle">{tick:g}%</text>')
+    parts.append(f'<line x1="{L}" x2="{W - R}" y1="{H - 14}" y2="{H - 14}" class="axis"/>')
+    xt = x(100 * (1 - THRESHOLD))
+    parts.append(f'<line x1="{xt:.1f}" x2="{xt:.1f}" y1="2" y2="{H - 12}" class="thr"/>')
+    above = beat = with_ref = 0
+    for i, r in enumerate(sorted(pts, key=lambda r: r["gate_fid"])):
+        f, ref = r["gate_fid"], r.get("ref")
+        hollow = ref is not None and f < ref
+        above += f >= THRESHOLD
+        if ref is not None:
+            with_ref += 1
+            beat += not hollow
+        label = f"{r['target']} ({r['night']}) · {pct(f)}" + (f" (IQCC's RB on file {pct(ref)})" if ref is not None else " (no IQCC RB on file)")
+        parts.append(f'<circle cx="{x(100 * (1 - f)):.1f}" cy="{H - 22 - (i % 3) * 5}" r="3.2" class="dot{" hollow" if hollow else ""}">'
+                     f'<title>{esc(label)}</title></circle>')
+    parts.append("</svg>")
+    note = (f"≥ {100 * THRESHOLD:g} %: <b>{above} / {len(pts)}</b>"
+            + (f"<br><span class='muted'>at or above IQCC's RB on file: {beat} / {with_ref}</span>" if with_ref else ""))
+    return f"<div class='stripwrap'>{''.join(parts)}<div class='small'>{note}</div></div>"
+
+
+def summary_table(rows) -> tuple[str, list]:
+    """The by-run pivot: metrics as rows, one column per run and one for all of them (the night-4 report's host table)."""
+    repeated = {q for q, c in collections.Counter(r["target"] for r in rows).items() if c > 1}
+    stats = []
+    for col, _ in RUN_COLS:
+        rs = [r for r in rows if col == "all" or r["night"] == col]
+        done = [r for r in rs if r["status"] == "completed"]
+        rest = [r for r in rs if r["status"] != "completed"]
+        n = len(done) or 1
+        tot = lambda k: sum((r.get(k) or 0) for r in rs)  # noqa: E731
+        tokt = lambda k: sum((r["tokens"].get(k) or 0) for r in rs)  # noqa: E731
+        fids = sorted(r["gate_fid"] for r in done if r["gate_fid"] is not None)
+        cal = sorted(r["gate_fid"] for r in done if r["outcome"][0] == "ok")
+
+        def share(pairs, key):
+            if key == "override":
+                w = sum(r["overrides"][0] for r in pairs if r["overrides"])
+                o = sum(r["overrides"][1] for r in pairs if r["overrides"])
+                return (o, w) if w else None
+            c = collections.Counter()
+            for r in pairs:
+                for d in (r["decisions_folded"] or {}).values():
+                    c.update(d)
+            return (c["back"] + c["ahead"], c["runs"]) if c["runs"] else None
+
+        def share_cell(key, unit):
+            a, b = share(done, key), share(rest, key)
+            main = "—" if a is None else f"{100 * a[0] / a[1]:.0f}% ({a[0] / n:.1f} / calibration)"
+            sub = "" if b is None else f"<br><span class='small muted'>not completed: {100 * b[0] / b[1]:.0f}% of {b[1]} {unit}</span>"
+            return main + sub
+        st = [r for r in rs if r["st"]["ok"]]
+        strict = [r for r in st if not r["st"]["param_runs"] and not r["st"]["library_runs"]]
+        near = [r for r in rs if r["st"]["only_power_sweep_failed"]]
+        stats.append({
+            "qubits": qlist(rs, repeated),
+            "done": f"{len(done)}/{len(rs)} ({100 * len(done) / len(rs):.0f}%)"
+                    f"<br><span class='small muted'>calibrated: {sum(1 for r in rs if r['outcome'][0] == 'ok')}</span>",
+            "straight": (f"<b>{len(st)}/{len(rs)}</b> " + (qlist(st, repeated) if st else "<span class='muted'>none</span>")
+                         + f"<br><span class='small muted'>no parameters of its own: {len(strict)}</span>"
+                         + (f"<br><span class='small muted'>only 02b failed: {' '.join(qtag(r, repeated) for r in near)}</span>" if near else "")),
+            "override": share_cell("override", "writes"),
+            "order": share_cell("order", "node runs"),
+            "fid": (pct(fids[len(fids) // 2]) + f"<br><span class='small muted'>{pct(fids[0])} – {pct(fids[-1])}"
+                    + (f"; calibrated {pct(median(cal))}" if cal else "") + "</span>" + fid_strip(done)) if fids else "—",
+            "agent": f"{tot('model_s') / n / 60:.1f} min", "qpu": f"{tot('qpu_s') / n / 60:.1f} min",
+            "queue": f"{tot('queue_s') / n / 60:.1f} min",
+            "cost": f"${tot('cost') / n:.2f}", "spent": f"${tot('cost'):.2f}",
+            "turns": f"{tot('turns') / n:.0f}", "nodes": f"{tot('node_execs') / n:.0f} ({tot('reruns') / n:.0f})",
+            "ctx_med": (lambda v: base.ktok(sum(v) / len(v)) if v else "—")([r["ctx"]["median"] for r in rs if r["ctx"].get("median")]),
+            "ctx_end": (lambda v: base.ktok(sum(v) / len(v)) if v else "—")([r["ctx"]["end"] for r in done if r["ctx"].get("end")]),
+            "tin": base.mtok(tokt("input") / n), "tout": base.mtok(tokt("output") / n),
+            "tcache": f"{base.mtok(tokt('cache_read') / n)} / {base.mtok(tokt('cache_creation') / n)}",
+            "_raw": {"n": len(rs), "done": len(done), "st": [r["target"] + "·" + r["night"] for r in st], "strict": len(strict),
+                     "near": [r["target"] + "·" + r["night"] for r in near], "fid_med": fids[len(fids) // 2] if fids else None,
+                     "fid_min": fids[0] if fids else None, "fid_max": fids[-1] if fids else None,
+                     "cal_med": median(cal) if cal else None, "override": share(done, "override"), "override_rest": share(rest, "override"),
+                     "order": share(done, "order"), "order_rest": share(rest, "order")},
+        })
+    labels = [
+        ("qubits measured (green: calibrated; amber: completed, not meaningful; red: not calibrated)", "qubits"),
+        ("calibrations completed / attempted", "done"),
+        ("straight through: the agent added nothing", "straight"),
+        ("agent overrides: share of state writes that are not a node's proposal (no node proposed the path, or the value is more "
+         "than 0.1 % from the latest proposal), completed calibrations; below, the runs that did not complete", "override"),
+        ("node runs off the recipe order: stepped back to an earlier step or skipped one (retries and re-runs of the node just run "
+         "are not counted), completed calibrations; below, the runs that did not complete", "order"),
+        ("single-qubit gate fidelity, median (min – max); dots: gate error per completed run on a log axis, line at 99.9 %, "
+         "filled = at or above IQCC's RB on file for the qubit, hollow = below it", "fid"),
+        ("agent time / calibration", "agent"), ("QPU time / calibration", "qpu"), ("queue wait / calibration", "queue"),
+        ("judge cost / calibration", "cost"), ("judge cost, total spent", "spent"),
+        ("model turns / calibration", "turns"), ("node runs (re-runs) / calibration", "nodes"),
+        ("context per model call, median, in k tokens (mean over qubit-runs)", "ctx_med"),
+        ("context at the end of a bring-up, k tokens (mean over completed qubit-runs)", "ctx_end"),
+        ("input tokens / calibration", "tin"), ("output tokens / calibration", "tout"),
+        ("cached tokens read / written / calibration", "tcache"),
+    ]
+    body = "".join(f"<tr><th class='rowh'>{esc(lab)}</th>"
+                   + "".join(f"<td class='{'wrap' if k in ('qubits', 'straight') else 'num'}'>{s[k]}</td>" for s in stats) + "</tr>"
+                   for lab, k in labels)
+    head = ("<thead><tr><th></th>" + "".join(f"<th class='grp'>{esc(c)}<br><span class='small muted'>{esc(sub)}</span></th>"
+                                              for c, sub in RUN_COLS) + "</tr></thead>")
+    return f"<div class='scroll'><table class='grid pivot sum'>{head}<tbody>{body}</tbody></table></div>", stats
+
+
+def summary_legend() -> str:
+    demo = lambda oc, q, tip: f"<span class='q q-{oc}' title='{esc(tip)}'>{q}</span>"  # noqa: E731
+    return ("<div class='qlegend'>"
+            f"<span>{demo('ok', 'qA', 'calibrated')} calibrated: completed, all graded parameters back, RB within "
+            f"{FLOOR_FACTOR:g}× the coherence floor</span>"
+            f"<span>{demo('warn', 'qF', 'completed, not meaningful')} completed, results not meaningful</span>"
+            f"<span>{demo('bad', 'qG', 'not calibrated')} not calibrated (did not complete)</span>"
+            "<span class='muted'>qC ran twice: <span class='mono'>qC<span class='rn'>1</span></span> in lucy1, "
+            "<span class='mono'>qC<span class='rn'>2</span></span> in lucy2. Hover a name for the reason.</span></div>")
+
+
+def straight_note(rows) -> str:
+    tr = sum(r["st"]["transient"] for r in rows)
+    mf = sum(r["st"]["malformed"] for r in rows)
+    near = [r for r in rows if r["st"]["only_power_sweep_failed"]]
+    p02b = [(r["target"], r["night"], e.get("outcome")) for r in rows for e in folded_events(r["run_id"], r["target"])
+            if e.get("tool") == "run_node" and e.get("kind") == "tool_call" and e.get("node") == "resonator_spectroscopy_vs_power"
+            and not str(e.get("error") or "").startswith(TRANSIENT_ERRORS)]
+    p02b_runs, p02b_failed = len(p02b), sum(1 for *_, o in p02b if o != "successful")
+    p02b_qubits = len({(q, n) for q, n, o in p02b if o != "successful"})
+    return (
+        "<p class='small'><b>Straight through</b> means the agent contributed nothing, the definition used in the n12 and n13 reports: "
+        "the qubit-run completed; every node of the fixed-frequency recipe ran exactly once, nothing else ran, and no run failed or "
+        "was refused; every value written was the latest proposal for its path (numbers within 1×10<sup>−4</sup> relative, as "
+        "the model retypes and rounds); no write went to a path no node had proposed; and every proposal was written unless it was a "
+        "no-op. A node called by its library id counts as the recipe step it stands for. IQCC's 503/500 answers and read timeouts "
+        f"are not runs ({tr} here), and neither are malformed calls with no node name ({mf}). The stricter count also requires no "
+        "run_node parameters of the model's own and no library-id calls, which drop the graph's presets. "
+        + (f"No lucy run qualifies. 02b, the power sweep, cannot read lucy's resonator peaks (<a href='#peak'>below</a>) and "
+           f"failed on {p02b_failed} of its {p02b_runs} runs, on {p02b_qubits} of the 8 qubit-runs. In "
+           f"{' and '.join(esc(r['target'] + ' (' + r['night'] + ')') for r in near)} that failure was the only departure: every other "
+           "node ran once and every proposal was written as proposed. Both still passed parameters of their own ("
+           + ", ".join(f"{esc(r['target'])} on {r['st']['param_runs']} of {r['st']['runs']} runs" for r in near)
+           + "), so neither meets the stricter count." if near else "")
+        + "</p>")
+
+
 def qc_store_runs():
     """Every RB on qC in the measurement store on 30 Sep: (id, UTC time, reset, EPC %, sigma %, amplitude, offset, decay lengths)."""
     db = sqlite3.connect(STORE / "measurements.sqlite3")
@@ -470,6 +753,12 @@ def device_table(lab: dict, wiring: dict):
     return f'<div class="scroll"><table class="grid small">{head}<tbody>{"".join(body)}</tbody></table></div>'
 
 
+def _scatter(points, **kw):
+    """n10's log-log scatter with the axes run to 15 %, so lucy's worst completed run (qF, 10 % per gate) is not clipped."""
+    night4.PROVIDERS.setdefault("n10", ("qwen3.8-27b · OpenRouter", MODEL_ID, "tinycal"))
+    return night4._scatter_svg([(a, b, lab, "n10") for a, b, lab in points], W=360, H=300, hi=15.0, **kw)
+
+
 def error_scatters(rows):
     ref_pts, floor_pts = [], []
     for r in rows:
@@ -482,15 +771,26 @@ def error_scatters(rows):
         if r["t1"] and r["t2e"] and r["x180_len"]:
             floor = 100 * (r["x180_len"] * 1e-9 / 3.0) * (1.0 / r["t1"] + 1.0 / r["t2e"])
             floor_pts.append((floor, err, label + f" · T1 {1e6 * r['t1']:.0f} µs, T2e {1e6 * r['t2e']:.0f} µs, x180 {r['x180_len']:.0f} ns · floor {floor:.3f}%"))
-    a = n10._scatter(ref_pts, xlabel="IQCC's gate error on file, %", ylabel="measured gate error, %") if ref_pts else ""
-    b = n10._scatter(floor_pts, xlabel="coherence floor (T1, T2echo, x180 length), %", ylabel="measured gate error, %",
-                     guides=(1.0, 3.0), guide_labels=("y = x", "y = 3x")) if floor_pts else ""
-    return (f"<div class='scattergrid2'><div class='panel'><div class='ptitle small'><b>Against IQCC's RB on file</b> · {len(ref_pts)} runs</div>{a}"
+    a = _scatter(ref_pts, xlabel="IQCC's gate error on file, %", ylabel="measured gate error, %") if ref_pts else ""
+    b = _scatter(floor_pts, xlabel="coherence floor (T1, T2echo, x180 length), %", ylabel="measured gate error, %",
+                 guides=(1.0, 3.0), guide_labels=("y = x", "y = 3x")) if floor_pts else ""
+    missing_ref = sorted(f"{r['target']} ({r['night']})" for r in rows
+                         if r["status"] == "completed" and r["gate_fid"] is not None and not (r["ref"] and r["ref"] < 1))
+    missing_floor = sorted(f"{r['target']} ({r['night']})" for r in rows
+                           if r["status"] == "completed" and r["gate_fid"] is not None and not (r["t1"] and r["t2e"] and r["x180_len"]))
+    return (f"<div class='scattergrid2'><div class='panel'><h3 class='ptitle'>Measured gate error against the reference calibration</h3>"
+            f"<div class='small muted'>{len(ref_pts)} runs</div>{a}"
             f"<p class='small muted'>IQCC's number is 1 − EPG from the RB decay it stores (extras.1QRB_p) in the 15 Aug upload, the same "
-            f"definition as the node's; when it was measured is not recorded. Below the diagonal the run beat it.</p></div>"
-            f"<div class='panel'><div class='ptitle small'><b>Against the coherence floor</b> · {len(floor_pts)} runs</div>{b}"
+            f"definition as the node's; when it was measured is not recorded. Below the diagonal the run beat it. That upload is stale: "
+            f"its qubit values match no cloud state since 16 Jul, so these references are of unknown date and may predate the drift the "
+            f"runs measured."
+            + (f" Not shown, no IQCC RB on file: {esc(', '.join(missing_ref))}." if missing_ref else "") + "</p></div>"
+            f"<div class='panel'><h3 class='ptitle'>Measured gate error against the coherence floor</h3>"
+            f"<div class='small muted'>{len(floor_pts)} runs</div>{b}"
             f"<p class='small muted'>Floor = (t<sub>gate</sub>/3)·(1/T1 + 1/T2echo) with the run's own T1, T2echo and x180 length. On the "
-            f"diagonal the gate is decoherence-limited; far above it, the control is the limit.</p></div></div>")
+            f"diagonal the gate is decoherence-limited; far above it, the control is the limit."
+            + (f" Not shown, no T1 or T2 echo in the result document: {esc(', '.join(missing_floor))}." if missing_floor else "")
+            + "</p></div></div>")
 
 
 def node_qpu_table(rows, n10_rows):
@@ -579,8 +879,33 @@ def pins_table(rows):
 
 
 # ----------------------------------------------------------------------------- page
+SUMMARY_CSS = """
+:root { --q-ok:#15803d; --q-warn:#b45309; --q-bad:#c0262d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --q-ok:#5bd98a; --q-warn:#f2b155; --q-bad:#f58383; } }
+:root[data-theme="dark"] { color-scheme: dark; --q-ok:#5bd98a; --q-warn:#f2b155; --q-bad:#f58383; }
+.page { padding-inline:max(16px, min(24px, 4vw)); }
+.ql { display:inline-flex; flex-wrap:wrap; gap:1px 9px; font-family:"JetBrains Mono",Menlo,Consolas,monospace; font-size:12.5px; line-height:1.55; }
+.q { white-space:nowrap; font-family:"JetBrains Mono",Menlo,Consolas,monospace; font-weight:500; cursor:help; }
+.q-ok { color:var(--q-ok); } .q-warn { color:var(--q-warn); font-weight:700; } .q-bad { color:var(--q-bad); font-weight:700; }
+.rn { font-size:.72em; vertical-align:-1px; margin-left:1px; opacity:.85; }
+.qlegend { display:flex; flex-wrap:wrap; gap:6px 18px; font-size:13px; margin:10px 0 8px; align-items:baseline; }
+table.pivot.sum { min-width:680px; } table.pivot.sum th.rowh { width:34%; } table.pivot.sum td.num { white-space:normal; }
+.stripwrap { margin-top:6px; text-align:left; max-width:220px; } .stripwrap .small { white-space:normal; line-height:1.35; font-family:inherit; }
+svg.strip { display:block; max-width:100%; height:auto; } svg.strip .axis { stroke:var(--muted); stroke-width:.8; }
+svg.strip .tick { font-size:8px; fill:var(--muted); font-family:inherit; } svg.strip .thr { stroke:var(--crit); stroke-width:1; stroke-dasharray:3 2; }
+svg.strip .dot { fill:var(--tinycal); fill-opacity:.8; stroke:none; } svg.strip .dot.hollow { fill:none; stroke:var(--tinycal); stroke-width:1.4; }
+.scattergrid2 h3.ptitle { font-size:16px; margin:4px 0 2px; }
+table.timeline { min-width:520px; }
+"""
+
+
 def build():
     rows = collect()
+    for r in rows:  # the summary's per-run verdicts
+        r["outcome"] = outcome(r)
+        r["st"] = straight_through(r["run_id"], r["target"], r["status"])
+        r["decisions_folded"] = folded_decisions(r["run_id"], r["target"])
+    summary, summary_stats = summary_table(rows)
     qc_runs = qc_store_runs()
     stage_data(qc_runs)
     n10_rows = n10.collect()
@@ -590,26 +915,10 @@ def build():
     settled = [r for r in rows if r["status"] != "running"]
     done = [r for r in settled if r["status"] == "completed"]
     valid = [r for r in done if r["gate_fid"] is not None]
-    calibrated = [r for r in done if is_calibrated(r)]
-    fids = sorted(r["gate_fid"] for r in calibrated)
     log2 = RUNS / "lucy2-launch.log"
     live = bool(running) or not log2.exists() or "all five cells finished" not in log2.read_text()
     now = datetime.now().strftime("%d %b %Y %H:%M")
     spent = sum(r["cost"] or 0 for r in rows)
-    med = lambda k: median([r[k] for r in calibrated if r.get(k) is not None])  # noqa: E731
-    flux_done = [r for r in n10_rows if r["status"] == "completed"]
-    tiles = [
-        f'<div class="tile"><div class="v">{len(calibrated)}/{len(settled)}</div><div class="k">qubit-runs calibrated: graded parameters back, RB within '
-        f'{FLOOR_FACTOR:g}× the coherence floor{" so far" if live else ""} · {len(done)} reached the end of the recipe'
-        f'{" · " + str(len(running)) + " running" if running else ""}</div></div>',
-        f'<div class="tile"><div class="v">{pct(fids[len(fids) // 2]) if fids else "—"}</div><div class="k">median gate fidelity of the calibrated runs '
-        f'({pct(fids[0]) if fids else "—"} – {pct(fids[-1]) if fids else "—"}); {sum(1 for f in fids if f >= 0.999)} at ≥ 99.9 %</div></div>',
-        f'<div class="tile"><div class="v">{fmt(med("qpu_s"), "{:.0f} s")}</div><div class="k">median QPU per calibrated bring-up'
-        + (f' (flux-tunable chips, 28–29 Sep: {median([r["qpu_s"] for r in flux_done if r["qpu_s"]]) / 60:.1f} min)' if flux_done else "") + '</div></div>',
-        f'<div class="tile"><div class="v">{minutes(med("wall_s"))}</div><div class="k">median wall per calibrated bring-up'
-        + (f' (28–29 Sep: {minutes(median([r["wall_s"] for r in flux_done if r["wall_s"]]))})' if flux_done else "") + '</div></div>',
-        f'<div class="tile"><div class="v">${spent:,.2f}</div><div class="k">judge-priced OpenRouter spend{" so far" if live else ""}</div></div>',
-    ]
     lab = lambda it, plain=False: it["label"] if plain else esc(it["label"])  # noqa: E731
     err_fig = bars(sorted([{"fw": "tinycal", "err": 100 * (1 - r["gate_fid"]), "label": f"{r['target']} ({r['night']})"} for r in valid],
                           key=lambda it: it["label"]),
@@ -628,9 +937,7 @@ def build():
     grid_fig = _png(GRID_FIGURE, "IQCC grid figure", "IQCC's own grid figure for lucy, 24 Jul 2026 02:06: eight qubits on a ring, "
                     "1Q RB per qubit (qA 99.02 %). The cloud state has had seven qubits since the 15 Aug upload.", width="72%")
 
-    page = f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucy fixed-frequency bring-up</title>
+    page = f"""<title>Lucy fixed-frequency bring-up</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>{CSS}
 .scattergrid2{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:6px 0 14px}} @media (max-width:760px){{.scattergrid2{{grid-template-columns:1fr}}}}
@@ -640,7 +947,8 @@ figure img{{background:#fff}} tr.hl td{{background:color-mix(in srgb, var(--warn
 svg.scatter{{display:block;width:100%;height:auto}} svg.scatter .grid{{stroke:var(--surface-2,#eef2f2);stroke-width:1}}
 svg.scatter .frame{{fill:none;stroke:var(--muted,#8a8f98);stroke-width:.8}} svg.scatter .guide{{stroke:var(--muted,#8a8f98);stroke-width:1;stroke-dasharray:4 3}}
 svg.scatter .tick{{font-size:10px;fill:var(--muted,#8a8f98);font-family:inherit}} svg.scatter .lab{{font-size:11px;fill:var(--ink-2,#4b555b);font-family:inherit}}
-svg.scatter .pt{{fill-opacity:.8;stroke:var(--surface,#fff);stroke-width:.8}}</style></head><body><div class="page">
+svg.scatter .pt{{fill-opacity:.8;stroke:var(--surface,#fff);stroke-width:.8}}{SUMMARY_CSS}</style>
+<div class="page">
 <div class="eyebrow">qua-agents benchmark · a new IQCC device · generated {esc(now)}</div>
 <h1 style="margin-top:8px">lucy, a fixed-frequency coaxmon ring: the first single-qubit bring-up with tinycal and qwen3.8-27b, 30 Sep 2026</h1>
 <p class="lede">One framework, one model, one host, a new kind of chip. lucy is IQCC's fixed-flux, fixed-coupling device: its qubits are
@@ -652,16 +960,18 @@ again from 10:58. At most three targets were in flight. Numbers are read from ea
 measurement store, and the judge's price table; the operator annotations are marked.</p>
 {banner}
 
-<h2 id="overview">Overview</h2>
-<div class="tiles">{"".join(tiles)}</div>
+<h2 id="summary">By run</h2>
+{summary_legend()}
+{summary}
+{straight_note(rows)}
+{error_scatters(rows)}
 
-<h3>Final per-target results</h3>
+<h2 id="results">Final per-target results</h2>
 <p class="small muted">One row per qubit-run. QPU = execution on the chip; agent = time inside model calls; queue = the cloud queue; wall = first
 to last event. IQCC's RB on file is 1 − EPG from the RB decay stored in the lab state (the node's definition); below it, the separate
 gate_fidelity.averaged field, a different protocol. "Scrambled params back in ballpark" is the judge's identity check on the three graded
 parameters (f₀₁, resonator, x180 amplitude). The last column is the final state against the unscrambled lab state.</p>
 {final_table(rows)}
-{error_scatters(rows)}
 {err_fig}
 
 <h2 id="device">The device</h2>
@@ -746,18 +1056,18 @@ reading of the transcript, not something the cell recorded.</p>
 {narrative}
 
 <h2 id="stuck">Incident timeline</h2>
-{timeline}
+<div class="scroll">{timeline}</div>
 
 <h2 id="pins">Pins: what a new cell must use to be comparable</h2>
 {pins_table(rows)}
 
 <h2 id="runs">Run identifiers</h2>
 {n10.run_ids(rows)}
-</div></body></html>"""
+</div>
+"""
     OUT.write_text(page)
-    if ARTIFACT_DIR:  # the Artifact skeleton supplies doctype, html, head and body: keep the title, stylesheet and content
-        body = page.split("<title>", 1)[1]
-        (Path(ARTIFACT_DIR) / OUT.name).write_text("<title>" + body.replace("</head><body>", "").replace("</body></html>", ""))
+    if ARTIFACT_DIR:  # the page is already an Artifact body (title, stylesheet, content): copy it as it is
+        (Path(ARTIFACT_DIR) / OUT.name).write_text(page)
     print(f"wrote {OUT} · {len(rows)} qubit-runs, {len(done)} completed, {len(running)} running, ${spent:,.2f}")
 
 
